@@ -1,6 +1,8 @@
 <script lang="ts">
   export let projectName: string;
 
+  console.log("App component!!")
+
   import Worm from '../Worm/Worm.svelte';
 </script>
 

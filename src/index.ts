@@ -1,9 +1,10 @@
 import App from './components/App/App.svelte';
 
 const PROJECT_NAME: string = 'interactive-untangling-the-climate-mess';
-const ROOT_SELECTOR = `[data-${PROJECT_NAME}-root]`;
-
+const ROOT_SELECTOR = `#interactivemount`;
 const root = document.querySelector(ROOT_SELECTOR);
+
+console.log("Welcome to the interactive...")
 
 if (root) {
   new App({
