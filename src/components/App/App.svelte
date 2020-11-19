@@ -1,0 +1,34 @@
+<script lang="ts">
+  export let projectName: string;
+
+  import Worm from '../Worm/Worm.svelte';
+</script>
+
+<style lang="scss">
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    background-color: #3178c7;
+    color: #fff;
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    font-size: 24px !important;
+    font-weight: normal !important;
+    line-height: normal !important;
+    letter-spacing: normal !important;
+  }
+</style>
+
+<div>
+  <Worm />
+  <h1>{projectName}</h1>
+</div>

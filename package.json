@@ -1,0 +1,32 @@
+{
+  "name": "interactive-untangling-the-climate-mess",
+  "version": "1.0.0-pre",
+  "description": "A project generated from aunty's svelte project template.",
+  "license": "MIT",
+  "private": true,
+  "contributors": [
+    "Joshua Byrd <phocks@gmail.com>"
+  ],
+  "aunty": {
+    "type": "svelte"
+  },
+  "scripts": {
+    "start": "aunty serve",
+    "test": "aunty test"
+  },
+  "abc": {
+    "css": {
+      "libraryDir": "./node_modules/@abcaustralia/nucleus/css",
+      "logVariables": "false"
+    }
+  },
+  "devDependencies": {
+    "@abcnews/aunty": "^11.2.0",
+    "@testing-library/svelte": "^3.0.0",
+    "@types/jest": "^26.0.15",
+    "@types/webpack-env": "^1.15.3"
+  },
+  "dependencies": {
+    "svelte": "^3.29.7"
+  }
+}
