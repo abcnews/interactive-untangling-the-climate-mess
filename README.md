@@ -1,6 +1,6 @@
-# Interactive Untangling The Climate Mess
+# interactive-untangling-the-climate-mess
 
-A project generated from [aunty](https://github.com/abcnews/aunty)'s `svelte` project template.
+A project generated from [aunty](https://github.com/abcnews/aunty)'s `react` project template.
 
 ## Authors
 
