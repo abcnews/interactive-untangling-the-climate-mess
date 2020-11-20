@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "aunty serve",
+    "deploy": "aunty build && aunty deploy",
     "test": "aunty test"
   },
   "abc": {
@@ -31,6 +32,7 @@
   },
   "dependencies": {
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-portal": "^4.2.1"
   }
 }
