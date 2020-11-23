@@ -1,8 +1,13 @@
 import React, { useState, SyntheticEvent, useEffect } from "react";
 import styles from "./styles.scss";
 
+interface Button {
+  label: string; value: string
+}
+
 interface UserInputBoxProps {
   title: string;
+  buttons?: Button[];
 }
 
 const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
@@ -16,12 +21,16 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
 
   useEffect(() => {
     // Set some default buttons
-    setButtons([
-      { label: "Of course we can", value: "4" },
-      { label: "Yes I think we can", value: "3" },
-      { label: "Probably not", value: "2" },
-      { label: "No way we're screwed", value: "1" },
-    ]);
+    if (!props.buttons) {
+      setButtons([
+        { label: "Of course we can", value: "1" },
+        { label: "Yes I think we can", value: "2" },
+        { label: "Probably not", value: "3" },
+        { label: "No way we're screwed", value: "4" },
+      ]);
+    } else {
+      setButtons(props.buttons);
+    }
   }, []); // Init
 
   return (
