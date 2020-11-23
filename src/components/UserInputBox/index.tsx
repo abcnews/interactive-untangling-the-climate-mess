@@ -1,14 +1,37 @@
-import React from 'react';
-import styles from './styles.scss';
+import React, { useState, SyntheticEvent, useEffect } from "react";
+import styles from "./styles.scss";
 
 interface UserInputBoxProps {
   title: string;
 }
 
-const UserInputBox: React.FC<UserInputBoxProps> = props => {
+const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
+  const [buttons, setButtons] = useState([{ label: "", value: "" }]);
+
+  const handleClick = (e: SyntheticEvent) => {
+    console.log(e);
+  };
+
+  useEffect(() => {
+    // Set some default buttons
+    setButtons([
+      { label: "Of course we can", value: "4" },
+      { label: "Yes I think we can", value: "3" },
+      { label: "Probably not", value: "2" },
+      { label: "No way we're screwed", value: "1" },
+    ]);
+  }, []); // Init
+
   return (
     <div className={styles.root}>
-      <h1>{props.title}</h1>
+      <h2>{props.title}</h2>
+      <div className={styles.buttonContainer}>
+        {buttons.map((button) => (
+          <button id={button.value} key={button.value} onClick={handleClick}>
+            {button.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
