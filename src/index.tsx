@@ -6,6 +6,7 @@ const PROJECT_NAME: string = 'interactive-untangling-the-climate-mess';
 const root = document.querySelector(`#interactivemount`);
 
 function init() {
+  console.log(":)")
   render(<App projectName={PROJECT_NAME} />, root);
 }
 
