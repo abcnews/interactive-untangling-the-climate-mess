@@ -4,11 +4,16 @@
   text-align: center;
 
   button {
+    font-size: 13px;
     display: block;
     width: 100%;
     border: 1px solid #aaa;
     margin-bottom: 1em;
     padding: 1em;
     cursor: pointer;
+  }
+
+  button.selected {
+    background-color: #ddd;
   }
 }

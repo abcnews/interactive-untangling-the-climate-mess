@@ -7,9 +7,11 @@ interface UserInputBoxProps {
 
 const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
   const [buttons, setButtons] = useState([{ label: "", value: "" }]);
+  const [selected, setSelected] = useState("");
 
   const handleClick = (e: SyntheticEvent) => {
-    console.log(e);
+    const selectedId = (e.target as Element).id;
+    setSelected(selectedId);
   };
 
   useEffect(() => {
@@ -27,7 +29,12 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
       <h2>{props.title}</h2>
       <div className={styles.buttonContainer}>
         {buttons.map((button) => (
-          <button id={button.value} key={button.value} onClick={handleClick}>
+          <button
+            id={button.value}
+            key={button.value}
+            className={selected === button.value ? styles.selected : ""}
+            onClick={handleClick}
+          >
             {button.label}
           </button>
         ))}
