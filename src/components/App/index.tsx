@@ -1,5 +1,24 @@
 import React from "react";
 import { Portal } from "react-portal";
+import PouchDB from "pouchdb-browser";
+const db = new PouchDB("database");
+
+db.info().then(function (info) {
+  console.log(info);
+});
+
+// // fetch mittens
+// db.get('mittens').then(function (doc) {
+//   // update their age
+//   doc.age = 4;
+//   // put them back
+//   return db.put(doc);
+// }).then(function () {
+//   // fetch mittens again
+//   return db.get('mittens');
+// }).then(function (doc) {
+//   console.log(doc);
+// });
 
 // Import stylsheets
 import styles from "./styles.scss";
@@ -56,7 +75,51 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         />
       </Portal>
 
-      {/* So - what do you reckon our chances of doing this are? */}
+      <Portal node={document && document.getElementById("inputcarscansaveus")}>
+        <UserInputBox
+          title={"So how are you feeling about EVs now?"}
+          buttons={[
+            { label: "CARS CAN SAVE US", value: "1" },
+            { label: "UTEPOCALYPSE IS NIGH", value: "2" },
+          ]}
+        />
+      </Portal>
+
+      <Portal
+        node={document && document.getElementById("inputfossiltransport")}
+      >
+        <UserInputBox
+          title={
+            "So now you know how we quit fossil fuels in our transport system, can we do it?"
+          }
+          buttons={[
+            { label: "That's a piece of cake", value: "1" },
+            { label: "It can be done", value: "2" },
+            { label: "This sounds like a stretch", value: "3" },
+            { label: "You're dreaming", value: "4" },
+          ]}
+        />
+      </Portal>
+
+      <Portal node={document && document.getElementById("inputbigseaweed")}>
+        <UserInputBox
+          title={"Where are you splashing your cash?"}
+          buttons={[
+            { label: "BIG SEAWEED", value: "1" },
+            { label: "BIG FOSSIL", value: "2" },
+          ]}
+        />
+      </Portal>
+
+      <Portal node={document && document.getElementById("inputmosquito")}>
+        <UserInputBox
+          title={"What should we be?"}
+          buttons={[
+            { label: "MOSQUITO", value: "1" },
+            { label: "DUNG BEETLE", value: "2" },
+          ]}
+        />
+      </Portal>
     </>
   );
 };
