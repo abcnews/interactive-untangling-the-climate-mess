@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Portal } from "react-portal";
 import SVG from "react-inlinesvg";
 
@@ -16,6 +16,18 @@ interface AppProps {
 }
 
 const App: React.FC<AppProps> = ({ projectName }) => {
+  const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
+
+  const onUpdate = () => {
+    console.log("updated...")
+  }
+
+  useEffect(() => {
+    subscribe(onUpdate);
+
+    return () => unsubscribe(onUpdate);
+  }, [])
+
   return (
     <>
       <Portal node={document && document.getElementById("portalmount")}>

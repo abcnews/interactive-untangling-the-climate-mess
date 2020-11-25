@@ -5,12 +5,37 @@ import App from "./components/App";
 const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
 const root = document.querySelector(`#interactivemount`);
 
+export type OdysseySchedulerClient = {
+  hasChanged: boolean;
+  fixedHeight: number;
+};
+
+export type OdysseySchedulerSubscriber = (client: OdysseySchedulerClient) => void;
+
+type OdysseyAPI = {
+  scheduler: {
+    subscribe: (subscriber: OdysseySchedulerSubscriber) => void;
+    unsubscribe: (subscriber: OdysseySchedulerSubscriber) => void;
+  };
+  utils: {
+    dom: {
+      detach: (el: Element) => void;
+    };
+  };
+};
+
+declare global {
+  interface Window {
+    __ODYSSEY__: OdysseyAPI;
+  }
+}
+
 function init() {
   console.log(":)");
   render(<App projectName={PROJECT_NAME} />, root);
 }
 
-if ((window as any).__ODYSSEY__) {
+if (window.__ODYSSEY__) {
   init();
 } else {
   window.addEventListener("odyssey:api", init);
