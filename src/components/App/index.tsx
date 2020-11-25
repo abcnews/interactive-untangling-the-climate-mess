@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Portal } from "react-portal";
 import SVG from "react-inlinesvg";
 
@@ -15,23 +15,32 @@ interface AppProps {
   projectName: string;
 }
 
+const masthead = document.querySelector('[data-component="Masthead"]');
+
 const App: React.FC<AppProps> = ({ projectName }) => {
+  const [backdropOffset, setBackdropOffset] = useState(0);
   // TESTING SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
-  // const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
+  const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
 
-  // const onUpdate = () => {
-  //   console.log("updated...");
-  // };
+  const onUpdate = () => {
+    // Push animation down so not hidden by Masthead
+    // Note: might not be necessary
+    if (window.scrollY < 200) {
+      const offset = masthead?.getBoundingClientRect().bottom;
+      if (offset && offset > 0) setBackdropOffset(offset);
+      else setBackdropOffset(0);
+    } else setBackdropOffset(0);
+  };
 
-  // useEffect(() => {
-  //   subscribe(onUpdate);
-  //   return () => unsubscribe(onUpdate);
-  // }, []);
+  useEffect(() => {
+    subscribe(onUpdate);
+    return () => unsubscribe(onUpdate);
+  }, []);
 
   return (
     <>
       <Portal node={document && document.getElementById("portalmount")}>
-        <div className={styles.svgAnimation}>
+        <div className={styles.svgAnimation} style={{ top: backdropOffset }}>
           <SVG src={untangleAnimation} />
         </div>
       </Portal>
