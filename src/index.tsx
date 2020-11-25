@@ -10,7 +10,9 @@ export type OdysseySchedulerClient = {
   fixedHeight: number;
 };
 
-export type OdysseySchedulerSubscriber = (client: OdysseySchedulerClient) => void;
+export type OdysseySchedulerSubscriber = (
+  client: OdysseySchedulerClient
+) => void;
 
 type OdysseyAPI = {
   scheduler: {
@@ -29,6 +31,13 @@ declare global {
     __ODYSSEY__: OdysseyAPI;
   }
 }
+
+// Insert a div before the header
+const el = document.querySelector(".Main");
+const newEl = document.createElement("div");
+newEl.className = "delayed-header u-full";
+
+if (el) el.insertBefore(newEl, el.childNodes[0] || null);
 
 function init() {
   console.log(":)");

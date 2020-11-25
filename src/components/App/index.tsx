@@ -16,17 +16,17 @@ interface AppProps {
 }
 
 const App: React.FC<AppProps> = ({ projectName }) => {
-  const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
+  // TESTING SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
+  // const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
 
-  const onUpdate = () => {
-    console.log("updated...")
-  }
+  // const onUpdate = () => {
+  //   console.log("updated...");
+  // };
 
-  useEffect(() => {
-    subscribe(onUpdate);
-
-    return () => unsubscribe(onUpdate);
-  }, [])
+  // useEffect(() => {
+  //   subscribe(onUpdate);
+  //   return () => unsubscribe(onUpdate);
+  // }, []);
 
   return (
     <>
