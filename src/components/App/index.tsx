@@ -1,30 +1,15 @@
 import React from "react";
 import { Portal } from "react-portal";
-import PouchDB from "pouchdb-browser";
-const db = new PouchDB("database");
-
-db.info().then(function (info) {
-  console.log(info);
-});
-
-// // fetch mittens
-// db.get('mittens').then(function (doc) {
-//   // update their age
-//   doc.age = 4;
-//   // put them back
-//   return db.put(doc);
-// }).then(function () {
-//   // fetch mittens again
-//   return db.get('mittens');
-// }).then(function (doc) {
-//   console.log(doc);
-// });
+import SVG from "react-inlinesvg";
 
 // Import stylsheets
 import styles from "./styles.scss";
 
 // Import components
 import UserInputBox from "../UserInputBox/index";
+
+// Import other stuff
+import untangleAnimation from "./untangle-animation.svg";
 
 interface AppProps {
   projectName: string;
@@ -33,9 +18,11 @@ interface AppProps {
 const App: React.FC<AppProps> = ({ projectName }) => {
   return (
     <>
-      {/* <div className={styles.root}>
-        <h1>{projectName}</h1>
-      </div> */}
+      <Portal node={document && document.getElementById("portalmount")}>
+        <div className={styles.svgAnimation}>
+          <SVG src={untangleAnimation} />
+        </div>
+      </Portal>
 
       <Portal node={document && document.getElementById("inputtier1")}>
         <UserInputBox title={"Can we still save the world?"} />
