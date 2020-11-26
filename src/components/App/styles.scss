@@ -1,25 +1,21 @@
 .root {
 }
 
-div.svg-animation {
-  z-index: -1;
-  position: fixed;
-  top: 0;
-  left: 50%;
-  width: 100%;
-  max-width: 700px;
-  // height: 100%;
-  // max-height: 100vh;
-  transform: translateX(-50%);
-}
+// div.svg-animation {
+  // z-index: -1;
+  // position: fixed;
+  // top: 0;
+  // left: 50%;
+  // width: 100%;
+  // max-width: 700px;
+  // transform: translateX(-50%);
+// }
 
 :global {
+  
+
   div.delayed-header {
     min-height: 200vh;
   }
 
-  p {
-    // background-color: white;
-    // text-align: justify;
-  }
 }

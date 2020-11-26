@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Portal } from "react-portal";
-import SVG from "react-inlinesvg";
 
 // Import stylsheets
 import styles from "./styles.scss";
 
 // Import components
 import UserInputBox from "../UserInputBox/index";
+import BackgroundVis from '../BackgroundVis/index';
 
 // Import other stuff
-import untangleAnimation from "./untangle-animation.svg";
-import { animate } from "./animations";
+// import untangleAnimation from "./untangle-animation.svg";
+// import { animate } from "./animations";
+
 
 interface AppProps {
   projectName: string;
@@ -19,7 +20,8 @@ interface AppProps {
 const masthead = document.querySelector('[data-component="Masthead"]');
 
 const App: React.FC<AppProps> = ({ projectName }) => {
-  const [backdropOffset, setBackdropOffset] = useState(0);
+  // const [backdropOffset, setBackdropOffset] = useState(0);
+
   // TESTING SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
   const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
 
@@ -41,9 +43,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   return (
     <>
       <Portal node={document && document.getElementById("portalmount")}>
-        <div className={styles.svgAnimation} style={{ top: backdropOffset }}>
-          <SVG src={untangleAnimation} onLoad={() => animate()} />
-        </div>
+        {/* <div className={styles.svgAnimation} style={{ top: backdropOffset }}> */}
+          {/* <SVG src={untangleAnimation} onLoad={() => {}} /> */}
+        {/* </div> */}
+        <BackgroundVis />
       </Portal>
 
       <Portal node={document && document.getElementById("inputtier1")}>
