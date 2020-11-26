@@ -10,6 +10,7 @@ import UserInputBox from "../UserInputBox/index";
 
 // Import other stuff
 import untangleAnimation from "./untangle-animation.svg";
+import { animate } from "./animations";
 
 interface AppProps {
   projectName: string;
@@ -25,11 +26,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const onUpdate = () => {
     // Push animation down so not hidden by Masthead
     // Note: might not be necessary
-    if (window.scrollY < 200) {
-      const offset = masthead?.getBoundingClientRect().bottom;
-      if (offset && offset > 0) setBackdropOffset(offset);
-      else setBackdropOffset(0);
-    } else setBackdropOffset(0);
+    // if (window.scrollY < 200) {
+    //   const offset = masthead?.getBoundingClientRect().bottom;
+    //   if (offset && offset > 0) setBackdropOffset(offset);
+    //   else setBackdropOffset(0);
+    // } else setBackdropOffset(0);
   };
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     <>
       <Portal node={document && document.getElementById("portalmount")}>
         <div className={styles.svgAnimation} style={{ top: backdropOffset }}>
-          <SVG src={untangleAnimation} />
+          <SVG src={untangleAnimation} onLoad={() => animate()} />
         </div>
       </Portal>
 
