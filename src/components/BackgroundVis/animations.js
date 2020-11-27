@@ -1,5 +1,4 @@
 export const animate = () => {
-  console.log("Animation")
   window.ks = document.ks = KeyshapeJS;
   (function (ks) {
     ks.animate(

@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import App from "./components/App";
+import jankdefer from "jankdefer";
 
 const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
 const root = document.querySelector(`#interactivemount`);
@@ -45,7 +46,8 @@ function init() {
 }
 
 if (window.__ODYSSEY__) {
-  init();
+  jankdefer(init);
+  // init();
 } else {
   window.addEventListener("odyssey:api", init);
 }
