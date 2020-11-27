@@ -1,11 +1,11 @@
+import "regenerator-runtime/runtime.js";
+
 import React from "react";
 import { render } from "react-dom";
 import App from "./components/App";
 import jankdefer from "jankdefer";
 
-const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
-const root = document.querySelector(`#interactivemount`);
-
+// Setup Odyssey types to stop TypeScript from complaining
 export type OdysseySchedulerClient = {
   hasChanged: boolean;
   fixedHeight: number;
@@ -33,12 +33,19 @@ declare global {
   }
 }
 
-// Insert a div before the header
-const el = document.querySelector(".Main");
-const newEl = document.createElement("div");
-newEl.className = "delayed-header u-full";
+const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
+const root = document.querySelector(`#interactivemount`);
 
-if (el) el.insertBefore(newEl, el.childNodes[0] || null);
+// Insert a div before the header
+const main = document.querySelector("main.Main");
+const delayedHeaderContainer = document.createElement("div");
+delayedHeaderContainer.className = "delayed-header u-full";
+if (main) main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
+
+// Solid colour at bottom of article
+// const footer = main?.nextElementSibling;
+// if (footer) footer.className = "footer-container"
+
 
 function init() {
   console.log(":)");

@@ -20,30 +20,34 @@ const ANSWER = "y";
 
 const client = new Client(GROUP);
 
-// Increment answer
-client.increment({ question: QUESTION, answer: ANSWER }, (err, question) => {
-  console.log(`increment(${GROUP}/${QUESTION}/${ANSWER})`, err, question);
-
-  // Get answer
-  client.get({ question: QUESTION, answer: ANSWER }, (err, answer) => {
-    console.log(`get(${GROUP}/${QUESTION}/${ANSWER})`, err, answer);
+const pollIncrement = (...args) =>
+  new Promise((resolve, reject) => {
+    client.increment(...args, (err, question) => {
+      if (err) return reject(err);
+      resolve(question);
+    });
   });
 
-  // Get question
-  client.get({ question: QUESTION }, (err, question) => {
-    console.log(`get(${GROUP}/${QUESTION})`, err, question);
+const pollGet = (...args) =>
+  new Promise((resolve, reject) => {
+    client.get(...args, (err, result) => {
+      if (err) return reject(err);
+      resolve(result);
+    });
   });
 
-  // Get group
-  client.get((err, group) => {
-    console.log(`get(${GROUP})`, err, group);
+const test = async () => {
+  let result = await pollIncrement({
+    question: "Is this working?",
+    answer: "Yes",
   });
+  console.log(result);
 
-  // Increment again, with no response expected
-  setTimeout(() => {
-    client.increment({ question: QUESTION, answer: ANSWER });
-  }, 1000);
-});
+  result = await pollGet({ question: QUESTION });
+  console.log(result);
+};
+
+// test();
 
 interface AppProps {
   projectName: string;
@@ -81,7 +85,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       </Portal>
 
       <Portal node={document && document.getElementById("inputtier1")}>
-        <UserInputBox title={"Can we still save the world?"} />
+        <UserInputBox title={"Can we still save the world?"} poll={client} />
       </Portal>
 
       <Portal node={document && document.getElementById("inputradelaide")}>
