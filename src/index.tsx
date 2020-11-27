@@ -47,7 +47,6 @@ function init() {
 
 if (window.__ODYSSEY__) {
   jankdefer(init);
-  // init();
 } else {
   window.addEventListener("odyssey:api", init);
 }

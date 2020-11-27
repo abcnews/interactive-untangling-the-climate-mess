@@ -12,17 +12,50 @@ import BackgroundVis from "../BackgroundVis/index";
 // import untangleAnimation from "./untangle-animation.svg";
 // import { animate } from "./animations";
 
+import { Client } from "@abcnews/poll-counters-client";
+
+const GROUP = "__example__";
+const QUESTION = "x";
+const ANSWER = "y";
+
+const client = new Client(GROUP);
+
+// Increment answer
+client.increment({ question: QUESTION, answer: ANSWER }, (err, question) => {
+  console.log(`increment(${GROUP}/${QUESTION}/${ANSWER})`, err, question);
+
+  // Get answer
+  client.get({ question: QUESTION, answer: ANSWER }, (err, answer) => {
+    console.log(`get(${GROUP}/${QUESTION}/${ANSWER})`, err, answer);
+  });
+
+  // Get question
+  client.get({ question: QUESTION }, (err, question) => {
+    console.log(`get(${GROUP}/${QUESTION})`, err, question);
+  });
+
+  // Get group
+  client.get((err, group) => {
+    console.log(`get(${GROUP})`, err, group);
+  });
+
+  // Increment again, with no response expected
+  setTimeout(() => {
+    client.increment({ question: QUESTION, answer: ANSWER });
+  }, 1000);
+});
+
 interface AppProps {
   projectName: string;
 }
 
-const masthead = document.querySelector('[data-component="Masthead"]');
+// const masthead = document.querySelector('[data-component="Masthead"]');
 
 const App: React.FC<AppProps> = ({ projectName }) => {
   // const [backdropOffset, setBackdropOffset] = useState(0);
-  const [animationFrame, setAnimationFrame] = useState(1000);
+  const [animationFrame, setAnimationFrame] = useState(200);
 
-  // TESTING SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
+  // SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
   const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
 
   const onUpdate = () => {
@@ -33,8 +66,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     //   if (offset && offset > 0) setBackdropOffset(offset);
     //   else setBackdropOffset(0);
     // } else setBackdropOffset(0);
-
-    setAnimationFrame(window.scrollY);
+    // setAnimationFrame(window.scrollY);
   };
 
   useEffect(() => {
@@ -45,9 +77,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   return (
     <>
       <Portal node={document && document.getElementById("portalmount")}>
-        {/* <div className={styles.svgAnimation} style={{ top: backdropOffset }}> */}
-        {/* <SVG src={untangleAnimation} onLoad={() => {}} /> */}
-        {/* </div> */}
         <BackgroundVis animationFrame={animationFrame} />
       </Portal>
 

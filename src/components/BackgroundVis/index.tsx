@@ -14,13 +14,13 @@ interface BackgroundVisProps {
 const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
   // Use a component ref objet to store things
   const componentRef = useRef({});
-  const { current: ref }: { current: any } = componentRef;
+  const { current: refs }: { current: any } = componentRef;
 
   const animate = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
     const ks = KeyshapeJS;
 
-    ref.timeline = ks
+    refs.timeline = ks
       .animate(
         "#Tangles",
         [
@@ -351,20 +351,30 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     )
       ks.globalPause();
 
-    ref.timeline.range("1", "2");
-    // ref.timeline.rate(1);
+    refs.timeline.range(...["1", "2"]);
 
-    ref.timeline.onfinish = function () {
+    refs.timeline.rate(0.05);
+
+    // Pause when done with certain range
+    refs.timeline.onfinish = function () {
       this.pause();
     };
 
-    // ref.timeline.play();
+    // refs.timeline.play();
+
+    // setTimeout(() => {
+    //   refs.timeline.range(...["2", "3"]);
+    //   refs.timeline.play();
+    // }, 10000)
+
   };
 
   useLayoutEffect(() => {
-    if (!ref.timeline) return;
+    // Note animationFrames sent before rendered
+    // will not be reflected in graphic
+    if (!refs.timeline) return;
 
-    ref.timeline.pause(props.animationFrame)
+    refs.timeline.pause(props.animationFrame)
   }, [props.animationFrame])
 
   return (
