@@ -23,7 +23,9 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
 
     refs.timeline = animations();
 
-    refs.timeline.range(...["1", "2"]);
+    const ranges = { startLoop: ["1", "2"], opening: ["2", "3"] };
+
+    refs.timeline.range(...ranges.startLoop);
 
     // refs.timeline.rate(0.05);
 
@@ -36,10 +38,13 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
 
     refs.timeline.play();
 
-    // setTimeout(() => {
-    //   refs.timeline.range(...["2", "3"]);
-    //   refs.timeline.play();
-    // }, 10000)
+    setTimeout(() => {
+      refs.timeline.range(...ranges.opening);
+
+      refs.timeline.loop(0);
+    
+      refs.timeline.play();
+    }, 10000);
   };
 
   useLayoutEffect(() => {

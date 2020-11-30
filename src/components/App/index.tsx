@@ -36,16 +36,16 @@ const pollGet = (...args) =>
     });
   });
 
-const test = async () => {
-  let result = await pollIncrement({
-    question: "Is this working?",
-    answer: "Yes",
-  });
-  console.log(result);
+// const test = async () => {
+//   let result = await pollIncrement({
+//     question: "Is this working?",
+//     answer: "Yes",
+//   });
+//   console.log(result);
 
-  result = await pollGet({ question: QUESTION });
-  console.log(result);
-};
+//   result = await pollGet({ question: QUESTION });
+//   console.log(result);
+// };
 
 // test();
 

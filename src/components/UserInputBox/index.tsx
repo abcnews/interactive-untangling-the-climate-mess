@@ -16,7 +16,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
   const [buttons, setButtons] = useState([{ label: "", value: "" }]);
   const [selected, setSelected] = useState("");
 
-  const handleClick = async (e: SyntheticEvent) => {
+  const handleClick = (e: SyntheticEvent) => {
     const selectedId = (e.target as Element).id;
     setSelected(selectedId);
   };
