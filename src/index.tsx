@@ -45,10 +45,11 @@ if (main) main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
 // Solid colour at bottom of article
 // const footer = main?.nextElementSibling;
 // if (footer) footer.className = "footer-container"
-
+// NOTE: doing this in pure CSS now.
 
 function init() {
   console.log(":)");
+
   render(<App projectName={PROJECT_NAME} />, root);
 }
 
