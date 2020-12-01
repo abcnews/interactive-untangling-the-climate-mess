@@ -58,7 +58,7 @@ if (main) main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
 function init() {
   console.log(":)");
 
-  // render(<App projectName={PROJECT_NAME} />, root);
+  render(<App projectName={PROJECT_NAME} />, root);
 }
 
 if (window.__ODYSSEY__) {

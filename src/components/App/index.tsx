@@ -7,6 +7,7 @@ import styles from "./styles.scss";
 // Import components
 import UserInputBox from "../UserInputBox/index";
 import BackgroundVis from "../BackgroundVis/index";
+import IntersectionTeller from "../IntersectionTeller/index";
 
 // Import other stuff
 // import untangleAnimation from "./untangle-animation.svg";
