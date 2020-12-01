@@ -69,7 +69,14 @@ const testForOdyssey = () => {
   }
 };
 
-jankdefer(testForOdyssey);
+if ("IntersectionObserver" in window) {
+  jankdefer(testForOdyssey);
+} else {
+  import("./polyfills").then(() => {
+    console.log("LOADING POLYFILLS... PLEASE CONSIDER UPGRADING YOUR BROWSER...")
+    jankdefer(testForOdyssey);
+  });
+}
 
 if (module.hot) {
   module.hot.accept("./components/App", () => {
