@@ -24,35 +24,6 @@ const ANSWER = "y";
 
 const client = new Client(GROUP);
 
-const pollIncrement = (...args) =>
-  new Promise((resolve, reject) => {
-    client.increment(...args, (err, question) => {
-      if (err) return reject(err);
-      resolve(question);
-    });
-  });
-
-const pollGet = (...args) =>
-  new Promise((resolve, reject) => {
-    client.get(...args, (err, result) => {
-      if (err) return reject(err);
-      resolve(result);
-    });
-  });
-
-// const test = async () => {
-//   let result = await pollIncrement({
-//     question: "Is this working?",
-//     answer: "Yes",
-//   });
-//   console.log(result);
-
-//   result = await pollGet({ question: QUESTION });
-//   console.log(result);
-// };
-
-// test();
-
 interface AppProps {
   projectName: string;
 }
@@ -83,9 +54,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     return () => unsubscribe(onUpdate);
   }, []);
 
-  useEffect(() => {
-    console.log(marker);
-  }, [marker]);
+  // useEffect(() => {
+  //   if (!marker) return;
+
+  //   console.log(marker);
+  // }, [marker]);
 
   return (
     <AppContext.Provider value={{ marker }}>
@@ -93,7 +66,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         <IntersectionTeller setMarker={setMarker} />
 
         <Portal node={document && document.getElementById("portalmount")}>
-          <BackgroundVis animationFrame={animationFrame} />
+          <BackgroundVis animationFrame={animationFrame} scrollMarker={marker} />
         </Portal>
 
         <Portal node={document && document.getElementById("inputtier1")}>

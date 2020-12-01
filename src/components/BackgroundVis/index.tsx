@@ -1,15 +1,16 @@
 declare let KeyshapeJS;
 
-import React, { useEffect, useRef, useLayoutEffect } from "react";
+import React, { useEffect, useRef, useLayoutEffect, useContext } from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 
 import untangleAnimation from "./untangle-loop.svg";
 import background from "./background.jpg";
-// import animations from "./animations";
+import { AppContext } from "../../AppContext";
 
 interface BackgroundVisProps {
   animationFrame: number;
+  scrollMarker?: string;
 }
 
 const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
@@ -25,9 +26,9 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     import("./animations").then(({ animate }) => {
       refs.timeline = animate();
 
-      const ranges = { startLoop: ["1", "2"], opening: ["2", "3"] };
+      refs.ranges = { startLoop: ["1", "2"], opening: ["2", "3"] };
 
-      refs.timeline.range(...ranges.startLoop);
+      refs.timeline.range(...refs.ranges.startLoop);
 
       // refs.timeline.rate(0.05);
 
@@ -40,23 +41,37 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
 
       refs.timeline.play();
 
-      setTimeout(() => {
-        refs.timeline.range(...ranges.opening);
+      // setTimeout(() => {
+      //   refs.timeline.range(...ranges.opening);
 
-        refs.timeline.loop(0);
+      //   refs.timeline.loop(0);
 
-        refs.timeline.play();
-      }, 10000);
+      //   refs.timeline.play();
+      // }, 10000);
     });
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
     if (!refs.timeline) return;
 
     refs.timeline.pause(props.animationFrame);
   }, [props.animationFrame]);
+
+  useEffect(() => {
+    // Note animationFrames sent before rendered
+    // will not be reflected in graphic
+    if (!props.scrollMarker || !refs.timeline) return;
+
+    console.log(props.scrollMarker);
+
+    if (props.scrollMarker === "tangletopofscreen") {
+      refs.timeline.range(...refs.ranges.opening);
+      refs.timeline.loop(0);
+      refs.timeline.play();
+    }
+  }, [props.scrollMarker]);
 
   return (
     <>

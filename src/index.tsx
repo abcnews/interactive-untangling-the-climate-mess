@@ -61,11 +61,15 @@ function init() {
   render(<App projectName={PROJECT_NAME} />, root);
 }
 
-if (window.__ODYSSEY__) {
-  jankdefer(init);
-} else {
-  window.addEventListener("odyssey:api", init);
-}
+const testForOdyssey = () => {
+  if (window.__ODYSSEY__) {
+    init();
+  } else {
+    window.addEventListener("odyssey:api", init);
+  }
+};
+
+jankdefer(testForOdyssey);
 
 if (module.hot) {
   module.hot.accept("./components/App", () => {

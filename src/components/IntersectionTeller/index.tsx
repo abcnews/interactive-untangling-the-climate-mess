@@ -13,8 +13,6 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
   const [currentVis, setCurrentVis] = useState();
 
   useEffect(() => {
-    console.log("IntersectionTeller mounted...");
-
     let callback = (entries, observer) => {
       entries.forEach((entry) => {
         // Each entry describes an intersection change for one observed
@@ -38,14 +36,14 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
 
     refs.observer = new IntersectionObserver(callback, {});
 
-    refs.observer.observe(
-      document.querySelector("#visualKEYtangletopofscreen")
-    );
+    const markerElements = document.querySelectorAll('*[id^="visualKEY"]');
+
+    markerElements.forEach((marker) => {
+      refs.observer.observe(marker);
+    });
 
     return () => {
-      refs.observer.unobserve(
-        document.querySelector("#visualKEYtangletopofscreen")
-      );
+      refs.observer.disconnect();
     };
   }, []);
 
