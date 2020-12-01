@@ -33,6 +33,14 @@ declare global {
   }
 }
 
+// Because we are splitting modernJS through hash-script-loader
+// let's do a fallback "nomodule" tag for browsers that don't support "modules"
+// NOTE: Yeah... this won't work because it's not even loading this script in IE11 haha
+// const scriptTag = document.createElement("script");
+// scriptTag.setAttribute("nomodule", "");
+// scriptTag.setAttribute("src", `${__webpack_public_path__}index.js`);
+// document.head.appendChild(scriptTag);
+
 const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
 const root = document.querySelector(`#interactivemount`);
 
@@ -50,7 +58,7 @@ if (main) main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
 function init() {
   console.log(":)");
 
-  render(<App projectName={PROJECT_NAME} />, root);
+  // render(<App projectName={PROJECT_NAME} />, root);
 }
 
 if (window.__ODYSSEY__) {

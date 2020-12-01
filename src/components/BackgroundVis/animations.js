@@ -1,4 +1,4 @@
-const animate = () => {
+export const animate = () => {
   return ks
     .animate(
       "#Tangles",
