@@ -1,3 +1,4 @@
+import "./keyshape";
 declare let KeyshapeJS;
 
 import React, { useEffect, useRef, useLayoutEffect, useContext } from "react";
@@ -17,35 +18,36 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
   // Use a component ref objet to store things properly
   // across renders.
   const componentRef = useRef({});
-  const { current: refs }: { current: any } = componentRef;
+  const { current }: { current: any } = componentRef;
 
   const animate = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
-    const ks = KeyshapeJS;
 
     import("./animations").then(({ animate }) => {
-      refs.timeline = animate();
+      // Set up the animations and return a timeline
+      current.timeline = animate();
 
-      refs.ranges = { startLoop: ["1a", "2"], opening: ["2", "3"] };
+      console.log(current.timeline);
 
-      // refs.timeline.range(...refs.ranges.startLoop);
+      // Load up the timeline markers so we can compare them later
+      current.markers =
+        current.timeline.l?.markers || current.timeline._options.markers;
+      console.log(current.markers);
 
-      // refs.timeline.rate(0.1);
-
-      refs.timeline.loop(true);
+      current.ranges = { startLoop: ["1a", "2"] };
+      current.timeline.range(...current.ranges.startLoop);
+      current.timeline.loop(true);
 
       // Pause when done with certain range
-      refs.timeline.onfinish = function () {
-        this.pause();
-      };
+      // current.timeline.onfinish = function () {
+      //   this.pause();
+      // };
 
-      refs.timeline.play();
+      current.timeline.play();
 
       // setTimeout(() => {
       //   refs.timeline.range(...ranges.opening);
-
       //   refs.timeline.loop(0);
-
       //   refs.timeline.play();
       // }, 10000);
     });
@@ -54,23 +56,50 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
   useEffect(() => {
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
-    if (!refs.timeline) return;
+    if (!current.timeline) return;
 
-    refs.timeline.pause(props.animationFrame);
+    current.timeline.pause(props.animationFrame);
   }, [props.animationFrame]);
 
+  // Do something when scrollMarker changes
   useEffect(() => {
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
-    if (!props.scrollMarker || !refs.timeline) return;
+    if (!props.scrollMarker || !current.timeline) return;
 
     console.log(props.scrollMarker);
+    // console.log(current.markers[props.scrollMarker]);
 
-    if (props.scrollMarker === "tangletopofscreen") {
-      refs.timeline.range(...refs.ranges.opening);
-      refs.timeline.loop(0);
-      refs.timeline.play();
-    }
+    const { scrollMarker } = props;
+
+    // const rangeStart =
+    //   current.markers[scrollMarker] || current.markers[scrollMarker + "a"];
+    // const rangeEnd = current.markers[scrollMarker + 1];
+
+    const rangeStart =
+      typeof current.markers[scrollMarker] === "undefined"
+        ? scrollMarker + "a"
+        : scrollMarker + "";
+
+    const rangeEnd = scrollMarker + 1 + "";
+
+    console.log(rangeStart, rangeEnd);
+
+    if (
+      typeof current.markers[rangeStart] === "undefined" ||
+      typeof current.markers[rangeEnd] === "undefined"
+    )
+      return;
+
+    current.timeline.range(rangeStart, rangeEnd);
+    current.timeline.loop(0);
+    current.timeline.play();
+
+    // if (props.scrollMarker === "tangletopofscreen") {
+    //   current.timeline.range(...current.ranges.opening);
+    //   current.timeline.loop(0);
+    //   current.timeline.play();
+    // }
   }, [props.scrollMarker]);
 
   return (
