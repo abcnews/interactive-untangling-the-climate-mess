@@ -26,7 +26,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     import("./animations").then(({ animate }) => {
       refs.timeline = animate();
 
-      refs.ranges = { startLoop: ["1", "2"], opening: ["2", "3"] };
+      refs.ranges = { startLoop: ["1a", "2"], opening: ["2", "3"] };
 
       refs.timeline.range(...refs.ranges.startLoop);
 
