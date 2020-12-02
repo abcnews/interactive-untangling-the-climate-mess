@@ -28,10 +28,10 @@ interface AppProps {
   projectName: string;
 }
 
-// const masthead = document.querySelector('[data-component="Masthead"]');
+const masthead = document.querySelector('[data-component="Masthead"]');
 
 const App: React.FC<AppProps> = ({ projectName }) => {
-  // const [backdropOffset, setBackdropOffset] = useState(0);
+  const [backdropOffset, setBackdropOffset] = useState(0);
   const [animationFrame, setAnimationFrame] = useState(200);
   const [marker, setMarker] = useState();
 
@@ -41,12 +41,12 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const onUpdate = () => {
     // Push animation down so not hidden by Masthead
     // Note: might not be necessary
-    // if (window.scrollY < 200) {
-    //   const offset = masthead?.getBoundingClientRect().bottom;
-    //   if (offset && offset > 0) setBackdropOffset(offset);
-    //   else setBackdropOffset(0);
-    // } else setBackdropOffset(0);
-    // setAnimationFrame(window.scrollY);
+    if (window.scrollY < 200) {
+      const offset = masthead?.getBoundingClientRect().bottom;
+      if (offset && offset > 0) setBackdropOffset(offset);
+      else setBackdropOffset(0);
+    } else setBackdropOffset(0);
+    setAnimationFrame(window.scrollY);
   };
 
   useEffect(() => {
