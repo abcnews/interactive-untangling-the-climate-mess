@@ -2,48 +2,49 @@ import React, { useEffect, useState, useRef } from "react";
 import styles from "./styles.scss";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 
+const OBSERVATION_WINDOW_IN_PIXELS = 32;
+
 interface IntersectionTellerProps {
   setMarker: Function;
 }
 
 const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
   const componentRef = useRef({});
-  const { current: refs }: { current: any } = componentRef;
+  const { current: component }: { current: any } = componentRef;
 
-  const [currentVis, setCurrentVis] = useState();
-
+  // Initialise component
   useEffect(() => {
-    let callback = (entries, observer) => {
+    let callback = (entries) => {
       entries.forEach((entry) => {
-        // Each entry describes an intersection change for one observed
-        // target element:
-        //   entry.boundingClientRect
-        //   entry.intersectionRatio
-        //   entry.intersectionRect
-        //   entry.isIntersecting
-        //   entry.rootBounds
-        //   entry.target
-        //   entry.time
+        if (
+          Math.abs(entry.boundingClientRect.y - entry.rootBounds.bottom) >
+          OBSERVATION_WINDOW_IN_PIXELS
+        )
+          return;
 
-        if (entry.isIntersecting) {
-          const idString: string = entry.target.id;
-          const markerObject = alternatingCaseToObject(idString);
+        console.log(entry);
 
-          if (markerObject.key) props.setMarker(markerObject.key);
-        }
+        // if (entry.isIntersecting) {
+        //   const idString: string = entry.target.id;
+        //   const markerObject = alternatingCaseToObject(idString);
+
+        //   if (markerObject.key) props.setMarker(markerObject.key);
+        // }
       });
     };
 
-    refs.observer = new IntersectionObserver(callback, {});
+    component.observer = new IntersectionObserver(callback, {
+      rootMargin: `0% 0% -${10}%`,
+    });
 
     const markerElements = document.querySelectorAll('*[id^="visualKEY"]');
 
     markerElements.forEach((marker) => {
-      refs.observer.observe(marker);
+      component.observer.observe(marker);
     });
 
     return () => {
-      refs.observer.disconnect();
+      component.observer.disconnect();
     };
   }, []);
 

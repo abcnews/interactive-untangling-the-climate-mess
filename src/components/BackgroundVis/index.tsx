@@ -27,12 +27,12 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
       // Set up the animations and return a timeline
       current.timeline = animate();
 
-      console.log(current.timeline);
+      // console.log(current.timeline);
 
       // Load up the timeline markers so we can compare them later
       current.markers =
         current.timeline.l?.markers || current.timeline._options.markers;
-      console.log(current.markers);
+      // console.log(current.markers);
 
       current.ranges = { startLoop: ["1a", "2"] };
       current.timeline.range(...current.ranges.startLoop);
@@ -67,7 +67,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     // will not be reflected in graphic
     if (!props.scrollMarker || !current.timeline) return;
 
-    console.log(props.scrollMarker);
+    // console.log(props.scrollMarker);
     // console.log(current.markers[props.scrollMarker]);
 
     const { scrollMarker } = props;
@@ -83,7 +83,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
 
     const rangeEnd = scrollMarker + 1 + "";
 
-    console.log(rangeStart, rangeEnd);
+    // console.log(rangeStart, rangeEnd);
 
     if (
       typeof current.markers[rangeStart] === "undefined" ||

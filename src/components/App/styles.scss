@@ -13,14 +13,15 @@
 
 :global {
   div.delayed-header {
-    min-height: 30vh;
+    min-height: 90vh;
   }
 
   body main + main:not([class]) {
     background-color: #f9f9f9;
   }
 
-  // main.footer-container {
-  // background-color: aqua;
-  // }
+  // For testing markers
+  .Main>a[id], .Main>a[name], .Main>[data-mount] {
+    border-top: 1px solid red;
+  }
 }
