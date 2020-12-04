@@ -6,8 +6,25 @@ import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 
 import untangleAnimation from "./assets/untangle-loop.svg";
+
 import background from "./assets/background.jpg";
 import { AppContext } from "../../AppContext";
+
+// Load up end tangles
+import endString1 from "./assets/EndString1.svg";
+import endString2 from "./assets/EndString2.svg";
+import endString3 from "./assets/EndString3.svg";
+import endString4 from "./assets/EndString4.svg";
+import endString5 from "./assets/EndString5.svg";
+
+// Put them in an array
+const endStringArray = [
+  endString1,
+  endString2,
+  endString3,
+  endString4,
+  endString5,
+];
 
 interface BackgroundVisProps {
   animationFrame: number;
@@ -99,7 +116,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
       </div>
 
       <div className={styles.root}>
-        <SVG
+        {/* <SVG
           src={untangleAnimation}
           preProcessor={(code) => {
             console.log(code)
@@ -108,7 +125,23 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
           onLoad={() => {
             animate();
           }}
-        />
+        /> */}
+
+        {endStringArray.map((svg, index) => {
+          return (
+            <div className={styles.svgLayer} key={index}>
+              <SVG
+                src={svg}
+                preProcessor={(code) => {
+                  return code;
+                }}
+                onLoad={() => {
+                  // animate();
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
     </>
   );

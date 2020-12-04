@@ -6,6 +6,11 @@
   width: 100%;
   max-width: 700px;
   transform: translateX(-50%);
+
+  .svg-layer {
+    position: absolute;
+    width: 100%;
+  }
 }
 
 .background-image-container {
