@@ -61,7 +61,7 @@ function init() {
   render(<App projectName={PROJECT_NAME} />, root);
 }
 
-const testForOdyssey = () => {
+const waitForOdyssey = () => {
   if (window.__ODYSSEY__) {
     init();
   } else {
@@ -70,11 +70,11 @@ const testForOdyssey = () => {
 };
 
 if ("IntersectionObserver" in window) {
-  jankdefer(testForOdyssey);
+  jankdefer(waitForOdyssey);
 } else {
   import("./polyfills").then(() => {
     console.log("LOADING POLYFILLS... PLEASE CONSIDER UPGRADING YOUR BROWSER...")
-    jankdefer(testForOdyssey);
+    jankdefer(waitForOdyssey);
   });
 }
 

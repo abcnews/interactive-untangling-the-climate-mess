@@ -5,8 +5,8 @@ import React, { useEffect, useRef, useLayoutEffect, useContext } from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 
-import untangleAnimation from "./untangle-loop.svg";
-import background from "./background.jpg";
+import untangleAnimation from "./assets/untangle-loop.svg";
+import background from "./assets/background.jpg";
 import { AppContext } from "../../AppContext";
 
 interface BackgroundVisProps {
@@ -23,11 +23,9 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
   const animate = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
-    import("./animations").then(({ animate }) => {
+    import("./assets/animations").then(({ animate }) => {
       // Set up the animations and return a timeline
       current.timeline = animate();
-
-      // console.log(current.timeline);
 
       // Load up the timeline markers so we can compare them later
       current.markers =
@@ -83,8 +81,6 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
 
     const rangeEnd = scrollMarker + 1 + "";
 
-    // console.log(rangeStart, rangeEnd);
-
     if (
       typeof current.markers[rangeStart] === "undefined" ||
       typeof current.markers[rangeEnd] === "undefined"
@@ -94,12 +90,6 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     current.timeline.range(rangeStart, rangeEnd);
     current.timeline.loop(0);
     current.timeline.play();
-
-    // if (props.scrollMarker === "tangletopofscreen") {
-    //   current.timeline.range(...current.ranges.opening);
-    //   current.timeline.loop(0);
-    //   current.timeline.play();
-    // }
   }, [props.scrollMarker]);
 
   return (
@@ -111,6 +101,10 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
       <div className={styles.root}>
         <SVG
           src={untangleAnimation}
+          preProcessor={(code) => {
+            console.log(code)
+            return code;
+          }}
           onLoad={() => {
             animate();
           }}

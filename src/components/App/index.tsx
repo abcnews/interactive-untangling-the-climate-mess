@@ -28,8 +28,6 @@ interface AppProps {
   projectName: string;
 }
 
-const masthead = document.querySelector('[data-component="Masthead"]');
-
 const App: React.FC<AppProps> = ({ projectName }) => {
   const [backdropOffset, setBackdropOffset] = useState(0);
   const [animationFrame, setAnimationFrame] = useState(200);
@@ -37,6 +35,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   // SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
   const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
+
+  // const masthead = document.querySelector('[data-component="Masthead"]');
 
   const onUpdate = () => {
     // Push animation down so not hidden by Masthead
@@ -54,11 +54,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     return () => unsubscribe(onUpdate);
   }, []);
 
-  // useEffect(() => {
-  //   if (!marker) return;
+  useEffect(() => {
+    if (!marker) return;
 
-  //   console.log(marker);
-  // }, [marker]);
+    console.log(marker);
+  }, [marker]);
 
   return (
     <AppContext.Provider value={{ marker }}>
@@ -66,7 +66,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         <IntersectionTeller setMarker={setMarker} />
 
         <Portal node={document && document.getElementById("portalmount")}>
-          <BackgroundVis animationFrame={animationFrame} scrollMarker={marker} />
+          <BackgroundVis
+            animationFrame={animationFrame}
+            scrollMarker={marker}
+          />
         </Portal>
 
         <Portal node={document && document.getElementById("inputtier1")}>
