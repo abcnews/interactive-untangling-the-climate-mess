@@ -56,8 +56,6 @@ if (main) main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
 // NOTE: doing this in pure CSS now.
 
 function init() {
-  console.log(":)");
-
   render(<App projectName={PROJECT_NAME} />, root);
 }
 

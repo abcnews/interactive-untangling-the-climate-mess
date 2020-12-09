@@ -50,6 +50,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   };
 
   useEffect(() => {
+    console.log("App mounted...")
     subscribe(onUpdate);
     return () => unsubscribe(onUpdate);
   }, []);

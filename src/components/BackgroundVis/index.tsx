@@ -116,18 +116,18 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
       </div>
 
       <div className={styles.root}>
-        {/* <SVG
+        <SVG
           src={untangleAnimation}
           preProcessor={(code) => {
-            console.log(code)
+            // console.log(code)
             return code;
           }}
           onLoad={() => {
             animate();
           }}
-        /> */}
+        />
 
-        {endStringArray.map((svg, index) => {
+        {/* {endStringArray.map((svg, index) => {
           return (
             <div className={styles.svgLayer} key={index}>
               <SVG
@@ -141,7 +141,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
               />
             </div>
           );
-        })}
+        })} */}
       </div>
     </>
   );
