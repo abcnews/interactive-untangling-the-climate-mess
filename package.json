@@ -13,6 +13,7 @@
   "scripts": {
     "start": "aunty serve",
     "deploy": "aunty build && aunty deploy",
+    "release": "aunty release",
     "test": "aunty test"
   },
   "abc": {
