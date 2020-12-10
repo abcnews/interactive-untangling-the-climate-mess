@@ -1,3 +1,5 @@
+@use "../../100-percent-correct-break-points.scss" as *;
+
 .root {
   min-height: 90vh;
   text-align: center;
@@ -6,15 +8,24 @@
 
   p {
     font-size: 24px;
-    max-width: 400px;
-    margin: auto;
+    line-height: 1.4em;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 2.25rem;
     text-align: left;
+
+    @include for-desktop-up {
+      font-size: 38px;
+      line-height: 1.4em;
+    }
 
     span {
       background-color: #fef7ef;
       color: #22405a;
-      padding: 0.45rem;
-      line-height: 42px;
+      padding: 0.1em 1rem 0.1em 1rem;
+      
       font-weight: bold;
 
       /* Needs prefixing */
