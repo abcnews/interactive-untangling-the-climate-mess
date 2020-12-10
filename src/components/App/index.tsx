@@ -8,6 +8,7 @@ import styles from "./styles.scss";
 import UserInputBox from "../UserInputBox/index";
 import BackgroundVis from "../BackgroundVis/index";
 import IntersectionTeller from "../IntersectionTeller/index";
+import DelayedHeader from "../DelayedHeader/index";
 
 // Import other stuff
 // import untangleAnimation from "./untangle-animation.svg";
@@ -50,7 +51,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   };
 
   useEffect(() => {
-    console.log("App mounted...")
+    console.log("App mounted...");
     subscribe(onUpdate);
     return () => unsubscribe(onUpdate);
   }, []);
@@ -65,6 +66,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     <AppContext.Provider value={{ marker }}>
       <>
         <IntersectionTeller setMarker={setMarker} />
+        <Portal node={document && document.querySelector(".delayed-header")}>
+          <DelayedHeader />
+        </Portal>
 
         <Portal node={document && document.getElementById("portalmount")}>
           <BackgroundVis
