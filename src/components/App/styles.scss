@@ -14,7 +14,7 @@
 :global {
   .Header-content {
     h1 {
-      visibility: hidden;
+      display: none;
     }
   }
 
@@ -22,8 +22,9 @@
     background-color: #f9f9f9;
   }
 
-  // For testing markers
-  // .Main>a[id], .Main>a[name], .Main>[data-mount] {
-  //   border-top: 1px solid red;
-  // }
+  For testing markers .Main > a[id],
+  .Main > a[name],
+  .Main > [data-mount][id^="visualKEY"] {
+    border-top: 1px solid red;
+  }
 }

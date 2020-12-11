@@ -17,11 +17,15 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
   let callback = (entries) => {
     entries.forEach((entry) => {
       // Ignore all but at in and out at the bottom
-      if (
-        Math.abs(entry.boundingClientRect.y - entry.rootBounds.bottom) >
-        OBSERVATION_WINDOW_IN_PIXELS
-      )
-        return;
+      // if (
+      //   Math.abs(entry.boundingClientRect.y - entry.rootBounds.bottom) >
+      //   OBSERVATION_WINDOW_IN_PIXELS
+      // )
+      //   return;
+
+      if (entry.boundingClientRect.top < -500) return;
+
+      // console.log(entry);
 
       const idString: string = entry.target.id;
       const markerObject = alternatingCaseToObject(idString);
@@ -41,7 +45,7 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
   // Initialise component
   useEffect(() => {
     component.observer = new IntersectionObserver(callback, {
-      rootMargin: `0% 0% -${TRIGGER_FROM_BOTTOM_PERCENTAGE}%`,
+      rootMargin: `1000px 0% -${TRIGGER_FROM_BOTTOM_PERCENTAGE}%`,
     });
 
     component.markerElements = document.querySelectorAll('*[id^="visualKEY"]');
