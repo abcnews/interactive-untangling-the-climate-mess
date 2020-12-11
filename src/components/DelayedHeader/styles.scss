@@ -3,8 +3,13 @@
 .root {
   min-height: 90vh;
   text-align: center;
-  padding-top: 90vh;
-  padding-bottom: 80vh;
+  padding-top: 45vh;
+  padding-bottom: 45vh;
+
+  .panel {
+    padding-top: 45vh;
+    padding-bottom: 45vh;
+  }
 
   p {
     font-size: 24px;
@@ -25,7 +30,7 @@
       background-color: #fef7ef;
       color: #22405a;
       padding: 0.1em 1rem 0.1em 1rem;
-      
+
       font-weight: bold;
 
       /* Needs prefixing */
