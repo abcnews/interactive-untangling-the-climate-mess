@@ -12,9 +12,11 @@
 // }
 
 :global {
-  // div.delayed-header {
-  //   min-height: 90vh;
-  // }
+  .Header-content {
+    h1 {
+      visibility: hidden;
+    }
+  }
 
   body main + main:not([class]) {
     background-color: #f9f9f9;

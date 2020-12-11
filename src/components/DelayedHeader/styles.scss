@@ -9,6 +9,9 @@
   .panel {
     padding-top: 45vh;
     padding-bottom: 45vh;
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
+    margin-left: 2rem;
   }
 
   p {
@@ -20,10 +23,22 @@
     margin-top: 0;
     margin-bottom: 2.25rem;
     text-align: left;
+    transform: translateX(-1.33333rem);
+
+    @include for-tablet-portrait-up {
+      font-size: 28px;
+    }
+
+    @include for-tablet-landscape-up {
+      font-size: 32px;
+    }
 
     @include for-desktop-up {
+      font-size: 36px;
+    }
+
+    @include for-big-desktop-up {
       font-size: 38px;
-      line-height: 1.4em;
     }
 
     span {
