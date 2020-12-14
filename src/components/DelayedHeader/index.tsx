@@ -22,7 +22,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
         </p>
       </div>
 
-      <div id="visualKEYzero" data-component="Anchor" data-mount="true"></div>
+      <div id="visualKEYinitial" data-component="Anchor" data-mount="true"></div>
 
       <div className={styles.panel}>
         <p>
