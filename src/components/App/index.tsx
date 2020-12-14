@@ -10,10 +10,6 @@ import BackgroundVis from "../BackgroundVis/index";
 import IntersectionTeller from "../IntersectionTeller/index";
 import DelayedHeader from "../DelayedHeader/index";
 
-// Import other stuff
-// import untangleAnimation from "./untangle-animation.svg";
-// import { animate } from "./animations";
-
 import { Client } from "@abcnews/poll-counters-client";
 
 // Using the React context API for global state

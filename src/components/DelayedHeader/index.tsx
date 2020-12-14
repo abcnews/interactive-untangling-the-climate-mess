@@ -6,6 +6,7 @@ interface DelayedHeaderProps {}
 const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
   return (
     <div className={styles.root}>
+      
       <div className={styles.panel}>
         <p>
           <span>Climate change - we get it, it’s a depressing mess.</span>
@@ -20,6 +21,8 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
           <span>We’ve even lost a few prime ministers over it.</span>
         </p>
       </div>
+
+      <div id="visualKEYzero" data-component="Anchor" data-mount="true"></div>
 
       <div className={styles.panel}>
         <p>

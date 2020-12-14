@@ -2,9 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import styles from "./styles.scss";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 
-// import IntersectionObserver from 'intersection-observer-polyfill/dist/IntersectionObserver';
-
-// const OBSERVATION_WINDOW_IN_PIXELS = 64;
+const ROOT_PULL = 1000;
+const DEADZONE_ADJUST = 500;
 const TRIGGER_FROM_BOTTOM_PERCENTAGE = 20;
 
 interface IntersectionTellerProps {
@@ -26,7 +25,7 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
       //   return;
 
       // Don't observer top intersections
-      if (entry.boundingClientRect.top < -500) return;
+      if (entry.boundingClientRect.top < -DEADZONE_ADJUST) return;
 
       console.log(entry);
 
@@ -48,7 +47,8 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
   // Initialise component
   useEffect(() => {
     component.observer = new IntersectionObserver(processMarker, {
-      rootMargin: `1000px 0% -${TRIGGER_FROM_BOTTOM_PERCENTAGE}%`,
+      // Pull root top above the viewport
+      rootMargin: `${ROOT_PULL}px 0% -${TRIGGER_FROM_BOTTOM_PERCENTAGE}%`,
     });
 
     // component.observer.POLL_INTERVAL = 100;

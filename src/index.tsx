@@ -33,14 +33,6 @@ declare global {
   }
 }
 
-// Because we are splitting modernJS through hash-script-loader
-// let's do a fallback "nomodule" tag for browsers that don't support "modules"
-// NOTE: Yeah... this won't work because it's not even loading this script in IE11 haha
-// const scriptTag = document.createElement("script");
-// scriptTag.setAttribute("nomodule", "");
-// scriptTag.setAttribute("src", `${__webpack_public_path__}index.js`);
-// document.head.appendChild(scriptTag);
-
 const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
 const root = document.querySelector(`#interactivemount`);
 
@@ -55,41 +47,8 @@ if (main) main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
 // if (footer) footer.className = "footer-container"
 // NOTE: doing this in pure CSS now.
 
-
-// JUST TESTING IE11
-// setTimeout(() => {
-//   const markerEl: any = document.querySelector("._2aMR4");
-
-//   console.log(markerEl)
-//   console.log(":)")
-
-//   var observer: any = new IntersectionObserver(function () {
-//     console.log("Intersected!");
-//   });
-
-//   observer.USE_MUTATION_OBSERVER = false;
-
-//   observer.observe(markerEl);
-
-//   setInterval(() => {
-// console.log(observer)
-//   }, 5000)
-// }, 10000)
-  
-
-
-
 function init() {
-
-  
-  
-
   render(<App projectName={PROJECT_NAME} />, root);
-
-  
-
-
- 
 }
 
 const waitForOdyssey = () => {
@@ -105,7 +64,7 @@ if ("IntersectionObserver" in window && NodeList.prototype.forEach) {
 } else {
   import("./polyfills").then(() => {
     console.log(
-      "LOADING POLYFILLS... PLEASE CONSIDER UPGRADING YOUR BROWSER TO FIREFOX OR SOMETHING..."
+      "LOADING POLYFILLS... PLEASE UPGRADE YOUR BROWSER TO FIREFOX OR SOMETHING..."
     );
     jankdefer(waitForOdyssey);
   });

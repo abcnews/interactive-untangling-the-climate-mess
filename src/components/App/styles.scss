@@ -1,22 +1,12 @@
 .root {
 }
 
-// div.svg-animation {
-// z-index: -1;
-// position: fixed;
-// top: 0;
-// left: 50%;
-// width: 100%;
-// max-width: 700px;
-// transform: translateX(-50%);
-// }
-
 :global {
-  // .Header-content {
-  //   h1 {
-  //     display: none;
-  //   }
-  // }
+  .Header-content {
+    h1 {
+      display: none;
+    }
+  }
 
   body main + main:not([class]) {
     background-color: #f9f9f9;
