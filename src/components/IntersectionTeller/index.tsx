@@ -2,7 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import styles from "./styles.scss";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 
-const OBSERVATION_WINDOW_IN_PIXELS = 64;
+// import IntersectionObserver from 'intersection-observer-polyfill/dist/IntersectionObserver';
+
+// const OBSERVATION_WINDOW_IN_PIXELS = 64;
 const TRIGGER_FROM_BOTTOM_PERCENTAGE = 20;
 
 interface IntersectionTellerProps {
@@ -14,7 +16,7 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
   const { current: component }: { current: any } = componentRef;
 
   // This is called when a marker comes in or out of observation
-  let callback = (entries) => {
+  let processMarker = (entries) => {
     entries.forEach((entry) => {
       // Ignore all but at in and out at the bottom
       // if (
@@ -23,9 +25,10 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
       // )
       //   return;
 
+      // Don't observer top intersections
       if (entry.boundingClientRect.top < -500) return;
 
-      // console.log(entry);
+      console.log(entry);
 
       const idString: string = entry.target.id;
       const markerObject = alternatingCaseToObject(idString);
@@ -44,9 +47,12 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
 
   // Initialise component
   useEffect(() => {
-    component.observer = new IntersectionObserver(callback, {
+    component.observer = new IntersectionObserver(processMarker, {
       rootMargin: `1000px 0% -${TRIGGER_FROM_BOTTOM_PERCENTAGE}%`,
     });
+
+    // component.observer.POLL_INTERVAL = 100;
+    // component.observer.USE_MUTATION_OBSERVER = false;
 
     component.markerElements = document.querySelectorAll('*[id^="visualKEY"]');
     component.markers = [...component.markerElements].map((el) => {

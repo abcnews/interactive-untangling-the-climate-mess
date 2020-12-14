@@ -12,11 +12,11 @@
 // }
 
 :global {
-  .Header-content {
-    h1 {
-      display: none;
-    }
-  }
+  // .Header-content {
+  //   h1 {
+  //     display: none;
+  //   }
+  // }
 
   body main + main:not([class]) {
     background-color: #f9f9f9;
@@ -25,6 +25,6 @@
   For testing markers .Main > a[id],
   .Main > a[name],
   .Main > [data-mount][id^="visualKEY"] {
-    border-top: 1px solid red;
+    border-top: 1px solid grey;
   }
 }

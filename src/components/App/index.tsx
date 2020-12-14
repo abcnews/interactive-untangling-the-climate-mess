@@ -65,7 +65,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   return (
     <AppContext.Provider value={{ marker }}>
       <>
-        <IntersectionTeller setMarker={setMarker} />
         <Portal node={document && document.querySelector(".delayed-header")}>
           <DelayedHeader />
         </Portal>
@@ -162,6 +161,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             ]}
           />
         </Portal>
+
+        <IntersectionTeller setMarker={setMarker} />
       </>
     </AppContext.Provider>
   );

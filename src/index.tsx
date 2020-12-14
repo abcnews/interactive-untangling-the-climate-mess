@@ -55,8 +55,41 @@ if (main) main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
 // if (footer) footer.className = "footer-container"
 // NOTE: doing this in pure CSS now.
 
+
+// JUST TESTING IE11
+// setTimeout(() => {
+//   const markerEl: any = document.querySelector("._2aMR4");
+
+//   console.log(markerEl)
+//   console.log(":)")
+
+//   var observer: any = new IntersectionObserver(function () {
+//     console.log("Intersected!");
+//   });
+
+//   observer.USE_MUTATION_OBSERVER = false;
+
+//   observer.observe(markerEl);
+
+//   setInterval(() => {
+// console.log(observer)
+//   }, 5000)
+// }, 10000)
+  
+
+
+
 function init() {
+
+  
+  
+
   render(<App projectName={PROJECT_NAME} />, root);
+
+  
+
+
+ 
 }
 
 const waitForOdyssey = () => {
@@ -67,11 +100,13 @@ const waitForOdyssey = () => {
   }
 };
 
-if ("IntersectionObserver" in window) {
+if ("IntersectionObserver" in window && NodeList.prototype.forEach) {
   jankdefer(waitForOdyssey);
 } else {
   import("./polyfills").then(() => {
-    console.log("LOADING POLYFILLS... PLEASE CONSIDER UPGRADING YOUR BROWSER...")
+    console.log(
+      "LOADING POLYFILLS... PLEASE CONSIDER UPGRADING YOUR BROWSER TO FIREFOX OR SOMETHING..."
+    );
     jankdefer(waitForOdyssey);
   });
 }
