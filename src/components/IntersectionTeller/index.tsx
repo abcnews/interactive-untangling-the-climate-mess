@@ -14,17 +14,22 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
+  // Init some component vars
+  let initCount = component.initCount;
+  let markerEls = component.markerElements;
+  let markers = component.markers;
+  let observer = component.observer;
+
   // This is called when a marker comes in or out of observation
   let processMarker = (entries) => {
     entries.forEach((entry) => {
-      // Ignore all but at in and out at the bottom
-      // if (
-      //   Math.abs(entry.boundingClientRect.y - entry.rootBounds.bottom) >
-      //   OBSERVATION_WINDOW_IN_PIXELS
-      // )
-      //   return;
+      // Ignore once per marker due to Intersection Observer firing on page load
+      if (initCount < markerEls.length) {
+        initCount++;
+        return;
+      }
 
-      // Don't observer top intersections
+      // Don't observe top of root intersections
       if (entry.boundingClientRect.top < -DEADZONE_ADJUST) return;
 
       const idString: string = entry.target.id;
@@ -33,9 +38,9 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
       if (entry.isIntersecting) {
         props.setMarker(markerObject.key);
       } else {
-        const currentIndex = component.markers.indexOf(markerObject.key);
+        const currentIndex = markers.indexOf(markerObject.key);
         const previousIndex = currentIndex === 0 ? 0 : currentIndex - 1;
-        const previousMarker = component.markers[previousIndex];
+        const previousMarker = markers[previousIndex];
 
         props.setMarker(previousMarker);
       }
@@ -44,25 +49,26 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
 
   // Initialise component
   useEffect(() => {
-    component.observer = new IntersectionObserver(processMarker, {
+    observer = new IntersectionObserver(processMarker, {
       // Pull root top above the viewport
       rootMargin: `${ROOT_PULL}px 0% -${TRIGGER_FROM_BOTTOM_PERCENTAGE}%`,
     });
 
-    // component.observer.POLL_INTERVAL = 100;
-    // component.observer.USE_MUTATION_OBSERVER = false;
-
-    component.markerElements = document.querySelectorAll('*[id^="visualKEY"]');
-    component.markers = [...component.markerElements].map((el) => {
+    markerEls = document.querySelectorAll('*[id^="visualKEY"]');
+    markers = [...markerEls].map((el) => {
       return alternatingCaseToObject(el.id).key;
     });
 
-    component.markerElements.forEach((markerEl) => {
-      component.observer.observe(markerEl);
+    markerEls.forEach((markerEl) => {
+      observer.observe(markerEl);
     });
 
+    // Keep track of markers we've initialised
+    // so they don't fire on load
+    initCount = 0;
+
     return () => {
-      component.observer.disconnect();
+      observer.disconnect();
     };
   }, []);
 
