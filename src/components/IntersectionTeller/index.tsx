@@ -19,13 +19,39 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
   let markerEls = component.markerElements;
   let markers = component.markers;
   let observer = component.observer;
+  let closestEntry = component.closestEntry;
 
   // This is called when a marker comes in or out of observation
   let processMarker = (entries) => {
     entries.forEach((entry) => {
       // Ignore once per marker due to Intersection Observer firing on page load
       if (initCount < markerEls.length) {
+        // Set closest marker on load
+        if (typeof closestEntry === "undefined") {
+          closestEntry = entry;
+        } else {
+          const triggerPoint =
+            window.innerHeight * ((100 - TRIGGER_FROM_BOTTOM_PERCENTAGE) / 100);
+
+          const comparisonDistance = Math.abs(
+            triggerPoint - closestEntry.boundingClientRect.y
+          );
+          const newDistance = Math.abs(
+            triggerPoint - entry.boundingClientRect.y
+          );
+
+          if (newDistance < comparisonDistance) closestEntry = entry;
+        }
+
         initCount++;
+
+        // At the end set our initial marker
+        if (initCount === markerEls.length) {
+          const idString: string = closestEntry.target.id;
+          const markerObject = alternatingCaseToObject(idString);
+          props.setMarker(markerObject.key);
+        }
+
         return;
       }
 
