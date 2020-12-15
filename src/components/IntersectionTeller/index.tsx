@@ -27,8 +27,6 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
       // Don't observer top intersections
       if (entry.boundingClientRect.top < -DEADZONE_ADJUST) return;
 
-      console.log(entry);
-
       const idString: string = entry.target.id;
       const markerObject = alternatingCaseToObject(idString);
 

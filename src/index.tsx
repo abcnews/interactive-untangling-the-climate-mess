@@ -5,6 +5,17 @@ import { render } from "react-dom";
 import App from "./components/App";
 import jankdefer from "jankdefer";
 
+// Feature detection
+import "./modernizer";
+
+declare var Modernizr: any;
+
+if (Modernizr.arrow) {
+  console.log("Probably not IE11...");
+} else {
+  console.log("Probably IE11 or lower...");
+}
+
 // Setup Odyssey types to stop TypeScript from complaining
 export type OdysseySchedulerClient = {
   hasChanged: boolean;
