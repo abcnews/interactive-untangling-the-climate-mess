@@ -7,7 +7,7 @@ import styles from "./styles.scss";
 // Import components
 import UserInputBox from "../UserInputBox/index";
 import BackgroundVis from "../BackgroundVis/index";
-import IntersectionTeller from "../IntersectionTeller/index";
+import ScrollObserver from "../ScrollObserver/index";
 import DelayedHeader from "../DelayedHeader/index";
 
 import { Client } from "@abcnews/poll-counters-client";
@@ -19,7 +19,7 @@ const GROUP = "__example__";
 const QUESTION = "x";
 const ANSWER = "y";
 
-const client = new Client(GROUP);
+const pollClient = new Client(GROUP);
 
 interface AppProps {
   projectName: string;
@@ -48,8 +48,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   useEffect(() => {
     console.log("App mounted...");
-    subscribe(onUpdate);
-    return () => unsubscribe(onUpdate);
+
+    // Uncomment to enable Odyssey subscriber service
+    // subscribe(onUpdate);
+    // return () => unsubscribe(onUpdate);
   }, []);
 
   useEffect(() => {
@@ -73,7 +75,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <Portal node={document && document.getElementById("inputtier1")}>
-          <UserInputBox title={"Can we still save the world?"} poll={client} />
+          <UserInputBox
+            title={"Can we still save the world?"}
+            poll={pollClient}
+          />
         </Portal>
 
         <Portal node={document && document.getElementById("inputradelaide")}>
@@ -158,7 +163,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <IntersectionTeller setMarker={setMarker} />
+        <ScrollObserver setMarker={setMarker} />
       </>
     </AppContext.Provider>
   );

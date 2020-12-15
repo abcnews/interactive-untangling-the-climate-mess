@@ -6,11 +6,11 @@ const ROOT_PULL = 1000;
 const DEADZONE_ADJUST = 500;
 const TRIGGER_FROM_BOTTOM_PERCENTAGE = 20;
 
-interface IntersectionTellerProps {
+interface ScrollObserverProps {
   setMarker: Function;
 }
 
-const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
+const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
@@ -101,4 +101,4 @@ const IntersectionTeller: React.FC<IntersectionTellerProps> = (props) => {
   return <div className={styles.root}></div>;
 };
 
-export default IntersectionTeller;
+export default ScrollObserver;
