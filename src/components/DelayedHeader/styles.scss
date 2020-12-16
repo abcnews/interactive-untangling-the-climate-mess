@@ -24,6 +24,7 @@
     margin-bottom: 2.25rem;
     text-align: left;
     transform: translateX(-1.33333rem);
+    background-color: unset;
 
     @include for-tablet-portrait-up {
       font-size: 28px;

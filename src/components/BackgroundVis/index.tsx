@@ -41,29 +41,28 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
   let timeline = component.timeline;
   let markers = component.markers;
 
-
   const init = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
+    console.log("Initialising animation...");
+
     import("./assets/animations").then(({ animate }) => {
       // Set up the animations and return a timeline
-      timeline = animate();
+      component.timeline = animate();
 
       // Load up the timeline markers so we can compare them later
-      markers =
-        timeline.l?.markers || timeline._options.markers;
+      component.markers = component.timeline.l?.markers || component.timeline._options.markers;
 
       component.ranges = { startLoop: ["1a", "2"] };
-      timeline.range(...component.ranges.startLoop);
-      timeline.loop(true);
+      component.timeline.range(...component.ranges.startLoop);
+      component.timeline.loop(true);
 
       // Pause when done with certain range
-      // timeline.onfinish = function () {
+      // component.timeline.onfinish = function () {
       //   this.pause();
       // };
 
-      timeline.play();
-
+      component.timeline.play();
     });
   };
 
@@ -80,7 +79,8 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
 
-    console.log(props.scrollMarker);
+    console.log("Scroll marker prop:", props.scrollMarker);
+    console.log(timeline);
 
     if (!props.scrollMarker || !timeline) return;
 
@@ -120,9 +120,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
             // console.log(code)
             return code;
           }}
-          onLoad={() => {
-            init();
-          }}
+          onLoad={init}
         />
 
         {/* {endStringArray.map((svg, index) => {
