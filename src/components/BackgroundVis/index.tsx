@@ -35,81 +35,76 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
   // Use a component ref objet to store things properly
   // across renders.
   const componentRef = useRef({});
-  const { current }: { current: any } = componentRef;
+  const { current: component }: { current: any } = componentRef;
 
-  const animate = () => {
+  // Init component vars
+  let timeline = component.timeline;
+  let markers = component.markers;
+
+
+  const init = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
     import("./assets/animations").then(({ animate }) => {
       // Set up the animations and return a timeline
-      current.timeline = animate();
+      timeline = animate();
 
       // Load up the timeline markers so we can compare them later
-      current.markers =
-        current.timeline.l?.markers || current.timeline._options.markers;
-      // console.log(current.markers);
+      markers =
+        timeline.l?.markers || timeline._options.markers;
 
-      current.ranges = { startLoop: ["1a", "2"] };
-      current.timeline.range(...current.ranges.startLoop);
-      current.timeline.loop(true);
+      component.ranges = { startLoop: ["1a", "2"] };
+      timeline.range(...component.ranges.startLoop);
+      timeline.loop(true);
 
       // Pause when done with certain range
-      // current.timeline.onfinish = function () {
+      // timeline.onfinish = function () {
       //   this.pause();
       // };
 
-      current.timeline.play();
+      timeline.play();
 
-      // setTimeout(() => {
-      //   refs.timeline.range(...ranges.opening);
-      //   refs.timeline.loop(0);
-      //   refs.timeline.play();
-      // }, 10000);
     });
   };
 
   useEffect(() => {
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
-    if (!current.timeline) return;
+    if (!timeline) return;
 
-    current.timeline.pause(props.animationFrame);
+    timeline.pause(props.animationFrame);
   }, [props.animationFrame]);
 
   // Do something when scrollMarker changes
   useEffect(() => {
-    
-    // DISABLING THIS EFFECT FOR NOW
+    // Note animationFrames sent before rendered
+    // will not be reflected in graphic
 
-    // // Note animationFrames sent before rendered
-    // // will not be reflected in graphic
-    // if (!props.scrollMarker || !current.timeline) return;
+    console.log(props.scrollMarker);
 
-    // // console.log(props.scrollMarker);
-    // // console.log(current.markers[props.scrollMarker]);
+    if (!props.scrollMarker || !timeline) return;
 
-    // const { scrollMarker } = props;
+    const { scrollMarker } = props;
 
-    // // const rangeStart =
-    // //   current.markers[scrollMarker] || current.markers[scrollMarker + "a"];
-    // // const rangeEnd = current.markers[scrollMarker + 1];
+    console.log(`Scroll marker: ${scrollMarker}`);
+    console.log(markers[scrollMarker]);
 
     // const rangeStart =
-    //   typeof current.markers[scrollMarker] === "undefined"
+    //   typeof markers[scrollMarker] === "undefined"
     //     ? scrollMarker + "a"
     //     : scrollMarker + "";
 
     // const rangeEnd = scrollMarker + 1 + "";
 
     // if (
-    //   typeof current.markers[rangeStart] === "undefined" ||
-    //   typeof current.markers[rangeEnd] === "undefined"
+    //   typeof markers[rangeStart] === "undefined" ||
+    //   typeof markers[rangeEnd] === "undefined"
     // )
     //   return;
 
-    // current.timeline.range(rangeStart, rangeEnd);
-    // current.timeline.loop(0);
-    // current.timeline.play();
+    // timeline.range(rangeStart, rangeEnd);
+    // timeline.loop(0);
+    // timeline.play();
   }, [props.scrollMarker]);
 
   return (
@@ -126,7 +121,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
             return code;
           }}
           onLoad={() => {
-            animate();
+            init();
           }}
         />
 

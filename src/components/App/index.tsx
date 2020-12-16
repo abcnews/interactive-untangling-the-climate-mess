@@ -54,11 +54,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // return () => unsubscribe(onUpdate);
   }, []);
 
-  useEffect(() => {
-    if (!marker) return;
+  // useEffect(() => {
+  //   if (!marker) return;
 
-    console.log(marker);
-  }, [marker]);
+  //   console.log(marker);
+  // }, [marker]);
 
   return (
     <AppContext.Provider value={{ marker }}>
