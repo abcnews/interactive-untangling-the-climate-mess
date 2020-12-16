@@ -80,13 +80,11 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     // will not be reflected in graphic
 
     console.log("Scroll marker prop:", props.scrollMarker);
-    console.log(timeline);
 
     if (!props.scrollMarker || !timeline) return;
 
     const { scrollMarker } = props;
 
-    console.log(`Scroll marker: ${scrollMarker}`);
     console.log(markers[scrollMarker]);
 
     // const rangeStart =
