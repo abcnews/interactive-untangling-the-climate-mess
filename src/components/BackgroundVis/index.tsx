@@ -1,7 +1,13 @@
 import "./keyshape";
 declare let KeyshapeJS;
 
-import React, { useEffect, useRef, useLayoutEffect, useContext } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useLayoutEffect,
+  useContext,
+  useState,
+} from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 
@@ -37,9 +43,11 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
+  // Component state
+  const [markers, setMarkers] = useState({});
+
   // Init component vars
   let timeline = component.timeline;
-  let markers = component.markers;
 
   const init = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
@@ -51,7 +59,9 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
       component.timeline = animate();
 
       // Load up the timeline markers so we can compare them later
-      component.markers = component.timeline.l?.markers || component.timeline._options.markers;
+      setMarkers(
+        component.timeline.l?.markers || component.timeline._options.markers
+      );
 
       component.ranges = { startLoop: ["1a", "2"] };
       component.timeline.range(...component.ranges.startLoop);
@@ -80,6 +90,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     // will not be reflected in graphic
 
     console.log("Scroll marker prop:", props.scrollMarker);
+    console.log("Animation markers:", markers);
 
     if (!props.scrollMarker || !timeline) return;
 
