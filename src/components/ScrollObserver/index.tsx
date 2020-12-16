@@ -6,6 +6,7 @@ const ROOT_PULL = 1000;
 const DEADZONE_ADJUST = 500;
 const TRIGGER_FROM_BOTTOM_PERCENTAGE = 20;
 
+// Define all the props for the component
 interface ScrollObserverProps {
   setMarker: Function;
 }
@@ -93,6 +94,7 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
     // so they don't fire on load
     initCount = 0;
 
+    // Remove all observations on unmount
     return () => {
       observer.disconnect();
     };

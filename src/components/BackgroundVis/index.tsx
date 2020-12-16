@@ -90,7 +90,6 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     // will not be reflected in graphic
 
     console.log("Scroll marker prop:", props.scrollMarker);
-    console.log("Animation markers:", markers);
 
     if (!props.scrollMarker || !timeline) return;
 
@@ -115,6 +114,10 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     // timeline.loop(0);
     // timeline.play();
   }, [props.scrollMarker]);
+
+  useEffect(() => {
+    console.log("Animation markers:", markers);
+  }, [markers]);
 
   return (
     <>
