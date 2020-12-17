@@ -24,13 +24,30 @@ import endString4 from "./assets/EndString4.svg";
 import endString5 from "./assets/EndString5.svg";
 
 // Put them in an array
-const endStringArray = [
-  endString1,
-  endString2,
-  endString3,
-  endString4,
-  endString5,
-];
+const endStrings = [endString1, endString2, endString3, endString4, endString5];
+
+const rangeLookup = {
+  1: {
+    start: "1a",
+    end: "2",
+    loopback: "1a",
+  },
+  2: {
+    start: "2",
+    end: "3",
+    loopback: "2a",
+  },
+  3: {
+    start: "3",
+    end: "4",
+    loopback: "3a",
+  },
+  4: {
+    start: "4",
+    end: "5",
+    loopback: "4a",
+  },
+};
 
 interface BackgroundVisProps {
   animationFrame: number;
@@ -48,6 +65,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
 
   // Init component vars
   let timeline = component.timeline;
+  let ranges = component.ranges;
 
   const init = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
@@ -88,14 +106,34 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
   useEffect(() => {
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
-
-    console.log("Scroll marker prop:", props.scrollMarker);
-
     if (!props.scrollMarker || !timeline) return;
 
     const { scrollMarker } = props;
+    console.log("Scroll marker prop:", scrollMarker);
+    const currentTime = timeline.time();
+    console.log("Current time:", currentTime);
+    const markerTime = markers[scrollMarker];
+    console.log("Marker time:", markerTime);
+    const playloop = rangeLookup[scrollMarker] || rangeLookup["1"];
+    console.log("Range lookup:", playloop);
 
-    console.log(markers[scrollMarker]);
+    timeline.loop(false);
+    timeline.range(playloop.start, playloop.end);
+    timeline.time(playloop.start);
+    timeline.onfinish = function () {
+      console.log("Finished... now looping")
+      this.loop(true);
+      this.range(playloop.loopback, playloop.end);
+      this.play()
+    };
+
+    // if (markerTime) {
+    //   timeline.range(currentTime, markerTime);
+    // } else {
+    //   timeline.range(...ranges.startLoop);
+    // }
+
+    // console.log(markers[scrollMarker]);
 
     // const rangeStart =
     //   typeof markers[scrollMarker] === "undefined"
@@ -135,7 +173,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
           onLoad={init}
         />
 
-        {/* {endStringArray.map((svg, index) => {
+        {/* {endStrings.map((svg, index) => {
           return (
             <div className={styles.svgLayer} key={index}>
               <SVG

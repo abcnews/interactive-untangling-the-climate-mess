@@ -643,7 +643,7 @@ window["KeyshapeJS"] = (function () {
       isTicking = true;
       setTimeout(() => {
         reqAnimationFrame(mainloop);
-      }, 1000 / 30);
+      }, 1000 / 30); // Hack to limit framerate to 30 fps
     } else {
       isTicking = false;
     }
