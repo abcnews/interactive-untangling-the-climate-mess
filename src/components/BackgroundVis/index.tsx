@@ -26,27 +26,29 @@ import endString5 from "./assets/EndString5.svg";
 // Put them in an array
 const endStrings = [endString1, endString2, endString3, endString4, endString5];
 
-const rangeLookup = {
-  1: {
-    start: "1a",
-    end: "2",
-    loopback: "1a",
-  },
-  2: {
-    start: "2",
-    end: "3",
-    loopback: "2a",
-  },
-  3: {
-    start: "3",
-    end: "4",
-    loopback: "3a",
-  },
-  4: {
-    start: "4",
-    end: "5",
-    loopback: "4a",
-  },
+const lookupRange = (marker: any) => {
+  console.log(typeof marker);
+  if (marker === 1 || isNaN(Number(marker)))
+    return {
+      start: "1a",
+      end: "2",
+      loopback: "1a",
+    };
+
+  if (marker === 19)
+    return {
+      start: "19",
+      end: "20",
+      loopback: null,
+    };
+
+  const markerInt: number = Number(marker);
+
+  return {
+    start: markerInt + "",
+    end: markerInt + 1 + "",
+    loopback: marker + "a",
+  };
 };
 
 interface BackgroundVisProps {
@@ -85,11 +87,6 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
       component.timeline.range(...component.ranges.startLoop);
       component.timeline.loop(true);
 
-      // Pause when done with certain range
-      // component.timeline.onfinish = function () {
-      //   this.pause();
-      // };
-
       component.timeline.play();
     });
   };
@@ -114,43 +111,52 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     console.log("Current time:", currentTime);
     const markerTime = markers[scrollMarker];
     console.log("Marker time:", markerTime);
-    const playloop = rangeLookup[scrollMarker] || rangeLookup["1"];
+    // const playloop = rangeLookup[scrollMarker] || rangeLookup["1"];
+    const playloop = lookupRange(scrollMarker);
     console.log("Range lookup:", playloop);
+    const endTime = markers[playloop.end];
+    console.log("End time:", endTime);
 
-    timeline.loop(false);
-    timeline.range(playloop.start, playloop.end);
-    timeline.time(playloop.start);
-    timeline.onfinish = function () {
-      console.log("Finished... now looping")
-      this.loop(true);
-      this.range(playloop.loopback, playloop.end);
-      this.play()
-    };
+    // If going forward
+    if (currentTime < endTime) {
+      timeline.rate(1);
+      timeline.loop(false);
+      timeline.range(currentTime, endTime);
+      timeline.time(currentTime);
+      timeline.play();
+      timeline.onfinish = function () {
+        if (!playloop.loopback) {
+          this.pause();
+          return;
+        }
 
-    // if (markerTime) {
-    //   timeline.range(currentTime, markerTime);
-    // } else {
-    //   timeline.range(...ranges.startLoop);
-    // }
+        console.log("Finished... now looping");
+        this.loop(true);
+        this.range(playloop.loopback, playloop.end);
+        this.play();
+      };
+    }
 
-    // console.log(markers[scrollMarker]);
+    // If scrolling back up
+    if (currentTime > endTime) {
+      timeline.rate(-1);
+      timeline.loop(false);
+      timeline.range(playloop.loopback, currentTime);
+      timeline.time(currentTime);
+      timeline.play();
+      timeline.onfinish = function () {
+        if (!playloop.loopback) {
+          this.pause();
+          return;
+        }
 
-    // const rangeStart =
-    //   typeof markers[scrollMarker] === "undefined"
-    //     ? scrollMarker + "a"
-    //     : scrollMarker + "";
-
-    // const rangeEnd = scrollMarker + 1 + "";
-
-    // if (
-    //   typeof markers[rangeStart] === "undefined" ||
-    //   typeof markers[rangeEnd] === "undefined"
-    // )
-    //   return;
-
-    // timeline.range(rangeStart, rangeEnd);
-    // timeline.loop(0);
-    // timeline.play();
+        console.log("Finished... now looping");
+        timeline.rate(1);
+        this.loop(true);
+        this.range(playloop.loopback, playloop.end);
+        this.play();
+      };
+    }
   }, [props.scrollMarker]);
 
   useEffect(() => {
