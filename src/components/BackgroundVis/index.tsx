@@ -16,26 +16,16 @@ import untangleAnimation from "./assets/untangle-loop.svg";
 import background from "./assets/background.jpg";
 import { AppContext } from "../../AppContext";
 
-// Load up end tangles
-import endString1 from "./assets/EndString1.svg";
-import endString2 from "./assets/EndString2.svg";
-import endString3 from "./assets/EndString3.svg";
-import endString4 from "./assets/EndString4.svg";
-import endString5 from "./assets/EndString5.svg";
-
-// Put them in an array
-const endStrings = [endString1, endString2, endString3, endString4, endString5];
-
-const lookupRange = (marker: any) => {
+const lookupRange = (marker: string) => {
   console.log(typeof marker);
-  if (marker === 1 || isNaN(Number(marker)))
+  if (marker === "1" || isNaN(Number(marker)))
     return {
       start: "1a",
       end: "2",
       loopback: "1a",
     };
 
-  if (marker === 19)
+  if (marker === "19")
     return {
       start: "19",
       end: "20",
@@ -105,14 +95,14 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     // will not be reflected in graphic
     if (!props.scrollMarker || !timeline) return;
 
-    const { scrollMarker } = props;
+    const { scrollMarker }: { scrollMarker?: string } = props;
     console.log("Scroll marker prop:", scrollMarker);
     const currentTime = timeline.time();
     console.log("Current time:", currentTime);
     const markerTime = markers[scrollMarker];
     console.log("Marker time:", markerTime);
-    // const playloop = rangeLookup[scrollMarker] || rangeLookup["1"];
-    const playloop = lookupRange(scrollMarker);
+    // Coerce type as string here as it doesn't check for some reason
+    const playloop = lookupRange(scrollMarker + "");
     console.log("Range lookup:", playloop);
     const endTime = markers[playloop.end];
     console.log("End time:", endTime);
@@ -130,7 +120,6 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
           return;
         }
 
-        console.log("Finished... now looping");
         this.loop(true);
         this.range(playloop.loopback, playloop.end);
         this.play();
@@ -150,7 +139,6 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
           return;
         }
 
-        console.log("Finished... now looping");
         timeline.rate(1);
         this.loop(true);
         this.range(playloop.loopback, playloop.end);
@@ -179,21 +167,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
           onLoad={init}
         />
 
-        {/* {endStrings.map((svg, index) => {
-          return (
-            <div className={styles.svgLayer} key={index}>
-              <SVG
-                src={svg}
-                preProcessor={(code) => {
-                  return code;
-                }}
-                onLoad={() => {
-                  // animate();
-                }}
-              />
-            </div>
-          );
-        })} */}
+        
       </div>
     </>
   );

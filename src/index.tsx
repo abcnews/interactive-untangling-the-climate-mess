@@ -4,12 +4,13 @@ import { render } from "react-dom";
 import App from "./components/App";
 import jankdefer from "jankdefer";
 
-// Feature detection
-import "./modernizer";
-
+// Keep TypeScript from throwing errors
 declare var Modernizr: any;
 declare var module: any;
 declare var __webpack_public_path__: any;
+
+// Feature detection
+import "./modernizer";
 
 if (Modernizr.arrow) {
   console.log("Probably not IE11...");
@@ -54,10 +55,6 @@ const delayedHeaderContainer = document.createElement("div");
 delayedHeaderContainer.className = "delayed-header u-full";
 if (main) main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
 
-// Solid colour at bottom of article
-// const footer = main?.nextElementSibling;
-// if (footer) footer.className = "footer-container"
-// NOTE: doing this in pure CSS now.
 
 function init() {
   render(<App projectName={PROJECT_NAME} />, root);

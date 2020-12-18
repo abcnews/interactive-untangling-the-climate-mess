@@ -68,10 +68,12 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <Portal node={document && document.getElementById("portalmount")}>
-          <BackgroundVis
-            animationFrame={animationFrame}
-            scrollMarker={marker}
-          />
+          {true && (
+            <BackgroundVis
+              animationFrame={animationFrame}
+              scrollMarker={marker}
+            />
+          )}
         </Portal>
 
         <Portal node={document && document.getElementById("inputtier1")}>
