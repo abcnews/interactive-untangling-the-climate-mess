@@ -8,6 +8,8 @@ import jankdefer from "jankdefer";
 import "./modernizer";
 
 declare var Modernizr: any;
+declare var module: any;
+declare var __webpack_public_path__: any;
 
 if (Modernizr.arrow) {
   console.log("Probably not IE11...");
