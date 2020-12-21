@@ -15,8 +15,6 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
-  const [markerIndex, setMarkerIndex] = useState(0);
-
   // Init some component vars
   // let initCount = component.initCount;
   let markerEls = component.markerElements;
@@ -33,7 +31,6 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
         // Set closest marker on load
         if (typeof closestEntry === "undefined") {
           closestEntry = entry;
-          setMarkerIndex(index);
         } else {
           // See if this marker is closer to the trigger point
           const triggerPoint =
@@ -49,7 +46,6 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
           // If so set new entry and index
           if (newDistance < comparisonDistance) {
             closestEntry = entry;
-            setMarkerIndex(index);
           }
         }
 
@@ -72,9 +68,8 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
       if (entry.isIntersecting) {
         props.setMarker(markerObject.key);
       } else {
-        // const currentIndex = markers.indexOf(markerObject.key);
-        // const previousIndex = currentIndex === 0 ? 0 : currentIndex - 1;
-        const previousIndex = markerIndex === 0 ? 0 : markerIndex - 1;
+        const currentIndex = +entry.target.dataset.index;
+        const previousIndex = currentIndex === 0 ? 0 : currentIndex - 1;
         const previousMarker = markers[previousIndex];
 
         props.setMarker(previousMarker);
