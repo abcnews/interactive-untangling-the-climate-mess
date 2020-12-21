@@ -15,22 +15,27 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
+  const [markerIndex, setMarkerIndex] = useState(0);
+
   // Init some component vars
-  let initCount = component.initCount;
+  // let initCount = component.initCount;
   let markerEls = component.markerElements;
   let markers = component.markers;
   let observer = component.observer;
-  let closestEntry = component.closestEntry;
 
   // This is called when a marker comes in or out of observation
-  let processMarker = (entries) => {
+  let processMarker = (entries, index) => {
+    let closestEntry;
+
     entries.forEach((entry) => {
       // Ignore once per marker due to Intersection Observer firing on page load
-      if (initCount < markerEls.length) {
+      if (index < markerEls.length) {
         // Set closest marker on load
         if (typeof closestEntry === "undefined") {
           closestEntry = entry;
+          setMarkerIndex(index);
         } else {
+          // See if this marker is closer to the trigger point
           const triggerPoint =
             window.innerHeight * ((100 - TRIGGER_FROM_BOTTOM_PERCENTAGE) / 100);
 
@@ -41,13 +46,15 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
             triggerPoint - entry.boundingClientRect.y
           );
 
-          if (newDistance < comparisonDistance) closestEntry = entry;
+          // If so set new entry and index
+          if (newDistance < comparisonDistance) {
+            closestEntry = entry;
+            setMarkerIndex(index);
+          }
         }
 
-        initCount++;
-
         // At the end set our initial marker
-        if (initCount === markerEls.length) {
+        if (index === markerEls.length) {
           const idString: string = closestEntry.target.id;
           const markerObject = alternatingCaseToObject(idString);
           props.setMarker(markerObject.key);
@@ -65,8 +72,9 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
       if (entry.isIntersecting) {
         props.setMarker(markerObject.key);
       } else {
-        const currentIndex = markers.indexOf(markerObject.key);
-        const previousIndex = currentIndex === 0 ? 0 : currentIndex - 1;
+        // const currentIndex = markers.indexOf(markerObject.key);
+        // const previousIndex = currentIndex === 0 ? 0 : currentIndex - 1;
+        const previousIndex = markerIndex === 0 ? 0 : markerIndex - 1;
         const previousMarker = markers[previousIndex];
 
         props.setMarker(previousMarker);
@@ -86,13 +94,16 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
       return alternatingCaseToObject(el.id).key;
     });
 
-    markerEls.forEach((markerEl) => {
+    console.log(markers);
+
+    markerEls.forEach((markerEl, index: number) => {
+      markerEl.dataset.index = index;
       observer.observe(markerEl);
     });
 
     // Keep track of markers we've initialised
     // so they don't fire on load
-    initCount = 0;
+    // initCount = 0;
 
     // Remove all observations on unmount
     return () => {

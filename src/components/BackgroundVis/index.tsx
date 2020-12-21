@@ -95,16 +95,16 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
     if (!props.scrollMarker || !timeline) return;
 
     const { scrollMarker }: { scrollMarker?: string } = props;
-    console.log("Scroll marker prop:", scrollMarker);
+    // console.log("Scroll marker prop:", scrollMarker);
     const currentTime = timeline.time();
-    console.log("Current time:", currentTime);
+    // console.log("Current time:", currentTime);
     const markerTime = markers[scrollMarker];
-    console.log("Marker time:", markerTime);
+    // console.log("Marker time:", markerTime);
     // Coerce type as string here as it doesn't check for some reason
     const playloop = lookupRange(scrollMarker + "");
-    console.log("Range lookup:", playloop);
+    // console.log("Range lookup:", playloop);
     const endTime = markers[playloop.end];
-    console.log("End time:", endTime);
+    // console.log("End time:", endTime);
 
     // If going forward
     if (currentTime < endTime) {
