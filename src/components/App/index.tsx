@@ -31,7 +31,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [marker, setMarker] = useState();
 
   // SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
-  const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
+  const { subscribe, unsubscribe, enqueue } = window.__ODYSSEY__.scheduler;
 
   // const masthead = document.querySelector('[data-component="Masthead"]');
 
@@ -49,16 +49,20 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   useEffect(() => {
     console.log("App mounted...");
 
+    enqueue(() => {
+      console.log("Test")
+    })
+
     // Uncomment to enable Odyssey subscriber service
-    // subscribe(onUpdate);
-    // return () => unsubscribe(onUpdate);
+    subscribe(onUpdate);
+    return () => unsubscribe(onUpdate);
   }, []);
 
-  // useEffect(() => {
-  //   if (!marker) return;
+  useEffect(() => {
+    if (!marker) return;
 
-  //   console.log(marker);
-  // }, [marker]);
+    console.log("Current marker:", marker);
+  }, [marker]);
 
   return (
     <AppContext.Provider value={{ marker }}>
