@@ -2,13 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import styles from "./styles.scss";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 
-const ROOT_PULL = 1000;
-const DEADZONE_ADJUST = 500;
-const TRIGGER_FROM_BOTTOM_PERCENTAGE = 20;
+const ROOT_PULL = 1000; // Pixels to pull observer root above screen
+const DEADZONE_ADJUST = 500; // How fast can a user scroll?
 
 // Define all the props for the component
 interface ScrollObserverProps {
   setMarker: Function;
+  waypoint?: number;
 }
 
 const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
@@ -33,7 +33,7 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
         } else {
           // See if this marker is closer to the trigger point
           const triggerPoint =
-            window.innerHeight * ((100 - TRIGGER_FROM_BOTTOM_PERCENTAGE) / 100);
+            window.innerHeight * (props.waypoint! / 100);
 
           const comparisonDistance = Math.abs(
             triggerPoint - closestEntry.boundingClientRect.y
@@ -83,7 +83,7 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
   useEffect(() => {
     observer = new IntersectionObserver(processMarker, {
       // Pull root top above the viewport
-      rootMargin: `${ROOT_PULL}px 0% -${TRIGGER_FROM_BOTTOM_PERCENTAGE}%`,
+      rootMargin: `${ROOT_PULL}px 0% -${100 - props.waypoint!}%`,
     });
 
     markerEls = document.querySelectorAll('*[id^="visualKEY"]');
@@ -107,3 +107,7 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
 };
 
 export default ScrollObserver;
+
+ScrollObserver.defaultProps = {
+  waypoint: 80,
+};
