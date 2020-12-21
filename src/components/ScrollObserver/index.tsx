@@ -16,18 +16,17 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
   const { current: component }: { current: any } = componentRef;
 
   // Init some component vars
-  // let initCount = component.initCount;
+  let initCount = component.initCount;
   let markerEls = component.markerElements;
-  let markers = component.markers;
   let observer = component.observer;
+  let closestEntry = component.closestEntry;
 
   // This is called when a marker comes in or out of observation
-  let processMarker = (entries, index) => {
-    let closestEntry;
-
+  let processMarker = (entries) => {
+    // Note: will usually only happen once (even though this is a forEach)
     entries.forEach((entry) => {
       // Ignore once per marker due to Intersection Observer firing on page load
-      if (index < markerEls.length) {
+      if (initCount < markerEls.length) {
         // Set closest marker on load
         if (typeof closestEntry === "undefined") {
           closestEntry = entry;
@@ -49,8 +48,10 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
           }
         }
 
+        initCount++;
+
         // At the end set our initial marker
-        if (index === markerEls.length) {
+        if (initCount === markerEls.length) {
           const idString: string = closestEntry.target.id;
           const markerObject = alternatingCaseToObject(idString);
           props.setMarker(markerObject.key);
@@ -70,9 +71,10 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
       } else {
         const currentIndex = +entry.target.dataset.index;
         const previousIndex = currentIndex === 0 ? 0 : currentIndex - 1;
-        const previousMarker = markers[previousIndex];
-
-        props.setMarker(previousMarker);
+        const previousMarkerEl = markerEls[previousIndex];
+        const previousIdString: string = previousMarkerEl.id;
+        const previousMarkerObject = alternatingCaseToObject(previousIdString);
+        props.setMarker(previousMarkerObject.key);
       }
     });
   };
@@ -85,11 +87,6 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
     });
 
     markerEls = document.querySelectorAll('*[id^="visualKEY"]');
-    markers = [...markerEls].map((el) => {
-      return alternatingCaseToObject(el.id).key;
-    });
-
-    console.log(markers);
 
     markerEls.forEach((markerEl, index: number) => {
       markerEl.dataset.index = index;
@@ -98,7 +95,7 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
 
     // Keep track of markers we've initialised
     // so they don't fire on load
-    // initCount = 0;
+    initCount = 0;
 
     // Remove all observations on unmount
     return () => {
