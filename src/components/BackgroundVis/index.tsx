@@ -17,7 +17,6 @@ import background from "./assets/background.jpg";
 import { AppContext } from "../../AppContext";
 
 const lookupRange = (marker: string) => {
-  console.log(typeof marker);
   if (marker === "1" || isNaN(Number(marker)))
     return {
       start: "1a",

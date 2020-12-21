@@ -52,6 +52,11 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
             lives?
           </span>
         </p>
+        <div
+        id="visualKEY2"
+        data-component="Anchor"
+        data-mount="true"
+      ></div>
       </div>
     </div>
   );
