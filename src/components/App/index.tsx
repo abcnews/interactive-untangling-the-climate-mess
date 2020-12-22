@@ -9,6 +9,7 @@ import UserInputBox from "../UserInputBox/index";
 import BackgroundVis from "../BackgroundVis/index";
 import ScrollObserver from "../ScrollObserver/index";
 import DelayedHeader from "../DelayedHeader/index";
+import StoryPanel from "../StoryPanel/index";
 
 import { Client } from "@abcnews/poll-counters-client";
 
@@ -49,9 +50,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   useEffect(() => {
     console.log("App mounted...");
 
+    // Test Odyssey enqueueing
     enqueue(() => {
-      console.log("Test")
-    })
+      // console.log("Enqueue test...");
+    });
 
     // Uncomment to enable Odyssey subscriber service
     subscribe(onUpdate);
@@ -170,6 +172,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <ScrollObserver setMarker={setMarker} />
+        <StoryPanel />
       </>
     </AppContext.Provider>
   );
