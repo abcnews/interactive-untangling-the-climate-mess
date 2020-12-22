@@ -16,6 +16,8 @@ import untangleAnimation from "./assets/untangle-loop.svg";
 import background from "./assets/background.jpg";
 import { AppContext } from "../../AppContext";
 
+const PLAY_RATE = 1;
+
 const lookupRange = (marker: string) => {
   if (marker === "1" || isNaN(Number(marker)))
     return {
@@ -108,7 +110,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
 
     // If going forward
     if (currentTime < endTime) {
-      timeline.rate(1);
+      timeline.rate(PLAY_RATE);
       timeline.loop(false);
       timeline.range(currentTime, endTime);
       timeline.time(currentTime);
@@ -127,7 +129,7 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
 
     // If scrolling back up
     if (currentTime > endTime) {
-      timeline.rate(-1);
+      timeline.rate(-PLAY_RATE);
       timeline.loop(false);
       timeline.range(playloop.loopback, currentTime);
       timeline.time(currentTime);
