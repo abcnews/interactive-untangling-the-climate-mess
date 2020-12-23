@@ -30,6 +30,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [backdropOffset, setBackdropOffset] = useState(0);
   const [animationFrame, setAnimationFrame] = useState(200);
   const [marker, setMarker] = useState();
+  const [panels, setPanels] = useState<any>();
 
   // SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
   const { subscribe, unsubscribe, enqueue } = window.__ODYSSEY__.scheduler;
@@ -49,6 +50,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   useEffect(() => {
     console.log("App mounted...");
+
+    // Set up panel styling
+    const panelStarters: any = document.querySelectorAll("#panel");
+    setPanels([...panelStarters]);
 
     // Test Odyssey enqueueing
     enqueue(() => {
@@ -172,7 +177,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <ScrollObserver setMarker={setMarker} />
-        <StoryPanel />
+
+        {/* <StoryPanel startElement={document.querySelector("#panel")} /> */}
+
+        {panels &&
+          panels.map((panel, index) => (
+            <StoryPanel key={index} startElement={panel} />
+          ))}
       </>
     </AppContext.Provider>
   );

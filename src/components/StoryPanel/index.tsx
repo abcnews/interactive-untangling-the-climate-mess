@@ -22,20 +22,15 @@ const StoryPanel: React.FC<StoryPanelProps> = (props) => {
   useEffect(() => {
     console.log("StoryPanel component mounted...");
 
-    const elements = nextUntil(
-      document.querySelector("#panel"),
-      props.endSelector
-    );
+    const elements = nextUntil(props.startElement, props.endSelector);
 
     for (const el of elements) {
-      console.log(el);
       el.style.display = "block";
     }
 
     const stringElements = elements.map((el) =>
       serializer.serializeToString(el)
     );
-    console.log(stringElements);
 
     setReactElements(stringElements);
 
@@ -47,7 +42,15 @@ const StoryPanel: React.FC<StoryPanelProps> = (props) => {
   return (
     <Portal node={props.startElement}>
       <div className={styles.root}>
-        {reactElements && reactElements.map((string) => parse(string))}
+        {reactElements &&
+          reactElements.map((string, index) =>
+            parse(string, {
+              replace: (node: any) => {
+                if (node.attribs) node.attribs.key = index;
+                return node;
+              },
+            })
+          )}
       </div>
     </Portal>
   );
