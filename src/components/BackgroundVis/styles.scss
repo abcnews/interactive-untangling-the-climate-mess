@@ -11,6 +11,10 @@
     position: absolute;
     width: 100%;
   }
+
+  svg {
+    filter: drop-shadow(5px 2px 0px rgba(0, 63, 131, 0.2));
+  }
 }
 
 .background-image-container {
