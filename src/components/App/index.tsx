@@ -16,6 +16,7 @@ import { Client } from "@abcnews/poll-counters-client";
 // Using the React context API for global state
 import { AppContext } from "../../AppContext";
 
+// Set up our poll counter
 const GROUP = "__example__";
 const QUESTION = "x";
 const ANSWER = "y";
