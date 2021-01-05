@@ -13,7 +13,7 @@ import SVG from "react-inlinesvg";
 
 import untangleAnimation from "./assets/untangle-loop.svg";
 
-import background from "./assets/background.jpg";
+// import background from "./assets/background.jpg";
 import { AppContext } from "../../AppContext";
 
 const PLAY_RATE = 1;
@@ -154,9 +154,9 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
   return (
     <>
-      <div className={styles.backgroundImageContainer}>
+      {/* <div className={styles.backgroundImageContainer}>
         <img className={styles.backgroundImage} src={background} />
-      </div>
+      </div> */}
 
       <div className={styles.root}>
         <SVG

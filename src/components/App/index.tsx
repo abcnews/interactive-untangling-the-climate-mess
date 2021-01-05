@@ -6,6 +6,7 @@ import styles from "./styles.scss";
 
 // Import components
 import UserInputBox from "../UserInputBox/index";
+import BackgroundTexture from "../BackgroundTexture/index";
 import MainTangle from "../MainTangle/index";
 import ScrollObserver from "../ScrollObserver/index";
 import DelayedHeader from "../DelayedHeader/index";
@@ -106,15 +107,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           <DelayedHeader />
         </Portal>
 
-        {/* Background viz */}
+        {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
           {!endStringsMarkers.includes(marker) ? (
-            <MainTangle
-              animationFrame={animationFrame}
-              scrollMarker={marker}
-            />
+            <MainTangle animationFrame={animationFrame} scrollMarker={marker} />
           ) : (
-            <EndStrings />
+            <>
+              <EndStrings />
+            </>
           )}
         </Portal>
 
@@ -215,6 +215,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           panels.map((panel, index) => (
             <StoryPanel key={index} startElement={panel} />
           ))}
+
+        <BackgroundTexture />
       </>
     </AppContext.Provider>
   );
