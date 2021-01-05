@@ -42,12 +42,12 @@ const lookupRange = (marker: string) => {
   };
 };
 
-interface BackgroundVisProps {
+interface MainTangleProps {
   animationFrame: number;
   scrollMarker?: string;
 }
 
-const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
+const MainTangle: React.FC<MainTangleProps> = (props) => {
   // Use a component ref objet to store things properly
   // across renders.
   const componentRef = useRef({});
@@ -174,4 +174,4 @@ const BackgroundVis: React.FC<BackgroundVisProps> = (props) => {
   );
 };
 
-export default BackgroundVis;
+export default MainTangle;

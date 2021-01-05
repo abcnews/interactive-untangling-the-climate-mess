@@ -6,7 +6,7 @@ import styles from "./styles.scss";
 
 // Import components
 import UserInputBox from "../UserInputBox/index";
-import BackgroundVis from "../BackgroundVis/index";
+import MainTangle from "../MainTangle/index";
 import ScrollObserver from "../ScrollObserver/index";
 import DelayedHeader from "../DelayedHeader/index";
 import StoryPanel from "../StoryPanel/index";
@@ -15,6 +15,7 @@ import { Client } from "@abcnews/poll-counters-client";
 
 // Using the React context API for global state
 import { AppContext } from "../../AppContext";
+import EndStrings from "../EndStrings";
 
 // Set up our poll counter
 const GROUP = "__example__";
@@ -23,6 +24,32 @@ const ANSWER = "y";
 
 const pollClient = new Client(GROUP);
 
+// Specify markers that are in main BackgroundVis
+const backgroundVisMarkers = [
+  "initial",
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+];
+
+const endStringsMarkers = ["endstrings"];
+
 interface AppProps {
   projectName: string;
 }
@@ -30,7 +57,7 @@ interface AppProps {
 const App: React.FC<AppProps> = ({ projectName }) => {
   const [backdropOffset, setBackdropOffset] = useState(0);
   const [animationFrame, setAnimationFrame] = useState(200);
-  const [marker, setMarker] = useState();
+  const [marker, setMarker] = useState<any>();
   const [panels, setPanels] = useState<any>();
 
   // SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
@@ -79,12 +106,15 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           <DelayedHeader />
         </Portal>
 
+        {/* Background viz */}
         <Portal node={document && document.getElementById("portalmount")}>
-          {true && (
-            <BackgroundVis
+          {!endStringsMarkers.includes(marker) ? (
+            <MainTangle
               animationFrame={animationFrame}
               scrollMarker={marker}
             />
+          ) : (
+            <EndStrings />
           )}
         </Portal>
 
