@@ -15,7 +15,7 @@
   }
 
   p {
-    font-size: 24px;
+    font-size: 23px;
     line-height: 1.4em;
     max-width: 650px;
     margin-left: auto;
@@ -27,19 +27,19 @@
     background-color: unset;
 
     @include for-tablet-portrait-up {
-      font-size: 28px;
+      font-size: 25px;
     }
 
     @include for-tablet-landscape-up {
-      font-size: 32px;
+      font-size: 28px;
     }
 
     @include for-desktop-up {
-      font-size: 36px;
+      font-size: 30px;
     }
 
     @include for-big-desktop-up {
-      font-size: 38px;
+      font-size: 32px;
     }
 
     span {
