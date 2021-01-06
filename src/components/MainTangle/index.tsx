@@ -16,7 +16,7 @@ import untangleAnimation from "./assets/untangle-loop.svg";
 // import background from "./assets/background.jpg";
 import { AppContext } from "../../AppContext";
 
-const PLAY_RATE = 1;
+const PLAY_RATE = 1.888;
 
 const lookupRange = (marker: string) => {
   if (marker === "1" || isNaN(Number(marker)))
@@ -140,7 +140,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
           return;
         }
 
-        timeline.rate(1);
+        timeline.rate(PLAY_RATE);
         this.loop(true);
         this.range(playloop.loopback, playloop.end);
         this.play();
