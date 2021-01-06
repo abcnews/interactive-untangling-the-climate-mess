@@ -217,6 +217,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           ))}
 
         <BackgroundTexture />
+        <div className={styles.centerHint} />
       </>
     </AppContext.Provider>
   );

@@ -36,9 +36,9 @@
 
     @include for-desktop-up {
       font-size: 29px;
-      position: relative;
-      left: 50%;
-      margin-left: -0px;
+      // position: relative;
+      // left: 50%;
+      // margin-left: -0px;
     }
 
     @include for-big-desktop-up {
