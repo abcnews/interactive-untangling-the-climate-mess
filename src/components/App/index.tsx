@@ -217,7 +217,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           ))}
 
         <BackgroundTexture />
-        <div className={styles.centerHint} />
+
+        {/* Just a line down the center of the screen for testing */}
+        {/* <div className={styles.centerHint} /> */}
       </>
     </AppContext.Provider>
   );
