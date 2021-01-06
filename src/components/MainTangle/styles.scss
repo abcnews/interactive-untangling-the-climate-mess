@@ -1,3 +1,5 @@
+@use "../../100-percent-correct-break-points.scss" as *;
+
 .root {
   z-index: -5;
   position: fixed;
@@ -17,6 +19,14 @@
   // svg {
   filter: drop-shadow(5px 2px 0px rgba(0, 63, 131, 0.2));
   // }
+
+  .svg-container {
+    @include for-desktop-up {
+      position: relative;
+      right: 50%;
+      margin-right: 0px;
+    }
+  }
 }
 
 // .background-image-container {

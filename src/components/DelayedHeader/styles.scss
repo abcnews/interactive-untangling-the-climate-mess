@@ -17,7 +17,7 @@
   p {
     font-size: 23px;
     line-height: 1.4em;
-    max-width: 650px;
+    max-width: 640px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
@@ -35,11 +35,14 @@
     }
 
     @include for-desktop-up {
-      font-size: 30px;
+      font-size: 29px;
+      position: relative;
+      left: 50%;
+      margin-left: -0px;
     }
 
     @include for-big-desktop-up {
-      font-size: 32px;
+      font-size: 30px;
     }
 
     span {

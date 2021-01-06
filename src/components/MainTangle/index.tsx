@@ -159,16 +159,17 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       </div> */}
 
       <div className={styles.root}>
-        <SVG
-          src={untangleAnimation}
-          preProcessor={(code) => {
-            // console.log(code)
-            return code;
-          }}
-          onLoad={init}
-        />
-
-        
+        <div className={styles.svgContainer}>
+          <SVG
+            className={styles.svg}
+            src={untangleAnimation}
+            preProcessor={(code) => {
+              // console.log(code)
+              return code;
+            }}
+            onLoad={init}
+          />
+        </div>
       </div>
     </>
   );
