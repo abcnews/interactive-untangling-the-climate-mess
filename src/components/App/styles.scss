@@ -35,6 +35,12 @@
       left: 50%;
       margin-left: -160px;
     }
+
+    @include for-big-desktop-up {
+      position: relative;
+      left: 50%;
+      margin-left: -8px;
+    }
   }
 
   // For testing markers 
