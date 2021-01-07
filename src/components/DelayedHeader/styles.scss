@@ -37,9 +37,10 @@
     @include for-desktop-up {
       font-size: 29px;
       max-width: 585px;
+      // max-width: calc(100vw / 2.5);
       // position: relative;
       // left: 50%;
-      // margin-left: -0px;
+      // margin-left: -10px;
     }
 
     @include for-big-desktop-up {

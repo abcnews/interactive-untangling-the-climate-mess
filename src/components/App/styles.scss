@@ -33,7 +33,9 @@
     @include for-desktop-up {
       position: relative;
       left: 50%;
-      margin-left: -160px;
+      max-width: calc(100vw / 2);
+      // margin-left: -90px;
+      margin: 0;
     }
 
     @include for-big-desktop-up {

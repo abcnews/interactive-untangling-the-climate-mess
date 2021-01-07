@@ -8,6 +8,17 @@
   width: 100%;
   max-width: 700px;
   transform: translateX(-50%);
+  text-align: right;
+  
+  // Keep SVG in window
+  svg {
+    max-height: 100vh;
+  }
+  
+  @include for-desktop-up {
+    max-width: calc(100vw / 2);
+  }
+  
 
   // .svg-layer {
   //   position: absolute;
@@ -24,15 +35,18 @@
     @include for-desktop-up {
       position: relative;
       right: 50%;
+      // margin-left: auto;
+      
       // margin-right: -30px;
-      transform: translateX(-30px);
+      // transform: translateX(-30px);
+      // max-width: 600px;
     }
 
     @include for-big-desktop-up {
       position: relative;
       right: 50%;
       // margin-right: -30px;
-      transform: translateX(-88px);
+      // transform: translateX(-88px);
     }
   }
 }
@@ -56,15 +70,15 @@
 // }
 
 // :global {
-  // body {
-  //   // background-image: url("./background.jpg");
-  //   // background-attachment: fixed;
-  //   // background-size: cover;
+// body {
+//   // background-image: url("./background.jpg");
+//   // background-attachment: fixed;
+//   // background-size: cover;
 
-  //   background: url(./background.jpg) no-repeat center center fixed;
-  //   -webkit-background-size: cover;
-  //   -moz-background-size: cover;
-  //   -o-background-size: cover;
-  //   background-size: cover;
-  // }
+//   background: url(./background.jpg) no-repeat center center fixed;
+//   -webkit-background-size: cover;
+//   -moz-background-size: cover;
+//   -o-background-size: cover;
+//   background-size: cover;
+// }
 // }
