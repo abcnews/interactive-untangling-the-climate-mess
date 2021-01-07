@@ -18,13 +18,20 @@
       display: none;
     }
   }
+  @include for-desktop-up {
+    .u-layout > * {
+      width: 100%;
+      // max-width: 980px;
+    }
+  }
 
   // Background on bottom recirculation links
   body main + main:not([class]) {
     background-color: #f9f9f9;
   }
 
-  .Main *, .Main h3 {
+  .Main *,
+  .Main h3 {
     // background-color: rgba(255, 255, 255, 0.5);
     color: #22405a;
   }
@@ -33,39 +40,39 @@
     @include for-desktop-up {
       position: relative;
       left: 50%;
-      max-width: calc(100vw / 2);
-      // margin-left: -90px;
+      width: calc(100vw / 2);
+      max-width: 660px;
       margin: 0;
+      padding-left: 30px;
     }
 
     @include for-big-desktop-up {
       position: relative;
       left: 50%;
-      margin-left: -8px;
     }
   }
 
-  // For testing markers 
+  // For testing markers
   // .Main > a[id],
   // .Main > a[name],
   // .Main > [data-mount][id^="visualKEY"] {
   //   border-top: 1px solid red;
   // }
 
-    // #paneltop {
-    //   margin-top: 45vh;
-    // }
+  // #paneltop {
+  //   margin-top: 45vh;
+  // }
 
-    // #panelmiddle {
-    //   z-index: -1;
-    //   position: absolute;
-    //   left: 50%;
-    //   transform: translateX(-50%) translateY(-20px);
-    //   background-color: rgba(254,246,238, 0.95);
-    //   height: 400px;
-    // }
+  // #panelmiddle {
+  //   z-index: -1;
+  //   position: absolute;
+  //   left: 50%;
+  //   transform: translateX(-50%) translateY(-20px);
+  //   background-color: rgba(254,246,238, 0.95);
+  //   height: 400px;
+  // }
 
-    // #panelbottom {
-    //   margin-bottom: 45vh;
-    // }
+  // #panelbottom {
+  //   margin-bottom: 45vh;
+  // }
 }
