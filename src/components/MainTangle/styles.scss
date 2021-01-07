@@ -16,7 +16,8 @@
   }
   
   @include for-desktop-up {
-    max-width: calc(100vw / 2);
+    width: calc(100vw / 2);
+    max-width: 980px;
   }
   
 
