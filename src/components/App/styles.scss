@@ -17,6 +17,11 @@
     h1 {
       display: none;
     }
+
+    background-color: rgba(255, 245, 235, 0.8);
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
   }
   @include for-desktop-up {
     .u-layout > * {
