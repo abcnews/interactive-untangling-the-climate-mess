@@ -3,6 +3,7 @@ import React from "react";
 import { render } from "react-dom";
 import App from "./components/App";
 import jankdefer from "jankdefer";
+import { nextUntil } from "./nextUntil";
 
 // Keep TypeScript from throwing errors
 declare var Modernizr: any;
@@ -56,6 +57,33 @@ const delayedHeaderContainer = document.createElement("div");
 delayedHeaderContainer.className = "delayed-header u-full";
 if (main) main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
 
+// Set up text panels
+const panelStarters: any = document.querySelectorAll("#panel");
+const panelsArray = [...panelStarters];
+
+for (const panel of panelsArray) {
+  panel.className = "interactive-scrollyteller-panel";
+  
+  const elements = nextUntil(panel, "#endpanel");
+
+  console.log(elements);
+
+  for (const element of elements) {
+    panel.appendChild(element);
+  }
+
+  // for (const el of elements) {
+  //   el.style.display = "block";
+  // }
+
+  // const stringElements = elements.map((el) => serializer.serializeToString(el));
+
+  // setReactElements(stringElements);
+
+  // for (const el of elements) {
+  //   el.style.display = "none";
+  // }
+}
 
 function init() {
   render(<App projectName={PROJECT_NAME} />, root);

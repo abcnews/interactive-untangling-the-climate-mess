@@ -10,7 +10,6 @@ import BackgroundTexture from "../BackgroundTexture/index";
 import MainTangle from "../MainTangle/index";
 import ScrollObserver from "../ScrollObserver/index";
 import DelayedHeader from "../DelayedHeader/index";
-import StoryPanel from "../StoryPanel/index";
 
 import { Client } from "@abcnews/poll-counters-client";
 
@@ -26,28 +25,28 @@ const ANSWER = "y";
 const pollClient = new Client(GROUP);
 
 // Specify markers that are in main BackgroundVis
-const backgroundVisMarkers = [
-  "initial",
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-];
+// const backgroundVisMarkers = [
+//   "initial",
+//   1,
+//   2,
+//   3,
+//   4,
+//   5,
+//   6,
+//   7,
+//   8,
+//   9,
+//   10,
+//   11,
+//   12,
+//   13,
+//   14,
+//   15,
+//   16,
+//   17,
+//   18,
+//   19,
+// ];
 
 const endStringsMarkers = ["endstrings"];
 
@@ -59,7 +58,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [backdropOffset, setBackdropOffset] = useState(0);
   const [animationFrame, setAnimationFrame] = useState(200);
   const [marker, setMarker] = useState<any>();
-  const [panels, setPanels] = useState<any>();
+  // const [panels, setPanels] = useState<any>();
 
   // SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
   const { subscribe, unsubscribe, enqueue } = window.__ODYSSEY__.scheduler;
@@ -80,9 +79,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   useEffect(() => {
     console.log("App mounted...");
 
-    // Set up panel styling
-    const panelStarters: any = document.querySelectorAll("#panel");
-    setPanels([...panelStarters]);
+    // // Set up panel styling
+    // const panelStarters: any = document.querySelectorAll("#panel");
+    // setPanels([...panelStarters]);
 
     // Test Odyssey enqueueing
     enqueue(() => {
@@ -210,11 +209,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         <ScrollObserver setMarker={setMarker} />
 
         {/* <StoryPanel startElement={document.querySelector("#panel")} /> */}
-
-        {panels &&
-          panels.map((panel, index) => (
-            <StoryPanel key={index} startElement={panel} />
-          ))}
 
         <BackgroundTexture />
 
