@@ -58,7 +58,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
   // Init component vars
   let timeline = component.timeline;
-  let ranges = component.ranges;
+  // let ranges = component.ranges;
 
   const initSvg = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
@@ -68,11 +68,10 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     import("./assets/animations").then(({ animate }) => {
       // Set up the animations and return a timeline
       component.timeline = animate();
+      const timeline = component.timeline;
 
       // Load up the timeline markers so we can compare them later
-      setMarkers(
-        component.timeline.l?.markers || component.timeline._options.markers
-      );
+      setMarkers(timeline.l?.markers || timeline._options.markers);
 
       // Try to start animation down page on reload
       console.log("scroll marker:", props.scrollMarker);
@@ -80,13 +79,13 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       console.log(playloop);
 
       if (!playloop.loopback) {
-        component.timeline.pause(playloop.start);
+        timeline.pause(playloop.start);
       } else {
-        component.timeline.rate(PLAY_RATE);
-        component.timeline.loop(true);
-        component.timeline.range(playloop.loopback, playloop.end);
-        component.timeline.time(playloop.loopback);
-        component.timeline.play();
+        timeline.rate(PLAY_RATE);
+        timeline.loop(true);
+        timeline.range(playloop.loopback, playloop.end);
+        timeline.time(playloop.loopback);
+        timeline.play();
       }
     });
   };
@@ -110,7 +109,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     // console.log("Scroll marker prop:", scrollMarker);
     const currentTime = timeline.time();
     // console.log("Current time:", currentTime);
-    
+
     const markerTime = markers[scrollMarker];
     // console.log("Marker time:", markerTime);
 
