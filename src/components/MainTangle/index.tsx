@@ -148,9 +148,9 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     }
   }, [props.scrollMarker]);
 
-  useEffect(() => {
-    console.log("Animation markers:", markers);
-  }, [markers]);
+  // useEffect(() => {
+  //   console.log("Animation markers:", markers);
+  // }, [markers]);
 
   return (
     <>

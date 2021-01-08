@@ -93,11 +93,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     return () => unsubscribe(onUpdate);
   }, []);
 
-  useEffect(() => {
-    if (!marker) return;
+  // useEffect(() => {
+  //   if (!marker) return;
 
-    console.log("Current marker:", marker);
-  }, [marker]);
+  //   console.log("Current marker:", marker);
+  // }, [marker]);
 
   return (
     <AppContext.Provider value={{ marker }}>
