@@ -60,7 +60,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
   let timeline = component.timeline;
   let ranges = component.ranges;
 
-  const init = () => {
+  const initSvg = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
     console.log("Initialising animation...");
@@ -74,11 +74,20 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
         component.timeline.l?.markers || component.timeline._options.markers
       );
 
-      component.ranges = { startLoop: ["1a", "2"] };
-      component.timeline.range(...component.ranges.startLoop);
-      component.timeline.loop(true);
+      // Try to start animation down page on reload
+      console.log("scroll marker:", props.scrollMarker);
+      const playloop = lookupRange(props.scrollMarker + "");
+      console.log(playloop);
 
-      component.timeline.play();
+      if (!playloop.loopback) {
+        component.timeline.pause(playloop.start);
+      } else {
+        component.timeline.rate(PLAY_RATE);
+        component.timeline.loop(true);
+        component.timeline.range(playloop.loopback, playloop.end);
+        component.timeline.time(playloop.loopback);
+        component.timeline.play();
+      }
     });
   };
 
@@ -92,6 +101,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
   // Do something when scrollMarker changes
   useEffect(() => {
+    console.log("Received scroll marker:", props.scrollMarker);
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
     if (!props.scrollMarker || !timeline) return;
@@ -100,10 +110,13 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     // console.log("Scroll marker prop:", scrollMarker);
     const currentTime = timeline.time();
     // console.log("Current time:", currentTime);
+    
     const markerTime = markers[scrollMarker];
     // console.log("Marker time:", markerTime);
+
     // Coerce type as string here as it doesn't check for some reason
     const playloop = lookupRange(scrollMarker + "");
+
     // console.log("Range lookup:", playloop);
     const endTime = markers[playloop.end];
     // console.log("End time:", endTime);
@@ -167,7 +180,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
               // console.log(code)
               return code;
             }}
-            onLoad={init}
+            onLoad={initSvg}
           />
         </div>
       </div>

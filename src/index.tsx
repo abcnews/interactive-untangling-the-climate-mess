@@ -57,32 +57,19 @@ const delayedHeaderContainer = document.createElement("div");
 delayedHeaderContainer.className = "delayed-header u-full";
 if (main) main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
 
-// Set up text panels
+// Set up text panels by moving elements within
+// #panel and #endpanel to the starting div
 const panelStarters: any = document.querySelectorAll("#panel");
 const panelsArray = [...panelStarters];
 
 for (const panel of panelsArray) {
   panel.className = "interactive-scrollyteller-panel";
-  
-  const elements = nextUntil(panel, "#endpanel");
 
-  console.log(elements);
+  const elements = nextUntil(panel, "#endpanel");
 
   for (const element of elements) {
     panel.appendChild(element);
   }
-
-  // for (const el of elements) {
-  //   el.style.display = "block";
-  // }
-
-  // const stringElements = elements.map((el) => serializer.serializeToString(el));
-
-  // setReactElements(stringElements);
-
-  // for (const el of elements) {
-  //   el.style.display = "none";
-  // }
 }
 
 function init() {

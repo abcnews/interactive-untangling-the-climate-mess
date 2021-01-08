@@ -106,17 +106,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           <DelayedHeader />
         </Portal>
 
-        {/* Background visual */}
-        <Portal node={document && document.getElementById("portalmount")}>
-          {!endStringsMarkers.includes(marker) ? (
-            <MainTangle animationFrame={animationFrame} scrollMarker={marker} />
-          ) : (
-            <>
-              <EndStrings />
-            </>
-          )}
-        </Portal>
-
         <Portal node={document && document.getElementById("inputtier1")}>
           <UserInputBox
             title={"Can we still save the world?"}
@@ -208,7 +197,16 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <ScrollObserver setMarker={setMarker} />
 
-        {/* <StoryPanel startElement={document.querySelector("#panel")} /> */}
+        {/* Background visual */}
+        <Portal node={document && document.getElementById("portalmount")}>
+          {!endStringsMarkers.includes(marker) ? (
+            <MainTangle animationFrame={animationFrame} scrollMarker={marker} />
+          ) : (
+            <>
+              <EndStrings />
+            </>
+          )}
+        </Portal>
 
         <BackgroundTexture />
 
