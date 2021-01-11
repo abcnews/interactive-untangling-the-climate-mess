@@ -9,6 +9,7 @@ import UserInputBox from "../UserInputBox/index";
 import BackgroundTexture from "../BackgroundTexture/index";
 import MainTangle from "../MainTangle/index";
 import ScrollObserver from "../ScrollObserver/index";
+import ParagraphObserver from "../ParagraphObserver/index";
 import DelayedHeader from "../DelayedHeader/index";
 
 import { Client } from "@abcnews/poll-counters-client";
@@ -196,6 +197,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <ScrollObserver setMarker={setMarker} />
+
+        <ParagraphObserver />
 
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
