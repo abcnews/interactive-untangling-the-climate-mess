@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.scss";
 import { getNextSibling } from "./helpers";
 
@@ -8,11 +8,16 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = () => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
+  // Set state
+  const [visible, setVisible] = useState(true);
+
   // Init some component vars
   let observer = component.observer;
 
   const processObservation = (entries) => {
-    console.log(entries);
+    entries.forEach((entry) => {
+      setVisible(entry.isIntersecting);
+    });
   };
 
   useEffect(() => {
@@ -36,7 +41,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = () => {
         "#endparagraphtext"
       );
 
-
       const top = paragraphStartElement.getBoundingClientRect().top;
       const bottom = paragraphEndElement.getBoundingClientRect().top;
       const height = bottom - top;
@@ -58,6 +62,17 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = () => {
       observer.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    console.log(visible);
+    if (visible) {
+      const portalMount: any = document.getElementById("portalmount");
+      portalMount.style.visibility = "hidden";
+    } else {
+      const portalMount: any = document.getElementById("portalmount");
+      portalMount.style.visibility = "visible";
+    }
+  }, [visible]);
 
   return <div className={styles.root}></div>;
 };
