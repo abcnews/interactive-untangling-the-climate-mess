@@ -16,7 +16,10 @@ import { Client } from "@abcnews/poll-counters-client";
 
 // Using the React context API for global state
 import { AppContext } from "../../AppContext";
+
+// Other imports etc.
 import EndStrings from "../EndStrings";
+import BarChart from "../BarChart/index";
 
 // Set up our poll counter
 const GROUP = "__example__";
@@ -196,8 +199,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
+        <Portal node={document && document.getElementById("chartproportions")}>
+          <BarChart />
+        </Portal>
+
         <ScrollObserver setMarker={setMarker} />
 
+        {/* Sets paragraph text where we break out of 
+        scrolly panels (and hide background animations on mobile) */}
         <ParagraphObserver />
 
         {/* Background visual */}
