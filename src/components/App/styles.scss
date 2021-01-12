@@ -82,11 +82,22 @@
   // #panelbottom {
   //   margin-bottom: 45vh;
   // }
+  
   .interactive-scrollyteller-panel {
     background-color: rgba(254, 246, 238, 0.9);
-    padding: 20px !important;
-    margin-top: 85vh;
+    padding: 20px 30px !important;
+    margin-top: 80vh;
     margin-bottom: 85vh;
     border-radius: 3px;
+    line-height: 1.66666667;
+
+    > * {
+      margin-top: 2.25rem;
+      margin-bottom: 2.25rem;
+    }
+
+    @include for-desktop-up {
+      font-size: 1.375rem;
+    }
   }
 }
