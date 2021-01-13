@@ -85,7 +85,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   useEffect(() => {
     // if (!paragraphTextVisible) return;
 
-    console.log("p text visible:", paragraphTextVisible);
+    console.log("Paragraph text visible:", paragraphTextVisible);
   }, [paragraphTextVisible]);
 
   return (
@@ -197,7 +197,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
           {!endStringsMarkers.includes(marker) ? (
-            <MainTangle animationFrame={animationFrame} scrollMarker={marker} />
+            <MainTangle animationFrame={animationFrame} scrollMarker={marker} shouldObscure={paragraphTextVisible} />
           ) : (
             <>
               <EndStrings />

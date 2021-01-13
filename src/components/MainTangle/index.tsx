@@ -45,6 +45,7 @@ const lookupRange = (marker: string) => {
 interface MainTangleProps {
   animationFrame: number;
   scrollMarker?: string;
+  shouldObscure: boolean;
 }
 
 const MainTangle: React.FC<MainTangleProps> = (props) => {
@@ -63,7 +64,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
   const initSvg = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
-    console.log("Initialising animation...");
+    console.log("Initialising animation...!");
 
     import("./assets/animations").then(({ animate }) => {
       // Set up the animations and return a timeline
@@ -74,6 +75,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       setMarkers(timeline.l?.markers || timeline._options.markers);
 
       // Try to start animation down page on reload
+      // TODO: This breaks on hot reload and is "undefined". Why? Try to fix...
       console.log("scroll marker:", props.scrollMarker);
       const playloop = lookupRange(props.scrollMarker + "");
       console.log(playloop);
@@ -172,7 +174,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       </div> */}
 
       <div className={styles.root}>
-        <div className={styles.svgContainer}>
+        <div className={`${styles.svgContainer} ${props.shouldObscure ? styles.obscured : styles.shown}`}>
           <SVG
             className={styles.svg}
             src={untangleAnimation}

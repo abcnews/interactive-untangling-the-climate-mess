@@ -9,17 +9,16 @@
   max-width: 700px;
   transform: translateX(-50%);
   text-align: right;
-  
+
   // Keep SVG in window
   svg {
     max-height: 100vh;
   }
-  
+
   @include for-desktop-up {
     width: calc(100vw / 2);
     max-width: 700px;
   }
-  
 
   // .svg-layer {
   //   position: absolute;
@@ -33,11 +32,12 @@
   // }
 
   .svg-container {
+    transition: opacity 200ms;
     @include for-desktop-up {
       position: relative;
       right: 50%;
       // margin-left: auto;
-      
+
       // margin-right: -30px;
       // transform: translateX(-30px);
       // max-width: 600px;
@@ -49,6 +49,14 @@
       // margin-right: -30px;
       // transform: translateX(-88px);
     }
+  }
+
+  .obscured {
+    opacity: 0.2;
+  }
+
+  .shown {
+    opacity: 1;
   }
 }
 
