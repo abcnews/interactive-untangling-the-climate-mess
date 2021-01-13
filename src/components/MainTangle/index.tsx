@@ -100,7 +100,8 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
   // Do something when scrollMarker changes
   useEffect(() => {
-    console.log("Received scroll marker:", props.scrollMarker);
+    // console.log("Received scroll marker:", props.scrollMarker);
+    
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
     if (!props.scrollMarker || !timeline) return;

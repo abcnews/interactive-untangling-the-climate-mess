@@ -2,14 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.scss";
 import { getNextSibling } from "./helpers";
 
-interface ParagraphObserverProps {}
+interface ParagraphObserverProps {
+  toggle: Function;
+}
 
-const ParagraphObserver: React.FC<ParagraphObserverProps> = () => {
+const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
   // Set state
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   // Init some component vars
   let observer = component.observer;
@@ -30,7 +32,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = () => {
       '*[id^="paragraphtext"]'
     );
 
-    console.log(paragraphStartMarkers);
 
     paragraphStartMarkers.forEach((paragraphStartElement, index: number) => {
       // paragraphStart.dataset.index = index;
@@ -44,8 +45,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = () => {
       const top = paragraphStartElement.getBoundingClientRect().top;
       const bottom = paragraphEndElement.getBoundingClientRect().top;
       const height = bottom - top;
-
-      console.log(top, bottom, `Height: ${height}`);
 
       paragraphStartElement.className = styles.paragraphStart;
 
@@ -64,14 +63,16 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = () => {
   }, []);
 
   useEffect(() => {
-    console.log(visible);
-    if (visible) {
-      const portalMount: any = document.getElementById("portalmount");
-      portalMount.style.visibility = "hidden";
-    } else {
-      const portalMount: any = document.getElementById("portalmount");
-      portalMount.style.visibility = "visible";
-    }
+    // if (visible) {
+      // const portalMount: any = document.getElementById("portalmount");
+      // portalMount.style.visibility = "hidden";
+      
+    // } else {
+      // const portalMount: any = document.getElementById("portalmount");
+      // portalMount.style.visibility = "visible";
+    // }
+
+    props.toggle(visible)
   }, [visible]);
 
   return <div className={styles.root}></div>;

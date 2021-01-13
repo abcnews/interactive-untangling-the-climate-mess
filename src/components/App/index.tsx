@@ -4,7 +4,7 @@ import { Portal } from "react-portal";
 // Import stylsheets
 import styles from "./styles.scss";
 
-import { nextUntil } from "./nextUntil";
+
 
 // Import components
 import UserInputBox from "../UserInputBox/index";
@@ -23,29 +23,6 @@ import { AppContext } from "../../AppContext";
 import EndStrings from "../EndStrings";
 import BarChart from "../BarChart/index";
 
-// Some initial transforms to the DOM
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// Set up text panels by moving elements within
-// #panel and #endpanel to the starting div
-const panelStarters: any = document.querySelectorAll("#panel");
-const panelsArray = [...panelStarters];
-
-for (const panel of panelsArray) {
-  const container = document.createElement("div");
-  container.className = styles.panelContentContainer;
-  panel.className = styles.panel;
-
-  const elements = nextUntil(panel, "#endpanel");
-
-  // Add content to container element
-  for (const element of elements) {
-    container.appendChild(element);
-  }
-
-  // Add container to panel
-  panel.appendChild(container);
-}
-
 // Set up our poll counter
 const GROUP = "__example__";
 const QUESTION = "x";
@@ -63,6 +40,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [backdropOffset, setBackdropOffset] = useState(0);
   const [animationFrame, setAnimationFrame] = useState(200);
   const [marker, setMarker] = useState<any>();
+  const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
   // const [panels, setPanels] = useState<any>();
 
   // SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
@@ -103,6 +81,12 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   //   console.log("Current marker:", marker);
   // }, [marker]);
+
+  useEffect(() => {
+    // if (!paragraphTextVisible) return;
+
+    console.log("p text visible:", paragraphTextVisible);
+  }, [paragraphTextVisible]);
 
   return (
     <AppContext.Provider value={{ marker }}>
@@ -208,7 +192,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Sets paragraph text where we break out of 
         scrolly panels (and hide background animations on mobile) */}
-        <ParagraphObserver />
+        <ParagraphObserver toggle={setParagraphTextVisible} />
 
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>

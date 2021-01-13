@@ -3,7 +3,9 @@ import React from "react";
 import { render } from "react-dom";
 import App from "./components/App";
 import jankdefer from "jankdefer";
+import { nextUntil } from "./nextUntil";
 
+import styles from "./styles.scss";
 
 // Keep TypeScript from throwing errors
 declare var Modernizr: any;
@@ -57,7 +59,28 @@ const delayedHeaderContainer = document.createElement("div");
 delayedHeaderContainer.className = "delayed-header u-full";
 if (main) main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
 
+// Some initial transforms to the DOM
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// Set up text panels by moving elements within
+// #panel and #endpanel to the starting div
+const panelStarters: any = document.querySelectorAll("#panel");
+const panelsArray = [...panelStarters];
 
+for (const panel of panelsArray) {
+  const container = document.createElement("div");
+  container.className = styles.panelContentContainer;
+  panel.className = styles.panel;
+
+  const elements = nextUntil(panel, "#endpanel");
+
+  // Add content to container element
+  for (const element of elements) {
+    container.appendChild(element);
+  }
+
+  // Add container to panel
+  panel.appendChild(container);
+}
 
 function init() {
   render(<App projectName={PROJECT_NAME} />, root);
