@@ -4,6 +4,8 @@ import { Portal } from "react-portal";
 // Import stylsheets
 import styles from "./styles.scss";
 
+import { nextUntil } from "./nextUntil";
+
 // Import components
 import UserInputBox from "../UserInputBox/index";
 import BackgroundTexture from "../BackgroundTexture/index";
@@ -21,36 +23,35 @@ import { AppContext } from "../../AppContext";
 import EndStrings from "../EndStrings";
 import BarChart from "../BarChart/index";
 
+// Some initial transforms to the DOM
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// Set up text panels by moving elements within
+// #panel and #endpanel to the starting div
+const panelStarters: any = document.querySelectorAll("#panel");
+const panelsArray = [...panelStarters];
+
+for (const panel of panelsArray) {
+  const container = document.createElement("div");
+  container.className = styles.panelContentContainer;
+  panel.className = styles.panel;
+
+  const elements = nextUntil(panel, "#endpanel");
+
+  // Add content to container element
+  for (const element of elements) {
+    container.appendChild(element);
+  }
+
+  // Add container to panel
+  panel.appendChild(container);
+}
+
 // Set up our poll counter
 const GROUP = "__example__";
 const QUESTION = "x";
 const ANSWER = "y";
 
 const pollClient = new Client(GROUP);
-
-// Specify markers that are in main BackgroundVis
-// const backgroundVisMarkers = [
-//   "initial",
-//   1,
-//   2,
-//   3,
-//   4,
-//   5,
-//   6,
-//   7,
-//   8,
-//   9,
-//   10,
-//   11,
-//   12,
-//   13,
-//   14,
-//   15,
-//   16,
-//   17,
-//   18,
-//   19,
-// ];
 
 const endStringsMarkers = ["endstrings"];
 
