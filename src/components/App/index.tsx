@@ -82,11 +82,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   //   console.log("Current marker:", marker);
   // }, [marker]);
 
-  useEffect(() => {
-    // if (!paragraphTextVisible) return;
+  // useEffect(() => {
+  //   // if (!paragraphTextVisible) return;
 
-    console.log("Paragraph text visible:", paragraphTextVisible);
-  }, [paragraphTextVisible]);
+  //   console.log("Paragraph text visible:", paragraphTextVisible);
+  // }, [paragraphTextVisible]);
 
   return (
     <AppContext.Provider value={{ marker }}>
