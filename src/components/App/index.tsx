@@ -4,8 +4,6 @@ import { Portal } from "react-portal";
 // Import stylsheets
 import styles from "./styles.scss";
 
-
-
 // Import components
 import UserInputBox from "../UserInputBox/index";
 import BackgroundTexture from "../BackgroundTexture/index";
@@ -185,7 +183,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <Portal node={document && document.getElementById("chartproportions")}>
-          <BarChart />
+          <BarChart
+            bars={[
+              { title: "Enery", percent: 33, color: "#ff8901" },
+              { title: "Burping cows", percent: 10, color: "#22405a" },
+              { title: "Transport", percent: 20, color: "#007e4e" },
+              { title: "Industry", percent: 40, color: "#ff4e00" },
+            ]}
+          />
         </Portal>
 
         <ScrollObserver setMarker={setMarker} />
@@ -197,7 +202,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
           {!endStringsMarkers.includes(marker) ? (
-            <MainTangle animationFrame={animationFrame} scrollMarker={marker} shouldObscure={paragraphTextVisible} />
+            <MainTangle
+              animationFrame={animationFrame}
+              scrollMarker={marker}
+              shouldObscure={paragraphTextVisible}
+            />
           ) : (
             <>
               <EndStrings />
