@@ -12,30 +12,6 @@
   background-color: red;
 }
 
-.panel {
-  padding: 0 15px !important;
-  margin-top: 80vh;
-  margin-bottom: 80vh;
-  line-height: 1.66666667;
-  font-size: 1.125rem;
-
-  
-
-  @include for-desktop-up {
-    font-size: 1.375rem;
-  }
-
-  .panel-content-container {
-    background-color: rgba(254, 246, 238, 0.9);
-    padding: 20px 1.75rem;
-
-    > * {
-      margin-top: 2.25rem;
-      margin-bottom: 2.25rem;
-    }
-  }
-}
-
 :global {
   .Header-content {
     h1 {
