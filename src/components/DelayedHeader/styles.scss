@@ -7,6 +7,8 @@
   padding-bottom: 45vh;
   max-width: 650px;
   margin: auto;
+  padding-left: 35px;
+  padding-right: 25px;
 
   @include for-desktop-up {
     position: relative;
@@ -19,10 +21,8 @@
   .panel {
     padding-top: 45vh;
     padding-bottom: 45vh;
-    margin-left: 0.8rem;
-    margin-right: 0.8rem;
-    margin-left: 2rem;
-    
+    // margin-left: 2rem;
+    // margin-right: 0.8rem;
   }
 
   p {
