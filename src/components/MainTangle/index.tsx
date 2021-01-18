@@ -16,7 +16,7 @@ import untangleAnimation from "./assets/untangle-loop.svg";
 // import background from "./assets/background.jpg";
 import { AppContext } from "../../AppContext";
 
-const PLAY_RATE = 1.888;
+const PLAY_RATE = 1.666;
 
 const lookupRange = (marker: string) => {
   if (marker === "1" || isNaN(Number(marker)))

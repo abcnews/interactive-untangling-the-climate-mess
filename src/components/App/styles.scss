@@ -26,7 +26,7 @@
   }
   @include for-desktop-up {
     .u-layout > * {
-      width: 100%;
+      // width: 100%;
       // max-width: 980px;
     }
   }
@@ -43,20 +43,20 @@
   }
 
   .Main {
-    @include for-desktop-up {
-      position: relative;
-      left: 50%;
-      width: calc(100vw / 2);
-      max-width: 660px;
-      margin: 0;
-      padding-left: 30px;
-      padding-right: 30px;
-    }
+    // @include for-desktop-up {
+    //   position: relative;
+    //   left: 50%;
+    //   width: calc(100vw / 2);
+    //   max-width: 660px;
+    //   margin: 0;
+    //   padding-left: 30px;
+    //   padding-right: 30px;
+    // }
 
-    @include for-big-desktop-up {
-      position: relative;
-      left: 50%;
-    }
+    // @include for-big-desktop-up {
+    //   position: relative;
+    //   left: 50%;
+    // }
   }
 
   // For testing markers
