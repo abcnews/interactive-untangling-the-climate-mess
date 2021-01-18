@@ -23,6 +23,13 @@
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
+
+    @include for-desktop-up {
+      margin: 0;
+      position: relative;
+      left: 50%;
+      margin-left: 150px;
+    }
   }
   @include for-desktop-up {
     .u-layout > * {
