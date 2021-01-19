@@ -24,8 +24,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
   useEffect(() => {
     observer = new IntersectionObserver(processObservation, {
-      // Pull root top above the viewport
-      // rootMargin: `${ROOT_PULL}px 0% -${100 - props.waypoint!}%`,
+      rootMargin: `-10% 0%`,
     });
 
     const paragraphStartMarkers: any = document.querySelectorAll(
