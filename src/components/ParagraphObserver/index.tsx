@@ -51,10 +51,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       paragraphStartElement.style.height = `${height}px`;
     });
 
-    // // Keep track of markers we've initialised
-    // // so they don't fire on load
-    // initCount = 0;
-
     // Remove all observations on unmount
     return () => {
       observer.disconnect();
@@ -62,15 +58,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    // if (visible) {
-      // const portalMount: any = document.getElementById("portalmount");
-      // portalMount.style.visibility = "hidden";
-      
-    // } else {
-      // const portalMount: any = document.getElementById("portalmount");
-      // portalMount.style.visibility = "visible";
-    // }
-
     props.toggle(visible)
   }, [visible]);
 
