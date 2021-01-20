@@ -2,4 +2,12 @@
   margin-bottom: 0;
   position: absolute;
   z-index: -1;
+  width: 100%;
+  // background: #FCEEE0;
+  background-image: url("../BackgroundTexture/assets/background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: 50% 50%;
+  left: 0;
 }
