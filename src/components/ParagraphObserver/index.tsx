@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.scss";
 import { getNextSibling } from "./helpers";
 
+const HEIGHT_COMPENSATION = 600;
+
 interface ParagraphObserverProps {
   toggle: Function;
 }
@@ -15,6 +17,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
   // Init some component vars
   let observer = component.observer;
+
 
   const processObservation = (entries) => {
     entries.forEach((entry) => {
@@ -30,7 +33,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     const paragraphStartMarkers: any = document.querySelectorAll(
       '*[id^="paragraphtext"]'
     );
-
 
     paragraphStartMarkers.forEach((paragraphStartElement, index: number) => {
       // paragraphStart.dataset.index = index;
@@ -48,17 +50,24 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       paragraphStartElement.className = styles.paragraphStart;
 
       // paragraphStartElement.style.position = "absolute";
-      paragraphStartElement.style.height = `${height}px`;
+      paragraphStartElement.style.height = `${height + HEIGHT_COMPENSATION}px`;
+      paragraphStartElement.style.transform = `translateY(-${
+        HEIGHT_COMPENSATION / 2 + 18
+      }px)`;
     });
 
     // Remove all observations on unmount
     return () => {
+      console.log("Put things back where they were......")
+      paragraphStartMarkers.forEach((paragraphStartElement, index: number) => {
+        paragraphStartElement.style.transform = `translateY(0px)`;
+      });
       observer.disconnect();
     };
   }, []);
 
   useEffect(() => {
-    props.toggle(visible)
+    props.toggle(visible);
   }, [visible]);
 
   return <div className={styles.root}></div>;

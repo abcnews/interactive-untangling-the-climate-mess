@@ -33,8 +33,8 @@ const BarChart: React.FC<BarChartProps> = ({ heading, bars }) => {
   return (
     <div className={styles.root}>
       <h3 className={styles.heading}>{heading}</h3>
-      {bars?.map((bar) => (
-        <Bar percent={bar.percent} color={bar.color} title={bar.title} textColor={bar.color} />
+      {bars?.map((bar, index) => (
+        <Bar key={index} percent={bar.percent} color={bar.color} title={bar.title} textColor={bar.color} />
       ))}
     </div>
   );
