@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.scss";
 import { getNextSibling } from "./helpers";
+import useWindowSize from "./useWindowSize";
 
 const HEIGHT_COMPENSATION = 600;
 
@@ -9,6 +10,7 @@ interface ParagraphObserverProps {
 }
 
 const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
+  const windowSize = useWindowSize();
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
@@ -17,7 +19,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
   // Init some component vars
   let observer = component.observer;
-
 
   const processObservation = (entries) => {
     entries.forEach((entry) => {
@@ -35,9 +36,8 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     );
 
     paragraphStartMarkers.forEach((paragraphStartElement, index: number) => {
-      // paragraphStart.dataset.index = index;
-
       observer.observe(paragraphStartElement);
+
       const paragraphEndElement = getNextSibling(
         paragraphStartElement,
         "#endparagraphtext"
@@ -49,7 +49,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
       paragraphStartElement.className = styles.paragraphStart;
 
-      // paragraphStartElement.style.position = "absolute";
       paragraphStartElement.style.height = `${height + HEIGHT_COMPENSATION}px`;
       paragraphStartElement.style.transform = `translateY(-${
         HEIGHT_COMPENSATION / 2 + 18
@@ -58,10 +57,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
     // Remove all observations on unmount
     return () => {
-      console.log("Put things back where they were......")
-      paragraphStartMarkers.forEach((paragraphStartElement, index: number) => {
-        paragraphStartElement.style.transform = `translateY(0px)`;
-      });
       observer.disconnect();
     };
   }, []);
@@ -69,6 +64,39 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   useEffect(() => {
     props.toggle(visible);
   }, [visible]);
+
+  useEffect(() => {
+    const paragraphStartMarkers: any = document.querySelectorAll(
+      '*[id^="paragraphtext"]'
+    );
+
+    paragraphStartMarkers.forEach((paragraphStartElement, index: number) => {
+      const paragraphEndElement = getNextSibling(
+        paragraphStartElement,
+        "#endparagraphtext"
+      );
+
+      const top = paragraphStartElement.getBoundingClientRect().top;
+      const bottom = paragraphEndElement.getBoundingClientRect().top;
+      const height = bottom - top;
+
+      paragraphStartElement.className = styles.paragraphStart;
+
+      paragraphStartElement.style.height = `${height + HEIGHT_COMPENSATION}px`;
+      paragraphStartElement.style.transform = `translateY(-${
+        HEIGHT_COMPENSATION / 2 + 18
+      }px)`;
+    });
+
+    return () => {
+      // Translate back before we take more measurements
+      // TODO: Make absolutely sure this doesn't need to happen on resize too
+      // Seems to not matter on resize, but ....... not sure.
+      paragraphStartMarkers.forEach((paragraphStartElement, index: number) => {
+        paragraphStartElement.style.transform = `translateY(0px)`;
+      });
+    };
+  }, [windowSize.width, windowSize.height]);
 
   return <div className={styles.root}></div>;
 };
