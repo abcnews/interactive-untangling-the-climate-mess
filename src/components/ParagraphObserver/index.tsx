@@ -68,7 +68,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
     if (fromFold > FADE_IN_TEXT_THRESHOLD) {
       // Already fully visible, never mind...
-      if (currentElements[0].style.opacity <= 1.0) return;
+      if (currentElements[0].style.opacity >= 1.0) return;
 
       // Otherwise set visible and return
       currentElements.forEach((element) => {
