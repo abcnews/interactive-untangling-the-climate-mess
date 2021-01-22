@@ -2,8 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.scss";
 import { getNextSibling } from "./helpers";
 import useWindowSize from "./useWindowSize";
+import { nextUntil } from "../../nextUntil";
+
+const d3 = { ...require("d3-scale") };
 
 const HEIGHT_COMPENSATION = 600;
+const FADE_IN_TEXT_THRESHOLD = 300;
+
+const fromBottomScale = d3
+  .scaleLinear()
+  .domain([0, FADE_IN_TEXT_THRESHOLD])
+  .range([0, 1.0]);
 
 // Detect if at least one intersection is visible
 const isOneVisible = (entries) => {
@@ -27,10 +36,11 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
   // Init some component vars
   let observer = component.observer;
+  let currentPanel = component.currentPanel;
+  let currentElements = component.currentElements;
 
   const processObservation = (entries) => {
-    // Maybe we can detect the initial observation registration
-    // by checking how many entries there are???
+    // Process onScroll events if any one paragraph panel is visible
     if (isOneVisible(entries)) {
       window.addEventListener("scroll", onScroll, { passive: true });
     } else {
@@ -39,12 +49,39 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
     entries.forEach((entry) => {
       setVisible(entry.isIntersecting);
+
+      if (entry.isIntersecting) {
+        currentPanel = entry.target;
+
+        // Get elements between hash markers
+        currentElements = nextUntil(currentPanel, "#endparagraphtext");
+
+        console.log(currentElements);
+      }
     });
   };
 
   // We need a scroll handler now to process paragraph fading
   const onScroll = () => {
-    console.log("Scrolling....");
+    const top = currentElements[0].getBoundingClientRect().top;
+    const fromFold = window.innerHeight - top;
+
+    if (fromFold > FADE_IN_TEXT_THRESHOLD) {
+      currentElements.forEach((element) => {
+        element.style.opacity = 1.0;
+      });
+      return;
+    }
+
+    if (fromFold < 0) {
+      currentElements.forEach((element) => {
+        element.style.opacity = 0;
+      });
+    } else {
+      currentElements.forEach((element) => {
+        element.style.opacity = fromBottomScale(fromFold);
+      });
+    }
   };
 
   useEffect(() => {
