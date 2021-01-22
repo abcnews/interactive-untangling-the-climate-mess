@@ -67,18 +67,24 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     const fromFold = window.innerHeight - top;
 
     if (fromFold > FADE_IN_TEXT_THRESHOLD) {
+      // Already fully visible, never mind...
+      if (currentElements[0].style.opacity <= 1.0) return;
+
+      // Otherwise set visible and return
       currentElements.forEach((element) => {
         element.style.opacity = 1.0;
       });
       return;
     }
 
+    // Below the fold, make invisible
     if (fromFold < 0) {
       currentElements.forEach((element) => {
         element.style.opacity = 0;
       });
     } else {
       currentElements.forEach((element) => {
+        // Set elements visible corresponding to scroll position
         element.style.opacity = fromBottomScale(fromFold);
       });
     }
