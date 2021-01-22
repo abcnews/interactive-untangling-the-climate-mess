@@ -5,6 +5,14 @@ import useWindowSize from "./useWindowSize";
 
 const HEIGHT_COMPENSATION = 600;
 
+// Detect if at least one intersection is visible
+const isOneVisible = (entries) => {
+  for (const entry of entries) {
+    if (entry.isIntersecting) return true;
+  }
+  return false;
+};
+
 interface ParagraphObserverProps {
   toggle: Function;
 }
@@ -21,16 +29,16 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   let observer = component.observer;
 
   const processObservation = (entries) => {
+    // Maybe we can detect the initial observation registration
+    // by checking how many entries there are???
+    if (isOneVisible(entries)) {
+      window.addEventListener("scroll", onScroll, { passive: true });
+    } else {
+      window.removeEventListener("scroll", onScroll);
+    }
+
     entries.forEach((entry) => {
       setVisible(entry.isIntersecting);
-
-      console.log(entry);
-
-      if (entry.isIntersecting) {
-        window.addEventListener("scroll", onScroll, { passive: true });
-      } else {
-        window.removeEventListener("scroll", onScroll);
-      }
     });
   };
 
