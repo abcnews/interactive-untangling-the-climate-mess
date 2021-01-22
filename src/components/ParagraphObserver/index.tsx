@@ -23,7 +23,20 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   const processObservation = (entries) => {
     entries.forEach((entry) => {
       setVisible(entry.isIntersecting);
+
+      console.log(entry);
+
+      if (entry.isIntersecting) {
+        window.addEventListener("scroll", onScroll, { passive: true });
+      } else {
+        window.removeEventListener("scroll", onScroll);
+      }
     });
+  };
+
+  // We need a scroll handler now to process paragraph fading
+  const onScroll = () => {
+    console.log("Scrolling....");
   };
 
   useEffect(() => {
@@ -58,6 +71,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     // Remove all observations on unmount
     return () => {
       observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
