@@ -40,6 +40,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [marker, setMarker] = useState<any>();
   const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
   // const [panels, setPanels] = useState<any>();
+  const [userInputState, setUserInputState] = useState({});
 
   // SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
   const { subscribe, unsubscribe, enqueue } = window.__ODYSSEY__.scheduler;
@@ -86,6 +87,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   //   console.log("Paragraph text visible:", paragraphTextVisible);
   // }, [paragraphTextVisible]);
 
+  useEffect(() => {
+    console.log(userInputState);
+  }, [userInputState]);
+
   return (
     <AppContext.Provider value={{ marker }}>
       <>
@@ -96,7 +101,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         <Portal node={document && document.getElementById("inputtier1")}>
           <UserInputBox
             title={"Can we still save the world?"}
+            buttons={[
+              { label: "Of course we can", value: "1" },
+              { label: "Yes I think we can", value: "2" },
+              { label: "Probably not", value: "3" },
+              { label: "No way we're screwed", value: "4" },
+            ]}
             poll={pollClient}
+            setUserInputState={setUserInputState}
           />
         </Portal>
 
@@ -107,6 +119,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "No, good one Radelaide", value: "1" },
               { label: "Yes, they speak funny", value: "2" },
             ]}
+            setUserInputState={setUserInputState}
           />
         </Portal>
 
@@ -119,6 +132,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "Yeah", value: "1" },
               { label: "Nah", value: "2" },
             ]}
+            setUserInputState={setUserInputState}
           />
         </Portal>
 
@@ -131,6 +145,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "This sounds like a stretch", value: "3" },
               { label: "You're dreaming", value: "4" },
             ]}
+            setUserInputState={setUserInputState}
           />
         </Portal>
 
@@ -143,6 +158,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "CARS CAN SAVE US", value: "1" },
               { label: "UTEPOCALYPSE IS NIGH", value: "2" },
             ]}
+            setUserInputState={setUserInputState}
           />
         </Portal>
 
@@ -159,6 +175,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "This sounds like a stretch", value: "3" },
               { label: "You're dreaming", value: "4" },
             ]}
+            setUserInputState={setUserInputState}
           />
         </Portal>
 
@@ -169,6 +186,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "BIG SEAWEED", value: "1" },
               { label: "BIG FOSSIL", value: "2" },
             ]}
+            setUserInputState={setUserInputState}
           />
         </Portal>
 
@@ -179,6 +197,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "MOSQUITO", value: "1" },
               { label: "DUNG BEETLE", value: "2" },
             ]}
+            setUserInputState={setUserInputState}
           />
         </Portal>
 

@@ -10,6 +10,7 @@ interface UserInputBoxProps {
   title: string;
   buttons?: Button[];
   poll?: any;
+  setUserInputState?: any;
 }
 
 const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
@@ -25,19 +26,19 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
     // Set some default buttons
     if (!props.buttons) {
       setButtons([
-        { label: "Of course we can", value: "Of course we can" },
-        { label: "Yes I think we can", value: "Yes I think we can" },
-        { label: "Probably not", value: "Probably not" },
-        { label: "No way we're screwed", value: "No way we're screwed" },
+        { label: "Of course we can", value: "1" },
+        { label: "Yes I think we can", value: "2" },
+        { label: "Probably not", value: "3" },
+        { label: "No way we're screwed", value: "4" },
       ]);
     } else {
       setButtons(props.buttons);
     }
-  }, []); // Init
+  }, []); // Init effect
 
   useEffect(() => {
     if (selected === "") return;
-    
+
     if (props.poll) {
       props.poll.increment(
         {
@@ -48,6 +49,12 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
           console.log(result);
         }
       );
+    }
+
+    if (props.setUserInputState) {
+      props.setUserInputState((prevState) => {
+        return { ...prevState, [props.title]: selected };
+      });
     }
   }, [selected]);
 
