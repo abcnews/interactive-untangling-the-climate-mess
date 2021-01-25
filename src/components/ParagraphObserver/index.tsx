@@ -55,8 +55,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
         // Get elements between hash markers
         currentElements = nextUntil(currentPanel, "#endparagraphtext");
-
-        console.log(currentElements);
       }
     });
   };
