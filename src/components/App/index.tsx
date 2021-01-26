@@ -66,13 +66,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // setPanels([...panelStarters]);
 
     // Test Odyssey enqueueing
-    enqueue(() => {
+    // enqueue(() => {
       // console.log("Enqueue test...");
-    });
+    // });
 
     // Uncomment to enable Odyssey subscriber service
-    subscribe(onUpdate);
-    return () => unsubscribe(onUpdate);
+    // subscribe(onUpdate);
+    // return () => unsubscribe(onUpdate);
   }, []);
 
   useEffect(() => {
@@ -81,11 +81,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     console.log("Current marker:", marker);
   }, [marker]);
 
-  // useEffect(() => {
-  //   // if (!paragraphTextVisible) return;
-
-  //   console.log("Paragraph text visible:", paragraphTextVisible);
-  // }, [paragraphTextVisible]);
 
   useEffect(() => {
     if (!userInputState) return;
