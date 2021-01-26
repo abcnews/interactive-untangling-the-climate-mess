@@ -122,6 +122,9 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     const endTime = markers[playloop.end];
     // console.log("End time:", endTime);
 
+    // TODO: Detect if endTime spans multiple markers maybe
+    // And speed up the animation or something...
+
     // If going forward
     if (currentTime < endTime) {
       timeline.rate(PLAY_RATE);
@@ -162,16 +165,8 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     }
   }, [props.scrollMarker]);
 
-  // useEffect(() => {
-  //   console.log("Animation markers:", markers);
-  // }, [markers]);
-
   return (
     <>
-      {/* <div className={styles.backgroundImageContainer}>
-        <img className={styles.backgroundImage} src={background} />
-      </div> */}
-
       <div className={styles.root}>
         <div
           className={`${styles.svgContainer} ${
