@@ -43,28 +43,27 @@ const lookupRange = (marker: string) => {
 };
 
 interface MainTangleProps {
-  animationFrame: number;
+  animationFrame?: number;
   scrollMarker?: string;
   shouldObscure: boolean;
 }
 
 const MainTangle: React.FC<MainTangleProps> = (props) => {
+  // Component state
+  const [markers, setMarkers] = useState({});
+
   // Use a component ref objet to store things properly
   // across renders.
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
-  // Component state
-  const [markers, setMarkers] = useState({});
-
   // Init component vars
   let timeline = component.timeline;
-  // let ranges = component.ranges;
 
   const initSvg = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
-    console.log("Initialising animation...!");
+    console.log("Initialising animation...");
 
     import("./assets/animations").then(({ animate }) => {
       // Set up the animations and return a timeline
@@ -77,7 +76,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       // Try to start animation down page on reload
       // TODO: This breaks on hot reload and is "undefined". Why? Try to fix...
       console.log("scroll marker:", props.scrollMarker);
-      const playloop = lookupRange(props.scrollMarker + "");
+      const playloop = lookupRange(props.scrollMarker + ""); // Coerce to string
       console.log(playloop);
 
       if (!playloop.loopback) {
@@ -103,7 +102,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
   // Do something when scrollMarker changes
   useEffect(() => {
     // console.log("Received scroll marker:", props.scrollMarker);
-    
+
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
     if (!props.scrollMarker || !timeline) return;
@@ -174,7 +173,11 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       </div> */}
 
       <div className={styles.root}>
-        <div className={`${styles.svgContainer} ${props.shouldObscure ? styles.obscured : styles.shown}`}>
+        <div
+          className={`${styles.svgContainer} ${
+            props.shouldObscure ? styles.obscured : styles.shown
+          }`}
+        >
           <SVG
             className={styles.svg}
             src={untangleAnimation}

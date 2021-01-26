@@ -88,6 +88,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   // }, [paragraphTextVisible]);
 
   useEffect(() => {
+    if (!userInputState) return;
+
     console.log(userInputState);
   }, [userInputState]);
 
@@ -220,7 +222,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
-          {!endStringsMarkers.includes(marker) ? (
+          {marker && !endStringsMarkers.includes(marker) ? (
             <MainTangle
               animationFrame={animationFrame}
               scrollMarker={marker}
