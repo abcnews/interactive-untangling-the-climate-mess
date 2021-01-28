@@ -13,7 +13,6 @@ import SVG from "react-inlinesvg";
 
 import untangleAnimation from "./assets/untangle-loop.svg";
 
-// import background from "./assets/background.jpg";
 import { AppContext } from "../../AppContext";
 
 const PLAY_RATE = 1.666;
@@ -74,7 +73,6 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       setMarkers(timeline.l?.markers || timeline._options.markers);
 
       // Try to start animation down page on reload
-      // TODO: This breaks on hot reload and is "undefined". Why? Try to fix...
       console.log("scroll marker:", props.scrollMarker);
       const playloop = lookupRange(props.scrollMarker + ""); // Coerce to string
       console.log(playloop);

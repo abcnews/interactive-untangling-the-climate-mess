@@ -1,19 +1,17 @@
-// import "regenerator-runtime/runtime.js";
+import "regenerator-runtime/runtime.js";
 import React from "react";
 import { render } from "react-dom";
 import App from "./components/App";
 import jankdefer from "jankdefer";
 import { nextUntil } from "./nextUntil";
-
 import styles from "./styles.scss";
+// Feature detection
+import "./modernizer";
 
 // Keep TypeScript from throwing errors
 declare var Modernizr: any;
 declare var module: any;
 declare var __webpack_public_path__: any;
-
-// Feature detection
-import "./modernizer";
 
 if (Modernizr.arrow) {
   console.log("Probably not IE11...");
