@@ -173,8 +173,8 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
             props.shouldObscure ? styles.obscured : styles.shown
           }`}
           style={{
-            transform: `translateY(-${context.topAbove}px)`,
-            transition: `transform 250ms`
+            transform: `translate3d(0, -${context.topAbove}px, 0)`,
+            transition: `transform 256ms`
           }}
         >
           <SVG
