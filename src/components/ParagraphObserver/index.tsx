@@ -6,6 +6,7 @@ import { nextUntil } from "../../nextUntil";
 
 const d3 = { ...require("d3-scale") };
 
+// How much taller to make the paragraph panel
 const HEIGHT_COMPENSATION = 600;
 const FADE_IN_TEXT_THRESHOLD = 300;
 
@@ -63,6 +64,8 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   const onScroll = () => {
     const top = currentElements[0].getBoundingClientRect().top;
     const fromFold = window.innerHeight - top;
+
+    console.log(fromFold);
 
     if (fromFold > FADE_IN_TEXT_THRESHOLD) {
       // Already fully visible, never mind...
