@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import styles from "./styles.scss";
 import { getNextSibling } from "./helpers";
 import useWindowSize from "./useWindowSize";
 import { nextUntil } from "../../nextUntil";
 
 const d3 = { ...require("d3-scale") };
+
+import { AppContext } from "../../AppContext";
+import MainTangle from '../MainTangle/index';
 
 // How much taller to make the paragraph panel
 const HEIGHT_COMPENSATION = 600;
@@ -39,6 +42,11 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   let observer = component.observer;
   let currentPanel = component.currentPanel;
   let currentElements = component.currentElements;
+  // let mainTangle = component.mainTangle;
+  
+
+
+  const context: any = useContext(AppContext);
 
   const processObservation = (entries) => {
     // Process onScroll events if any one paragraph panel is visible
@@ -62,12 +70,13 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
   // We need a scroll handler now to process paragraph fading
   const onScroll = () => {
-    const top = currentElements[0].getBoundingClientRect().top;
-    const fromFold = window.innerHeight - top;
+    const { top, bottom } = currentElements[0].getBoundingClientRect();
+    const topPixelsAboveFold = window.innerHeight - 225 - top;
 
-    console.log(fromFold);
-
-    if (fromFold > FADE_IN_TEXT_THRESHOLD) {
+    // console.log(topPixelsAboveFold);
+    context.setTopAbove(topPixelsAboveFold);
+   
+    if (topPixelsAboveFold > FADE_IN_TEXT_THRESHOLD) {
       // Already fully visible, never mind...
       if (currentElements[0].style.opacity >= 1.0) return;
 
@@ -79,14 +88,14 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     }
 
     // Below the fold, make invisible
-    if (fromFold < 0) {
+    if (topPixelsAboveFold < 0) {
       currentElements.forEach((element) => {
         element.style.opacity = 0;
       });
     } else {
       currentElements.forEach((element) => {
         // Set elements visible corresponding to scroll position
-        element.style.opacity = fromBottomScale(fromFold);
+        element.style.opacity = fromBottomScale(topPixelsAboveFold);
       });
     }
   };
@@ -119,6 +128,11 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
         HEIGHT_COMPENSATION / 2 + 18
       }px)`;
     });
+
+    // setTimeout(() => {
+    //   mainTangle = document.querySelector(".interactive-main-tangle");
+    // }, 500)
+    
 
     // Remove all observations on unmount
     return () => {

@@ -48,6 +48,8 @@ interface MainTangleProps {
 }
 
 const MainTangle: React.FC<MainTangleProps> = (props) => {
+  // Use app context
+  const context: any = useContext(AppContext);
   // Component state
   const [markers, setMarkers] = useState({});
 
@@ -167,9 +169,13 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     <>
       <div className={styles.root}>
         <div
-          className={`${styles.svgContainer} ${
+          className={`interactive-main-tangle ${styles.svgContainer} ${
             props.shouldObscure ? styles.obscured : styles.shown
           }`}
+          style={{
+            transform: `translateY(-${context.topAbove}px)`,
+            transition: `transform 250ms`
+          }}
         >
           <SVG
             className={styles.svg}

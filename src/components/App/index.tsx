@@ -41,6 +41,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
   // const [panels, setPanels] = useState<any>();
   const [userInputState, setUserInputState] = useState({});
+  const [topAbove, setTopAbove] = useState();
 
   // SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
   const { subscribe, unsubscribe, enqueue } = window.__ODYSSEY__.scheduler;
@@ -67,7 +68,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     // Test Odyssey enqueueing
     // enqueue(() => {
-      // console.log("Enqueue test...");
+    // console.log("Enqueue test...");
     // });
 
     // Uncomment to enable Odyssey subscriber service
@@ -81,15 +82,18 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     console.log("Current marker:", marker);
   }, [marker]);
 
-
   useEffect(() => {
     if (!userInputState) return;
 
     console.log(userInputState);
   }, [userInputState]);
 
+  // useEffect(() => {
+  //   console.log(topAbove);
+  // }, [topAbove]);
+
   return (
-    <AppContext.Provider value={{ marker }}>
+    <AppContext.Provider value={{ topAbove, setTopAbove }}>
       <>
         <Portal node={document && document.querySelector(".delayed-header")}>
           <DelayedHeader />
