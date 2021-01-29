@@ -8,6 +8,31 @@ import styles from "./styles.scss";
 // Feature detection
 import "./modernizer";
 
+// Just a weird test to see if web push API would work on network
+// const reg = async () => {
+//   const swRegistration = await navigator.serviceWorker.register(
+//     "service-worker.js"
+//   );
+
+//   // console.log(swRegistration);
+
+//   const permission = await window.Notification.requestPermission();
+//   // value of permission can be 'granted', 'default', 'denied'
+//   // granted: user has accepted the request
+//   // default: user has dismissed the notification permission popup by clicking on x
+//   // denied: user has denied the request.
+//   if (permission !== "granted") {
+//     throw new Error("Permission not granted for Notification");
+//   }
+
+//   swRegistration.showNotification("Hello", {
+//     body: "Lalala!!!",
+//     // here you can add more properties like icon, image, vibrate, etc.
+//   });
+// };
+
+// reg();
+
 // Keep TypeScript from throwing errors
 declare var Modernizr: any;
 declare var module: any;
@@ -49,7 +74,7 @@ declare global {
 }
 
 const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
-const root = document.querySelector(`#interactivemount`);
+const root = document.querySelector("#interactivemount");
 
 // Insert a div before the header
 const main = document.querySelector("main.Main");
