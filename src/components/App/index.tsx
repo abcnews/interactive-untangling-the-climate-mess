@@ -76,11 +76,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // return () => unsubscribe(onUpdate);
   }, []);
 
-  useEffect(() => {
-    if (!marker) return;
+  // useEffect(() => {
+  //   if (!marker) return;
 
-    console.log("Current marker:", marker);
-  }, [marker]);
+  //   console.log("Current marker:", marker);
+  // }, [marker]);
 
   useEffect(() => {
     if (!userInputState) return;
@@ -150,9 +150,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <Portal
-          node={document && document.getElementById("inputcarscansaveus")}
-        >
+        <Portal node={document && document.getElementById("inputcarscansaveus")}>
           <UserInputBox
             title={"So how are you feeling about EVs now?"}
             buttons={[
@@ -163,9 +161,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <Portal
-          node={document && document.getElementById("inputfossiltransport")}
-        >
+        <Portal node={document && document.getElementById("inputfossiltransport")}>
           <UserInputBox
             title={
               "So now you know how we quit fossil fuels in our transport system, can we do it?"

@@ -1,13 +1,7 @@
 import "./keyshape";
 declare let KeyshapeJS;
 
-import React, {
-  useEffect,
-  useRef,
-  useLayoutEffect,
-  useContext,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useLayoutEffect, useContext, useState } from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 
@@ -15,7 +9,7 @@ import untangleAnimation from "./assets/untangle-loop.svg";
 
 import { AppContext } from "../../AppContext";
 
-const PLAY_RATE = 1.666;
+const PLAY_RATE = 1.333;
 
 const lookupRange = (marker: string) => {
   if (marker === "1" || isNaN(Number(marker)))
@@ -64,8 +58,6 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
   const initSvg = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
-    console.log("Initialising animation...");
-
     import("./assets/animations").then(({ animate }) => {
       // Set up the animations and return a timeline
       component.timeline = animate();
@@ -91,6 +83,12 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     });
   };
 
+  // Init effect
+  useEffect(() => {
+    // Set initial marker pressure
+    component.pressure = 0;
+  }, []);
+
   useEffect(() => {
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
@@ -102,12 +100,14 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
   // Do something when scrollMarker changes
   useEffect(() => {
     // console.log("Received scroll marker:", props.scrollMarker);
+    component.pressure = component.pressure + 1;
 
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
     if (!props.scrollMarker || !timeline) return;
 
     const { scrollMarker }: { scrollMarker?: string } = props;
+
     // console.log("Scroll marker prop:", scrollMarker);
     const currentTime = timeline.time();
     // console.log("Current time:", currentTime);
@@ -127,12 +127,16 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
     // If going forward
     if (currentTime < endTime) {
-      timeline.rate(PLAY_RATE);
+      timeline.rate(PLAY_RATE * component.pressure);
       timeline.loop(false);
       timeline.range(currentTime, endTime);
       timeline.time(currentTime);
       timeline.play();
       timeline.onfinish = function () {
+        // We made it. Take the pressure off
+        component.pressure = 0;
+        timeline.rate(PLAY_RATE);
+
         if (!playloop.loopback) {
           this.pause();
           return;
@@ -146,12 +150,15 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
     // If scrolling back up
     if (currentTime > endTime) {
-      timeline.rate(-PLAY_RATE);
+      timeline.rate(-PLAY_RATE * component.pressure);
       timeline.loop(false);
       timeline.range(playloop.loopback, currentTime);
       timeline.time(currentTime);
       timeline.play();
       timeline.onfinish = function () {
+        component.pressure = 0;
+        timeline.rate(PLAY_RATE);
+
         if (!playloop.loopback) {
           this.pause();
           return;
@@ -174,7 +181,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
           }`}
           style={{
             transform: `translate3d(0, -${context.topAbove}px, 0)`,
-            transition: `transform 256ms`
+            transition: `transform 256ms`,
           }}
         >
           <SVG

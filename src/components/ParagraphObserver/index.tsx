@@ -49,6 +49,8 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       window.addEventListener("scroll", onScroll, { passive: true });
     } else {
       window.removeEventListener("scroll", onScroll);
+      // Fix fast scrolling up doesn't trigger onScroll
+      context.setTopAbove(0);
     }
 
     entries.forEach((entry) => {
