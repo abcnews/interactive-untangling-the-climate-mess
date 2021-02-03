@@ -209,11 +209,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <ScrollObserver setMarker={setMarker} />
-
-        {/* Sets paragraph text where we break out of 
-        scrolly panels (and hide background animations on mobile) */}
-        <ParagraphObserver toggle={setParagraphTextVisible} />
+        
 
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
@@ -231,6 +227,12 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <BackgroundTexture />
+
+        <ScrollObserver setMarker={setMarker} />
+
+        {/* Sets paragraph text where we break out of 
+        scrolly panels (and hide background animations on mobile) */}
+        <ParagraphObserver toggle={setParagraphTextVisible} />
 
         {/* Just a line down the center of the screen for testing */}
         {/* <div className={styles.centerHint} /> */}

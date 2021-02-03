@@ -7,7 +7,9 @@ import { nextUntil } from "../../nextUntil";
 const d3 = { ...require("d3-scale") };
 
 import { AppContext } from "../../AppContext";
-import MainTangle from "../MainTangle/index";
+
+// import { gsap, ScrollTrigger } from "gsap/all";
+// gsap.registerPlugin(ScrollTrigger);
 
 // How much taller to make the paragraph panel
 const HEIGHT_COMPENSATION = 600;
@@ -126,8 +128,18 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     });
 
     // setTimeout(() => {
-    //   mainTangle = document.querySelector(".interactive-main-tangle");
+      // mainTangle = document.querySelector(".interactive-main-tangle");
+
+
+
+    //   gsap.to(".interactive-main-tangle", {
+    //     y: -window.innerHeight,
+    //     // ease: "none",
+    //     scrollTrigger: { trigger: "#paragraphtext", scrub: 0.4, markers: true },
+    //   });
     // }, 500)
+
+    
 
     // Remove all observations on unmount
     return () => {

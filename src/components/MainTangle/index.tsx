@@ -9,6 +9,9 @@ import untangleAnimation from "./assets/untangle-loop.svg";
 
 import { AppContext } from "../../AppContext";
 
+// import { gsap, ScrollTrigger } from "gsap/all";
+// gsap.registerPlugin(ScrollTrigger);
+
 const PLAY_RATE = 1.333;
 
 const lookupRange = (marker: string) => {
@@ -87,6 +90,12 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
   useEffect(() => {
     // Set initial marker pressure
     component.pressure = 0;
+
+    // gsap.to("progress", {
+    //   value: 100,
+    //   // ease: "none",
+    //   scrollTrigger: { trigger: "#paragraphtext", scrub: 0.8 },
+    // });
   }, []);
 
   useEffect(() => {
@@ -174,15 +183,16 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
   return (
     <>
+      {/* <progress max="100" value="0"></progress> */}
       <div className={styles.root}>
         <div
           className={`interactive-main-tangle ${styles.svgContainer} ${
             props.shouldObscure ? styles.obscured : styles.shown
           }`}
-          style={{
-            transform: `translate3d(0, -${context.topAbove}px, 0)`,
-            transition: `transform 256ms`,
-          }}
+          // style={{
+          //   transform: `translate3d(0, -${context.topAbove}px, 0)`,
+          //   transition: `transform 256ms`,
+          // }}
         >
           <SVG
             className={styles.svg}
