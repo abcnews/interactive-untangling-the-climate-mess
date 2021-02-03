@@ -209,8 +209,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        
-
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
           {marker && !endStringsMarkers.includes(marker) ? (
@@ -218,6 +216,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               animationFrame={animationFrame}
               scrollMarker={marker}
               shouldObscure={paragraphTextVisible}
+              yOffset={backdropOffset}
             />
           ) : (
             <>
@@ -232,7 +231,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Sets paragraph text where we break out of 
         scrolly panels (and hide background animations on mobile) */}
-        <ParagraphObserver toggle={setParagraphTextVisible} />
+        <ParagraphObserver
+          toggle={setParagraphTextVisible}
+          setYOffset={setBackdropOffset}
+        />
 
         {/* Just a line down the center of the screen for testing */}
         {/* <div className={styles.centerHint} /> */}

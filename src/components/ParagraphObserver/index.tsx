@@ -8,14 +8,14 @@ const d3 = { ...require("d3-scale") };
 
 import { AppContext } from "../../AppContext";
 
-// import { gsap, ScrollTrigger } from "gsap/all";
-// gsap.registerPlugin(ScrollTrigger);
-
 // How much taller to make the paragraph panel
 const HEIGHT_COMPENSATION = 600;
 const FADE_IN_TEXT_THRESHOLD = 300;
 
-const fromBottomScale = d3.scaleLinear().domain([0, FADE_IN_TEXT_THRESHOLD]).range([0, 1.0]);
+const fromBottomScale = d3
+  .scaleLinear()
+  .domain([0, FADE_IN_TEXT_THRESHOLD])
+  .range([0, 1.0]);
 
 // Detect if at least one intersection is visible
 const isOneVisible = (entries) => {
@@ -27,6 +27,7 @@ const isOneVisible = (entries) => {
 
 interface ParagraphObserverProps {
   toggle: Function;
+  setYOffset?: any;
 }
 
 const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
@@ -52,7 +53,8 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     } else {
       window.removeEventListener("scroll", onScroll);
       // Fix fast scrolling up doesn't trigger onScroll
-      context.setTopAbove(0);
+      // context.setTopAbove(0);
+      props.setYOffset(0)
     }
 
     entries.forEach((entry) => {
@@ -71,14 +73,20 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   const onScroll = () => {
     // Get's
     const { top } = currentElements[0].getBoundingClientRect();
-    const { bottom } = currentElements[currentElements.length - 1].getBoundingClientRect();
+    const { bottom } = currentElements[
+      currentElements.length - 1
+    ].getBoundingClientRect();
 
-    const topPixelsAboveFold = window.innerHeight - 100 - top;
+    const topPixelsAboveFold = window.innerHeight - top;
 
-    if (bottom < 0) {
-      context.setTopAbove(0);
-    } else {
-      context.setTopAbove(topPixelsAboveFold);
+    if (props.setYOffset) {
+      if (bottom < 0) {
+        // context.setTopAbove(0);
+        props.setYOffset(0);
+      } else {
+        // context.setTopAbove(topPixelsAboveFold);
+        props.setYOffset(topPixelsAboveFold);
+      }
     }
 
     if (topPixelsAboveFold > FADE_IN_TEXT_THRESHOLD) {
@@ -110,12 +118,17 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       rootMargin: `-10% 0%`,
     });
 
-    const paragraphStartMarkers: any = document.querySelectorAll('*[id^="paragraphtext"]');
+    const paragraphStartMarkers: any = document.querySelectorAll(
+      '*[id^="paragraphtext"]'
+    );
 
     paragraphStartMarkers.forEach((paragraphStartElement, index: number) => {
       observer.observe(paragraphStartElement);
 
-      const paragraphEndElement = getNextSibling(paragraphStartElement, "#endparagraphtext");
+      const paragraphEndElement = getNextSibling(
+        paragraphStartElement,
+        "#endparagraphtext"
+      );
 
       const top = paragraphStartElement.getBoundingClientRect().top;
       const bottom = paragraphEndElement.getBoundingClientRect().top;
@@ -124,10 +137,11 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       paragraphStartElement.className = styles.paragraphStart;
 
       paragraphStartElement.style.height = `${height + HEIGHT_COMPENSATION}px`;
-      paragraphStartElement.style.transform = `translateY(-${HEIGHT_COMPENSATION / 2 + 18}px)`;
+      paragraphStartElement.style.transform = `translateY(-${
+        HEIGHT_COMPENSATION / 2 + 18
+      }px)`;
     });
-
-    // setTimeout(() => {
+// setTimeout(() => {
       // mainTangle = document.querySelector(".interactive-main-tangle");
 
 
@@ -138,8 +152,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     //     scrollTrigger: { trigger: "#paragraphtext", scrub: 0.4, markers: true },
     //   });
     // }, 500)
-
-    
 
     // Remove all observations on unmount
     return () => {
@@ -153,10 +165,15 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   }, [visible]);
 
   useEffect(() => {
-    const paragraphStartMarkers: any = document.querySelectorAll('*[id^="paragraphtext"]');
+    const paragraphStartMarkers: any = document.querySelectorAll(
+      '*[id^="paragraphtext"]'
+    );
 
     paragraphStartMarkers.forEach((paragraphStartElement, index: number) => {
-      const paragraphEndElement = getNextSibling(paragraphStartElement, "#endparagraphtext");
+      const paragraphEndElement = getNextSibling(
+        paragraphStartElement,
+        "#endparagraphtext"
+      );
 
       const top = paragraphStartElement.getBoundingClientRect().top;
       const bottom = paragraphEndElement.getBoundingClientRect().top;
@@ -165,7 +182,9 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       paragraphStartElement.className = styles.paragraphStart;
 
       paragraphStartElement.style.height = `${height + HEIGHT_COMPENSATION}px`;
-      paragraphStartElement.style.transform = `translateY(-${HEIGHT_COMPENSATION / 2 + 18}px)`;
+      paragraphStartElement.style.transform = `translateY(-${
+        HEIGHT_COMPENSATION / 2 + 18
+      }px)`;
     });
 
     return () => {
