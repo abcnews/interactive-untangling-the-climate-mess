@@ -1,13 +1,7 @@
 import "./keyshape";
 declare let KeyshapeJS;
 
-import React, {
-  useEffect,
-  useRef,
-  useLayoutEffect,
-  useContext,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useLayoutEffect, useContext, useState } from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 
@@ -15,7 +9,13 @@ import untangleAnimation from "./assets/untangle-loop.svg";
 
 import { AppContext } from "../../AppContext";
 
-const PLAY_RATE = 1.666;
+const d3 = {
+  ...require("d3-selection"),
+  ...require("d3-transition"),
+  ...require("d3-ease"),
+};
+
+const PLAY_RATE = 1.333;
 
 const lookupRange = (marker: string) => {
   if (marker === "1" || isNaN(Number(marker)))
@@ -45,9 +45,14 @@ interface MainTangleProps {
   animationFrame?: number;
   scrollMarker?: string;
   shouldObscure: boolean;
+  yOffset?: number;
 }
 
 const MainTangle: React.FC<MainTangleProps> = (props) => {
+  const mainEl = useRef(null);
+  const main = d3.select(mainEl.current);
+  // Use app context
+  const context: any = useContext(AppContext);
   // Component state
   const [markers, setMarkers] = useState({});
 
@@ -61,8 +66,6 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
   const initSvg = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
-
-    console.log("Initialising animation...");
 
     import("./assets/animations").then(({ animate }) => {
       // Set up the animations and return a timeline
@@ -89,6 +92,18 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     });
   };
 
+  // Init effect
+  useEffect(() => {
+    // Set initial marker pressure
+    component.pressure = 0;
+
+    // gsap.to("progress", {
+    //   value: 100,
+    //   // ease: "none",
+    //   scrollTrigger: { trigger: "#paragraphtext", scrub: 0.8 },
+    // });
+  }, []);
+
   useEffect(() => {
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
@@ -100,12 +115,14 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
   // Do something when scrollMarker changes
   useEffect(() => {
     // console.log("Received scroll marker:", props.scrollMarker);
+    component.pressure = component.pressure + 1;
 
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
     if (!props.scrollMarker || !timeline) return;
 
     const { scrollMarker }: { scrollMarker?: string } = props;
+
     // console.log("Scroll marker prop:", scrollMarker);
     const currentTime = timeline.time();
     // console.log("Current time:", currentTime);
@@ -125,12 +142,16 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
     // If going forward
     if (currentTime < endTime) {
-      timeline.rate(PLAY_RATE);
+      timeline.rate(PLAY_RATE * component.pressure);
       timeline.loop(false);
       timeline.range(currentTime, endTime);
       timeline.time(currentTime);
       timeline.play();
       timeline.onfinish = function () {
+        // We made it. Take the pressure off
+        component.pressure = 0;
+        timeline.rate(PLAY_RATE);
+
         if (!playloop.loopback) {
           this.pause();
           return;
@@ -144,12 +165,15 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
     // If scrolling back up
     if (currentTime > endTime) {
-      timeline.rate(-PLAY_RATE);
+      timeline.rate(-PLAY_RATE * component.pressure);
       timeline.loop(false);
       timeline.range(playloop.loopback, currentTime);
       timeline.time(currentTime);
       timeline.play();
       timeline.onfinish = function () {
+        component.pressure = 0;
+        timeline.rate(PLAY_RATE);
+
         if (!playloop.loopback) {
           this.pause();
           return;
@@ -163,19 +187,31 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     }
   }, [props.scrollMarker]);
 
+  useEffect(() => {
+    main
+      .transition()
+      .duration(50)
+      .ease(d3.easeLinear)
+      .style("transform", `translate3d(0, -${props.yOffset}px, 0)`);
+  }, [props.yOffset]);
+
   return (
     <>
       <div className={styles.root}>
         <div
-          className={`${styles.svgContainer} ${
+          className={`interactive-main-tangle ${styles.svgContainer} ${
             props.shouldObscure ? styles.obscured : styles.shown
           }`}
+          // style={{
+          //   transform: `translate3d(0, -${props.yOffset}px, 0)`,
+          // transition: `transform 256ms`,
+          // }}
+          ref={mainEl}
         >
           <SVG
             className={styles.svg}
             src={untangleAnimation}
             preProcessor={(code) => {
-              // console.log(code)
               return code;
             }}
             onLoad={initSvg}

@@ -41,6 +41,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
   // const [panels, setPanels] = useState<any>();
   const [userInputState, setUserInputState] = useState({});
+  const [topAbove, setTopAbove] = useState();
 
   // SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
   const { subscribe, unsubscribe, enqueue } = window.__ODYSSEY__.scheduler;
@@ -67,7 +68,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     // Test Odyssey enqueueing
     // enqueue(() => {
-      // console.log("Enqueue test...");
+    // console.log("Enqueue test...");
     // });
 
     // Uncomment to enable Odyssey subscriber service
@@ -75,12 +76,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // return () => unsubscribe(onUpdate);
   }, []);
 
-  useEffect(() => {
-    if (!marker) return;
+  // useEffect(() => {
+  //   if (!marker) return;
 
-    console.log("Current marker:", marker);
-  }, [marker]);
-
+  //   console.log("Current marker:", marker);
+  // }, [marker]);
 
   useEffect(() => {
     if (!userInputState) return;
@@ -88,8 +88,12 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     console.log(userInputState);
   }, [userInputState]);
 
+  // useEffect(() => {
+  //   console.log(topAbove);
+  // }, [topAbove]);
+
   return (
-    <AppContext.Provider value={{ marker }}>
+    <AppContext.Provider value={{ topAbove, setTopAbove }}>
       <>
         <Portal node={document && document.querySelector(".delayed-header")}>
           <DelayedHeader />
@@ -146,9 +150,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <Portal
-          node={document && document.getElementById("inputcarscansaveus")}
-        >
+        <Portal node={document && document.getElementById("inputcarscansaveus")}>
           <UserInputBox
             title={"So how are you feeling about EVs now?"}
             buttons={[
@@ -159,9 +161,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <Portal
-          node={document && document.getElementById("inputfossiltransport")}
-        >
+        <Portal node={document && document.getElementById("inputfossiltransport")}>
           <UserInputBox
             title={
               "So now you know how we quit fossil fuels in our transport system, can we do it?"
@@ -209,12 +209,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <ScrollObserver setMarker={setMarker} />
-
-        {/* Sets paragraph text where we break out of 
-        scrolly panels (and hide background animations on mobile) */}
-        <ParagraphObserver toggle={setParagraphTextVisible} />
-
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
           {marker && !endStringsMarkers.includes(marker) ? (
@@ -222,6 +216,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               animationFrame={animationFrame}
               scrollMarker={marker}
               shouldObscure={paragraphTextVisible}
+              yOffset={backdropOffset}
             />
           ) : (
             <>
@@ -231,6 +226,15 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <BackgroundTexture />
+
+        <ScrollObserver setMarker={setMarker} />
+
+        {/* Sets paragraph text where we break out of 
+        scrolly panels (and hide background animations on mobile) */}
+        <ParagraphObserver
+          toggle={setParagraphTextVisible}
+          setYOffset={setBackdropOffset}
+        />
 
         {/* Just a line down the center of the screen for testing */}
         {/* <div className={styles.centerHint} /> */}
