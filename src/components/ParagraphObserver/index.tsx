@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef, useContext } from "react";
 import styles from "./styles.scss";
 import { getNextSibling } from "./helpers";
 import useWindowSize from "./useWindowSize";
@@ -7,6 +7,28 @@ import { nextUntil } from "../../nextUntil";
 const d3 = { ...require("d3-scale") };
 
 import { AppContext } from "../../AppContext";
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// register ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
+// We are making an animation frame version of onScroll
+// Detect request animation frame
+const rAf =
+  window.requestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window["mozRequestAnimationFrame"] ||
+  window["msRequestAnimationFrame"] ||
+  window["oRequestAnimationFrame"] ||
+  // IE Fallback, you can even fallback to onscroll
+  function (callback) {
+    window.setTimeout(callback, 1000 / 60);
+  };
+
+let lastPosition = -1;
+let monitorScroll = false;
 
 // How much taller to make the paragraph panel
 const HEIGHT_COMPENSATION = 600;
@@ -42,7 +64,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   let observer = component.observer;
   let currentPanel = component.currentPanel;
   let currentElements = component.currentElements;
-  // let mainTangle = component.mainTangle;
+  let mainTangle = component.mainTangle;
 
   const context: any = useContext(AppContext);
 
@@ -50,11 +72,13 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     // Process onScroll events if any one paragraph panel is visible
     if (isOneVisible(entries)) {
       window.addEventListener("scroll", onScroll, { passive: true });
+      monitorScroll = true;
     } else {
       window.removeEventListener("scroll", onScroll);
+      monitorScroll = false;
       // Fix fast scrolling up doesn't trigger onScroll
       // context.setTopAbove(0);
-      props.setYOffset(0)
+      props.setYOffset(0);
     }
 
     entries.forEach((entry) => {
@@ -65,13 +89,14 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
         // Get elements between hash markers
         currentElements = nextUntil(currentPanel, "#endparagraphtext");
+
+        onAnimationFrameScroll();
       }
     });
   };
 
   // We need a scroll handler now to process paragraph fading
   const onScroll = () => {
-    // Get's
     const { top } = currentElements[0].getBoundingClientRect();
     const { bottom } = currentElements[
       currentElements.length - 1
@@ -79,15 +104,13 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
     const topPixelsAboveFold = window.innerHeight - top;
 
-    if (props.setYOffset) {
-      if (bottom < 0) {
-        // context.setTopAbove(0);
-        props.setYOffset(0);
-      } else {
-        // context.setTopAbove(topPixelsAboveFold);
-        props.setYOffset(topPixelsAboveFold);
-      }
-    }
+    // if (props.setYOffset) {
+    //   if (bottom < 0) {
+    //     props.setYOffset(0);
+    //   } else {
+    //     props.setYOffset(topPixelsAboveFold);
+    //   }
+    // }
 
     if (topPixelsAboveFold > FADE_IN_TEXT_THRESHOLD) {
       // Already fully visible, never mind...
@@ -113,6 +136,34 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     }
   };
 
+  function onAnimationFrameScroll() {
+    // Avoid calculations if not needed
+    if (lastPosition == window.pageYOffset) {
+      if (monitorScroll) rAf(onAnimationFrameScroll);
+      return false;
+    } else lastPosition = window.pageYOffset;
+
+    // Where the magic goes
+    // ...
+    const { top } = currentElements[0].getBoundingClientRect();
+    const { bottom } = currentElements[
+      currentElements.length - 1
+    ].getBoundingClientRect();
+
+    const topPixelsAboveFold = window.innerHeight - top;
+
+    if (props.setYOffset) {
+      if (bottom < 0) {
+        mainTangle.style.transform = `translate3D(0, 0, 0)`;
+      } else {
+        mainTangle.style.transform = `translate3D(0, -${topPixelsAboveFold}px, 0)`;
+      }
+    }
+
+    // Recall the loop
+    if (monitorScroll) rAf(onAnimationFrameScroll);
+  }
+
   useEffect(() => {
     observer = new IntersectionObserver(processObservation, {
       rootMargin: `-10% 0%`,
@@ -125,33 +176,30 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     paragraphStartMarkers.forEach((paragraphStartElement, index: number) => {
       observer.observe(paragraphStartElement);
 
-      const paragraphEndElement = getNextSibling(
-        paragraphStartElement,
-        "#endparagraphtext"
-      );
+      // const paragraphEndElement = getNextSibling(
+      //   paragraphStartElement,
+      //   "#endparagraphtext"
+      // );
 
-      const top = paragraphStartElement.getBoundingClientRect().top;
-      const bottom = paragraphEndElement.getBoundingClientRect().top;
-      const height = bottom - top;
+      // const top = paragraphStartElement.getBoundingClientRect().top;
+      // const bottom = paragraphEndElement.getBoundingClientRect().top;
+      // const height = bottom - top;
 
-      paragraphStartElement.className = styles.paragraphStart;
+      // paragraphStartElement.className = styles.paragraphStart;
 
-      paragraphStartElement.style.height = `${height + HEIGHT_COMPENSATION}px`;
-      paragraphStartElement.style.transform = `translateY(-${
-        HEIGHT_COMPENSATION / 2 + 18
-      }px)`;
+      // paragraphStartElement.style.height = `${height + HEIGHT_COMPENSATION}px`;
+      // paragraphStartElement.style.transform = `translateY(-${
+      //   HEIGHT_COMPENSATION / 2 + 18
+      // }px)`;
+
+      mainTangle = document.querySelector(".interactive-main-tangle");
     });
-// setTimeout(() => {
-      // mainTangle = document.querySelector(".interactive-main-tangle");
-
-
 
     //   gsap.to(".interactive-main-tangle", {
     //     y: -window.innerHeight,
     //     // ease: "none",
     //     scrollTrigger: { trigger: "#paragraphtext", scrub: 0.4, markers: true },
     //   });
-    // }, 500)
 
     // Remove all observations on unmount
     return () => {
@@ -162,9 +210,30 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
   useEffect(() => {
     props.toggle(visible);
+
+    // const paragraphStartMarkers: any = document.querySelectorAll(
+    //   '*[id^="paragraphtext"]'
+    // );
+
+    // if (visible) {
+    //   // Push animation
+    // gsap.to(".interactive-main-tangle", {
+    //   y: -1200,
+    //   scrollTrigger: {
+    //     trigger: paragraphStartMarkers[0],
+    //     start: "top bottom-=400",
+    //     markers: true,
+    //     scrub: 0.1,
+    //   },
+    // });
+    // } else {
+    //   // ScrollTrigger.getById("trigger1").kill(true);
+    //   gsap.set(".interactive-main-tangle", {clearProps: true});
+    // }
   }, [visible]);
 
-  useEffect(() => {
+  // On resize
+  useLayoutEffect(() => {
     const paragraphStartMarkers: any = document.querySelectorAll(
       '*[id^="paragraphtext"]'
     );
@@ -186,6 +255,17 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
         HEIGHT_COMPENSATION / 2 + 18
       }px)`;
     });
+
+    // // Push animation
+    // gsap.to(".interactive-main-tangle", {
+    //   y: -1200,
+    //   scrollTrigger: {
+    //     trigger: paragraphStartMarkers[0],
+    //     start: "top bottom-=400",
+    //     markers: true,
+    //     scrub: 0.1,
+    //   },
+    // });
 
     return () => {
       // Translate back before we take more measurements

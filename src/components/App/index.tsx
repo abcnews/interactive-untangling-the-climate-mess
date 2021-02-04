@@ -39,9 +39,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [animationFrame, setAnimationFrame] = useState(200);
   const [marker, setMarker] = useState<any>();
   const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
-  // const [panels, setPanels] = useState<any>();
   const [userInputState, setUserInputState] = useState({});
   const [topAbove, setTopAbove] = useState();
+  const [backgroundIsRendered, setBackgroundIsRendered] = useState();
 
   // SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
   const { subscribe, unsubscribe, enqueue } = window.__ODYSSEY__.scheduler;
@@ -217,6 +217,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               scrollMarker={marker}
               shouldObscure={paragraphTextVisible}
               yOffset={backdropOffset}
+              setBackgroundIsRendered={setBackgroundIsRendered}
             />
           ) : (
             <>
@@ -231,10 +232,12 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Sets paragraph text where we break out of 
         scrolly panels (and hide background animations on mobile) */}
-        <ParagraphObserver
-          toggle={setParagraphTextVisible}
-          setYOffset={setBackdropOffset}
-        />
+        {backgroundIsRendered && (
+          <ParagraphObserver
+            toggle={setParagraphTextVisible}
+            setYOffset={setBackdropOffset}
+          />
+        )}
 
         {/* Just a line down the center of the screen for testing */}
         {/* <div className={styles.centerHint} /> */}

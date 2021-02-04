@@ -46,6 +46,7 @@ interface MainTangleProps {
   scrollMarker?: string;
   shouldObscure: boolean;
   yOffset?: number;
+  setBackgroundIsRendered?: any;
 }
 
 const MainTangle: React.FC<MainTangleProps> = (props) => {
@@ -96,6 +97,9 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
   useEffect(() => {
     // Set initial marker pressure
     component.pressure = 0;
+
+    // Tell App that we've been rendered
+    props.setBackgroundIsRendered(true);
 
     // gsap.to("progress", {
     //   value: 100,
@@ -187,13 +191,13 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     }
   }, [props.scrollMarker]);
 
-  useEffect(() => {
-    main
-      .transition()
-      .duration(50)
-      .ease(d3.easeLinear)
-      .style("transform", `translate3d(0, -${props.yOffset}px, 0)`);
-  }, [props.yOffset]);
+  // useEffect(() => {
+  //   main
+  //     .transition()
+  //     .duration(50)
+  //     .ease(d3.easeLinear)
+  //     .style("transform", `translate3d(0, -${props.yOffset}px, 0)`);
+  // }, [props.yOffset]);
 
   return (
     <>
