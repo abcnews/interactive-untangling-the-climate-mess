@@ -32,7 +32,7 @@
   // }
 
   .svg-container {
-    transition: opacity 200ms;
+    // transition: all 200ms;
     @include for-desktop-up {
       position: relative;
       right: 50%;

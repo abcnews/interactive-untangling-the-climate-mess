@@ -9,12 +9,6 @@ import untangleAnimation from "./assets/untangle-loop.svg";
 
 import { AppContext } from "../../AppContext";
 
-const d3 = {
-  ...require("d3-selection"),
-  ...require("d3-transition"),
-  ...require("d3-ease"),
-};
-
 const PLAY_RATE = 1.333;
 
 const lookupRange = (marker: string) => {
@@ -51,7 +45,6 @@ interface MainTangleProps {
 
 const MainTangle: React.FC<MainTangleProps> = (props) => {
   const mainEl = useRef(null);
-  const main = d3.select(mainEl.current);
   // Use app context
   const context: any = useContext(AppContext);
   // Component state
@@ -190,14 +183,6 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       };
     }
   }, [props.scrollMarker]);
-
-  // useEffect(() => {
-  //   main
-  //     .transition()
-  //     .duration(50)
-  //     .ease(d3.easeLinear)
-  //     .style("transform", `translate3d(0, -${props.yOffset}px, 0)`);
-  // }, [props.yOffset]);
 
   return (
     <>

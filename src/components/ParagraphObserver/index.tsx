@@ -3,16 +3,15 @@ import styles from "./styles.scss";
 import { getNextSibling } from "./helpers";
 import useWindowSize from "./useWindowSize";
 import { nextUntil } from "../../nextUntil";
+import { gsap } from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const d3 = { ...require("d3-scale") };
 
-import { AppContext } from "../../AppContext";
-
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+const SCRUB_DURATION = 1000; // In milliseconds
 
 // register ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 // We are making an animation frame version of onScroll
 // Detect request animation frame
@@ -66,15 +65,13 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   let currentElements = component.currentElements;
   let mainTangle = component.mainTangle;
 
-  const context: any = useContext(AppContext);
-
   const processObservation = (entries) => {
     // Process onScroll events if any one paragraph panel is visible
     if (isOneVisible(entries)) {
-      window.addEventListener("scroll", onScroll, { passive: true });
+      // window.addEventListener("scroll", onScroll, { passive: true });
       monitorScroll = true;
     } else {
-      window.removeEventListener("scroll", onScroll);
+      // window.removeEventListener("scroll", onScroll);
       monitorScroll = false;
       // Fix fast scrolling up doesn't trigger onScroll
       // context.setTopAbove(0);
@@ -95,46 +92,50 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     });
   };
 
-  // We need a scroll handler now to process paragraph fading
-  const onScroll = () => {
-    const { top } = currentElements[0].getBoundingClientRect();
-    const { bottom } = currentElements[
-      currentElements.length - 1
-    ].getBoundingClientRect();
-
-    const topPixelsAboveFold = window.innerHeight - top;
-
-    // if (props.setYOffset) {
-    //   if (bottom < 0) {
-    //     props.setYOffset(0);
-    //   } else {
-    //     props.setYOffset(topPixelsAboveFold);
-    //   }
-    // }
-
-    if (topPixelsAboveFold > FADE_IN_TEXT_THRESHOLD) {
-      // Already fully visible, never mind...
-      if (currentElements[0].style.opacity >= 1.0) return;
-
-      // Otherwise set visible and return
-      currentElements.forEach((element) => {
-        element.style.opacity = 1.0;
-      });
-      return;
-    }
-
-    // Below the fold, make invisible
-    if (topPixelsAboveFold < 0) {
-      currentElements.forEach((element) => {
-        element.style.opacity = 0;
-      });
-    } else {
-      currentElements.forEach((element) => {
-        // Set elements visible corresponding to scroll position
-        element.style.opacity = fromBottomScale(topPixelsAboveFold);
-      });
-    }
+  const positionTangle = (element, yPos: number) => {
+    gsap.to(mainTangle, { y: yPos, ease: "power3", duration: SCRUB_DURATION / 1000 });
   };
+
+  // // We need a scroll handler now to process paragraph fading
+  // const onScroll = () => {
+  //   const { top } = currentElements[0].getBoundingClientRect();
+  //   const { bottom } = currentElements[
+  //     currentElements.length - 1
+  //   ].getBoundingClientRect();
+
+  //   const topPixelsAboveFold = window.innerHeight - top;
+
+  //   // if (props.setYOffset) {
+  //   //   if (bottom < 0) {
+  //   //     props.setYOffset(0);
+  //   //   } else {
+  //   //     props.setYOffset(topPixelsAboveFold);
+  //   //   }
+  //   // }
+
+  //   if (topPixelsAboveFold > FADE_IN_TEXT_THRESHOLD) {
+  //     // Already fully visible, never mind...
+  //     if (currentElements[0].style.opacity >= 1.0) return;
+
+  //     // Otherwise set visible and return
+  //     currentElements.forEach((element) => {
+  //       element.style.opacity = 1.0;
+  //     });
+  //     return;
+  //   }
+
+  //   // Below the fold, make invisible
+  //   if (topPixelsAboveFold < 0) {
+  //     currentElements.forEach((element) => {
+  //       element.style.opacity = 0;
+  //     });
+  //   } else {
+  //     currentElements.forEach((element) => {
+  //       // Set elements visible corresponding to scroll position
+  //       element.style.opacity = fromBottomScale(topPixelsAboveFold);
+  //     });
+  //   }
+  // };
 
   function onAnimationFrameScroll() {
     // Avoid calculations if not needed
@@ -152,11 +153,31 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
     const topPixelsAboveFold = window.innerHeight - top;
 
-    if (props.setYOffset) {
-      if (bottom < 0) {
-        mainTangle.style.transform = `translate3D(0, 0, 0)`;
+    if (topPixelsAboveFold < 0 || bottom < 0) {
+      positionTangle(mainTangle, 0);
+    } else {
+      positionTangle(mainTangle, -topPixelsAboveFold);
+    }
+
+    // Above threshold make fully visible
+    if (topPixelsAboveFold > FADE_IN_TEXT_THRESHOLD) {
+      // If not already fully visible...
+      if (currentElements[0].style.opacity < 1.0) {
+        currentElements.forEach((element) => {
+          element.style.opacity = 1.0;
+        });
+      }
+    } else {
+      // Below the fold, make invisible
+      if (topPixelsAboveFold < 0) {
+        currentElements.forEach((element) => {
+          element.style.opacity = 0;
+        });
       } else {
-        mainTangle.style.transform = `translate3D(0, -${topPixelsAboveFold}px, 0)`;
+        currentElements.forEach((element) => {
+          // Set elements visible corresponding to scroll position
+          element.style.opacity = fromBottomScale(topPixelsAboveFold);
+        });
       }
     }
 
@@ -204,7 +225,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     // Remove all observations on unmount
     return () => {
       observer.disconnect();
-      window.removeEventListener("scroll", onScroll);
+      // window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
