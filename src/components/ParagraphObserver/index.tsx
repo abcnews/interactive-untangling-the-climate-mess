@@ -26,7 +26,7 @@ let lastPosition = -1;
 let monitorScroll = false;
 
 // How much taller to make the paragraph panel
-const HEIGHT_COMPENSATION = 600;
+const HEIGHT_COMPENSATION = 100;
 const FADE_IN_TEXT_THRESHOLD = 300;
 
 const fromBottomScale = d3
@@ -106,7 +106,10 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     if (topPixelsAboveFold < 0 || bottom < 0) {
       positionTangle(mainTangle, 0);
     } else {
-      positionTangle(mainTangle, -topPixelsAboveFold);
+      positionTangle(
+        mainTangle,
+        topPixelsAboveFold > window.innerHeight ? -window.innerHeight : -topPixelsAboveFold
+      );
     }
 
     // Above threshold make fully visible
