@@ -11,7 +11,7 @@ const SCRUB_DURATION = 1000; // In milliseconds
 
 // We are making an animation frame version of onScroll
 // Detect request animation frame
-const rAf =
+let rAf: any =
   window.requestAnimationFrame ||
   window.webkitRequestAnimationFrame ||
   window["mozRequestAnimationFrame"] ||
@@ -101,8 +101,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       currentElements.length - 1
     ].getBoundingClientRect();
 
-    console.log(bottom);
-
     const topPixelsAboveFold = window.innerHeight - top;
 
     if (topPixelsAboveFold < 0 || bottom < 0) {
@@ -157,9 +155,10 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       mainTangle = document.querySelector(".interactive-main-tangle");
     });
 
-    // Remove all observations on unmount
+    // Remove all observations on unmount and other cleanup
     return () => {
       observer.disconnect();
+      rAf = undefined;
     };
   }, []);
 
