@@ -101,6 +101,8 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       currentElements.length - 1
     ].getBoundingClientRect();
 
+    console.log(bottom);
+
     const topPixelsAboveFold = window.innerHeight - top;
 
     if (topPixelsAboveFold < 0 || bottom < 0) {
@@ -108,7 +110,9 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     } else {
       positionTangle(
         mainTangle,
-        topPixelsAboveFold > window.innerHeight ? -window.innerHeight : -topPixelsAboveFold
+        topPixelsAboveFold > window.innerHeight
+          ? -window.innerHeight
+          : -topPixelsAboveFold
       );
     }
 
@@ -140,7 +144,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
   useEffect(() => {
     observer = new IntersectionObserver(processObservation, {
-      rootMargin: `-10% 0%`,
+      rootMargin: `0% 0%`,
     });
 
     const paragraphStartMarkers: any = document.querySelectorAll(
