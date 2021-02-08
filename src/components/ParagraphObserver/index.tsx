@@ -11,16 +11,7 @@ const SCRUB_DURATION = 1000; // In milliseconds
 
 // We are making an animation frame version of onScroll
 // Detect request animation frame
-let rAf: any =
-  window.requestAnimationFrame ||
-  window.webkitRequestAnimationFrame ||
-  window["mozRequestAnimationFrame"] ||
-  window["msRequestAnimationFrame"] ||
-  window["oRequestAnimationFrame"] ||
-  // IE Fallback, you can even fallback to onscroll
-  function (callback) {
-    window.setTimeout(callback, 1000 / 60);
-  };
+let rAf: any;
 
 let lastPosition = -1;
 let monitorScroll = false;
@@ -32,7 +23,7 @@ const FADE_IN_TEXT_THRESHOLD = 300;
 const fromBottomScale = d3
   .scaleLinear()
   .domain([0, FADE_IN_TEXT_THRESHOLD])
-  .range([0, 1.0]);
+  .range([0.01, 1.0]);
 
 // Detect if at least one intersection is visible
 const isOneVisible = (entries) => {
@@ -88,10 +79,10 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     gsap.to(mainTangle, { y: yPos, ease: "power3", duration: SCRUB_DURATION / 1000 });
   };
 
-  function onAnimationFrameScroll() {
+  let onAnimationFrameScroll: any = () => {
     // Avoid calculations if not needed
     if (lastPosition == window.pageYOffset) {
-      if (monitorScroll) rAf(onAnimationFrameScroll);
+      if (monitorScroll && rAf) rAf(onAnimationFrameScroll);
       return false;
     } else lastPosition = window.pageYOffset;
 
@@ -137,10 +128,21 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     }
 
     // Recall the loop
-    if (monitorScroll) rAf(onAnimationFrameScroll);
-  }
+    if (monitorScroll && rAf) rAf(onAnimationFrameScroll);
+  };
 
   useEffect(() => {
+    rAf =
+      window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window["mozRequestAnimationFrame"] ||
+      window["msRequestAnimationFrame"] ||
+      window["oRequestAnimationFrame"] ||
+      // IE Fallback, you can even fallback to onscroll
+      function (callback) {
+        window.setTimeout(callback, 1000 / 60);
+      };
+
     observer = new IntersectionObserver(processObservation, {
       rootMargin: `0% 0%`,
     });

@@ -211,19 +211,19 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
-          {marker && !endStringsMarkers.includes(marker) ? (
-            <MainTangle
-              animationFrame={animationFrame}
-              scrollMarker={marker}
-              shouldObscure={paragraphTextVisible}
-              yOffset={backdropOffset}
-              setBackgroundIsRendered={setBackgroundIsRendered}
-            />
-          ) : (
+          {/* {marker && !endStringsMarkers.includes(marker) ? ( */}
+          <MainTangle
+            animationFrame={animationFrame}
+            scrollMarker={marker}
+            shouldObscure={paragraphTextVisible}
+            yOffset={backdropOffset}
+            setBackgroundIsRendered={setBackgroundIsRendered}
+          />
+          {/* ) : (
             <>
               <EndStrings />
             </>
-          )}
+          )} */}
         </Portal>
 
         <BackgroundTexture />
