@@ -43,54 +43,15 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [topAbove, setTopAbove] = useState();
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
 
-  // SCHEDULER TO HANDLE ONSCROLL AND RESIZE ON BACKGROUND
-  const { subscribe, unsubscribe, enqueue } = window.__ODYSSEY__.scheduler;
-
-  // const masthead = document.querySelector('[data-component="Masthead"]');
-
-  const onUpdate = () => {
-    // Push animation down so not hidden by Masthead
-    // Note: might not be necessary
-    // if (window.scrollY < 200) {
-    //   const offset = masthead?.getBoundingClientRect().bottom;
-    //   if (offset && offset > 0) setBackdropOffset(offset);
-    //   else setBackdropOffset(0);
-    // } else setBackdropOffset(0);
-    // setAnimationFrame(window.scrollY);
-  };
-
   useEffect(() => {
     console.log("App mounted...");
-
-    // // Set up panel styling
-    // const panelStarters: any = document.querySelectorAll("#panel");
-    // setPanels([...panelStarters]);
-
-    // Test Odyssey enqueueing
-    // enqueue(() => {
-    // console.log("Enqueue test...");
-    // });
-
-    // Uncomment to enable Odyssey subscriber service
-    // subscribe(onUpdate);
-    // return () => unsubscribe(onUpdate);
   }, []);
-
-  // useEffect(() => {
-  //   if (!marker) return;
-
-  //   console.log("Current marker:", marker);
-  // }, [marker]);
 
   useEffect(() => {
     if (!userInputState) return;
 
     console.log(userInputState);
   }, [userInputState]);
-
-  // useEffect(() => {
-  //   console.log(topAbove);
-  // }, [topAbove]);
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>

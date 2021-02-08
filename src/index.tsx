@@ -5,33 +5,9 @@ import App from "./components/App";
 import jankdefer from "jankdefer";
 import { nextUntil } from "./nextUntil";
 import styles from "./styles.scss";
+
 // Feature detection
 import "./modernizer";
-
-// Just a weird test to see if web push API would work on network
-// const reg = async () => {
-//   const swRegistration = await navigator.serviceWorker.register(
-//     "service-worker.js"
-//   );
-
-//   // console.log(swRegistration);
-
-//   const permission = await window.Notification.requestPermission();
-//   // value of permission can be 'granted', 'default', 'denied'
-//   // granted: user has accepted the request
-//   // default: user has dismissed the notification permission popup by clicking on x
-//   // denied: user has denied the request.
-//   if (permission !== "granted") {
-//     throw new Error("Permission not granted for Notification");
-//   }
-
-//   swRegistration.showNotification("Hello", {
-//     body: "Lalala!!!",
-//     // here you can add more properties like icon, image, vibrate, etc.
-//   });
-// };
-
-// reg();
 
 // Keep TypeScript from throwing errors
 declare var Modernizr: any;
@@ -50,9 +26,7 @@ export type OdysseySchedulerClient = {
   fixedHeight: number;
 };
 
-export type OdysseySchedulerSubscriber = (
-  client: OdysseySchedulerClient
-) => void;
+export type OdysseySchedulerSubscriber = (client: OdysseySchedulerClient) => void;
 
 type OdysseyAPI = {
   scheduler: {
