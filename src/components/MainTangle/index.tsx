@@ -7,12 +7,10 @@ import SVG from "react-inlinesvg";
 
 import untangleAnimation from "./assets/untangle-loop.svg";
 
-import { AppContext } from "../../AppContext";
-
 const PLAY_RATE = 1.333;
 
 const lookupRange = (marker: string) => {
-  if (marker === "1" || isNaN(Number(marker)))
+  if (marker === "1" || marker === "initial")
     return {
       start: "1a",
       end: "2",
@@ -20,6 +18,14 @@ const lookupRange = (marker: string) => {
     };
 
   if (marker === "19")
+    return {
+      start: "19",
+      end: "20",
+      loopback: null,
+    };
+
+  // If any other marker just stay at the end
+  if (isNaN(Number(marker)))
     return {
       start: "19",
       end: "20",
@@ -38,15 +44,13 @@ const lookupRange = (marker: string) => {
 interface MainTangleProps {
   animationFrame?: number;
   scrollMarker?: string;
-  shouldObscure: boolean;
   yOffset?: number;
   setBackgroundIsRendered?: any;
+  opacity: number;
 }
 
 const MainTangle: React.FC<MainTangleProps> = (props) => {
   const mainEl = useRef(null);
-  // Use app context
-  const context: any = useContext(AppContext);
   // Component state
   const [markers, setMarkers] = useState({});
 
@@ -70,9 +74,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       setMarkers(timeline.l?.markers || timeline._options.markers);
 
       // Try to start animation down page on reload
-      console.log("scroll marker:", props.scrollMarker);
       const playloop = lookupRange(props.scrollMarker + ""); // Coerce to string
-      console.log(playloop);
 
       if (!playloop.loopback) {
         timeline.pause(playloop.start);
@@ -125,14 +127,11 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     // console.log("Current time:", currentTime);
 
     const markerTime = markers[scrollMarker];
-    // console.log("Marker time:", markerTime);
 
     // Coerce type as string here as it doesn't check for some reason
     const playloop = lookupRange(scrollMarker + "");
 
-    // console.log("Range lookup:", playloop);
     const endTime = markers[playloop.end];
-    // console.log("End time:", endTime);
 
     // TODO: Detect if endTime spans multiple markers maybe
     // And speed up the animation or something...
@@ -186,17 +185,8 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
   return (
     <>
-      <div className={styles.root}>
-        <div
-          className={`interactive-main-tangle ${styles.svgContainer} ${
-            props.shouldObscure ? styles.obscured : styles.shown
-          }`}
-          // style={{
-          //   transform: `translate3d(0, -${props.yOffset}px, 0)`,
-          // transition: `transform 256ms`,
-          // }}
-          ref={mainEl}
-        >
+      <div className={styles.root} style={{ opacity: props.opacity }}>
+        <div className={`interactive-main-tangle ${styles.svgContainer}`} ref={mainEl}>
           <SVG
             className={styles.svg}
             src={untangleAnimation}

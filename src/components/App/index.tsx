@@ -42,6 +42,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [userInputState, setUserInputState] = useState({});
   const [topAbove, setTopAbove] = useState();
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
+  const [mainTangleOpacity, setMainTangleOpacity] = useState(1.0)
+  const [endTangleOpacity, setEndTangleOpacity] = useState(0.0)
+
 
   useEffect(() => {
     console.log("App mounted...");
@@ -176,9 +179,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           <MainTangle
             animationFrame={animationFrame}
             scrollMarker={marker}
-            shouldObscure={paragraphTextVisible}
             yOffset={backdropOffset}
             setBackgroundIsRendered={setBackgroundIsRendered}
+            opacity={mainTangleOpacity}
           />
           {/* ) : (
             <>
