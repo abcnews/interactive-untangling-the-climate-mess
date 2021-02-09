@@ -20,6 +20,14 @@
     background-color: rgba(254, 246, 238, 0.9);
     padding: 20px 18px;
 
+    @include for-tablet-portrait-up {
+      padding: 20px 1.75rem;
+    }
+
+    @include for-desktop-up {
+      padding: 20px 1.75rem;
+    }
+
     > * {
       margin-top: 2.25rem;
       margin-bottom: 2.25rem;

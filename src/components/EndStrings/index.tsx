@@ -11,7 +11,7 @@ import endString4 from "./assets/EndString4.svg";
 import endString5 from "./assets/EndString5.svg";
 
 // Put them in an array
-const endStrings = [endString1, endString2, endString3, endString4, endString5];
+const endStrings = [endString1];
 
 interface EndStringsProps {
   opacity: number;
