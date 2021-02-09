@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import SVG from "react-inlinesvg";
 
 import styles from "./styles.scss";
@@ -13,11 +13,17 @@ import endString5 from "./assets/EndString5.svg";
 // Put them in an array
 const endStrings = [endString1, endString2, endString3, endString4, endString5];
 
-interface EndStringsProps {}
+interface EndStringsProps {
+  opacity: number;
+}
 
-const EndStrings: React.FC<EndStringsProps> = () => {
+const EndStrings: React.FC<EndStringsProps> = (props) => {
+  useEffect(() => {
+    console.log("Mounted")
+  }, []) 
+
   return (
-    <div className={styles.root}>
+    <div className={styles.root} style={{ opacity: props.opacity }}>
       {endStrings.map((svg, index) => {
         return (
           <div className={styles.svgLayer} key={index}>

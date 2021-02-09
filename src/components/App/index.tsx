@@ -42,9 +42,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [userInputState, setUserInputState] = useState({});
   const [topAbove, setTopAbove] = useState();
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
-  const [mainTangleOpacity, setMainTangleOpacity] = useState(1.0)
-  const [endTangleOpacity, setEndTangleOpacity] = useState(0.0)
-
+  const [mainTangleOpacity, setMainTangleOpacity] = useState(1.0);
+  const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
 
   useEffect(() => {
     console.log("App mounted...");
@@ -55,6 +54,18 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     console.log(userInputState);
   }, [userInputState]);
+
+  useEffect(() => {
+    if (!marker) return;
+
+    console.log(marker);
+
+    if (marker === "endstrings") {
+      setEndTangleOpacity(1.0);
+    } else {
+      setEndTangleOpacity(0.0);
+    }
+  }, [marker]);
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
@@ -183,11 +194,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             setBackgroundIsRendered={setBackgroundIsRendered}
             opacity={mainTangleOpacity}
           />
-          {/* ) : (
+          (
+          {endTangleOpacity > 0 && (
             <>
-              <EndStrings />
+              <EndStrings opacity={endTangleOpacity} />
             </>
-          )} */}
+          )}
+          )
         </Portal>
 
         <BackgroundTexture />

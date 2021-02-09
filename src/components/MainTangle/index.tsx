@@ -194,6 +194,8 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
               return code;
             }}
             onLoad={initSvg}
+            uniqueHash={"maintangle"}
+            uniquifyIDs={true}
           />
         </div>
       </div>

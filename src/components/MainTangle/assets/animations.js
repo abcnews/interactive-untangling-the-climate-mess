@@ -1,6 +1,6 @@
 export const animate = () => {
   return ks.animate(
-    "#Tangles",
+    "#Tangles__maintangle",
     [
       {
         p: "mpath",
@@ -80,7 +80,7 @@ export const animate = () => {
           "M210,565.3L210,171.6L210,171.6L210,565.3L210,565.3L210,171.6L210,171.6L210,565.3L210,565.3L210,171.6L210,171.6L210,565.3L210,565.3L210,171.6L210,171.6L210,565.3L210,565.3L210,171.6L210,171.6L210,565.3L210,565.3L210,171.6",
       },
     ],
-    "#Yellowtangle-1",
+    "#Yellowtangle-1__maintangle",
     [
       {
         p: "mpath",
@@ -252,7 +252,7 @@ export const animate = () => {
       },
       { p: "strokeWidth", t: [8708, 10167], v: [4, 4.2], e: [[0], [0]] },
     ],
-    "#Yellowtangle-2",
+    "#Yellowtangle-2__maintangle",
     [
       {
         p: "mpath",
@@ -421,7 +421,7 @@ export const animate = () => {
       },
       { p: "strokeWidth", t: [8708, 10167], v: [4, 4.2], e: [[0], [0]] },
     ],
-    "#Greentangle-1",
+    "#Greentangle-1__maintangle",
     [
       {
         p: "mpath",
@@ -755,7 +755,7 @@ export const animate = () => {
       },
       { p: "strokeWidth", t: [30625, 32125], v: [4, 4.2], e: [[0], [0]] },
     ],
-    "#Greentangle-2",
+    "#Greentangle-2__maintangle",
     [
       {
         p: "mpath",
@@ -1086,7 +1086,7 @@ export const animate = () => {
       },
       { p: "strokeWidth", t: [30625, 32125], v: [4, 4.2], e: [[0], [0]] },
     ],
-    "#Bluetangle-1",
+    "#Bluetangle-1__maintangle",
     [
       {
         p: "mpath",
@@ -1540,7 +1540,7 @@ export const animate = () => {
       },
       { p: "strokeWidth", t: [47833, 49125], v: [4, 4.2], e: [[0], [0]] },
     ],
-    "#Bluetangle-2",
+    "#Bluetangle-2__maintangle",
     [
       {
         p: "mpath",
@@ -1994,7 +1994,7 @@ export const animate = () => {
       },
       { p: "strokeWidth", t: [47833, 49125], v: [4, 4.2], e: [[0], [0]] },
     ],
-    "#Redtangle-1",
+    "#Redtangle-1__maintangle",
     [
       {
         p: "mpath",
@@ -2388,7 +2388,7 @@ export const animate = () => {
       },
       { p: "strokeWidth", t: [41333, 42750], v: [4, 4.2], e: [[0], [0]] },
     ],
-    "#Redtangle-2",
+    "#Redtangle-2__maintangle",
     [
       {
         p: "mpath",
@@ -2779,7 +2779,7 @@ export const animate = () => {
       },
       { p: "strokeWidth", t: [41333, 42750], v: [4, 4.2], e: [[0], [0]] },
     ],
-    "#Darktangle-1",
+    "#Darktangle-1__maintangle",
     [
       {
         p: "mpath",
@@ -3087,7 +3087,7 @@ export const animate = () => {
         e: [[0], [0], [0], [0], [0], [0]],
       },
     ],
-    "#Darktangle-2",
+    "#Darktangle-2__maintangle",
     [
       {
         p: "mpath",
@@ -3374,7 +3374,7 @@ export const animate = () => {
         e: [[0], [0], [0], [0], [0], [0]],
       },
     ],
-    "#YellowIllos",
+    "#YellowIllos__maintangle",
     [
       {
         p: "opacity",
@@ -3413,7 +3413,7 @@ export const animate = () => {
         ],
       },
     ],
-    "#GreenIllos",
+    "#GreenIllos__maintangle",
     [
       {
         p: "opacity",
@@ -3454,7 +3454,7 @@ export const animate = () => {
         ],
       },
     ],
-    "#BlueIllos",
+    "#BlueIllos__maintangle",
     [
       { p: "opacity", t: [47875, 47917], v: [0, 1], e: [[0], [0]] },
       {
@@ -3484,7 +3484,7 @@ export const animate = () => {
         ],
       },
     ],
-    "#RedIllos",
+    "#RedIllos__maintangle",
     [
       {
         p: "mpath",
@@ -3522,7 +3522,7 @@ export const animate = () => {
         e: [[1, 0.4, 0, 0, 1], [0], [1, 1, 0, 0.6, 1], [0]],
       },
     ],
-    "#DarkIllos",
+    "#DarkIllos__maintangle",
     [
       {
         p: "opacity",
@@ -3598,9 +3598,9 @@ export const animate = () => {
         ],
       },
     ],
-    "#End-Tangles",
+    "#End-Tangles__maintangle",
     [{ p: "opacity", t: [60000, 60042], v: [0, 1], e: [[0], [0]] }],
-    "#Purpletangle-End",
+    "#Purpletangle-End__maintangle",
     [
       {
         p: "strokeDashoffset",
@@ -3609,7 +3609,7 @@ export const animate = () => {
         e: [[1, 0.4, 0, 1, 1], [0]],
       },
     ],
-    "#Greentangle-End",
+    "#Greentangle-End__maintangle",
     [
       {
         p: "strokeDashoffset",
