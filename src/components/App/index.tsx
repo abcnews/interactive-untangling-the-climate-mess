@@ -76,6 +76,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputtier1")}>
           <UserInputBox
+            questionKey="tier1"
             title={"Can we still save the world?"}
             buttons={[
               { label: "Of course we can", value: "1" },
@@ -90,6 +91,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputradelaide")}>
           <UserInputBox
+            questionKey="radelaide"
             title={"Still laughing at South Australia?"}
             buttons={[
               { label: "No, good one Radelaide", value: "1" },
@@ -101,6 +103,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputtoast")}>
           <UserInputBox
+            questionKey="toast"
             title={
               "So what do you reckon, can you have your toast in a zero carbon world and eat it too?"
             }
@@ -114,6 +117,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputzerocarbon")}>
           <UserInputBox
+            questionKey="zerocarbon"
             title={"So - what do you reckon our chances of doing this are?"}
             buttons={[
               { label: "That's a piece of cake", value: "1" },
@@ -127,6 +131,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputcarscansaveus")}>
           <UserInputBox
+            questionKey="carscansaveus"
             title={"So how are you feeling about EVs now?"}
             buttons={[
               { label: "CARS CAN SAVE US", value: "1" },
@@ -138,6 +143,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputfossiltransport")}>
           <UserInputBox
+            questionKey="fossiltransport"
             title={
               "So now you know how we quit fossil fuels in our transport system, can we do it?"
             }
@@ -153,6 +159,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputbigseaweed")}>
           <UserInputBox
+            questionKey="bigseaweed"
             title={"Where are you splashing your cash?"}
             buttons={[
               { label: "BIG SEAWEED", value: "1" },
@@ -164,6 +171,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputmosquito")}>
           <UserInputBox
+            questionKey="mosquito"
             title={"What should we be?"}
             buttons={[
               { label: "MOSQUITO", value: "1" },
@@ -194,13 +202,12 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             setBackgroundIsRendered={setBackgroundIsRendered}
             opacity={mainTangleOpacity}
           />
-          (
+
           {endTangleOpacity > 0 && (
             <>
               <EndStrings opacity={endTangleOpacity} />
             </>
           )}
-          )
         </Portal>
 
         <BackgroundTexture />

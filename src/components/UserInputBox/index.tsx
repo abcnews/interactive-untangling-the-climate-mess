@@ -11,6 +11,7 @@ interface UserInputBoxProps {
   buttons?: Button[];
   poll?: any;
   setUserInputState?: any;
+  questionKey: string;
 }
 
 const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
@@ -53,7 +54,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
 
     if (props.setUserInputState) {
       props.setUserInputState((prevState) => {
-        return { ...prevState, [props.title]: selected };
+        return { ...prevState, [props.questionKey]: selected };
       });
     }
   }, [selected]);
