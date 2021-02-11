@@ -51,7 +51,14 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
     }
 
     // Load all timelines into a timeline object
-    timelines[animationNumber] = stringAnimations[animationNumber]().rate(0.5).pause();
+    timelines[animationNumber] = stringAnimations[animationNumber]().rate(0.5).pause(1);
+  }
+
+  function resetAnimations() {
+    for (const tl in timelines) {
+      console.log(tl);
+      timelines[tl].pause(0);
+    }
   }
 
   useEffect(() => {
@@ -62,11 +69,14 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
   useEffect(
     function () {
       if (!allLoaded) return;
-      console.log("All end animations loaded...")
+      console.log("All end animations loaded...");
 
-      // setTimeout(() => {
-      //   timelines.one.play();
-      // }, 3000);
+      setTimeout(() => {
+        const currentTime = timelines.one.time();
+        timelines.one.range(currentTime, "1a");
+        timelines.one.play();
+        // resetAnimations();
+      }, 3000);
       // setTimeout(() => {
       //   timelines.two.play();
       // }, 2000);
@@ -79,7 +89,6 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
       // setTimeout(() => {
       //   timelines.five.play();
       // }, 5000);
-
     },
     [allLoaded]
   );

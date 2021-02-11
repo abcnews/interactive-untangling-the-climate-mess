@@ -203,11 +203,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             opacity={mainTangleOpacity}
           />
 
-          {endTangleOpacity > 0 && (
-            <>
-              <EndStrings opacity={endTangleOpacity} />
-            </>
-          )}
+          <EndStrings opacity={endTangleOpacity} />
         </Portal>
 
         <BackgroundTexture />
@@ -216,11 +212,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Sets paragraph text where we break out of 
         scrolly panels (and hide background animations on mobile) */}
-        {backgroundIsRendered && (
-          <ParagraphObserver
-            setYOffset={setBackdropOffset}
-          />
-        )}
+        {backgroundIsRendered && <ParagraphObserver setYOffset={setBackdropOffset} />}
 
         {/* Just a line down the center of the screen for testing */}
         {/* <div className={styles.centerHint} /> */}

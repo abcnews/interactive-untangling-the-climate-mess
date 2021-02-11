@@ -122,19 +122,13 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
     const { scrollMarker }: { scrollMarker?: string } = props;
 
-    // console.log("Scroll marker prop:", scrollMarker);
     const currentTime = timeline.time();
-    // console.log("Current time:", currentTime);
-
     const markerTime = markers[scrollMarker];
 
     // Coerce type as string here as it doesn't check for some reason
     const playloop = lookupRange(scrollMarker + "");
 
     const endTime = markers[playloop.end];
-
-    // TODO: Detect if endTime spans multiple markers maybe
-    // And speed up the animation or something...
 
     // If going forward
     if (currentTime < endTime) {
