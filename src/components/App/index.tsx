@@ -218,7 +218,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         scrolly panels (and hide background animations on mobile) */}
         {backgroundIsRendered && (
           <ParagraphObserver
-            toggle={setParagraphTextVisible}
             setYOffset={setBackdropOffset}
           />
         )}

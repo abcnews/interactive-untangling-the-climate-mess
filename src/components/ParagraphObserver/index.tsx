@@ -34,7 +34,6 @@ const isOneVisible = (entries) => {
 };
 
 interface ParagraphObserverProps {
-  toggle: Function;
   setYOffset?: any;
 }
 
@@ -42,9 +41,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   const windowSize = useWindowSize();
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
-
-  // Set state
-  const [visible, setVisible] = useState(false);
 
   // Init some component vars
   let observer = component.observer;
@@ -63,7 +59,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     }
 
     entries.forEach((entry) => {
-      setVisible(entry.isIntersecting);
 
       if (entry.isIntersecting) {
         currentPanel = entry.target;
@@ -164,9 +159,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     };
   }, []);
 
-  useEffect(() => {
-    props.toggle(visible);
-  }, [visible]);
 
   // On resize
   useLayoutEffect(() => {

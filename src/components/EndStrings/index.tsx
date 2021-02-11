@@ -50,6 +50,7 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
       setAllLoaded(true);
     }
 
+    // Load all timelines into a timeline object
     timelines[animationNumber] = stringAnimations[animationNumber]().rate(0.5).pause();
   }
 
@@ -62,21 +63,23 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
     function () {
       if (!allLoaded) return;
       console.log("All end animations loaded...")
-      setTimeout(() => {
-        timelines.one.play();
-      }, 3000);
-      setTimeout(() => {
-        timelines.two.play();
-      }, 2000);
-      setTimeout(() => {
-        timelines.three.play();
-      }, 1000);
-      setTimeout(() => {
-        timelines.four.play();
-      }, 4000);
-      setTimeout(() => {
-        timelines.five.play();
-      }, 5000);
+
+      // setTimeout(() => {
+      //   timelines.one.play();
+      // }, 3000);
+      // setTimeout(() => {
+      //   timelines.two.play();
+      // }, 2000);
+      // setTimeout(() => {
+      //   timelines.three.play();
+      // }, 1000);
+      // setTimeout(() => {
+      //   timelines.four.play();
+      // }, 4000);
+      // setTimeout(() => {
+      //   timelines.five.play();
+      // }, 5000);
+
     },
     [allLoaded]
   );
