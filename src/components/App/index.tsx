@@ -75,7 +75,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     if (marker === "endstrings") {
       setEndTangleOpacity(1.0);
-      setStringsNew({ one: 1, two: 1, three: 1, four: 1, five: 1 });
+      setTimeout(() => {
+        setStringsNew({ one: 1, two: 1, three: 1, four: 1, five: 1 });
+      }, 100);
     } else {
       setEndTangleOpacity(0.0);
       setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 0 });
@@ -209,16 +211,19 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
-          {/* {marker && !endStringsMarkers.includes(marker) ? ( */}
-          <MainTangle
-            animationFrame={animationFrame}
-            scrollMarker={marker}
-            yOffset={backdropOffset}
-            setBackgroundIsRendered={setBackgroundIsRendered}
-            opacity={mainTangleOpacity}
-          />
+          {marker && !endStringsMarkers.includes(marker) && (
+            <MainTangle
+              animationFrame={animationFrame}
+              scrollMarker={marker}
+              yOffset={backdropOffset}
+              setBackgroundIsRendered={setBackgroundIsRendered}
+              opacity={mainTangleOpacity}
+            />
+          )}
 
-          <EndStrings opacity={endTangleOpacity} stringsNew={stringsNew} />
+          {endTangleOpacity > 0.0 && (
+            <EndStrings opacity={endTangleOpacity} stringsNew={stringsNew} />
+          )}
         </Portal>
 
         <BackgroundTexture />

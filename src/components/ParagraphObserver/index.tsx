@@ -59,7 +59,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     }
 
     entries.forEach((entry) => {
-
       if (entry.isIntersecting) {
         currentPanel = entry.target;
 
@@ -100,27 +99,28 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       );
     }
 
+    // FADE IN TEXT AS WE SCROLL
     // Above threshold make fully visible
-    if (topPixelsAboveFold > FADE_IN_TEXT_THRESHOLD) {
-      // If not already fully visible...
-      if (currentElements[0].style.opacity < 1.0) {
-        currentElements.forEach((element) => {
-          element.style.opacity = 1.0;
-        });
-      }
-    } else {
-      // Below the fold, make invisible
-      if (topPixelsAboveFold < 0) {
-        currentElements.forEach((element) => {
-          element.style.opacity = 0;
-        });
-      } else {
-        currentElements.forEach((element) => {
-          // Set elements visible corresponding to scroll position
-          element.style.opacity = fromBottomScale(topPixelsAboveFold);
-        });
-      }
-    }
+    // if (topPixelsAboveFold > FADE_IN_TEXT_THRESHOLD) {
+    //   // If not already fully visible...
+    //   if (currentElements[0].style.opacity < 1.0) {
+    //     currentElements.forEach((element) => {
+    //       element.style.opacity = 1.0;
+    //     });
+    //   }
+    // } else {
+    //   // Below the fold, make invisible
+    //   if (topPixelsAboveFold < 0) {
+    //     currentElements.forEach((element) => {
+    //       element.style.opacity = 0;
+    //     });
+    //   } else {
+    //     currentElements.forEach((element) => {
+    //       // Set elements visible corresponding to scroll position
+    //       element.style.opacity = fromBottomScale(topPixelsAboveFold);
+    //     });
+    //   }
+    // }
 
     // Recall the loop
     if (monitorScroll && rAf) rAf(onAnimationFrameScroll);
@@ -158,7 +158,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       rAf = undefined;
     };
   }, []);
-
 
   // On resize
   useLayoutEffect(() => {

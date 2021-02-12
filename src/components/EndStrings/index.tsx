@@ -79,25 +79,6 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
     function () {
       if (!allLoaded) return;
       console.log("All end animations loaded...");
-
-      // setTimeout(() => {
-      //   const currentTime = timelines.one.time();
-      //   timelines.one.range(currentTime, "1a");
-      //   timelines.one.play();
-      //   // resetAnimations();
-      // }, 3000);
-      // setTimeout(() => {
-      //   timelines.two.play();
-      // }, 2000);
-      // setTimeout(() => {
-      //   timelines.three.play();
-      // }, 1000);
-      // setTimeout(() => {
-      //   timelines.four.play();
-      // }, 4000);
-      // setTimeout(() => {
-      //   timelines.five.play();
-      // }, 5000);
     },
     [allLoaded]
   );
@@ -157,7 +138,7 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
   return (
     <div
       className={styles.root}
-      // style={{ opacity: props.opacity }}
+      style={{ opacity: props.opacity }}
     >
       {endStrings.map((svg, index) => {
         return (
