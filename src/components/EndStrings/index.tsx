@@ -37,6 +37,14 @@ interface EndStringsProps {
 
 const EndStrings: React.FC<EndStringsProps> = (props) => {
   const [allLoaded, setAllLoaded] = useState(false);
+  const [stringOne, setStringOne] = useState(false);
+  const [strings, setStrings] = useState({
+    one: false,
+    two: false,
+    three: false,
+    four: false,
+    five: false,
+  });
 
   function initAnimations(iteration) {
     // So we can load up all the animations
@@ -72,11 +80,31 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
       console.log("All end animations loaded...");
 
       setTimeout(() => {
-        const currentTime = timelines.one.time();
-        timelines.one.range(currentTime, "1a");
-        timelines.one.play();
-        // resetAnimations();
+        setStrings({
+          one: false,
+          two: false,
+          three: true,
+          four: false,
+          five: false,
+        });
       }, 3000);
+
+      setTimeout(() => {
+        setStrings({
+          one: false,
+          two: false,
+          three: false,
+          four: true,
+          five: false,
+        });
+      }, 10000);
+
+      // setTimeout(() => {
+      //   const currentTime = timelines.one.time();
+      //   timelines.one.range(currentTime, "1a");
+      //   timelines.one.play();
+      //   // resetAnimations();
+      // }, 3000);
       // setTimeout(() => {
       //   timelines.two.play();
       // }, 2000);
@@ -92,6 +120,34 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
     },
     [allLoaded]
   );
+
+  useEffect(() => {
+    if (!allLoaded) return;
+    // TODO: find a better way to do this......
+
+    // console.log("strings:", strings);
+
+    // for (const string in strings) {
+    //   const currentTime = timelines[string].time();
+    //   console.log(strings[string])
+    //   if (strings[string]) {
+    //     timelines[string].range(currentTime, "1a");
+    //     timelines[string].play();
+    //   } else {
+    //     timelines[string].range(currentTime);
+    //     timelines[string].play();
+    //   }
+    // }
+
+    // const currentTime = timelines.one.time();
+    // if (stringOne) {
+    //   timelines.one.range(currentTime, "1a");
+    //   timelines.one.play();
+    // } else {
+    //   timelines.one.range(currentTime, timelines.one.duration() - 100);
+    //   timelines.one.play();
+    // }
+  }, [strings]);
 
   return (
     <div className={styles.root} style={{ opacity: props.opacity }}>
