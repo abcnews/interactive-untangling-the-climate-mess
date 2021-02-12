@@ -44,9 +44,22 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
   const [mainTangleOpacity, setMainTangleOpacity] = useState(1.0);
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
+  const [stringsNew, setStringsNew] = useState({});
 
   useEffect(() => {
     console.log("App mounted...");
+
+    // setTimeout(() => {
+    //   setStringsNew({ one: 1, two: 0, three: 1, four: 0, five: 0 });
+    // }, 3000);
+
+    // setTimeout(() => {
+    //   setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 1 });
+    // }, 5000);
+
+    // setTimeout(() => {
+    //   setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 0 });
+    // }, 8000);
   }, []);
 
   useEffect(() => {
@@ -203,7 +216,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             opacity={mainTangleOpacity}
           />
 
-          <EndStrings opacity={endTangleOpacity} />
+          <EndStrings opacity={endTangleOpacity} stringsNew={stringsNew} />
         </Portal>
 
         <BackgroundTexture />

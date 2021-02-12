@@ -33,17 +33,18 @@ let timelines: any = {};
 
 interface EndStringsProps {
   opacity: number;
+  stringsNew?: any;
 }
 
 const EndStrings: React.FC<EndStringsProps> = (props) => {
   const [allLoaded, setAllLoaded] = useState(false);
   const [stringOne, setStringOne] = useState(false);
   const [strings, setStrings] = useState({
-    one: false,
-    two: false,
-    three: false,
-    four: false,
-    five: false,
+    one: 0,
+    two: 0,
+    three: 0,
+    four: 0,
+    five: 0,
   });
 
   function initAnimations(iteration) {
@@ -79,26 +80,6 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
       if (!allLoaded) return;
       console.log("All end animations loaded...");
 
-      setTimeout(() => {
-        setStrings({
-          one: false,
-          two: false,
-          three: true,
-          four: false,
-          five: false,
-        });
-      }, 3000);
-
-      setTimeout(() => {
-        setStrings({
-          one: false,
-          two: false,
-          three: false,
-          four: true,
-          five: false,
-        });
-      }, 10000);
-
       // setTimeout(() => {
       //   const currentTime = timelines.one.time();
       //   timelines.one.range(currentTime, "1a");
@@ -123,6 +104,30 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
 
   useEffect(() => {
     if (!allLoaded) return;
+    console.log(props.stringsNew);
+
+    const { stringsNew } = props;
+
+    for (const key in stringsNew) {
+      const currentTime = timelines[key].time();
+
+      // If new string wants to come in
+      if (stringsNew[key] > strings[key]) {
+        const currentTime = timelines[key].time();
+        timelines[key].range(currentTime, "1a");
+        timelines[key].play();
+      }
+
+      // If new string wants to go out
+
+      if (stringsNew[key] < strings[key]) {
+        timelines[key].range(currentTime);
+        timelines[key].play();
+      }
+    }
+
+    setStrings(stringsNew);
+
     // TODO: find a better way to do this......
 
     // console.log("strings:", strings);
@@ -147,7 +152,7 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
     //   timelines.one.range(currentTime, timelines.one.duration() - 100);
     //   timelines.one.play();
     // }
-  }, [strings]);
+  }, [props.stringsNew]);
 
   return (
     <div className={styles.root} style={{ opacity: props.opacity }}>
