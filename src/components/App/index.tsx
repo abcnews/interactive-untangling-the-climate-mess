@@ -38,7 +38,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [backdropOffset, setBackdropOffset] = useState(0);
   const [animationFrame, setAnimationFrame] = useState(200);
   const [marker, setMarker] = useState<any>();
-  const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
   const [userInputState, setUserInputState] = useState({});
   const [topAbove, setTopAbove] = useState();
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
@@ -211,7 +210,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
-          {marker && !endStringsMarkers.includes(marker) && (
+
+
+          {/* {marker && !endStringsMarkers.includes(marker) && ( */}
+          {/* Don't unmount this because elements are being observed by ParagraphObserver
+          Maybe try visibility hidden or display none instead */}
             <MainTangle
               animationFrame={animationFrame}
               scrollMarker={marker}
@@ -219,7 +222,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               setBackgroundIsRendered={setBackgroundIsRendered}
               opacity={mainTangleOpacity}
             />
-          )}
+          {/* )} */}
 
           {endTangleOpacity > 0.0 && (
             <EndStrings opacity={endTangleOpacity} stringsNew={stringsNew} />

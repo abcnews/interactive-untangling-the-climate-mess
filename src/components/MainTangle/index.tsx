@@ -129,7 +129,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     const { scrollMarker }: { scrollMarker?: string } = props;
 
     const currentTime = timeline.time();
-    const markerTime = markers[scrollMarker];
+    // const markerTime = markers[scrollMarker];
 
     // Coerce type as string here as it doesn't check for some reason
     const playloop = lookupRange(scrollMarker + "");
