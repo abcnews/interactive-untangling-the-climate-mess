@@ -49,17 +49,17 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   useEffect(() => {
     console.log("App mounted...");
 
-    setTimeout(() => {
-      setStringsNew({ one: 1, two: 0, three: 1, four: 0, five: 0 });
-    }, 3000);
+    // setTimeout(() => {
+    //   setStringsNew({ one: 1, two: 0, three: 1, four: 0, five: 0 });
+    // }, 3000);
 
-    setTimeout(() => {
-      setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 1 });
-    }, 5000);
+    // setTimeout(() => {
+    //   setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 1 });
+    // }, 5000);
 
-    setTimeout(() => {
-      setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 0 });
-    }, 8000);
+    // setTimeout(() => {
+    //   setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 0 });
+    // }, 8000);
   }, []);
 
   useEffect(() => {
@@ -75,8 +75,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     if (marker === "endstrings") {
       setEndTangleOpacity(1.0);
+      setStringsNew({ one: 1, two: 1, three: 1, four: 1, five: 1 });
     } else {
       setEndTangleOpacity(0.0);
+      setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 0 });
     }
   }, [marker]);
 

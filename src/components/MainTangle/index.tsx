@@ -76,8 +76,6 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       // Try to start animation down page on reload
       const playloop = lookupRange(props.scrollMarker + ""); // Coerce to string
 
-      console.log(playloop)
-
       // If at the end just play the end animation
       if (!playloop.loopback) {
         timeline.rate(PLAY_RATE);

@@ -60,7 +60,7 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
     }
 
     // Load all timelines into a timeline object
-    timelines[animationNumber] = stringAnimations[animationNumber]().rate(0.5).pause(1);
+    timelines[animationNumber] = stringAnimations[animationNumber]().rate(1.0).pause(1);
   }
 
   function resetAnimations() {
@@ -109,18 +109,19 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
     const { stringsNew } = props;
 
     for (const key in stringsNew) {
-      const currentTime = timelines[key].time();
+      // const currentTime = timelines[key].time();
 
       // If new string wants to come in
       if (stringsNew[key] > strings[key]) {
-        const currentTime = timelines[key].time();
-        timelines[key].range(currentTime, "1a");
+        timelines[key].range(1, "1a");
+        timelines[key].time(1);
         timelines[key].play();
       }
 
       // If new string wants to go out
       if (stringsNew[key] < strings[key]) {
-        timelines[key].range(currentTime, timelines.one.duration() - 100);
+        timelines[key].range("1a", timelines[key].duration() - 50);
+        timelines[key].time("1a");
         timelines[key].play();
       }
     }
@@ -154,7 +155,10 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
   }, [props.stringsNew]);
 
   return (
-    <div className={styles.root} style={{ opacity: props.opacity }}>
+    <div
+      className={styles.root}
+      // style={{ opacity: props.opacity }}
+    >
       {endStrings.map((svg, index) => {
         return (
           <div className={styles.svgLayer} key={index}>
