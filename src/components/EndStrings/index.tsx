@@ -119,9 +119,8 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
       }
 
       // If new string wants to go out
-
       if (stringsNew[key] < strings[key]) {
-        timelines[key].range(currentTime);
+        timelines[key].range(currentTime, timelines.one.duration() - 100);
         timelines[key].play();
       }
     }
