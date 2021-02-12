@@ -64,7 +64,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   useEffect(() => {
     if (!userInputState) return;
 
-    console.log(userInputState);
+    console.log("user input:", userInputState);
   }, [userInputState]);
 
   useEffect(() => {
@@ -224,9 +224,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             />
           {/* )} */}
 
-          {endTangleOpacity > 0.0 && (
+          
             <EndStrings opacity={endTangleOpacity} stringsNew={stringsNew} />
-          )}
+          
         </Portal>
 
         <BackgroundTexture />

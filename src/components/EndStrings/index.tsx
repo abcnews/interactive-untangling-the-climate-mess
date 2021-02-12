@@ -136,10 +136,7 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
   }, [props.stringsNew]);
 
   return (
-    <div
-      className={styles.root}
-      style={{ opacity: props.opacity }}
-    >
+    <div className={styles.root} style={{ opacity: props.opacity }}>
       {endStrings.map((svg, index) => {
         return (
           <div className={styles.svgLayer} key={index}>
