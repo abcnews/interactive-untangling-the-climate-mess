@@ -1,3 +1,5 @@
+// CURRENTLY UNUSED (moved to main App)
+
 import { Client } from "@abcnews/poll-counters-client";
 
 const client = new Client("__example__");
@@ -18,4 +20,4 @@ const pollGet = (...args) =>
     });
   });
 
-export default {}
+export default {};

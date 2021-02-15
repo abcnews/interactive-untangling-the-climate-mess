@@ -12,11 +12,14 @@ interface UserInputBoxProps {
   poll?: any;
   setUserInputState?: any;
   questionKey: string;
+  handleUserInput?: any;
 }
 
 const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
   const [buttons, setButtons] = useState([{ label: "", value: "" }]);
   const [selected, setSelected] = useState("");
+
+  const { handleUserInput, questionKey } = props;
 
   const handleClick = (e: SyntheticEvent) => {
     const selectedId = (e.target as Element).id;
@@ -51,6 +54,8 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
     //     }
     //   );
     // }
+
+    handleUserInput(questionKey, selected);
 
     if (props.setUserInputState) {
       props.setUserInputState((prevState) => {

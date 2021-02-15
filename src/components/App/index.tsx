@@ -59,6 +59,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
   const [stringsNew, setStringsNew] = useState({});
 
+  async function registerUserInput(questionId, answerCode) {
+    const result = await pollIncrement({
+      question: questionId,
+      answer: answerCode,
+    });
+    console.log(result);
+  }
+
   useEffect(() => {
     console.log("App mounted...");
 
@@ -106,7 +114,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputtier1")}>
           <UserInputBox
-            questionKey="tier1"
+            questionKey="MAINQ1-can-we-still-save-the-world"
             title={"Can we still save the world?"}
             buttons={[
               { label: "Of course we can", value: "absolutely" },
@@ -116,6 +124,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             ]}
             poll={pollClient}
             setUserInputState={setUserInputState}
+            handleUserInput={registerUserInput}
           />
         </Portal>
 
