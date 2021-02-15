@@ -27,10 +27,10 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
     // Set some default buttons
     if (!props.buttons) {
       setButtons([
-        { label: "Of course we can", value: "1" },
-        { label: "Yes I think we can", value: "2" },
-        { label: "Probably not", value: "3" },
-        { label: "No way we're screwed", value: "4" },
+        { label: "Of course we can", value: "absolutely" },
+        { label: "Yes I think we can", value: "yes" },
+        { label: "Probably not", value: "no" },
+        { label: "No way we're screwed", value: "no-way" },
       ]);
     } else {
       setButtons(props.buttons);
@@ -40,17 +40,17 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
   useEffect(() => {
     if (selected === "") return;
 
-    if (props.poll) {
-      props.poll.increment(
-        {
-          question: props.title,
-          answer: selected,
-        },
-        (err, result) => {
-          console.log(result);
-        }
-      );
-    }
+    // if (props.poll) {
+    //   props.poll.increment(
+    //     {
+    //       question: props.title,
+    //       answer: selected,
+    //     },
+    //     (err, result) => {
+    //       console.log(result);
+    //     }
+    //   );
+    // }
 
     if (props.setUserInputState) {
       props.setUserInputState((prevState) => {

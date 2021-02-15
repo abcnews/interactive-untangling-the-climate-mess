@@ -22,11 +22,25 @@ import EndStrings from "../EndStrings";
 import BarChart from "../BarChart/index";
 
 // Set up our poll counter
-const GROUP = "__example__";
-const QUESTION = "x";
-const ANSWER = "y";
-
+const GROUP = "interactive-untangling-the-climate-mess";
 const pollClient = new Client(GROUP);
+
+// Promisify callback functions here whatever
+const pollIncrement = (...args) =>
+  new Promise((resolve, reject) => {
+    pollClient.increment(...args, (err, question) => {
+      if (err) return reject(err);
+      resolve(question);
+    });
+  });
+
+const pollGet = (...args) =>
+  new Promise((resolve, reject) => {
+    pollClient.get(...args, (err, result) => {
+      if (err) return reject(err);
+      resolve(result);
+    });
+  });
 
 const endStringsMarkers = ["endstrings"];
 
@@ -95,10 +109,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             questionKey="tier1"
             title={"Can we still save the world?"}
             buttons={[
-              { label: "Of course we can", value: "1" },
-              { label: "Yes I think we can", value: "2" },
-              { label: "Probably not", value: "3" },
-              { label: "No way we're screwed", value: "4" },
+              { label: "Of course we can", value: "absolutely" },
+              { label: "Yes I think we can", value: "yes" },
+              { label: "Probably not", value: "no" },
+              { label: "No way we're screwed", value: "no-way" },
             ]}
             poll={pollClient}
             setUserInputState={setUserInputState}
@@ -210,23 +224,19 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
-
-
           {/* {marker && !endStringsMarkers.includes(marker) && ( */}
           {/* Don't unmount this because elements are being observed by ParagraphObserver
           Maybe try visibility hidden or display none instead */}
-            <MainTangle
-              animationFrame={animationFrame}
-              scrollMarker={marker}
-              yOffset={backdropOffset}
-              setBackgroundIsRendered={setBackgroundIsRendered}
-              opacity={mainTangleOpacity}
-            />
+          <MainTangle
+            animationFrame={animationFrame}
+            scrollMarker={marker}
+            yOffset={backdropOffset}
+            setBackgroundIsRendered={setBackgroundIsRendered}
+            opacity={mainTangleOpacity}
+          />
           {/* )} */}
 
-          
-            <EndStrings opacity={endTangleOpacity} stringsNew={stringsNew} />
-          
+          <EndStrings opacity={endTangleOpacity} stringsNew={stringsNew} />
         </Portal>
 
         <BackgroundTexture />

@@ -85,7 +85,6 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
 
   useEffect(() => {
     if (!allLoaded) return;
-    console.log(props.stringsNew);
 
     const { stringsNew } = props;
 
