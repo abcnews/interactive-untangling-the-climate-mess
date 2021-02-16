@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Portal } from "react-portal";
+import util from "util";
+import to from "await-to-js";
+import debounce from "debounce-promise";
 
 // Import stylsheets
 import styles from "./styles.scss";
@@ -42,6 +45,11 @@ const pollGet = (...args) =>
     });
   });
 
+const debouncedPollIncrement = debounce(
+  pollIncrement,
+  5000
+);
+
 const endStringsMarkers = ["endstrings"];
 
 interface AppProps {
@@ -60,11 +68,15 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [stringsNew, setStringsNew] = useState({});
 
   async function registerUserInput(questionId, answerCode) {
-    const result = await pollIncrement({
-      question: questionId,
-      answer: answerCode,
-    });
-    console.log(result);
+    const [err, result] = await to(
+      debouncedPollIncrement({
+        question: questionId,
+        answer: answerCode,
+      })
+    );
+
+    if (err) console.error(err);
+    if (result) console.log(result);
   }
 
   useEffect(() => {
