@@ -181,11 +181,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputcarscansaveus")}>
           <UserInputBox
-            questionKey="carscansaveus"
+            questionKey="ASIDE3-electric-vehicles"
             title={"So how are you feeling about EVs now?"}
             buttons={[
-              { label: "CARS CAN SAVE US", value: "1" },
-              { label: "UTEPOCALYPSE IS NIGH", value: "2" },
+              { label: "CARS CAN SAVE US", value: "positive" },
+              { label: "UTEPOCALYPSE IS NIGH", value: "negative" },
             ]}
             setUserInputState={setUserInputState}
           />
@@ -193,15 +193,31 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputfossiltransport")}>
           <UserInputBox
-            questionKey="fossiltransport"
+            questionKey="SUBQ3-transportation-off-fossil"
             title={
               "So now you know how we quit fossil fuels in our transport system, can we do it?"
             }
             buttons={[
-              { label: "That's a piece of cake", value: "1" },
-              { label: "It can be done", value: "2" },
-              { label: "This sounds like a stretch", value: "3" },
-              { label: "You're dreaming", value: "4" },
+              { label: "That's a piece of cake", value: "certain" },
+              { label: "It can be done", value: "hopeful" },
+              { label: "This sounds like a stretch", value: "doubtful" },
+              { label: "You're dreaming", value: "impossible" },
+            ]}
+            setUserInputState={setUserInputState}
+          />
+        </Portal>
+
+        {/* Industry input buttons go here */}
+        {/* inputindustryemissions */}
+        <Portal node={document && document.getElementById("inputindustryemissions")}>
+          <UserInputBox
+            questionKey="SUBQ4-industry-emissions"
+            title={"Can we elliminate emissions from industry?"}
+            buttons={[
+              { label: "That's a piece of cake", value: "certain" },
+              { label: "It can be done", value: "hopeful" },
+              { label: "This sounds like a stretch", value: "doubtful" },
+              { label: "You're dreaming", value: "impossible" },
             ]}
             setUserInputState={setUserInputState}
           />
@@ -209,11 +225,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputbigseaweed")}>
           <UserInputBox
-            questionKey="bigseaweed"
+            questionKey="ASIDE4-seaweed-carbon-capture"
             title={"Where are you splashing your cash?"}
             buttons={[
-              { label: "BIG SEAWEED", value: "1" },
-              { label: "BIG FOSSIL", value: "2" },
+              { label: "BIG SEAWEED", value: "positive" },
+              { label: "BIG FOSSIL", value: "negative" },
             ]}
             setUserInputState={setUserInputState}
           />
@@ -221,11 +237,25 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputmosquito")}>
           <UserInputBox
-            questionKey="mosquito"
+            questionKey="ASIDE5-dung-beetles"
             title={"What should we be?"}
             buttons={[
-              { label: "MOSQUITO", value: "1" },
-              { label: "DUNG BEETLE", value: "2" },
+              { label: "MOSQUITO", value: "negative" },
+              { label: "DUNG BEETLE", value: "positive" },
+            ]}
+            setUserInputState={setUserInputState}
+          />
+        </Portal>
+
+        <Portal node={document && document.getElementById("inputtier1again")}>
+          <UserInputBox
+            questionKey="MAINQ2-can-we-still-save-the-world-again-after-article"
+            title={"So, how about now? Can we save the world?"}
+            buttons={[
+              { label: "Of course we can", value: "certain" },
+              { label: "Yes I think we can", value: "hopeful" },
+              { label: "Probably not", value: "doubtful" },
+              { label: "No way we're screwed", value: "impossible" },
             ]}
             setUserInputState={setUserInputState}
           />

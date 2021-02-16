@@ -67,7 +67,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
   useEffect(() => {
     component.debouncedPollIncrement = debounce(pollIncrement, 5000);
 
-    // Set some default buttons
+    // Set some default buttons (in case they're not set in App — but they will be)
     if (!props.buttons) {
       setButtons([
         { label: "Of course we can", value: "absolutely" },
