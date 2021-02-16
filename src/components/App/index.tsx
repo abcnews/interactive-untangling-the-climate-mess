@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Portal } from "react-portal";
-import util from "util";
 import to from "await-to-js";
 import debounce from "debounce-promise";
 
@@ -45,10 +44,7 @@ const pollGet = (...args) =>
     });
   });
 
-const debouncedPollIncrement = debounce(
-  pollIncrement,
-  5000
-);
+
 
 const endStringsMarkers = ["endstrings"];
 
@@ -67,32 +63,25 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
   const [stringsNew, setStringsNew] = useState({});
 
-  async function registerUserInput(questionId, answerCode) {
-    const [err, result] = await to(
-      debouncedPollIncrement({
-        question: questionId,
-        answer: answerCode,
-      })
-    );
+  const componentRef = useRef({});
+  const { current: component }: { current: any } = componentRef;
 
-    if (err) console.error(err);
-    if (result) console.log(result);
-  }
+  // async function registerUserInput(questionId, answerCode) {
+  //   const [err, result] = await to(
+  //     debouncedPollIncrement({
+  //       question: questionId,
+  //       answer: answerCode,
+  //     })
+  //   );
+
+  //   if (err) console.error(err);
+  //   if (result) console.log(result);
+  // }
 
   useEffect(() => {
     console.log("App mounted...");
 
-    // setTimeout(() => {
-    //   setStringsNew({ one: 1, two: 0, three: 1, four: 0, five: 0 });
-    // }, 3000);
-
-    // setTimeout(() => {
-    //   setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 1 });
-    // }, 5000);
-
-    // setTimeout(() => {
-    //   setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 0 });
-    // }, 8000);
+  
   }, []);
 
   useEffect(() => {
@@ -129,24 +118,23 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             questionKey="MAINQ1-can-we-still-save-the-world"
             title={"Can we still save the world?"}
             buttons={[
-              { label: "Of course we can", value: "absolutely" },
+              { label: "Of course we can", value: "certain" },
               { label: "Yes I think we can", value: "yes" },
               { label: "Probably not", value: "no" },
-              { label: "No way we're screwed", value: "no-way" },
+              { label: "No way we're screwed", value: "impossible" },
             ]}
             poll={pollClient}
             setUserInputState={setUserInputState}
-            handleUserInput={registerUserInput}
           />
         </Portal>
 
         <Portal node={document && document.getElementById("inputradelaide")}>
           <UserInputBox
-            questionKey="radelaide"
+            questionKey="ASIDE1-south-australia-battery-good"
             title={"Still laughing at South Australia?"}
             buttons={[
-              { label: "No, good one Radelaide", value: "1" },
-              { label: "Yes, they speak funny", value: "2" },
+              { label: "No, good one Radelaide", value: "positive" },
+              { label: "Yes, they speak funny", value: "negative" },
             ]}
             setUserInputState={setUserInputState}
           />
@@ -154,31 +142,34 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputtoast")}>
           <UserInputBox
-            questionKey="toast"
+            questionKey="ASIDE2-toast-affordable-zero-carbon"
             title={
               "So what do you reckon, can you have your toast in a zero carbon world and eat it too?"
             }
             buttons={[
-              { label: "Yeah", value: "1" },
-              { label: "Nah", value: "2" },
+              { label: "Yeah", value: "positive" },
+              { label: "Nah", value: "negative" },
             ]}
             setUserInputState={setUserInputState}
+            
           />
         </Portal>
 
         <Portal node={document && document.getElementById("inputzerocarbon")}>
           <UserInputBox
-            questionKey="zerocarbon"
+            questionKey="SUBQ1-renewables-zero-carbon"
             title={"So - what do you reckon our chances of doing this are?"}
             buttons={[
-              { label: "That's a piece of cake", value: "1" },
-              { label: "It can be done", value: "2" },
-              { label: "This sounds like a stretch", value: "3" },
-              { label: "You're dreaming", value: "4" },
+              { label: "That's a piece of cake", value: "certain" },
+              { label: "It can be done", value: "yes" },
+              { label: "This sounds like a stretch", value: "no" },
+              { label: "You're dreaming", value: "impossible" },
             ]}
             setUserInputState={setUserInputState}
           />
         </Portal>
+
+        {/* Livestock user input here */}
 
         <Portal node={document && document.getElementById("inputcarscansaveus")}>
           <UserInputBox
