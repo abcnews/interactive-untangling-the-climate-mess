@@ -16,7 +16,6 @@ const pollIncrement = (...args) =>
       resolve(question);
     });
   });
-
 const pollGet = (...args) =>
   new Promise((resolve, reject) => {
     pollClient.get(...args, (err, result) => {

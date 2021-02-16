@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Portal } from "react-portal";
-import to from "await-to-js";
-import debounce from "debounce-promise";
 
 // Import stylsheets
 import styles from "./styles.scss";
@@ -44,8 +42,6 @@ const pollGet = (...args) =>
     });
   });
 
-
-
 const endStringsMarkers = ["endstrings"];
 
 interface AppProps {
@@ -80,8 +76,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   useEffect(() => {
     console.log("App mounted...");
-
-  
   }, []);
 
   useEffect(() => {
@@ -119,8 +113,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             title={"Can we still save the world?"}
             buttons={[
               { label: "Of course we can", value: "certain" },
-              { label: "Yes I think we can", value: "yes" },
-              { label: "Probably not", value: "no" },
+              { label: "Yes I think we can", value: "hopeful" },
+              { label: "Probably not", value: "doubtful" },
               { label: "No way we're screwed", value: "impossible" },
             ]}
             poll={pollClient}
@@ -151,7 +145,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "Nah", value: "negative" },
             ]}
             setUserInputState={setUserInputState}
-            
           />
         </Portal>
 
@@ -161,8 +154,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             title={"So - what do you reckon our chances of doing this are?"}
             buttons={[
               { label: "That's a piece of cake", value: "certain" },
-              { label: "It can be done", value: "yes" },
-              { label: "This sounds like a stretch", value: "no" },
+              { label: "It can be done", value: "hopeful" },
+              { label: "This sounds like a stretch", value: "doubtful" },
               { label: "You're dreaming", value: "impossible" },
             ]}
             setUserInputState={setUserInputState}
@@ -170,6 +163,21 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         {/* Livestock user input here */}
+        {/* inputlivestockemissions */}
+
+        <Portal node={document && document.getElementById("inputlivestockemissions")}>
+          <UserInputBox
+            questionKey="SUBQ2-livestock-emissions"
+            title={"Can we reach reach zero livestock emissions?"}
+            buttons={[
+              { label: "That's a piece of cake", value: "certain" },
+              { label: "It can be done", value: "hopeful" },
+              { label: "This sounds like a stretch", value: "doubtful" },
+              { label: "You're dreaming", value: "impossible" },
+            ]}
+            setUserInputState={setUserInputState}
+          />
+        </Portal>
 
         <Portal node={document && document.getElementById("inputcarscansaveus")}>
           <UserInputBox
