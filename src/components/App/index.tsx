@@ -62,18 +62,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
-  // async function registerUserInput(questionId, answerCode) {
-  //   const [err, result] = await to(
-  //     debouncedPollIncrement({
-  //       question: questionId,
-  //       answer: answerCode,
-  //     })
-  //   );
-
-  //   if (err) console.error(err);
-  //   if (result) console.log(result);
-  // }
-
   useEffect(() => {
     console.log("App mounted...");
   }, []);
@@ -100,6 +88,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     //   setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 0 });
     // }
   }, [marker]);
+
+  //
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>

@@ -70,11 +70,17 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       component.timeline = animate();
       const timeline = component.timeline;
 
+      console.log("Initialising SVG file: timeline:", timeline);
+
       // Load up the timeline markers so we can compare them later
       setMarkers(timeline.l?.markers || timeline._options.markers);
 
       // Try to start animation down page on reload
+      // TODO: mave this to the scrollmarker effect
+      // conditional on if undefined/null previous value
       const playloop = lookupRange(props.scrollMarker + ""); // Coerce to string
+      console.log("Scroll marker:", props.scrollMarker);
+      console.log("playloop:", playloop);
 
       // If at the end just play the end animation
       if (!playloop.loopback) {
@@ -99,7 +105,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     // Set initial marker pressure
     component.pressure = 0;
 
-    // Tell App that we've been rendered
+    // Tell App component that we've been rendered
     props.setBackgroundIsRendered(true);
 
     // gsap.to("progress", {
@@ -119,12 +125,12 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
   // Do something when scrollMarker changes
   useEffect(() => {
-    // console.log("Received scroll marker:", props.scrollMarker);
-    component.pressure = component.pressure + 1;
-
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
     if (!props.scrollMarker || !timeline) return;
+
+    // Speeds up animations if user is scrolling quickly
+    component.pressure = component.pressure + 1;
 
     const { scrollMarker }: { scrollMarker?: string } = props;
 
