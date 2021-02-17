@@ -60,6 +60,8 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
       })
     );
 
+    // TODO: handle multiple calls... they all await and then continue
+    // returning the same thing multiple times........
     if (err) console.error(err);
     if (result) console.log(result);
   }
@@ -82,18 +84,6 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
 
   useEffect(() => {
     if (selected === "") return;
-
-    // if (props.poll) {
-    //   props.poll.increment(
-    //     {
-    //       question: props.title,
-    //       answer: selected,
-    //     },
-    //     (err, result) => {
-    //       console.log(result);
-    //     }
-    //   );
-    // }
 
     handleUserInput(questionKey, selected);
 

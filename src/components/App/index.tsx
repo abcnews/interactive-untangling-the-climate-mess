@@ -87,17 +87,18 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   useEffect(() => {
     if (!marker) return;
 
-    console.log(marker);
+    console.log("Marker from App effect:", marker);
 
-    if (marker === "endstrings") {
-      setEndTangleOpacity(1.0);
-      setTimeout(() => {
-        setStringsNew({ one: 1, two: 1, three: 1, four: 1, five: 1 });
-      }, 100);
-    } else {
-      setEndTangleOpacity(0.0);
-      setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 0 });
-    }
+    // TODO: make mechanism for bringing in appropriate strings
+    // if (marker === "endstrings") {
+    //   setEndTangleOpacity(1.0);
+    //   setTimeout(() => {
+    //     setStringsNew({ one: 1, two: 1, three: 1, four: 1, five: 1 });
+    //   }, 100);
+    // } else {
+    //   setEndTangleOpacity(0.0);
+    //   setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 0 });
+    // }
   }, [marker]);
 
   return (
