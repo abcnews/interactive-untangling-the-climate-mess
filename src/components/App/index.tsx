@@ -75,7 +75,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   useEffect(() => {
     if (!marker) return;
 
-    console.log("Marker from App effect:", marker);
+    // console.log("Marker from App effect:", marker);
 
     // TODO: make mechanism for bringing in appropriate strings
     // if (marker === "endstrings") {

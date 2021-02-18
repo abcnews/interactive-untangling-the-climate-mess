@@ -71,7 +71,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       component.timeline = animate();
       const timeline = component.timeline;
 
-      console.log("Initialising SVG file: timeline:", timeline);
+      // console.log("Initialising SVG file: timeline:", timeline);
 
       // Load up the timeline markers so we can compare them later
       setMarkers(timeline.l?.markers || timeline._options.markers);
@@ -84,8 +84,6 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
     const timeline = component.timeline;
 
     const playloop = lookupRange(props.scrollMarker + ""); // Coerce to string
-    console.log("Scroll marker:", props.scrollMarker);
-    console.log("playloop:", playloop);
 
     // If at the end just play the end animation
     if (!playloop.loopback) {
@@ -111,12 +109,6 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
     // Tell App component that we've been rendered
     props.setBackgroundIsRendered(true);
-
-    // gsap.to("progress", {
-    //   value: 100,
-    //   // ease: "none",
-    //   scrollTrigger: { trigger: "#paragraphtext", scrub: 0.8 },
-    // });
   }, []);
 
   useEffect(() => {
@@ -129,15 +121,12 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
   // Do something when scrollMarker changes
   useEffect(() => {
-    console.log("Previous:", prevScrollMarker);
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
     if (!props.scrollMarker || !timeline) return;
 
     if (typeof prevScrollMarker === "undefined") {
-      // Try to start animation down page on reload
-      // TODO: mave this to the scrollmarker effect
-      // conditional on if undefined/null previous value
+      // If reloaded or hot reloaded
       loadDownPage();
     } else {
       // Speeds up animations if user is scrolling quickly
@@ -153,15 +142,19 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
       const endTime = markers[playloop.end];
 
+      console.log("Scroll marker:", props.scrollMarker);
+      console.log("playloop:", playloop);
+
       // If going forward
       if (currentTime < endTime) {
         timeline.rate(PLAY_RATE * component.pressure);
         timeline.loop(false);
-        timeline.range(currentTime, endTime);
+        timeline.range(currentTime, playloop.end);
         timeline.time(currentTime);
         timeline.play();
         timeline.onfinish = function () {
-          // We made it. Take the pressure off
+          console.log("Play ended...")
+          // Under pressure? Take the pressure off
           component.pressure = 0;
           timeline.rate(PLAY_RATE);
 
@@ -172,6 +165,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
           this.loop(true);
           this.range(playloop.loopback, playloop.end);
+          timeline.time(playloop.loopback); // Don't you, forget about me
           this.play();
         };
       }
@@ -185,16 +179,17 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
         timeline.play();
         timeline.onfinish = function () {
           component.pressure = 0;
-          timeline.rate(PLAY_RATE);
+          // Keep looping backwards to avoid loop weirdness
+          timeline.rate(-PLAY_RATE);
 
           if (!playloop.loopback) {
             this.pause();
             return;
           }
 
-          timeline.rate(PLAY_RATE);
           this.loop(true);
           this.range(playloop.loopback, playloop.end);
+          timeline.time(playloop.end);
           this.play();
         };
       }
