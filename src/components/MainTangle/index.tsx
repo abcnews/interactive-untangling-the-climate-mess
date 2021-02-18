@@ -53,6 +53,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
   const mainEl = useRef(null);
   // Component state
   const [markers, setMarkers] = useState({});
+  const prevScrollMarker = usePrevious(props.scrollMarker);
 
   // Use a component ref objet to store things properly
   // across renders.
@@ -75,30 +76,33 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       // Load up the timeline markers so we can compare them later
       setMarkers(timeline.l?.markers || timeline._options.markers);
 
-      // Try to start animation down page on reload
-      // TODO: mave this to the scrollmarker effect
-      // conditional on if undefined/null previous value
-      const playloop = lookupRange(props.scrollMarker + ""); // Coerce to string
-      console.log("Scroll marker:", props.scrollMarker);
-      console.log("playloop:", playloop);
-
-      // If at the end just play the end animation
-      if (!playloop.loopback) {
-        timeline.rate(PLAY_RATE);
-        timeline.loop(false);
-        timeline.range(playloop.start, playloop.end);
-        timeline.time(playloop.start);
-        timeline.play();
-      } else {
-        // Otherwise find where we are and play the loopback animation
-        timeline.rate(PLAY_RATE);
-        timeline.loop(true);
-        timeline.range(playloop.loopback, playloop.end);
-        timeline.time(playloop.loopback);
-        timeline.play();
-      }
+      loadDownPage();
     });
   };
+
+  function loadDownPage() {
+    const timeline = component.timeline;
+
+    const playloop = lookupRange(props.scrollMarker + ""); // Coerce to string
+    console.log("Scroll marker:", props.scrollMarker);
+    console.log("playloop:", playloop);
+
+    // If at the end just play the end animation
+    if (!playloop.loopback) {
+      timeline.rate(PLAY_RATE);
+      timeline.loop(false);
+      timeline.range(playloop.start, playloop.end);
+      timeline.time(playloop.start);
+      timeline.play();
+    } else {
+      // Otherwise find where we are and play the loopback animation
+      timeline.rate(PLAY_RATE);
+      timeline.loop(true);
+      timeline.range(playloop.loopback, playloop.end);
+      timeline.time(playloop.loopback);
+      timeline.play();
+    }
+  }
 
   // Init effect
   useEffect(() => {
@@ -125,67 +129,75 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
   // Do something when scrollMarker changes
   useEffect(() => {
+    console.log("Previous:", prevScrollMarker);
     // Note animationFrames sent before rendered
     // will not be reflected in graphic
     if (!props.scrollMarker || !timeline) return;
 
-    // Speeds up animations if user is scrolling quickly
-    component.pressure = component.pressure + 1;
+    if (typeof prevScrollMarker === "undefined") {
+      // Try to start animation down page on reload
+      // TODO: mave this to the scrollmarker effect
+      // conditional on if undefined/null previous value
+      loadDownPage();
+    } else {
+      // Speeds up animations if user is scrolling quickly
+      component.pressure = component.pressure + 1;
 
-    const { scrollMarker }: { scrollMarker?: string } = props;
+      const { scrollMarker }: { scrollMarker?: string } = props;
 
-    const currentTime = timeline.time();
-    // const markerTime = markers[scrollMarker];
+      const currentTime = timeline.time();
+      // const markerTime = markers[scrollMarker];
 
-    // Coerce type as string here as it doesn't check for some reason
-    const playloop = lookupRange(scrollMarker + "");
+      // Coerce type as string here as it doesn't check for some reason
+      const playloop = lookupRange(scrollMarker + "");
 
-    const endTime = markers[playloop.end];
+      const endTime = markers[playloop.end];
 
-    // If going forward
-    if (currentTime < endTime) {
-      timeline.rate(PLAY_RATE * component.pressure);
-      timeline.loop(false);
-      timeline.range(currentTime, endTime);
-      timeline.time(currentTime);
-      timeline.play();
-      timeline.onfinish = function () {
-        // We made it. Take the pressure off
-        component.pressure = 0;
-        timeline.rate(PLAY_RATE);
+      // If going forward
+      if (currentTime < endTime) {
+        timeline.rate(PLAY_RATE * component.pressure);
+        timeline.loop(false);
+        timeline.range(currentTime, endTime);
+        timeline.time(currentTime);
+        timeline.play();
+        timeline.onfinish = function () {
+          // We made it. Take the pressure off
+          component.pressure = 0;
+          timeline.rate(PLAY_RATE);
 
-        if (!playloop.loopback) {
-          this.pause();
-          return;
-        }
+          if (!playloop.loopback) {
+            this.pause();
+            return;
+          }
 
-        this.loop(true);
-        this.range(playloop.loopback, playloop.end);
-        this.play();
-      };
-    }
+          this.loop(true);
+          this.range(playloop.loopback, playloop.end);
+          this.play();
+        };
+      }
 
-    // If scrolling back up
-    if (currentTime > endTime) {
-      timeline.rate(-PLAY_RATE * component.pressure);
-      timeline.loop(false);
-      timeline.range(playloop.loopback, currentTime);
-      timeline.time(currentTime);
-      timeline.play();
-      timeline.onfinish = function () {
-        component.pressure = 0;
-        timeline.rate(PLAY_RATE);
+      // If scrolling back up
+      if (currentTime > endTime) {
+        timeline.rate(-PLAY_RATE * component.pressure);
+        timeline.loop(false);
+        timeline.range(playloop.loopback, currentTime);
+        timeline.time(currentTime);
+        timeline.play();
+        timeline.onfinish = function () {
+          component.pressure = 0;
+          timeline.rate(PLAY_RATE);
 
-        if (!playloop.loopback) {
-          this.pause();
-          return;
-        }
+          if (!playloop.loopback) {
+            this.pause();
+            return;
+          }
 
-        timeline.rate(PLAY_RATE);
-        this.loop(true);
-        this.range(playloop.loopback, playloop.end);
-        this.play();
-      };
+          timeline.rate(PLAY_RATE);
+          this.loop(true);
+          this.range(playloop.loopback, playloop.end);
+          this.play();
+        };
+      }
     }
   }, [props.scrollMarker]);
 
@@ -210,3 +222,18 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 };
 
 export default MainTangle;
+
+// Hook
+function usePrevious(value) {
+  // The ref object is a generic container whose current property is mutable ...
+  // ... and can hold any value, similar to an instance property on a class
+  const ref = useRef();
+
+  // Store current value in ref
+  useEffect(() => {
+    ref.current = value;
+  }, [value]); // Only re-run if value changes
+
+  // Return previous value (happens before update in useEffect above)
+  return ref.current;
+}

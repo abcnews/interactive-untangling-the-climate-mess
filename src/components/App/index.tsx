@@ -277,7 +277,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
           {/* )} */}
 
-          <EndStrings opacity={endTangleOpacity} stringsNew={stringsNew} />
+          {/* <EndStrings opacity={endTangleOpacity} stringsNew={stringsNew} /> */}
         </Portal>
 
         <BackgroundTexture />
