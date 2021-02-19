@@ -100,6 +100,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     }
 
     // FADE IN TEXT AS WE SCROLL
+    // (REMOVED FOR NOW)
     // Above threshold make fully visible
     // if (topPixelsAboveFold > FADE_IN_TEXT_THRESHOLD) {
     //   // If not already fully visible...
@@ -127,6 +128,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   };
 
   useEffect(() => {
+    // Request animation frame fallback function
     rAf =
       window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||

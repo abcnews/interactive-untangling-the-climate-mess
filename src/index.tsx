@@ -129,8 +129,7 @@ function classify(targetString) {
   }
 
   const anchors = document.querySelectorAll("[data-mount]");
-  console.log(anchors);
-
+  
   // Loop through all the anchor nodes
   anchors.forEach((anchor) => {
     // Leave normal links on the page alone
@@ -139,8 +138,6 @@ function classify(targetString) {
     // Get name value
     const elementName = anchor.getAttribute("id");
     if (!elementName) return;
-
-    console.log(elementName)
 
     // Detect class
     if (elementName.slice(0, targetString.length) !== targetString) return;
