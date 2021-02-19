@@ -79,6 +79,8 @@ for (const panel of panelsArray) {
   panel.appendChild(container);
 }
 
+classify("class")
+
 function init() {
   render(<App projectName={PROJECT_NAME} />, root);
 }
@@ -116,4 +118,44 @@ if (module.hot) {
 
 if (process.env.NODE_ENV === "development") {
   console.debug(`[${PROJECT_NAME}] public path: ${__webpack_public_path__}`);
+}
+
+
+// Add class via CoreMedia hashtags eg. #classverytop
+function classify(targetString) {
+  // Set deafult for params
+  if (targetString === undefined) {
+    targetString = "class";
+  }
+
+  const anchors = document.querySelectorAll("[data-mount]");
+  console.log(anchors);
+
+  // Loop through all the anchor nodes
+  anchors.forEach((anchor) => {
+    // Leave normal links on the page alone
+    // if (anchor.innerHTML !== " ") return;
+
+    // Get name value
+    const elementName = anchor.getAttribute("id");
+    if (!elementName) return;
+
+    console.log(elementName)
+
+    // Detect class
+    if (elementName.slice(0, targetString.length) !== targetString) return;
+
+    // Get class name to apply
+    const classToApply = elementName.substr(targetString.length);
+
+    // Get the next paragraph to work with
+    const nextElement = anchor.nextElementSibling;
+    if (!nextElement) return;
+
+    // Apply the class
+    nextElement.classList.add(classToApply);
+
+    // Remove anchor
+    anchor.parentNode?.removeChild(anchor);
+  });
 }

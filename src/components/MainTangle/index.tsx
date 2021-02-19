@@ -153,7 +153,6 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
         timeline.time(currentTime);
         timeline.play();
         timeline.onfinish = function () {
-          console.log("Play ended...")
           // Under pressure? Take the pressure off
           component.pressure = 0;
           timeline.rate(PLAY_RATE);

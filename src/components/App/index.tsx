@@ -78,15 +78,15 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // console.log("Marker from App effect:", marker);
 
     // TODO: make mechanism for bringing in appropriate strings
-    // if (marker === "endstrings") {
-    //   setEndTangleOpacity(1.0);
-    //   setTimeout(() => {
-    //     setStringsNew({ one: 1, two: 1, three: 1, four: 1, five: 1 });
-    //   }, 100);
-    // } else {
-    //   setEndTangleOpacity(0.0);
-    //   setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 0 });
-    // }
+    if (marker === "endstrings") {
+      setEndTangleOpacity(1.0);
+      setTimeout(() => {
+        setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 1 });
+      }, 2000);
+    } else {
+      setEndTangleOpacity(0.0);
+      setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 0 });
+    }
   }, [marker]);
 
   //
@@ -277,7 +277,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
           {/* )} */}
 
-          {/* <EndStrings opacity={endTangleOpacity} stringsNew={stringsNew} /> */}
+          <EndStrings opacity={endTangleOpacity} stringsNew={stringsNew} />
         </Portal>
 
         <BackgroundTexture />
