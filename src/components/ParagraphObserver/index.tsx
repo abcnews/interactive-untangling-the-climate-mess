@@ -7,7 +7,7 @@ import { gsap } from "gsap";
 
 const d3 = { ...require("d3-scale") };
 
-const SCRUB_DURATION = 1000; // In milliseconds
+const SCRUB_DURATION = 750; // In milliseconds
 
 // We are making an animation frame version of onScroll
 // Detect request animation frame
@@ -20,6 +20,7 @@ let monitorScroll = false;
 const HEIGHT_COMPENSATION = 100;
 const FADE_IN_TEXT_THRESHOLD = 300;
 
+// Used for text tranparency
 const fromBottomScale = d3
   .scaleLinear()
   .domain([0, FADE_IN_TEXT_THRESHOLD])
@@ -73,6 +74,10 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     gsap.to(mainTangle, { y: yPos, ease: "power3", duration: SCRUB_DURATION / 1000 });
   };
 
+  const positionTangleImmediate = (element, yPos: number) => {
+    gsap.to(mainTangle, { y: yPos, ease: "power3", duration: 0 });
+  };
+
   let onAnimationFrameScroll: any = () => {
     // Avoid calculations if not needed
     if (lastPosition == window.pageYOffset) {
@@ -87,17 +92,26 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     ].getBoundingClientRect();
 
     const topPixelsAboveFold = window.innerHeight - top;
+    const bottomPixelsAboveFold = window.innerHeight - bottom;
 
-    if (topPixelsAboveFold < 0 || bottom < 0) {
-      positionTangle(mainTangle, 0);
-    } else {
-      positionTangle(
-        mainTangle,
-        topPixelsAboveFold > window.innerHeight
-          ? -window.innerHeight
-          : -topPixelsAboveFold
-      );
-    }
+    // console.log("Top:", top);
+    // console.log("Bottom:", bottom);
+    console.log("Top above Fold:", topPixelsAboveFold);
+    console.log("Bottom above Fold:", bottomPixelsAboveFold);
+
+    positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
+
+    // if (topPixelsAboveFold < 0 || bottom < 0) {
+    //   positionTangle(mainTangle, 0);
+    // } else {
+    //   positionTangle(
+    //     mainTangle,
+    //     // Don't go too far up if you don't have to
+    //     topPixelsAboveFold > window.innerHeight
+    //       ? -window.innerHeight
+    //       : -topPixelsAboveFold
+    //   );
+    // }
 
     // FADE IN TEXT AS WE SCROLL
     // (REMOVED FOR NOW)
