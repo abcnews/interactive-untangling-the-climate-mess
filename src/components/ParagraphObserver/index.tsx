@@ -99,19 +99,26 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     console.log("Top above Fold:", topPixelsAboveFold);
     console.log("Bottom above Fold:", bottomPixelsAboveFold);
 
-    positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
 
-    // if (topPixelsAboveFold < 0 || bottom < 0) {
-    //   positionTangle(mainTangle, 0);
-    // } else {
-    //   positionTangle(
-    //     mainTangle,
-    //     // Don't go too far up if you don't have to
-    //     topPixelsAboveFold > window.innerHeight
-    //       ? -window.innerHeight
-    //       : -topPixelsAboveFold
-    //   );
-    // }
+    // TODO: This will require tweaking so that the animation 
+    // appears seamless. Use positionTangleImmediate() to get the animation down the bottom.
+    if (topPixelsAboveFold > window.innerHeight) {
+      positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
+    } else {
+      if (topPixelsAboveFold < 0 || bottom < 0) {
+        positionTangle(mainTangle, 0);
+      } else {
+        positionTangle(
+          mainTangle,
+          // Don't go too far up if you don't have to
+          topPixelsAboveFold > window.innerHeight
+            ? -window.innerHeight
+            : -topPixelsAboveFold
+        );
+      }
+    }
+
+    //
 
     // FADE IN TEXT AS WE SCROLL
     // (REMOVED FOR NOW)
