@@ -15,9 +15,11 @@ let rAf: any;
 
 let lastPosition = -1;
 let monitorScroll = false;
+let observationElementCount = 0;
+let isFirstObservation = true;
 
 // How much taller to make the paragraph panel
-const HEIGHT_COMPENSATION = 400;
+const HEIGHT_COMPENSATION = 800;
 const FADE_IN_TEXT_THRESHOLD = 300;
 
 // Used for text tranparency
@@ -50,24 +52,48 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   let mainTangle = component.mainTangle;
 
   const processObservation = (entries) => {
-    // Process (turbo boosted) onScroll events if any one paragraph panel is visible
-    if (isOneVisible(entries)) {
-      monitorScroll = true;
-    } else {
-      monitorScroll = false;
-      // Fix fast scrolling up doesn't trigger onScroll
-      positionTangle(mainTangle, 0);
-    }
+    // console.log("OBSERVATION!!!", entries);
+
+    // Process (turbo boosted) on animation frame events
+    // if (isOneVisible(entries)) {
+    //   monitorScroll = true;
+    // } else {
+    //   monitorScroll = false;
+    //   // Fix fast scrolling up doesn't trigger onScroll
+    //   console.log("Not monitoring???")
+    //   positionTangle(mainTangle, 0);
+    // }
 
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
+        observationElementCount++;
         currentPanel = entry.target;
 
         // Get elements between hash markers
         currentElements = nextUntil(currentPanel, "#endparagraphtext");
-        onAnimationFrameScroll();
+        
+      } else {
+        if (!isFirstObservation) {
+          observationElementCount--;
+        }
       }
     });
+
+    // Hacky workaround to get proper at least 1 visible
+    if (isFirstObservation) {
+      isFirstObservation = false;
+    }
+
+    console.log(observationElementCount);
+
+    if (observationElementCount > 0) {
+      monitorScroll = true;
+    } else {
+      monitorScroll = false;
+      positionTangle(mainTangle, 0);
+    }
+
+    onAnimationFrameScroll();
   };
 
   const positionTangle = (element, yPos: number) => {
@@ -86,10 +112,14 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     } else lastPosition = window.pageYOffset;
 
     // Process below per animation frame while scrolling
-    const { top } = currentElements[0].getBoundingClientRect();
-    const { bottom } = currentElements[
-      currentElements.length - 1
-    ].getBoundingClientRect();
+
+    // We can either use paragraph text or the panel
+    // const { top } = currentElements[0].getBoundingClientRect();
+    // const { bottom } = currentElements[
+    //   currentElements.length - 1
+    // ].getBoundingClientRect();
+
+    const { top, bottom } = currentPanel.getBoundingClientRect();
 
     const topPixelsAboveFold = window.innerHeight - top;
     const bottomPixelsAboveFold = window.innerHeight - bottom;
@@ -99,10 +129,18 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     // console.log("Top above Fold:", topPixelsAboveFold);
     // console.log("Bottom above Fold:", bottomPixelsAboveFold);
 
-
-    // TODO: This will require tweaking so that the animation 
+    // TODO: This will require tweaking so that the animation
     // appears seamless. Use positionTangleImmediate() to get the animation down the bottom.
-    
+
+    if (bottomPixelsAboveFold < 0) {
+      // We are pushing top up
+
+      positionTangleImmediate(mainTangle, -topPixelsAboveFold);
+    } else {
+      // We are pulling from underneath
+      positionTangleImmediate(mainTangle, window.innerHeight - bottomPixelsAboveFold);
+    }
+
     // if (topPixelsAboveFold > window.innerHeight - 200) {
     //   positionTangleImmediate(mainTangle, window.innerHeight - bottomPixelsAboveFold + 400);
     // } else {
