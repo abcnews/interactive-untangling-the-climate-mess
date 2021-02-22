@@ -17,7 +17,7 @@ let lastPosition = -1;
 let monitorScroll = false;
 
 // How much taller to make the paragraph panel
-const HEIGHT_COMPENSATION = 100;
+const HEIGHT_COMPENSATION = 400;
 const FADE_IN_TEXT_THRESHOLD = 300;
 
 // Used for text tranparency
@@ -96,27 +96,28 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
     // console.log("Top:", top);
     // console.log("Bottom:", bottom);
-    console.log("Top above Fold:", topPixelsAboveFold);
-    console.log("Bottom above Fold:", bottomPixelsAboveFold);
+    // console.log("Top above Fold:", topPixelsAboveFold);
+    // console.log("Bottom above Fold:", bottomPixelsAboveFold);
 
 
     // TODO: This will require tweaking so that the animation 
     // appears seamless. Use positionTangleImmediate() to get the animation down the bottom.
-    if (topPixelsAboveFold > window.innerHeight) {
-      positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
-    } else {
-      if (topPixelsAboveFold < 0 || bottom < 0) {
-        positionTangle(mainTangle, 0);
-      } else {
-        positionTangle(
-          mainTangle,
-          // Don't go too far up if you don't have to
-          topPixelsAboveFold > window.innerHeight
-            ? -window.innerHeight
-            : -topPixelsAboveFold
-        );
-      }
-    }
+    
+    // if (topPixelsAboveFold > window.innerHeight - 200) {
+    //   positionTangleImmediate(mainTangle, window.innerHeight - bottomPixelsAboveFold + 400);
+    // } else {
+    //   if (topPixelsAboveFold < 0 || bottom < 0) {
+    //     positionTangleImmediate(mainTangle, 0);
+    //   } else {
+    //     positionTangleImmediate(
+    //       mainTangle,
+    //       // Don't go too far up if you don't have to
+    //       topPixelsAboveFold > window.innerHeight
+    //         ? -window.innerHeight
+    //         : -topPixelsAboveFold
+    //     );
+    //   }
+    // }
 
     //
 

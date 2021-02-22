@@ -7,7 +7,7 @@
   left: 50%;
   width: 100%;
   max-width: 700px;
-  transform: translateX(-50%) translateY(-300px);
+  transform: translateX(-50%);
   text-align: right;
 
   // Keep SVG in window
@@ -27,6 +27,9 @@
   // }
 
   .svg-container {
+    svg {
+      transform: translate(0, -31%);
+    }
     // transition: all 200ms;
     @include for-desktop-up {
       position: relative;
