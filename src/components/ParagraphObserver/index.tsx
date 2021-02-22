@@ -19,7 +19,7 @@ let observationElementCount = 0;
 let isFirstObservation = true;
 
 // How much taller to make the paragraph panel
-const HEIGHT_COMPENSATION = 800;
+const HEIGHT_COMPENSATION = 300;
 const FADE_IN_TEXT_THRESHOLD = 300;
 
 // Used for text tranparency
@@ -105,11 +105,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   };
 
   let onAnimationFrameScroll: any = () => {
-    // Avoid calculations if not needed
-    if (lastPosition == window.pageYOffset) {
-      if (monitorScroll && rAf) rAf(onAnimationFrameScroll);
-      return false;
-    } else lastPosition = window.pageYOffset;
+    
 
     // Process below per animation frame while scrolling
 
@@ -182,6 +178,12 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     //     });
     //   }
     // }
+
+    // Avoid calculations if not needed
+    if (lastPosition == window.pageYOffset) {
+      if (monitorScroll && rAf) rAf(onAnimationFrameScroll);
+      return false;
+    } else lastPosition = window.pageYOffset;
 
     // Recall the loop
     if (monitorScroll && rAf) rAf(onAnimationFrameScroll);
