@@ -18,11 +18,11 @@ let monitorScroll = false;
 let observationElementCount = 0;
 let isFirstObservation = true;
 let mainOnTop = true;
-let flipImmediate = false;
+let immediatePosition = false;
 let processing = false;
 
 // How much taller to make the paragraph panel
-const HEIGHT_COMPENSATION = 400;
+const HEIGHT_COMPENSATION = 600;
 const FADE_IN_TEXT_THRESHOLD = 300;
 
 // Used for text tranparency
@@ -186,7 +186,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
       
 
-      flipImmediate
+      immediatePosition
         ? positionTangleImmediate(mainTangle, -topPixelsAboveFold)
         : positionTangle(mainTangle, -topPixelsAboveFold);
     } else {
@@ -208,13 +208,13 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
         
       }
 
-      if (bottomPixelsAboveFold > 0) {
+      if (top < -300) {
         mainTangle.style.visibility = "visible";
       }
 
      
 
-      flipImmediate
+      immediatePosition
         ? positionTangleImmediate(mainTangle, window.innerHeight - bottomPixelsAboveFold)
         : positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
     }
@@ -319,9 +319,9 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
       paragraphStartElement.style.height = `${height + HEIGHT_COMPENSATION}px`;
       // Move it down a bit to equalise top and bottom
-      // paragraphStartElement.style.transform = `translateY(-${
-      //   HEIGHT_COMPENSATION / 2 + 18
-      // }px)`;
+      paragraphStartElement.style.transform = `translateY(-${
+        HEIGHT_COMPENSATION / 3 + 18
+      }px)`;
 
       // (OR DON'T IF WE WANT JUST THE BOTTOM EXTENDED)
     });
