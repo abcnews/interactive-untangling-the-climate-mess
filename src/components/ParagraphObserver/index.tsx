@@ -7,7 +7,7 @@ import { gsap } from "gsap";
 
 const d3 = { ...require("d3-scale") };
 
-const SCRUB_DURATION = 750; // In milliseconds
+const SCRUB_DURATION = 250; // In milliseconds
 
 // We are making an animation frame version of onScroll
 // Detect request animation frame
@@ -18,11 +18,11 @@ let monitorScroll = false;
 let observationElementCount = 0;
 let isFirstObservation = true;
 let mainOnTop = true;
-let flipImmediate = true;
+let flipImmediate = false;
 let processing = false;
 
 // How much taller to make the paragraph panel
-const HEIGHT_COMPENSATION = 300;
+const HEIGHT_COMPENSATION = 400;
 const FADE_IN_TEXT_THRESHOLD = 300;
 
 // Used for text tranparency
@@ -156,19 +156,35 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     // const { top: mainTop } = mainTangle.getBoundingClientRect();
     // console.log(mainTop);
 
+    // console.log(top)
+
+    
+
     if (top > 0) {
       // We are pushing top up
 
-      // tween.to({
-      //   y: mainTangle - topPixelsAboveFold,
-      //   ease: "power3",
-      //   duration: SCRUB_DURATION / 1000,
-      // });
+     
+
+     
 
       if (!mainOnTop) {
         console.log("Flip to top");
+        mainTangle.style.visibility = "hidden";
+
+
+
+
         mainOnTop = true;
+       
+        
       }
+
+
+      if (top > 200) {
+        mainTangle.style.visibility = "visible";
+      }
+
+      
 
       flipImmediate
         ? positionTangleImmediate(mainTangle, -topPixelsAboveFold)
@@ -176,10 +192,27 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     } else {
       // We are pulling from underneath
 
+      
+  
+     
+
       if (mainOnTop) {
         console.log("Flip to bottom");
+        mainTangle.style.visibility = "hidden";
+
+
+
+
         mainOnTop = false;
+
+        
       }
+
+      if (bottomPixelsAboveFold > 0) {
+        mainTangle.style.visibility = "visible";
+      }
+
+     
 
       flipImmediate
         ? positionTangleImmediate(mainTangle, window.innerHeight - bottomPixelsAboveFold)
