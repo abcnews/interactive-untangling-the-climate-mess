@@ -17,6 +17,9 @@ let lastPosition = -1;
 let monitorScroll = false;
 let observationElementCount = 0;
 let isFirstObservation = true;
+let mainOnTop = true;
+let flipImmediate = true;
+let processing = false;
 
 // How much taller to make the paragraph panel
 const HEIGHT_COMPENSATION = 300;
@@ -71,7 +74,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
         // Get elements between hash markers
         currentElements = nextUntil(currentPanel, "#endparagraphtext");
-        
       } else {
         if (!isFirstObservation) {
           observationElementCount--;
@@ -84,28 +86,45 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       isFirstObservation = false;
     }
 
-    console.log(observationElementCount);
-
     if (observationElementCount > 0) {
       monitorScroll = true;
     } else {
       monitorScroll = false;
-      positionTangle(mainTangle, 0);
+      setTimeout(() => {
+        positionTangle(mainTangle, 0);
+      }, 200); // Wait a bit otherwise animationFrame jumps the gun
     }
 
     onAnimationFrameScroll();
   };
 
   const positionTangle = (element, yPos: number) => {
-    gsap.to(mainTangle, { y: yPos, ease: "power3", duration: SCRUB_DURATION / 1000 });
+    gsap.to(element, {
+      y: yPos,
+      ease: "power3",
+      duration: SCRUB_DURATION / 1000,
+    });
   };
 
   const positionTangleImmediate = (element, yPos: number) => {
-    gsap.to(mainTangle, { y: yPos, ease: "power3", duration: 0 });
+    gsap.to(element, { y: yPos, ease: "power3", duration: 0, immediateRender: true });
+  };
+
+  const positionTangleImmediateFromTo = (element, fromPos: number, yPos: number) => {
+    gsap.fromTo(
+      element,
+      { y: fromPos },
+      { y: yPos, ease: "power3", duration: 0, immediateRender: true }
+    );
   };
 
   let onAnimationFrameScroll: any = () => {
-    
+    if (!currentPanel) return;
+    // Avoid calculations if not needed
+    if (lastPosition == window.pageYOffset) {
+      if (monitorScroll && rAf) rAf(onAnimationFrameScroll);
+      return false;
+    } else lastPosition = window.pageYOffset;
 
     // Process below per animation frame while scrolling
 
@@ -128,13 +147,43 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     // TODO: This will require tweaking so that the animation
     // appears seamless. Use positionTangleImmediate() to get the animation down the bottom.
 
-    if (bottomPixelsAboveFold < 0) {
+    // if (top < 300 && top > -300) {
+    //   flipImmediate = true;
+    // } else {
+    //   flipImmediate = false;
+    // }
+
+    // const { top: mainTop } = mainTangle.getBoundingClientRect();
+    // console.log(mainTop);
+
+    if (top > 0) {
       // We are pushing top up
 
-      positionTangleImmediate(mainTangle, -topPixelsAboveFold);
+      // tween.to({
+      //   y: mainTangle - topPixelsAboveFold,
+      //   ease: "power3",
+      //   duration: SCRUB_DURATION / 1000,
+      // });
+
+      if (!mainOnTop) {
+        console.log("Flip to top");
+        mainOnTop = true;
+      }
+
+      flipImmediate
+        ? positionTangleImmediate(mainTangle, -topPixelsAboveFold)
+        : positionTangle(mainTangle, -topPixelsAboveFold);
     } else {
       // We are pulling from underneath
-      positionTangleImmediate(mainTangle, window.innerHeight - bottomPixelsAboveFold);
+
+      if (mainOnTop) {
+        console.log("Flip to bottom");
+        mainOnTop = false;
+      }
+
+      flipImmediate
+        ? positionTangleImmediate(mainTangle, window.innerHeight - bottomPixelsAboveFold)
+        : positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
     }
 
     // if (topPixelsAboveFold > window.innerHeight - 200) {
@@ -178,12 +227,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     //     });
     //   }
     // }
-
-    // Avoid calculations if not needed
-    if (lastPosition == window.pageYOffset) {
-      if (monitorScroll && rAf) rAf(onAnimationFrameScroll);
-      return false;
-    } else lastPosition = window.pageYOffset;
 
     // Recall the loop
     if (monitorScroll && rAf) rAf(onAnimationFrameScroll);
@@ -242,9 +285,12 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       paragraphStartElement.className = styles.paragraphStart;
 
       paragraphStartElement.style.height = `${height + HEIGHT_COMPENSATION}px`;
-      paragraphStartElement.style.transform = `translateY(-${
-        HEIGHT_COMPENSATION / 2 + 18
-      }px)`;
+      // Move it down a bit to equalise top and bottom
+      // paragraphStartElement.style.transform = `translateY(-${
+      //   HEIGHT_COMPENSATION / 2 + 18
+      // }px)`;
+
+      // (OR DON'T IF WE WANT JUST THE BOTTOM EXTENDED)
     });
 
     return () => {
