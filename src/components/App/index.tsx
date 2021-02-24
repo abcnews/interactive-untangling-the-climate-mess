@@ -81,7 +81,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     if (marker === "endstrings") {
       setEndTangleOpacity(1.0);
       setTimeout(() => {
-        setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 1 });
+        setStringsNew({ one: 1, two: 0, three: 1, four: 0, five: 1 });
       }, 2000);
     } else {
       setEndTangleOpacity(0.0);
