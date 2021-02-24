@@ -208,7 +208,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
         
       }
 
-      if (top < -300) {
+      if (top < -200) {
         mainTangle.style.visibility = "visible";
       }
 
