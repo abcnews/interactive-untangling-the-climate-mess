@@ -57,7 +57,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
   const [mainTangleOpacity, setMainTangleOpacity] = useState(1.0);
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
-  const [stringsNew, setStringsNew] = useState({});
+  const [endStrings, setEndStrings] = useState({});
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -73,20 +73,33 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   }, [userInputState]);
 
   useEffect(() => {
+    // This effect does something depending on what marker it is
     if (!marker) return;
 
-    // console.log("Marker from App effect:", marker);
+    if (marker === 18) {
+      // Hide for performance sake
+      setEndTangleOpacity(0.0); 
+    }
+
+    // Primarily for scrolling back up. We un-hide the main tangle
+    // And hide the end tangle.
+    if (marker === 19) {
+      setMainTangleOpacity(1.0);
+      setEndStrings({ one: 0, two: 0, three: 0, four: 0, five: 0 });
+    }
 
     // TODO: make mechanism for bringing in appropriate strings
     if (marker === "endstrings") {
+      setMainTangleOpacity(0.0);
       setEndTangleOpacity(1.0);
       setTimeout(() => {
-        setStringsNew({ one: 1, two: 0, three: 1, four: 0, five: 1 });
+        setEndStrings({ one: 1, two: 0, three: 1, four: 0, five: 1 });
       }, 2000);
-    } else {
-      setEndTangleOpacity(0.0);
-      setStringsNew({ one: 0, two: 0, three: 0, four: 0, five: 0 });
-    }
+    } 
+    
+    
+    
+    
   }, [marker]);
 
   //
@@ -277,7 +290,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
           {/* )} */}
 
-          <EndStrings opacity={endTangleOpacity} stringsNew={stringsNew} />
+          <EndStrings opacity={endTangleOpacity} stringsNew={endStrings} />
         </Portal>
 
         <BackgroundTexture />
