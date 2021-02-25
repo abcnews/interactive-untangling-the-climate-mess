@@ -78,7 +78,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     if (marker === 18) {
       // Hide for performance sake
-      setEndTangleOpacity(0.0); 
+      setEndTangleOpacity(0.0);
     }
 
     // Primarily for scrolling back up. We un-hide the main tangle
@@ -92,14 +92,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     if (marker === "endstrings") {
       setMainTangleOpacity(0.0);
       setEndTangleOpacity(1.0);
-      setTimeout(() => {
-        setEndStrings({ one: 1, two: 0, three: 1, four: 0, five: 1 });
-      }, 2000);
-    } 
-    
-    
-    
-    
+
+      setEndStrings({ one: 0, two: 0, three: 0, four: 0, five: 0 });
+    }
+
+    if (marker === "endallstrings") {
+      setEndStrings({ one: 1, two: 1, three: 1, four: 1, five: 1 });
+    }
   }, [marker]);
 
   //
@@ -229,11 +228,25 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputbigseaweed")}>
           <UserInputBox
-            questionKey="ASIDE4-seaweed-carbon-capture"
+            questionKey="ASIDE4-big-seaweed"
             title={"Where are you splashing your cash?"}
             buttons={[
               { label: "BIG SEAWEED", value: "positive" },
               { label: "BIG FOSSIL", value: "negative" },
+            ]}
+            setUserInputState={setUserInputState}
+          />
+        </Portal>
+
+        <Portal node={document && document.getElementById("inputcarboncapture")}>
+          <UserInputBox
+            questionKey="SUBQ5-carbon-capture"
+            title={"So, what do you think? Can we capture all that carbon?"}
+            buttons={[
+              { label: "That's a piece of cake", value: "certain" },
+              { label: "It can be done", value: "hopeful" },
+              { label: "This sounds like a stretch", value: "doubtful" },
+              { label: "You're dreaming", value: "impossible" },
             ]}
             setUserInputState={setUserInputState}
           />
