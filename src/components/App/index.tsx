@@ -101,6 +101,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     }
 
     if (marker === "endaustralia") {
+      setEndStrings({ one: 0, two: 1, three: 1, four: 0, five: 0 });
+    }
+
+
+    if (marker === "endstorycomplete") {
       setEndStrings({ one: 0, two: 0, three: 0, four: 0, five: 0 });
     }
   }, [marker]);
