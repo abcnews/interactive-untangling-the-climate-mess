@@ -72,10 +72,10 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
     // Set some default buttons (in case they're not set in App — but they will be)
     if (!props.buttons) {
       setButtons([
-        { label: "Of course we can", value: "absolutely" },
-        { label: "Yes I think we can", value: "yes" },
-        { label: "Probably not", value: "no" },
-        { label: "No way we're screwed", value: "no-way" },
+        { label: "Of course we can", value: "certain" },
+        { label: "Yes I think we can", value: "hopeful" },
+        { label: "Probably not", value: "doubtful" },
+        { label: "No way we're screwed", value: "impossible" },
       ]);
     } else {
       setButtons(props.buttons);

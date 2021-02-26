@@ -59,11 +59,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
   const [endStrings, setEndStrings] = useState({});
   const [userStrings, setUserStrings] = useState({
-    renewables: 0,
-    transportation: 0,
+    renewables: 1,
+    transportation: 1,
     carboncapture: 1,
-    industry: 0,
-    livestock: 0,
+    industry: 1,
+    livestock: 1,
   });
 
   const componentRef = useRef({});
@@ -75,8 +75,82 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   useEffect(() => {
     if (!userInputState) return;
-
     console.log("user input:", userInputState);
+
+    const nextUserStrings = userStrings;
+
+    // Check renewables yes or no
+    if (userInputState["SUBQ1-renewables-zero-carbon"]) {
+      switch (userInputState["SUBQ1-renewables-zero-carbon"]) {
+        case "certain":
+        case "hopeful":
+          nextUserStrings.renewables = 0;
+          break;
+        case "doubtful":
+        case "impossible":
+          nextUserStrings.renewables = 1;
+          break;
+      }
+    }
+
+    // Check livestock yes or no
+    if (userInputState["SUBQ2-livestock-emissions"]) {
+      switch (userInputState["SUBQ2-livestock-emissions"]) {
+        case "certain":
+        case "hopeful":
+          nextUserStrings.livestock = 0;
+          break;
+        case "doubtful":
+        case "impossible":
+          nextUserStrings.livestock = 1;
+          break;
+      }
+    }
+
+    // Check if SUBQ3-transportation-off-fossil yes or no
+    if (userInputState["SUBQ3-transportation-off-fossil"]) {
+      switch (userInputState["SUBQ3-transportation-off-fossil"]) {
+        case "certain":
+        case "hopeful":
+          nextUserStrings.transportation = 0;
+          break;
+        case "doubtful":
+        case "impossible":
+          nextUserStrings.transportation = 1;
+          break;
+      }
+    }
+
+    // Check if SUBQ4-industry-emissions yes or no
+    if (userInputState["SUBQ4-industry-emissions"]) {
+      switch (userInputState["SUBQ4-industry-emissions"]) {
+        case "certain":
+        case "hopeful":
+          nextUserStrings.industry = 0;
+          break;
+        case "doubtful":
+        case "impossible":
+          nextUserStrings.industry = 1;
+          break;
+      }
+    }
+
+    // Check if SUBQ5-carbon-capture yes or no
+    if (userInputState["SUBQ5-carbon-capture"]) {
+      switch (userInputState["SUBQ5-carbon-capture"]) {
+        case "certain":
+        case "hopeful":
+          nextUserStrings.carboncapture = 0;
+          break;
+        case "doubtful":
+        case "impossible":
+          nextUserStrings.carboncapture = 1;
+          break;
+      }
+    }
+
+    console.log("New user strings:", nextUserStrings);
+    setUserStrings(nextUserStrings);
   }, [userInputState]);
 
   useEffect(() => {
