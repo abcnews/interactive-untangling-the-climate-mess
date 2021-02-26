@@ -21,11 +21,11 @@ import string4Animation from "./assets/end-string-4";
 import string5Animation from "./assets/end-string-5";
 
 const stringAnimations = {
-  one: string1Animation,
-  two: string2Animation,
-  three: string3Animation,
-  four: string4Animation,
-  five: string5Animation,
+  renewables: string1Animation,
+  transportation: string2Animation,
+  carboncapture: string3Animation,
+  industry: string4Animation,
+  livestock: string5Animation,
 };
 
 // define our timesline, just module scoped for now
@@ -40,27 +40,29 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
   const [allLoaded, setAllLoaded] = useState(false);
   const [stringOne, setStringOne] = useState(false);
   const [strings, setStrings] = useState({
-    one: 0,
-    two: 0,
-    three: 0,
-    four: 0,
-    five: 0,
+    renewables: 0,
+    transportation: 0,
+    carboncapture: 0,
+    industry: 0,
+    livestock: 0,
   });
 
   function initAnimations(iteration) {
     // So we can load up all the animations
-    let animationNumber: string = "one";
-    if (iteration === 1) animationNumber = "two";
-    if (iteration === 2) animationNumber = "three";
-    if (iteration === 3) animationNumber = "four";
+    let animationNumber: string = "renewables";
+    if (iteration === 1) animationNumber = "transportation";
+    if (iteration === 2) animationNumber = "carboncapture";
+    if (iteration === 3) animationNumber = "industry";
     if (iteration === 4) {
-      animationNumber = "five";
+      animationNumber = "livestock";
 
       setAllLoaded(true);
     }
 
     // Load all timelines into a timeline object
-    timelines[animationNumber] = stringAnimations[animationNumber]().rate(1.0).pause(1);
+    timelines[animationNumber] = stringAnimations[animationNumber]()
+      .rate(1.0)
+      .pause(1);
   }
 
   function resetAnimations() {

@@ -58,6 +58,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [mainTangleOpacity, setMainTangleOpacity] = useState(1.0);
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
   const [endStrings, setEndStrings] = useState({});
+  const [userStrings, setUserStrings] = useState({
+    renewables: 0,
+    transportation: 0,
+    carboncapture: 1,
+    industry: 0,
+    livestock: 0,
+  });
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -85,7 +92,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // And hide the end tangle.
     if (marker === 19) {
       setMainTangleOpacity(1.0);
-      setEndStrings({ one: 0, two: 0, three: 0, four: 0, five: 0 });
+      setEndStrings({
+        renewables: 0,
+        transportation: 0,
+        carboncapture: 0,
+        industry: 0,
+        livestock: 0,
+      });
     }
 
     // TODO: make mechanism for bringing in appropriate strings
@@ -93,20 +106,47 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       setMainTangleOpacity(0.0);
       setEndTangleOpacity(1.0);
 
-      setEndStrings({ one: 0, two: 0, three: 0, four: 0, five: 0 });
+      setEndStrings({
+        renewables: 0,
+        transportation: 0,
+        carboncapture: 0,
+        industry: 0,
+        livestock: 0,
+      });
     }
 
     if (marker === "endallstrings") {
-      setEndStrings({ one: 1, two: 1, three: 1, four: 1, five: 1 });
+      setEndStrings({
+        renewables: 1,
+        transportation: 1,
+        carboncapture: 1,
+        industry: 1,
+        livestock: 1,
+      });
+    }
+
+    if (marker === "userstrings") {
+      setEndStrings(userStrings);
     }
 
     if (marker === "endaustralia") {
-      setEndStrings({ one: 0, two: 1, three: 1, four: 0, five: 0 });
+      setEndStrings({
+        renewables: 1,
+        transportation: 0,
+        carboncapture: 1,
+        industry: 0,
+        livestock: 1,
+      });
     }
 
-
     if (marker === "endstorycomplete") {
-      setEndStrings({ one: 0, two: 0, three: 0, four: 0, five: 0 });
+      setEndStrings({
+        renewables: 0,
+        transportation: 0,
+        carboncapture: 0,
+        industry: 0,
+        livestock: 0,
+      });
     }
   }, [marker]);
 
@@ -177,7 +217,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {/* Livestock user input here */}
         {/* inputlivestockemissions */}
 
-        <Portal node={document && document.getElementById("inputlivestockemissions")}>
+        <Portal
+          node={document && document.getElementById("inputlivestockemissions")}
+        >
           <UserInputBox
             questionKey="SUBQ2-livestock-emissions"
             title={"Can we reach reach zero livestock emissions?"}
@@ -191,7 +233,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <Portal node={document && document.getElementById("inputcarscansaveus")}>
+        <Portal
+          node={document && document.getElementById("inputcarscansaveus")}
+        >
           <UserInputBox
             questionKey="ASIDE3-electric-vehicles"
             title={"So how are you feeling about EVs now?"}
@@ -203,7 +247,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <Portal node={document && document.getElementById("inputfossiltransport")}>
+        <Portal
+          node={document && document.getElementById("inputfossiltransport")}
+        >
           <UserInputBox
             questionKey="SUBQ3-transportation-off-fossil"
             title={
@@ -221,7 +267,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Industry input buttons go here */}
         {/* inputindustryemissions */}
-        <Portal node={document && document.getElementById("inputindustryemissions")}>
+        <Portal
+          node={document && document.getElementById("inputindustryemissions")}
+        >
           <UserInputBox
             questionKey="SUBQ4-industry-emissions"
             title={"Can we elliminate emissions from industry?"}
@@ -247,7 +295,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <Portal node={document && document.getElementById("inputcarboncapture")}>
+        <Portal
+          node={document && document.getElementById("inputcarboncapture")}
+        >
           <UserInputBox
             questionKey="SUBQ5-carbon-capture"
             title={"So, what do you think? Can we capture all that carbon?"}
@@ -321,7 +371,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Sets paragraph text where we break out of 
         scrolly panels (and hide background animations on mobile) */}
-        {backgroundIsRendered && <ParagraphObserver setYOffset={setBackdropOffset} />}
+        {backgroundIsRendered && (
+          <ParagraphObserver setYOffset={setBackdropOffset} />
+        )}
 
         {/* Just a line down the center of the screen for testing */}
         {/* <div className={styles.centerHint} /> */}
