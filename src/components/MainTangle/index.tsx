@@ -182,7 +182,11 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
       // If scrolling back up
       if (currentTime > endTime) {
-        timeline.rate(-PLAY_RATE * component.pressure);
+        timeline.rate(
+          component.pressure > 2
+            ? -PLAY_RATE * component.pressure - 1
+            : -PLAY_RATE
+        );
         timeline.loop(false);
         timeline.range(playloop.loopback, currentTime);
         timeline.time(currentTime);

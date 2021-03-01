@@ -95,15 +95,15 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
 
       // If new string wants to come in
       if (stringsNew[key] > strings[key]) {
-        timelines[key].range(1, "1a");
+        timelines[key].range(1, "2");
         timelines[key].time(1);
         timelines[key].play();
       }
 
       // If new string wants to go out
       if (stringsNew[key] < strings[key]) {
-        timelines[key].range("1a", timelines[key].duration() - 50);
-        timelines[key].time("1a");
+        timelines[key].range("2", timelines[key].duration() - 50);
+        timelines[key].time("2");
         timelines[key].play();
       }
     }
