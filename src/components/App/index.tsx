@@ -67,6 +67,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     industry: 1,
     livestock: 1
   });
+  const [australiaStrings, setAustraliaStrings] = useState({
+    renewables: 1,
+    transportation: 1,
+    carboncapture: 1,
+    industry: 1,
+    livestock: 1
+  });
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -74,8 +81,46 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   useEffect(() => {
     console.log("App mounted...");
 
-    pollGet().then(result => {
-      console.log(result);
+    pollGet().then((result: any) => {
+      console.log("Poll:", result.value);
+
+      const values = result.value;
+
+      if (!values) return;
+
+      const pollTotals: any = {};
+
+      function getAustraliaConvinced(keyString: string) {
+        const certainOn: number = values[keyString].certain || 0;
+        const hopefulOn: number = values[keyString].hopeful || 0;
+        const doubtfulOn: number = values[keyString].doubtful || 0;
+        const impossibleOn: number = values[keyString].impossible || 0;
+
+        // Get number convinced
+        const convincedCount = certainOn + hopefulOn;
+        const unconvincedCount = doubtfulOn + impossibleOn;
+
+        console.log(keyString);
+        console.log("Unconvinced:", unconvincedCount);
+        console.log("Convinced:", convincedCount);
+
+        // Enter Australia convinced or not
+        return convincedCount > unconvincedCount ? 0 : 1;
+      }
+
+      pollTotals.renewables = getAustraliaConvinced(
+        "SUBQ1-renewables-zero-carbon"
+      );
+      pollTotals.livestock = getAustraliaConvinced("SUBQ2-livestock-emissions");
+      pollTotals.transportation = getAustraliaConvinced(
+        "SUBQ3-transportation-off-fossil"
+      );
+      pollTotals.industry = getAustraliaConvinced("SUBQ4-industry-emissions");
+      pollTotals.carboncapture = getAustraliaConvinced("SUBQ5-carbon-capture");
+
+      console.log(pollTotals);
+
+      setAustraliaStrings(pollTotals);
     });
   }, []);
 
@@ -212,13 +257,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     }
 
     if (marker === "endaustralia") {
-      setEndStrings({
-        renewables: 1,
-        transportation: 0,
-        carboncapture: 1,
-        industry: 0,
-        livestock: 1
-      });
+      setEndStrings(australiaStrings);
     }
 
     if (marker === "endstorycomplete") {
