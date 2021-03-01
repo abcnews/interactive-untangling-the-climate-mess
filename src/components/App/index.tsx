@@ -77,6 +77,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     if (!userInputState) return;
     console.log("user input:", userInputState);
 
+    // Check user state (buttons pressed) and act accordingly
+
     const nextUserStrings = userStrings;
 
     // Check renewables yes or no

@@ -1,7 +1,13 @@
 import "./keyshape";
 declare let KeyshapeJS;
 
-import React, { useEffect, useRef, useLayoutEffect, useContext, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useLayoutEffect,
+  useContext,
+  useState,
+} from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 
@@ -147,7 +153,12 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
       // If going forward
       if (currentTime < endTime) {
-        timeline.rate(PLAY_RATE * component.pressure);
+        // Speed up if over 2 transitions (over 2 to prevent speeding up on quick backtrack)
+        timeline.rate(
+          component.pressure > 2
+            ? PLAY_RATE * component.pressure - 1
+            : PLAY_RATE
+        );
         timeline.loop(false);
         timeline.range(currentTime, playloop.end);
         timeline.time(currentTime);
@@ -198,7 +209,10 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
   return (
     <>
       <div className={styles.root} style={{ opacity: props.opacity }}>
-        <div className={`interactive-main-tangle ${styles.svgContainer}`} ref={mainEl}>
+        <div
+          className={`interactive-main-tangle ${styles.svgContainer}`}
+          ref={mainEl}
+        >
           <SVG
             className={styles.svg}
             src={untangleAnimation}

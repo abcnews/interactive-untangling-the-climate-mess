@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useLayoutEffect, useRef, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useContext,
+} from "react";
 import styles from "./styles.scss";
 import { getNextSibling } from "./helpers";
 import useWindowSize from "./useWindowSize";
@@ -107,10 +113,19 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   };
 
   const positionTangleImmediate = (element, yPos: number) => {
-    gsap.to(element, { y: yPos, ease: "power3", duration: 0, immediateRender: true });
+    gsap.to(element, {
+      y: yPos,
+      ease: "power3",
+      duration: 0,
+      immediateRender: true,
+    });
   };
 
-  const positionTangleImmediateFromTo = (element, fromPos: number, yPos: number) => {
+  const positionTangleImmediateFromTo = (
+    element,
+    fromPos: number,
+    yPos: number
+  ) => {
     gsap.fromTo(
       element,
       { y: fromPos },
@@ -158,33 +173,19 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
     // console.log(top)
 
-    
-
     if (top > 0) {
       // We are pushing top up
-
-     
-
-     
 
       if (!mainOnTop) {
         console.log("Flip to top");
         mainTangle.style.visibility = "hidden";
 
-
-
-
         mainOnTop = true;
-       
-        
       }
-
 
       if (top > 200) {
         mainTangle.style.visibility = "visible";
       }
-
-      
 
       immediatePosition
         ? positionTangleImmediate(mainTangle, -topPixelsAboveFold)
@@ -192,31 +193,26 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     } else {
       // We are pulling from underneath
 
-      
-  
-     
-
       if (mainOnTop) {
         console.log("Flip to bottom");
         mainTangle.style.visibility = "hidden";
 
-
-
-
         mainOnTop = false;
-
-        
       }
 
       if (top < -200) {
         mainTangle.style.visibility = "visible";
       }
 
-     
-
       immediatePosition
-        ? positionTangleImmediate(mainTangle, window.innerHeight - bottomPixelsAboveFold)
-        : positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
+        ? positionTangleImmediate(
+            mainTangle,
+            window.innerHeight - bottomPixelsAboveFold
+          )
+        : positionTangle(
+            mainTangle,
+            window.innerHeight - bottomPixelsAboveFold
+          );
     }
 
     // if (topPixelsAboveFold > window.innerHeight - 200) {
