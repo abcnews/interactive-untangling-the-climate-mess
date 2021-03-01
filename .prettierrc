@@ -1,1 +1,7 @@
-
+{
+  "arrowParens": "avoid",
+  "jsxBracketSameLine": true,
+  "insertPragma": true,
+  "trailingComma": "none",
+  "bracketSpacing": true
+}

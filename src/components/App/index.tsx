@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState, useRef } from "react";
 import { Portal } from "react-portal";
 
@@ -63,7 +65,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     transportation: 1,
     carboncapture: 1,
     industry: 1,
-    livestock: 1,
+    livestock: 1
   });
 
   const componentRef = useRef({});
@@ -71,6 +73,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   useEffect(() => {
     console.log("App mounted...");
+
+    pollGet().then(result => {
+      console.log(result);
+    });
   }, []);
 
   useEffect(() => {
@@ -173,7 +179,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         transportation: 0,
         carboncapture: 0,
         industry: 0,
-        livestock: 0,
+        livestock: 0
       });
     }
 
@@ -187,7 +193,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         transportation: 0,
         carboncapture: 0,
         industry: 0,
-        livestock: 0,
+        livestock: 0
       });
     }
 
@@ -197,7 +203,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         transportation: 1,
         carboncapture: 1,
         industry: 1,
-        livestock: 1,
+        livestock: 1
       });
     }
 
@@ -211,7 +217,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         transportation: 0,
         carboncapture: 1,
         industry: 0,
-        livestock: 1,
+        livestock: 1
       });
     }
 
@@ -221,7 +227,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         transportation: 0,
         carboncapture: 0,
         industry: 0,
-        livestock: 0,
+        livestock: 0
       });
     }
   }, [marker]);
@@ -243,7 +249,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "Of course we can", value: "certain" },
               { label: "Yes I think we can", value: "hopeful" },
               { label: "Probably not", value: "doubtful" },
-              { label: "No way we're screwed", value: "impossible" },
+              { label: "No way we're screwed", value: "impossible" }
             ]}
             poll={pollClient}
             setUserInputState={setUserInputState}
@@ -256,7 +262,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             title={"Still laughing at South Australia?"}
             buttons={[
               { label: "No, good one Radelaide", value: "positive" },
-              { label: "Yes, they speak funny", value: "negative" },
+              { label: "Yes, they speak funny", value: "negative" }
             ]}
             setUserInputState={setUserInputState}
           />
@@ -270,7 +276,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             }
             buttons={[
               { label: "Yeah", value: "positive" },
-              { label: "Nah", value: "negative" },
+              { label: "Nah", value: "negative" }
             ]}
             setUserInputState={setUserInputState}
           />
@@ -284,7 +290,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "That's a piece of cake", value: "certain" },
               { label: "It can be done", value: "hopeful" },
               { label: "This sounds like a stretch", value: "doubtful" },
-              { label: "You're dreaming", value: "impossible" },
+              { label: "You're dreaming", value: "impossible" }
             ]}
             setUserInputState={setUserInputState}
           />
@@ -294,8 +300,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {/* inputlivestockemissions */}
 
         <Portal
-          node={document && document.getElementById("inputlivestockemissions")}
-        >
+          node={document && document.getElementById("inputlivestockemissions")}>
           <UserInputBox
             questionKey="SUBQ2-livestock-emissions"
             title={"Can we reach reach zero livestock emissions?"}
@@ -303,29 +308,27 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "That's a piece of cake", value: "certain" },
               { label: "It can be done", value: "hopeful" },
               { label: "This sounds like a stretch", value: "doubtful" },
-              { label: "You're dreaming", value: "impossible" },
+              { label: "You're dreaming", value: "impossible" }
             ]}
             setUserInputState={setUserInputState}
           />
         </Portal>
 
         <Portal
-          node={document && document.getElementById("inputcarscansaveus")}
-        >
+          node={document && document.getElementById("inputcarscansaveus")}>
           <UserInputBox
             questionKey="ASIDE3-electric-vehicles"
             title={"So how are you feeling about EVs now?"}
             buttons={[
               { label: "CARS CAN SAVE US", value: "positive" },
-              { label: "UTEPOCALYPSE IS NIGH", value: "negative" },
+              { label: "UTEPOCALYPSE IS NIGH", value: "negative" }
             ]}
             setUserInputState={setUserInputState}
           />
         </Portal>
 
         <Portal
-          node={document && document.getElementById("inputfossiltransport")}
-        >
+          node={document && document.getElementById("inputfossiltransport")}>
           <UserInputBox
             questionKey="SUBQ3-transportation-off-fossil"
             title={
@@ -335,7 +338,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "That's a piece of cake", value: "certain" },
               { label: "It can be done", value: "hopeful" },
               { label: "This sounds like a stretch", value: "doubtful" },
-              { label: "You're dreaming", value: "impossible" },
+              { label: "You're dreaming", value: "impossible" }
             ]}
             setUserInputState={setUserInputState}
           />
@@ -344,8 +347,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {/* Industry input buttons go here */}
         {/* inputindustryemissions */}
         <Portal
-          node={document && document.getElementById("inputindustryemissions")}
-        >
+          node={document && document.getElementById("inputindustryemissions")}>
           <UserInputBox
             questionKey="SUBQ4-industry-emissions"
             title={"Can we elliminate emissions from industry?"}
@@ -353,7 +355,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "That's a piece of cake", value: "certain" },
               { label: "It can be done", value: "hopeful" },
               { label: "This sounds like a stretch", value: "doubtful" },
-              { label: "You're dreaming", value: "impossible" },
+              { label: "You're dreaming", value: "impossible" }
             ]}
             setUserInputState={setUserInputState}
           />
@@ -365,15 +367,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             title={"Where are you splashing your cash?"}
             buttons={[
               { label: "BIG SEAWEED", value: "positive" },
-              { label: "BIG FOSSIL", value: "negative" },
+              { label: "BIG FOSSIL", value: "negative" }
             ]}
             setUserInputState={setUserInputState}
           />
         </Portal>
 
         <Portal
-          node={document && document.getElementById("inputcarboncapture")}
-        >
+          node={document && document.getElementById("inputcarboncapture")}>
           <UserInputBox
             questionKey="SUBQ5-carbon-capture"
             title={"So, what do you think? Can we capture all that carbon?"}
@@ -381,7 +382,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "That's a piece of cake", value: "certain" },
               { label: "It can be done", value: "hopeful" },
               { label: "This sounds like a stretch", value: "doubtful" },
-              { label: "You're dreaming", value: "impossible" },
+              { label: "You're dreaming", value: "impossible" }
             ]}
             setUserInputState={setUserInputState}
           />
@@ -393,7 +394,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             title={"What should we be?"}
             buttons={[
               { label: "MOSQUITO", value: "negative" },
-              { label: "DUNG BEETLE", value: "positive" },
+              { label: "DUNG BEETLE", value: "positive" }
             ]}
             setUserInputState={setUserInputState}
           />
@@ -407,7 +408,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "Of course we can", value: "certain" },
               { label: "Yes I think we can", value: "hopeful" },
               { label: "Probably not", value: "doubtful" },
-              { label: "No way we're screwed", value: "impossible" },
+              { label: "No way we're screwed", value: "impossible" }
             ]}
             setUserInputState={setUserInputState}
           />
@@ -419,7 +420,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { title: "Enery", percent: 33, color: "#ff8901" },
               { title: "Burping cows", percent: 10, color: "#22405a" },
               { title: "Transport", percent: 20, color: "#007e4e" },
-              { title: "Industry", percent: 40, color: "#ff4e00" },
+              { title: "Industry", percent: 40, color: "#ff4e00" }
             ]}
           />
         </Portal>

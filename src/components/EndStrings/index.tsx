@@ -28,6 +28,8 @@ const stringAnimations = {
   livestock: string5Animation,
 };
 
+const PLAY_RATE = 0.6;
+
 // define our timesline, just module scoped for now
 let timelines: any = {};
 
@@ -61,7 +63,7 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
 
     // Load all timelines into a timeline object
     timelines[animationNumber] = stringAnimations[animationNumber]()
-      .rate(1.0)
+      .rate(PLAY_RATE)
       .pause(1);
   }
 
