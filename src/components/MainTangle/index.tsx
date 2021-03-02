@@ -1,3 +1,5 @@
+/** @format */
+
 import "./keyshape";
 declare let KeyshapeJS;
 
@@ -6,7 +8,7 @@ import React, {
   useRef,
   useLayoutEffect,
   useContext,
-  useState,
+  useState
 } from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
@@ -20,14 +22,14 @@ const lookupRange = (marker: string) => {
     return {
       start: "1a",
       end: "2",
-      loopback: "1a",
+      loopback: "1a"
     };
 
   if (marker === "19")
     return {
       start: "19",
       end: "20",
-      loopback: null,
+      loopback: null
     };
 
   // If any other marker just stay at the end
@@ -35,7 +37,7 @@ const lookupRange = (marker: string) => {
     return {
       start: "19",
       end: "20",
-      loopback: null,
+      loopback: null
     };
 
   const markerInt: number = Number(marker);
@@ -43,7 +45,7 @@ const lookupRange = (marker: string) => {
   return {
     start: markerInt + "",
     end: markerInt + 1 + "",
-    loopback: marker + "a",
+    loopback: marker + "a"
   };
 };
 
@@ -55,7 +57,7 @@ interface MainTangleProps {
   opacity: number;
 }
 
-const MainTangle: React.FC<MainTangleProps> = (props) => {
+const MainTangle: React.FC<MainTangleProps> = props => {
   const mainEl = useRef(null);
   // Component state
   const [markers, setMarkers] = useState({});
@@ -150,6 +152,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
 
       console.log("Scroll marker:", props.scrollMarker);
       console.log("playloop:", playloop);
+      console.log("Scroll animation pressure:", component.pressure);
 
       // If going forward
       if (currentTime < endTime) {
@@ -181,7 +184,7 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       }
 
       // If scrolling back up
-      if (currentTime > endTime) {
+      else if (currentTime > endTime) {
         timeline.rate(
           component.pressure > 2
             ? -PLAY_RATE * component.pressure - 1
@@ -206,6 +209,8 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
           timeline.time(playloop.end);
           this.play();
         };
+      } else {
+        component.pressure = 0;
       }
     }
   }, [props.scrollMarker]);
@@ -215,12 +220,11 @@ const MainTangle: React.FC<MainTangleProps> = (props) => {
       <div className={styles.root} style={{ opacity: props.opacity }}>
         <div
           className={`interactive-main-tangle ${styles.svgContainer}`}
-          ref={mainEl}
-        >
+          ref={mainEl}>
           <SVG
             className={styles.svg}
             src={untangleAnimation}
-            preProcessor={(code) => {
+            preProcessor={code => {
               return code;
             }}
             onLoad={initSvg}
