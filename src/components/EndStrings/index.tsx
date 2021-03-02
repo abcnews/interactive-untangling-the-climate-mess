@@ -28,7 +28,7 @@ const stringAnimations = {
   livestock: string5Animation,
 };
 
-const PLAY_RATE = 0.6;
+const PLAY_RATE = 0.8;
 
 // define our timesline, just module scoped for now
 let timelines: any = {};
@@ -93,20 +93,40 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
     const { stringsNew } = props;
 
     for (const key in stringsNew) {
-      // const currentTime = timelines[key].time();
-
       // If new string wants to come in
       if (stringsNew[key] > strings[key]) {
         timelines[key].range(1, "2");
         timelines[key].time(1);
+        timelines[key].loop(false);
         timelines[key].play();
+
+
+
+
+
+
+        timelines[key].onfinish = function () {
+          this.loop(true);
+          this.range("1a", "2");
+          timelines[key].time("1a"); // Don't you, forget about me
+          this.play();
+        };
       }
 
       // If new string wants to go out
       if (stringsNew[key] < strings[key]) {
         timelines[key].range("2", timelines[key].duration() - 50);
         timelines[key].time("2");
+        timelines[key].loop(false);
         timelines[key].play();
+
+
+        timelines[key].onfinish = function () {
+          // this.loop(true);
+          // this.range("1a", "2");
+          // timelines[key].time("1a"); // Don't you, forget about me
+          this.pause();
+        };
       }
     }
 
