@@ -1,3 +1,5 @@
+/** @format */
+
 import "regenerator-runtime/runtime.js";
 import React from "react";
 import { render } from "react-dom";
@@ -26,7 +28,9 @@ export type OdysseySchedulerClient = {
   fixedHeight: number;
 };
 
-export type OdysseySchedulerSubscriber = (client: OdysseySchedulerClient) => void;
+export type OdysseySchedulerSubscriber = (
+  client: OdysseySchedulerClient
+) => void;
 
 type OdysseyAPI = {
   scheduler: {
@@ -79,7 +83,7 @@ for (const panel of panelsArray) {
   panel.appendChild(container);
 }
 
-classify("class")
+classify("class");
 
 function init() {
   render(<App projectName={PROJECT_NAME} />, root);
@@ -120,7 +124,6 @@ if (process.env.NODE_ENV === "development") {
   console.debug(`[${PROJECT_NAME}] public path: ${__webpack_public_path__}`);
 }
 
-
 // Add class via CoreMedia hashtags eg. #classverytop
 function classify(targetString) {
   // Set deafult for params
@@ -129,9 +132,9 @@ function classify(targetString) {
   }
 
   const anchors = document.querySelectorAll("[data-mount]");
-  
+
   // Loop through all the anchor nodes
-  anchors.forEach((anchor) => {
+  anchors.forEach(anchor => {
     // Leave normal links on the page alone
     // if (anchor.innerHTML !== " ") return;
 

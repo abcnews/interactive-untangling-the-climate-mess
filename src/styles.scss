@@ -1,3 +1,5 @@
+/** @format */
+
 @use "./100-percent-correct-break-points.scss" as *;
 
 .panel {
@@ -19,6 +21,8 @@
   .panel-content-container {
     background-color: rgba(254, 246, 238, 0.9);
     padding: 20px 18px;
+    // -webkit-backdrop-filter: blur(10px);
+    // backdrop-filter: blur(10px);
 
     @include for-tablet-portrait-up {
       padding: 20px 1.75rem;

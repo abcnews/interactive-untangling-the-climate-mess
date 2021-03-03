@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import styles from "./styles.scss";
 
@@ -9,8 +11,9 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
       <div
         id="visualKEYinitial"
         data-component="Anchor"
-        data-mount="true"
-      ></div>
+        data-mount="true"></div>
+
+      <div className={styles.heroText}>Climate change...</div>
 
       <div className={styles.panel}>
         <p>
@@ -52,11 +55,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
             lives?
           </span>
         </p>
-        <div
-        id="visualKEY2"
-        data-component="Anchor"
-        data-mount="true"
-      ></div>
+        <div id="visualKEY2" data-component="Anchor" data-mount="true"></div>
       </div>
     </div>
   );

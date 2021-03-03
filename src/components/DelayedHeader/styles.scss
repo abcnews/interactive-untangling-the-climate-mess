@@ -28,7 +28,6 @@
   p {
     font-size: 23px;
     line-height: 1.4em;
-    // max-width: 640px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
@@ -70,4 +69,22 @@
       -webkit-box-decoration-break: clone;
     }
   }
+
+  .hero-text {
+    margin-bottom: 45vh;
+    font-size: 56px;
+    // background-color: rgba(254, 246, 238, 0.9);
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    // color: transparent;
+    font-weight: bold;
+
+
+    
+    // -webkit-text-stroke: 1px rgb(255, 255, 255);
+    // text-shadow: 1px 1px 2px black, 0 0 25px rgb(85, 85, 85), 0 0 5px rgb(37, 37, 37);
+  }
+
+
+  
 }

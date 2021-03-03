@@ -25,7 +25,6 @@ let observationElementCount = 0;
 let isFirstObservation = true;
 let mainOnTop = true;
 let immediatePosition = false;
-let processing = false;
 
 // How much taller to make the paragraph panel
 const HEIGHT_COMPENSATION = 600;
@@ -183,11 +182,11 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
         mainOnTop = true;
       }
 
-      if (top > 200) {
+      if (top > 300) {
         mainTangle.style.visibility = "visible";
       }
 
-      immediatePosition
+      immediatePosition // THIS DOESN'T ACTUALLY DO ANYTHING ANY MORE (REMOVE)
         ? positionTangleImmediate(mainTangle, -topPixelsAboveFold)
         : positionTangle(mainTangle, -topPixelsAboveFold);
     } else {
@@ -200,7 +199,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
         mainOnTop = false;
       }
 
-      if (top < -200) {
+      if (top < -300) {
         mainTangle.style.visibility = "visible";
       }
 
