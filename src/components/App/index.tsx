@@ -13,6 +13,7 @@ import MainTangle from "../MainTangle/index";
 import ScrollObserver from "../ScrollObserver/index";
 import ParagraphObserver from "../ParagraphObserver/index";
 import DelayedHeader from "../DelayedHeader/index";
+import { gsap } from "gsap";
 
 import { Client } from "@abcnews/poll-counters-client";
 
@@ -50,7 +51,12 @@ interface AppProps {
   projectName: string;
 }
 
+let scrollY = 0;
+let mainTangleEl;
+
 const App: React.FC<AppProps> = ({ projectName }) => {
+  const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
+
   const [backdropOffset, setBackdropOffset] = useState(0);
   const [animationFrame, setAnimationFrame] = useState(200);
   const [marker, setMarker] = useState<any>();
@@ -78,8 +84,28 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
+  const onSubscriptionUpdate = () => {
+    scrollY = window.pageYOffset;
+
+    // Only process when user at top
+    if (scrollY > window.innerHeight) return;
+
+    const calculatedY = window.innerHeight - scrollY * 1.8;
+
+    if (mainTangleEl) {
+      gsap.to(mainTangleEl, {
+        y: calculatedY > 0 ? calculatedY : 0,
+        ease: "power3",
+        duration: 0.5
+      });
+    }
+  };
+
+  // onMount
   useEffect(() => {
     console.log("App mounted...");
+
+    subscribe(onSubscriptionUpdate);
 
     pollGet().then((result: any) => {
       console.log("Poll:", result.value);
@@ -100,10 +126,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         const convincedCount = certainOn + hopefulOn;
         const unconvincedCount = doubtfulOn + impossibleOn;
 
-        console.log(keyString);
-        console.log("Unconvinced:", unconvincedCount);
-        console.log("Convinced:", convincedCount);
-
         // Enter Australia convinced or not
         return convincedCount > unconvincedCount ? 0 : 1;
       }
@@ -122,7 +144,15 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
       setAustraliaStrings(pollTotals);
     });
+
+    return () => unsubscribe(onSubscriptionUpdate);
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      mainTangleEl = document.querySelector(".interactive-main-tangle");
+    }, 100);
+  }, [backgroundIsRendered]);
 
   useEffect(() => {
     if (!userInputState) return;

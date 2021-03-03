@@ -1,3 +1,5 @@
+/** @format */
+
 @use "../../100-percent-correct-break-points.scss" as *;
 
 .root {
@@ -27,6 +29,8 @@
   // }
 
   .svg-container {
+    transform: translate3d(0, 110%, 0);
+
     svg {
       transform: translate(0, -31%);
     }

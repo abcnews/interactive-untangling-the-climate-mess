@@ -72,17 +72,29 @@
 
   .hero-text {
     margin-bottom: 45vh;
-    font-size: 56px;
+    font-size: 38px;
     // background-color: rgba(254, 246, 238, 0.9);
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     // color: transparent;
     font-weight: bold;
 
+    @include for-desktop-up {
+      transform: translateX(-55%);
+    }
+  
+
 
     
     // -webkit-text-stroke: 1px rgb(255, 255, 255);
-    // text-shadow: 1px 1px 2px black, 0 0 25px rgb(85, 85, 85), 0 0 5px rgb(37, 37, 37);
+    text-shadow: 1px 1px 2px white, 0 0 25px rgb(255, 255, 255), 0 0 5px rgb(255, 255, 255);
+
+
+
+
+    @include for-tablet-landscape-up {
+      font-size: 48px;
+    }
   }
 
 

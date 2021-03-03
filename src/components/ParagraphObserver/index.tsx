@@ -1,9 +1,11 @@
+/** @format */
+
 import React, {
   useState,
   useEffect,
   useLayoutEffect,
   useRef,
-  useContext,
+  useContext
 } from "react";
 import styles from "./styles.scss";
 import { getNextSibling } from "./helpers";
@@ -37,7 +39,7 @@ const fromBottomScale = d3
   .range([0.01, 1.0]);
 
 // Detect if at least one intersection is visible
-const isOneVisible = (entries) => {
+const isOneVisible = entries => {
   for (const entry of entries) {
     if (entry.isIntersecting) return true;
   }
@@ -48,7 +50,7 @@ interface ParagraphObserverProps {
   setYOffset?: any;
 }
 
-const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
+const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
   const windowSize = useWindowSize();
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -59,7 +61,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   let currentElements = component.currentElements;
   let mainTangle = component.mainTangle;
 
-  const processObservation = (entries) => {
+  const processObservation = entries => {
     // console.log("OBSERVATION!!!", entries);
 
     // Process (turbo boosted) on animation frame events
@@ -72,7 +74,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     //   positionTangle(mainTangle, 0);
     // }
 
-    entries.forEach((entry) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
         observationElementCount++;
         currentPanel = entry.target;
@@ -86,17 +88,17 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       }
     });
 
-    // Hacky workaround to get proper at least 1 visible
-    if (isFirstObservation) {
-      isFirstObservation = false;
-    }
-
     if (observationElementCount > 0) {
       monitorScroll = true;
     } else {
       monitorScroll = false;
       setTimeout(() => {
-        positionTangle(mainTangle, 0);
+        if (!isFirstObservation) positionTangle(mainTangle, 0);
+
+        // Hacky workaround to get proper at least 1 visible
+        if (isFirstObservation) {
+          isFirstObservation = false;
+        }
       }, 200); // Wait a bit otherwise animationFrame jumps the gun
     }
 
@@ -107,7 +109,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
     gsap.to(element, {
       y: yPos,
       ease: "power3",
-      duration: SCRUB_DURATION / 1000,
+      duration: SCRUB_DURATION / 1000
     });
   };
 
@@ -116,7 +118,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       y: yPos,
       ease: "power3",
       duration: 0,
-      immediateRender: true,
+      immediateRender: true
     });
   };
 
@@ -274,7 +276,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       };
 
     observer = new IntersectionObserver(processObservation, {
-      rootMargin: `0% 0%`,
+      rootMargin: `0% 0%`
     });
 
     const paragraphStartMarkers: any = document.querySelectorAll(

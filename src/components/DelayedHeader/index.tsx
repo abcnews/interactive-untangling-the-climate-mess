@@ -13,7 +13,9 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
         data-component="Anchor"
         data-mount="true"></div>
 
-      <div className={styles.heroText}>Climate change...</div>
+      <div className={`${styles.heroText}`}>
+        Climate change...
+      </div>
 
       <div className={styles.panel}>
         <p>
