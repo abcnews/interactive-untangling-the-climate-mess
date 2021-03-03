@@ -88,9 +88,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     scrollY = window.pageYOffset;
 
     // Only process when user at top
-    if (scrollY > window.innerHeight) return;
+    if (scrollY > window.innerHeight * 2) return;
 
-    const calculatedY = window.innerHeight - scrollY * 1.8;
+    const calculatedY = window.innerHeight * 0.75 - scrollY * 0.7;
 
     if (mainTangleEl) {
       gsap.to(mainTangleEl, {
