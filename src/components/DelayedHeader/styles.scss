@@ -1,9 +1,11 @@
+/** @format */
+
 @use "../../100-percent-correct-break-points.scss" as *;
 
 .root {
   min-height: 90vh;
   text-align: center;
-  padding-top: 45vh;
+  padding-top: 30vh;
   padding-bottom: 45vh;
   max-width: 650px;
   margin: auto;
@@ -73,30 +75,26 @@
   .hero-text {
     margin-bottom: 45vh;
     font-size: 38px;
-    // background-color: rgba(254, 246, 238, 0.9);
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    // color: transparent;
     font-weight: bold;
 
     @include for-desktop-up {
-      transform: translateX(-55%);
+      // transform: translateX(-50%);
+      // position: absolute;
+      // left: 50px;
+      // top: 100px;
+
+      width: 100vw;
+      transform: translateX(-50%) translateX(-45px);
     }
-  
 
-
-    
     // -webkit-text-stroke: 1px rgb(255, 255, 255);
-    text-shadow: 1px 1px 2px white, 0 0 25px rgb(255, 255, 255), 0 0 5px rgb(255, 255, 255);
-
-
-
+    text-shadow: 1px 1px 2px white, 0 0 25px rgb(255, 255, 255),
+      0 0 5px rgb(255, 255, 255);
 
     @include for-tablet-landscape-up {
       font-size: 48px;
     }
   }
-
-
-  
 }

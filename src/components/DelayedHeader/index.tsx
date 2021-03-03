@@ -14,13 +14,13 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
         data-mount="true"></div>
 
       <div className={`${styles.heroText}`}>
-        Climate change...
+        Climate change... <br />we get it, it’s a depressing mess.
       </div>
 
       <div className={styles.panel}>
-        <p>
+        {/* <p>
           <span>Climate change - we get it, it’s a depressing mess.</span>
-        </p>
+        </p> */}
         <p>
           <span>
             We’ve spent the last thirty years not making the drastic changes
