@@ -29,7 +29,9 @@
   // }
 
   .svg-container {
-    transform: translate3d(0, 70%, 0);
+    // Attempt to start down page
+    // But causing issues when reloaded down page
+    // transform: translate3d(0, 70%, 0);
 
     svg {
       transform: translate(0, -31%);

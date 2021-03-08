@@ -63,7 +63,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [userInputState, setUserInputState] = useState({});
   const [topAbove, setTopAbove] = useState();
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
-  const [mainTangleOpacity, setMainTangleOpacity] = useState(1.0);
+  const [mainTangleOpacity, setMainTangleOpacity] = useState(0.0);
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
   const [endStrings, setEndStrings] = useState({});
   const [userStrings, setUserStrings] = useState({
@@ -149,9 +149,25 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   }, []);
 
   useEffect(() => {
+    if (!backgroundIsRendered) return;
+
     setTimeout(() => {
       mainTangleEl = document.querySelector(".interactive-main-tangle");
-    }, 100);
+
+      if (window.pageYOffset < window.innerHeight * 2) {
+        gsap.fromTo(
+          mainTangleEl,
+          { y: window.innerHeight * 1.25 },
+          {
+            y: window.innerHeight * 0.75,
+            ease: "power3",
+            duration: 1.0
+          }
+        );
+      }
+
+      setMainTangleOpacity(1.0);
+    }, 250);
   }, [backgroundIsRendered]);
 
   useEffect(() => {
