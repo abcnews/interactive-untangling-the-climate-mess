@@ -62,7 +62,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
   let mainTangle = component.mainTangle;
 
   const processObservation = entries => {
-    // console.log("OBSERVATION!!!", entries);
+    console.log("OBSERVATION!!!", entries);
 
     // Process (turbo boosted) on animation frame events
     // if (isOneVisible(entries)) {
@@ -74,6 +74,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     //   positionTangle(mainTangle, 0);
     // }
 
+    
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         observationElementCount++;
@@ -88,19 +89,23 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
       }
     });
 
+    console.log(observationElementCount);
+
+
     if (observationElementCount > 0) {
       monitorScroll = true;
     } else {
       monitorScroll = false;
-      setTimeout(() => {
-        if (!isFirstObservation) positionTangle(mainTangle, 0);
-
-        // Hacky workaround to get proper at least 1 visible
-        if (isFirstObservation) {
-          isFirstObservation = false;
-        }
-      }, 200); // Wait a bit otherwise animationFrame jumps the gun
     }
+
+    setTimeout(() => {
+      if (!isFirstObservation) positionTangle(mainTangle, 0);
+
+      // Hacky workaround to get proper at least 1 visible
+      if (isFirstObservation) {
+        isFirstObservation = false;
+      }
+    }, 200); // Wait a bit otherwise animationFrame jumps the gun
 
     onAnimationFrameScroll();
   };

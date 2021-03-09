@@ -10,7 +10,7 @@ if (Modernizr.arrow) {
 } else {
   console.log("Probably IE11 or lower...");
 
-  // This unfortunately doesn't stop our JS from 
+  // This unfortunately doesn't stop our JS from
   // running due to Webpack pushing all the css etc up top
   throw new Error(
     "Something went badly wrong... you are using an unsupported browser"
@@ -91,7 +91,7 @@ for (const panel of panelsArray) {
   panel.appendChild(container);
 }
 
-if (notIE) classify("class");
+classify("class");
 
 function init() {
   render(<App projectName={PROJECT_NAME} />, root);
@@ -106,13 +106,13 @@ const waitForOdyssey = () => {
 };
 
 if ("IntersectionObserver" in window && NodeList.prototype.forEach) {
-  if (notIE) jankdefer(waitForOdyssey);
+  jankdefer(waitForOdyssey);
 } else {
   import("./polyfills").then(() => {
     console.log(
       "LOADING POLYFILLS... PLEASE UPGRADE YOUR BROWSER TO FIREFOX OR SOMETHING..."
     );
-    if (notIE) jankdefer(waitForOdyssey);
+    jankdefer(waitForOdyssey);
   });
 }
 
