@@ -9,7 +9,12 @@ if (Modernizr.arrow) {
   notIE = true;
 } else {
   console.log("Probably IE11 or lower...");
-  throw new Error("Something went badly wrong!");
+
+  // This unfortunately doesn't stop our JS from 
+  // running due to Webpack pushing all the css etc up top
+  throw new Error(
+    "Something went badly wrong... you are using an unsupported browser"
+  );
 }
 
 import "regenerator-runtime/runtime.js";
