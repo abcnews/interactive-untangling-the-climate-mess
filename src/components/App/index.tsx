@@ -105,8 +105,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   useEffect(() => {
     console.log("App mounted...");
 
-    subscribe(onSubscriptionUpdate);
-
     pollGet().then((result: any) => {
       console.log("Poll:", result.value);
 
@@ -144,6 +142,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
       setAustraliaStrings(pollTotals);
     });
+
+    // Subscription might be getting delayed on Firefox
+    // Maybe consider simply doing an onScroll listener
+    subscribe(onSubscriptionUpdate);
 
     return () => unsubscribe(onSubscriptionUpdate);
   }, []);

@@ -1,5 +1,17 @@
 /** @format */
 
+// Feature detection
+import "./modernizer";
+let notIE = false;
+
+if (Modernizr.arrow) {
+  console.log("Probably not IE11...");
+  notIE = true;
+} else {
+  console.log("Probably IE11 or lower...");
+  throw new Error("Something went badly wrong!");
+}
+
 import "regenerator-runtime/runtime.js";
 import React from "react";
 import { render } from "react-dom";
@@ -8,19 +20,10 @@ import jankdefer from "jankdefer";
 import { nextUntil } from "./nextUntil";
 import styles from "./styles.scss";
 
-// Feature detection
-import "./modernizer";
-
 // Keep TypeScript from throwing errors
 declare var Modernizr: any;
 declare var module: any;
 declare var __webpack_public_path__: any;
-
-if (Modernizr.arrow) {
-  console.log("Probably not IE11...");
-} else {
-  console.log("Probably IE11 or lower...");
-}
 
 // Setup Odyssey types to stop TypeScript from complaining
 export type OdysseySchedulerClient = {
@@ -83,7 +86,7 @@ for (const panel of panelsArray) {
   panel.appendChild(container);
 }
 
-classify("class");
+if (notIE) classify("class");
 
 function init() {
   render(<App projectName={PROJECT_NAME} />, root);
@@ -98,13 +101,13 @@ const waitForOdyssey = () => {
 };
 
 if ("IntersectionObserver" in window && NodeList.prototype.forEach) {
-  jankdefer(waitForOdyssey);
+  if (notIE) jankdefer(waitForOdyssey);
 } else {
   import("./polyfills").then(() => {
     console.log(
       "LOADING POLYFILLS... PLEASE UPGRADE YOUR BROWSER TO FIREFOX OR SOMETHING..."
     );
-    jankdefer(waitForOdyssey);
+    if (notIE) jankdefer(waitForOdyssey);
   });
 }
 
