@@ -145,9 +145,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     // Subscription might be getting delayed on Firefox
     // Maybe consider simply doing an onScroll listener
-    subscribe(onSubscriptionUpdate);
+    // subscribe(onSubscriptionUpdate);
+    document.addEventListener("scroll", onSubscriptionUpdate)
 
-    return () => unsubscribe(onSubscriptionUpdate);
+    return () => {
+      // unsubscribe(onSubscriptionUpdate);
+      document.removeEventListener("scroll", onSubscriptionUpdate);
+    };
   }, []);
 
   useEffect(() => {
@@ -169,7 +173,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       }
 
       setMainTangleOpacity(1.0);
-    }, 250);
+    }, 100);
   }, [backgroundIsRendered]);
 
   useEffect(() => {
