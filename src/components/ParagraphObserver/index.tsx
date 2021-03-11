@@ -12,6 +12,7 @@ import { getNextSibling } from "./helpers";
 import useWindowSize from "./useWindowSize";
 import { nextUntil } from "../../nextUntil";
 import { gsap } from "gsap";
+import debounce from "debounce-promise";
 
 const d3 = { ...require("d3-scale") };
 
@@ -148,6 +149,20 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     );
   };
 
+  
+
+  function later(value) {
+    return new Promise(function (resolve) {
+      console.log("unhiding...");
+      mainTangle.style.visibility = "visible";
+
+      resolve(value);
+    });
+  }
+
+  // Debouce our unhide Promise -> time in ms
+  const unHideMainTangle = debounce(later, 250);
+
   let onScroll: any = () => {
     if (!currentPanel) return;
     // Avoid calculations if not needed
@@ -192,16 +207,18 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
       if (!mainOnTop) {
         console.log("Flip to top");
         mainTangle.style.visibility = "hidden";
+        unHideMainTangle();
         immediatePosition = true;
-
         mainOnTop = true;
       }
 
       if (top > 300) {
-        mainTangle.style.visibility = "visible";
+        // mainTangle.style.visibility = "visible";
       }
 
       positionTangle(mainTangle, -topPixelsAboveFold);
+
+      
 
       // if (immediatePosition) {
       //   positionTangleImmediate(mainTangle, -topPixelsAboveFold);
@@ -212,19 +229,27 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     } else {
       // We are pulling from underneath
 
+      
+
       if (mainOnTop) {
         console.log("Flip to bottom");
         mainTangle.style.visibility = "hidden";
+        // Set an unhide for 1 second
+        unHideMainTangle();
         // immediatePosition = true;
 
         mainOnTop = false;
       }
 
       if (top < -300) {
-        mainTangle.style.visibility = "visible";
+        // mainTangle.style.visibility = "visible";
       }
 
+
+
       positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
+
+      
 
       // if (mainTop > window.innerHeight) {
       //   immediatePosition = false;
