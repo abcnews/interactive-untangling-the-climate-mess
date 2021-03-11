@@ -15,7 +15,7 @@ import { gsap } from "gsap";
 
 const d3 = { ...require("d3-scale") };
 
-const SCRUB_DURATION = 1000; // In milliseconds
+const SCRUB_DURATION = 250; // In milliseconds
 
 // We are making an animation frame version of onScroll
 // Detect request animation frame
@@ -67,6 +67,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     // console.log("OBSERVATION!!!", entries);
 
     // Process (turbo boosted) on animation frame events
+    // THIS ONE VISIBLE FUNCTION DIDN'T WORK PROPERLY: DELETE
     // if (isOneVisible(entries)) {
     //   monitorScroll = true;
     // } else {
@@ -76,7 +77,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     //   positionTangle(mainTangle, 0);
     // }
 
-    
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         observationElementCount++;
@@ -87,27 +87,26 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
       } else {
         if (!isFirstObservation) {
           observationElementCount--;
+
+          setTimeout(() => {
+            positionTangle(mainTangle, 0);
+          }, 250); // Slight delay otherwise doesn't work
         }
       }
     });
 
-    console.log("Observation count:", observationElementCount);
-
     if (observationElementCount > 0) {
       monitorScroll = true;
-      document.addEventListener("scroll", onScroll)
     } else {
       monitorScroll = false;
-      document.removeEventListener("scroll", onScroll)
     }
 
     setTimeout(() => {
-
       // TODO: WORK OUT WHY I THOUGHT I NEEDED THIS??
       // AHH It's to stop overpositioning when fast scrolling
-      // Try to fix this another way. Otherwise this will pop animation back 
+      // Try to fix this another way. Otherwise this will pop animation back
       // and cause jerkiness!
-      // if (!isFirstObservation) positionTangle(mainTangle, 0);
+      //
 
       // Hacky workaround to get proper at least 1 visible
       if (isFirstObservation) {
@@ -115,7 +114,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
       }
     }, 200); // Wait a bit otherwise animationFrame jumps the gun
 
-    // onAnimationFrameScroll();
+    onScroll();
   };
 
   const positionTangle = (element, yPos: number) => {
@@ -130,8 +129,10 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     gsap.to(element, {
       y: yPos,
       ease: "power3",
-      duration: 0,
-      immediateRender: true
+      duration: 0
+      // onComplete: () => {
+      //   immediatePosition = false;
+      // }
     });
   };
 
@@ -143,17 +144,17 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     gsap.fromTo(
       element,
       { y: fromPos },
-      { y: yPos, ease: "power3", duration: 0, immediateRender: true }
+      { y: yPos, ease: "power3", duration: 0 }
     );
   };
 
   let onScroll: any = () => {
     if (!currentPanel) return;
     // Avoid calculations if not needed
-    // if (lastPosition == window.pageYOffset) {
-      // if (monitorScroll && rAf) rAf(onScroll);
-    //   return false;
-    // } else lastPosition = window.pageYOffset;
+    if (lastPosition == window.pageYOffset) {
+      if (monitorScroll && rAf) rAf(onScroll);
+      return false;
+    } else lastPosition = window.pageYOffset;
 
     // Process below per animation frame while scrolling
 
@@ -164,9 +165,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     // ].getBoundingClientRect();
 
     const { top, bottom } = currentPanel.getBoundingClientRect();
-
-
-
 
     const topPixelsAboveFold = window.innerHeight - top;
     const bottomPixelsAboveFold = window.innerHeight - bottom;
@@ -188,8 +186,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     // const { top: mainTop } = mainTangle.getBoundingClientRect();
     // console.log(mainTop);
 
-    // console.log(top)
-
     if (top > 0) {
       // We are pushing top up
 
@@ -203,37 +199,54 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
 
       if (top > 300) {
         mainTangle.style.visibility = "visible";
-        immediatePosition = false;
       }
 
-      immediatePosition 
-        ? positionTangleImmediate(mainTangle, -topPixelsAboveFold)
-        : positionTangle(mainTangle, -topPixelsAboveFold);
+      positionTangle(mainTangle, -topPixelsAboveFold);
+
+      // if (immediatePosition) {
+      //   positionTangleImmediate(mainTangle, -topPixelsAboveFold);
+      // } else {
+      //   console.log("Positioning with delay...")
+      //   positionTangle(mainTangle, -topPixelsAboveFold);
+      // }
     } else {
       // We are pulling from underneath
 
       if (mainOnTop) {
         console.log("Flip to bottom");
-        // mainTangle.style.visibility = "hidden";
-        immediatePosition = true;
+        mainTangle.style.visibility = "hidden";
+        // immediatePosition = true;
 
         mainOnTop = false;
       }
 
       if (top < -300) {
-        // mainTangle.style.visibility = "visible";
-        immediatePosition = false;
+        mainTangle.style.visibility = "visible";
       }
 
-      immediatePosition
-        ? positionTangleImmediate(
-            mainTangle,
-            window.innerHeight - bottomPixelsAboveFold
-          )
-        : positionTangle(
-            mainTangle,
-            window.innerHeight - bottomPixelsAboveFold
-          );
+      positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
+
+      // if (mainTop > window.innerHeight) {
+      //   immediatePosition = false;
+      // }
+
+      // if (immediatePosition) {
+      //   positionTangleImmediate(
+      //     mainTangle,
+      //     window.innerHeight - bottomPixelsAboveFold
+      //   );
+
+      //   console.log(window.innerHeight - bottomPixelsAboveFold)
+
+      //   // positionTangleImmediateFromTo(
+      //   //   mainTangle,
+      //   //   window.innerHeight - bottomPixelsAboveFold,
+      //   //   window.innerHeight - bottomPixelsAboveFold
+      //   // );
+      // } else {
+      //   console.log("Positioning with delay...")
+      // positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
+      // }
     }
 
     // if (topPixelsAboveFold > window.innerHeight - 200) {
@@ -279,7 +292,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     // }
 
     // Recall the loop
-    // if (monitorScroll && rAf) rAf(onScroll);
+    if (monitorScroll && rAf) rAf(onScroll);
   };
 
   useEffect(() => {
@@ -313,7 +326,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     return () => {
       observer.disconnect();
       rAf = undefined;
-      document.removeEventListener("scroll", onScroll)
+      // document.removeEventListener("scroll", onScroll);
     };
   }, []);
 
