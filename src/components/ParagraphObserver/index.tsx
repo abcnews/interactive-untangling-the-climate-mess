@@ -207,13 +207,13 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
       if (!mainOnTop) {
         console.log("Flip to top");
         mainTangle.style.visibility = "hidden";
-        unHideMainTangle();
+        // unHideMainTangle();
         immediatePosition = true;
         mainOnTop = true;
       }
 
       if (top > 300) {
-        // mainTangle.style.visibility = "visible";
+        mainTangle.style.visibility = "visible";
       }
 
       positionTangle(mainTangle, -topPixelsAboveFold);
@@ -235,14 +235,14 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
         console.log("Flip to bottom");
         mainTangle.style.visibility = "hidden";
         // Set an unhide for 1 second
-        unHideMainTangle();
+        // unHideMainTangle();
         // immediatePosition = true;
 
         mainOnTop = false;
       }
 
       if (top < -300) {
-        // mainTangle.style.visibility = "visible";
+        mainTangle.style.visibility = "visible";
       }
 
 

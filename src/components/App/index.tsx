@@ -45,7 +45,15 @@ const pollGet = (...args) =>
     });
   });
 
-const endStringsMarkers = ["endstrings"];
+// Add all markers here. They control string visibility later
+const mainStringMarkers = ["initial", 1];
+const endStringsMarkers = [
+  "endstrings",
+  "userstrings",
+  "endallstrings",
+  "endaustralia",
+  "endstorycomplete"
+];
 
 interface AppProps {
   projectName: string;
@@ -146,7 +154,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // Subscription might be getting delayed on Firefox
     // Maybe consider simply doing an onScroll listener
     // subscribe(onSubscriptionUpdate);
-    document.addEventListener("scroll", onSubscriptionUpdate)
+    document.addEventListener("scroll", onSubscriptionUpdate);
 
     return () => {
       // unsubscribe(onSubscriptionUpdate);
@@ -280,10 +288,12 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       });
     }
 
+    // Make end strings visible if needed
+    if (endStringsMarkers.includes(marker)) setEndTangleOpacity(1.0);
+
     // TODO: make mechanism for bringing in appropriate strings
     if (marker === "endstrings") {
       setMainTangleOpacity(0.0);
-      setEndTangleOpacity(1.0);
 
       setEndStrings({
         renewables: 0,

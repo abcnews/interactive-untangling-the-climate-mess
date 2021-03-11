@@ -157,9 +157,12 @@ const MainTangle: React.FC<MainTangleProps> = props => {
       // If going forward
       if (currentTime < endTime) {
         // Speed up if over 2 transitions (over 2 to prevent speeding up on quick backtrack)
+        // Pushed it back to over 1 for now as it wasn't what was causing
+        // the speed up at the bottom, but rather a build up of pressure
+        // and no release... much like life.
         timeline.rate(
-          component.pressure > 2
-            ? PLAY_RATE * component.pressure - 1
+          component.pressure > 1
+            ? PLAY_RATE * component.pressure
             : PLAY_RATE
         );
         timeline.loop(false);
@@ -186,8 +189,8 @@ const MainTangle: React.FC<MainTangleProps> = props => {
       // If scrolling back up
       else if (currentTime > endTime) {
         timeline.rate(
-          component.pressure > 2
-            ? -PLAY_RATE * component.pressure - 1
+          component.pressure > 1
+            ? -PLAY_RATE * component.pressure
             : -PLAY_RATE
         );
         timeline.loop(false);
