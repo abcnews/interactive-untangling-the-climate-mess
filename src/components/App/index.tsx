@@ -23,6 +23,7 @@ import { AppContext } from "../../AppContext";
 // Other imports etc.
 import EndStrings from "../EndStrings";
 import BarChart from "../BarChart/index";
+import DynamicText from "../DynamicText";
 
 // Set up our poll counter
 const GROUP = "interactive-untangling-the-climate-mess";
@@ -524,6 +525,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { title: "Industry", percent: 40, color: "#ff4e00" }
             ]}
           />
+        </Portal>
+
+        <Portal node={document?.getElementById("dynamictext-mainq1")}>
+          <DynamicText text={"DYNAMIC TEXT"} userInputState={userInputState} />
         </Portal>
 
         {/* Background visual */}

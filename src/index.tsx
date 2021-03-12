@@ -97,7 +97,6 @@ classify("class");
 // Add spacing to last of type panels
 const paragraphTextElements: any = document.querySelectorAll("#paragraphtext");
 const paragraphTextElementsArray = [...paragraphTextElements];
-console.log(paragraphTextElementsArray);
 
 for (const el of paragraphTextElementsArray) {
   // Get panel 2 from paragraph text and add class
