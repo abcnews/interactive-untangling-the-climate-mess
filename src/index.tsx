@@ -91,7 +91,19 @@ for (const panel of panelsArray) {
   panel.appendChild(container);
 }
 
+// Add classes to paragraphs from #fragments
 classify("class");
+
+// Add spacing to last of type panels
+const paragraphTextElements: any = document.querySelectorAll("#paragraphtext");
+const paragraphTextElementsArray = [...paragraphTextElements];
+console.log(paragraphTextElementsArray);
+
+for (const el of paragraphTextElementsArray) {
+  // Get panel 2 from paragraph text and add class
+  const panel = el.previousSibling.previousSibling;
+  panel.classList.add("last-panel");
+}
 
 function init() {
   render(<App projectName={PROJECT_NAME} />, root);

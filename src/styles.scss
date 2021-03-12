@@ -39,6 +39,10 @@
   }
 }
 
+.panel:first-of-type {
+  margin-top: 180vh;
+}
+
 :global {
   .nopullright {
     @include for-desktop-up {
