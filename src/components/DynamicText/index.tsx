@@ -9,8 +9,9 @@ type DynamicTextProps = {
 };
 
 const DynamicText: React.FC<DynamicTextProps> = props => {
-  const { text } = props;
-  return <div className={styles.root}>{text}</div>;
+  const { text, userInputState } = props;
+  console.log("Dynamic Text Component:", userInputState["MAINQ1-can-we-still-save-the-world"]);
+  return <div className={styles.root}>{userInputState["MAINQ1-can-we-still-save-the-world"]}</div>;
 };
 
 export default DynamicText;
