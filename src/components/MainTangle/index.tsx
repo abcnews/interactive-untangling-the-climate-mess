@@ -150,9 +150,9 @@ const MainTangle: React.FC<MainTangleProps> = props => {
 
       const endTime = markers[playloop.end];
 
-      console.log("Scroll marker:", props.scrollMarker);
-      console.log("playloop:", playloop);
-      console.log("Scroll animation pressure:", component.pressure);
+      // console.log("Scroll marker:", props.scrollMarker);
+      // console.log("playloop:", playloop);
+      // console.log("Scroll animation pressure:", component.pressure);
 
       // If going forward
       if (currentTime < endTime) {

@@ -115,7 +115,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     console.log("App mounted...");
 
     pollGet().then((result: any) => {
-      console.log("Poll:", result.value);
+      // console.log("Poll:", result.value);
 
       const values = result.value;
 
@@ -147,7 +147,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       pollTotals.industry = getAustraliaConvinced("SUBQ4-industry-emissions");
       pollTotals.carboncapture = getAustraliaConvinced("SUBQ5-carbon-capture");
 
-      console.log(pollTotals);
+      // console.log(pollTotals);
 
       setAustraliaStrings(pollTotals);
     });
@@ -187,7 +187,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   useEffect(() => {
     if (!userInputState) return;
-    console.log("user input:", userInputState);
+    // console.log("user input:", userInputState);
 
     // Check user state (buttons pressed) and act accordingly
 
@@ -263,7 +263,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       }
     }
 
-    console.log("New user strings:", nextUserStrings);
+    // console.log("New user strings:", nextUserStrings);
     setUserStrings(nextUserStrings);
   }, [userInputState]);
 
