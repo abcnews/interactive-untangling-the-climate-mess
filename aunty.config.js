@@ -1,3 +1,5 @@
+/** @format */
+
 const { resolve } = require("path");
 
 module.exports = {
@@ -21,13 +23,17 @@ module.exports = {
       resolve(__dirname, "node_modules/d3-time")
     );
 
+    console.log(config);
+
     return {
       ...config,
       performance: {
         hints: false,
         maxEntrypointSize: 512000,
-        maxAssetSize: 512000,
-      },
+        maxAssetSize: 512000
+      }
     };
-  },
+  }
 };
+
+const path = require("path");

@@ -1,0 +1,5 @@
+/** @format */
+
+console.log(":)");
+
+export {};
