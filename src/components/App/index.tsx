@@ -528,7 +528,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <Portal node={document?.getElementById("dynamictext-mainq1")}>
-          <DynamicText text={"DYNAMIC TEXT"} userInputState={userInputState} />
+          <DynamicText watchForKey={"MAINQ1-can-we-still-save-the-world"} userInputState={userInputState} />
         </Portal>
 
         {/* Background visual */}
