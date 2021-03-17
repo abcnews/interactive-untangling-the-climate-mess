@@ -1,5 +1,0 @@
-/** @format */
-
-console.log(":)");
-
-export {};
