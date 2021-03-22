@@ -96,7 +96,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
 
   return (
     <div className={styles.root}>
-      <h2>{props.title}</h2>
+      <h3>{props.title}</h3>
       <div className={styles.buttonContainer}>
         {buttons.map((button) => (
           <button
