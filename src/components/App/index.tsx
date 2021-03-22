@@ -425,6 +425,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "CARS CAN SAVE US", value: "positive" },
               { label: "UTEPOCALYPSE IS NIGH", value: "negative" }
             ]}
+            padding={true}
             setUserInputState={setUserInputState}
           />
         </Portal>
@@ -528,7 +529,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <Portal node={document?.getElementById("dynamictext-mainq1")}>
-          <DynamicText watchForKey={"MAINQ1-can-we-still-save-the-world"} userInputState={userInputState} />
+          <DynamicText
+            watchForKey={"MAINQ1-can-we-still-save-the-world"}
+            userInputState={userInputState}
+          />
         </Portal>
 
         {/* Background visual */}

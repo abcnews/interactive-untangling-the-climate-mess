@@ -36,9 +36,10 @@ interface UserInputBoxProps {
   setUserInputState?: any;
   questionKey: string;
   handleUserInput?: any;
+  padding?: boolean;
 }
 
-const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
+const UserInputBox: React.FC<UserInputBoxProps> = props => {
   const [buttons, setButtons] = useState([{ label: "", value: "" }]);
   const [selected, setSelected] = useState("");
 
@@ -56,7 +57,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
     const [err, result] = await to(
       component.debouncedPollIncrement({
         question: questionId,
-        answer: answerCode,
+        answer: answerCode
       })
     );
 
@@ -75,7 +76,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
         { label: "Of course we can", value: "certain" },
         { label: "Yes I think we can", value: "hopeful" },
         { label: "Probably not", value: "doubtful" },
-        { label: "No way we're screwed", value: "impossible" },
+        { label: "No way we're screwed", value: "impossible" }
       ]);
     } else {
       setButtons(props.buttons);
@@ -88,23 +89,22 @@ const UserInputBox: React.FC<UserInputBoxProps> = (props) => {
     handleUserInput(questionKey, selected);
 
     if (props.setUserInputState) {
-      props.setUserInputState((prevState) => {
+      props.setUserInputState(prevState => {
         return { ...prevState, [props.questionKey]: selected };
       });
     }
   }, [selected]);
 
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root} ${props.padding ? styles.paddingLeftRight : ""}`}>
       <h3>{props.title}</h3>
       <div className={styles.buttonContainer}>
-        {buttons.map((button) => (
+        {buttons.map(button => (
           <button
             id={button.value}
             key={button.value}
             className={selected === button.value ? styles.selected : ""}
-            onClick={handleClick}
-          >
+            onClick={handleClick}>
             {button.label}
           </button>
         ))}

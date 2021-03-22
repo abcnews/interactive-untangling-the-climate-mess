@@ -1,15 +1,13 @@
 @use "../../100-percent-correct-break-points.scss" as *;
 
 .root {
-  padding-left: 15px;
-  padding-right: 15px;
   margin-bottom: 2.25rem;
-
   text-align: center;
 
-  // h2 {
-  //   font-size: px;
-  // }
+ &.padding-left-right {
+  padding-left: 15px;
+  padding-right: 15px;
+ }
 
   button {
     background-color: transparent;
