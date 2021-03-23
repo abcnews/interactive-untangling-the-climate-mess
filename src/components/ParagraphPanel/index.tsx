@@ -15,7 +15,7 @@ const fromBottomScale = d3
   .range([0, 1.0]);
 
 // Detect if at least one intersection is visible
-const isOneVisible = (entries) => {
+const isOneVisible = entries => {
   for (const entry of entries) {
     if (entry.isIntersecting) return true;
   }
@@ -26,7 +26,7 @@ interface ParagraphObserverProps {
   toggle: Function;
 }
 
-const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
+const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
   const windowSize = useWindowSize();
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -39,7 +39,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
   let currentPanel = component.currentPanel;
   let currentElements = component.currentElements;
 
-  const processObservation = (entries) => {
+  const processObservation = entries => {
     // Process onScroll events if any one paragraph panel is visible
     if (isOneVisible(entries)) {
       window.addEventListener("scroll", onScroll, { passive: true });
@@ -47,14 +47,14 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       window.removeEventListener("scroll", onScroll);
     }
 
-    entries.forEach((entry) => {
+    entries.forEach(entry => {
       setVisible(entry.isIntersecting);
 
       if (entry.isIntersecting) {
         currentPanel = entry.target;
 
         // Get elements between hash markers
-        currentElements = nextUntil(currentPanel, "#endparagraphtext");
+        currentElements = nextUntil(currentPanel, "#endparagraphpanel");
       }
     });
   };
@@ -69,7 +69,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
       if (currentElements[0].style.opacity >= 1.0) return;
 
       // Otherwise set visible and return
-      currentElements.forEach((element) => {
+      currentElements.forEach(element => {
         element.style.opacity = 1.0;
       });
       return;
@@ -77,11 +77,11 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
     // Below the fold, make invisible
     if (fromFold < 0) {
-      currentElements.forEach((element) => {
+      currentElements.forEach(element => {
         element.style.opacity = 0;
       });
     } else {
-      currentElements.forEach((element) => {
+      currentElements.forEach(element => {
         // Set elements visible corresponding to scroll position
         element.style.opacity = fromBottomScale(fromFold);
       });
@@ -90,11 +90,11 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
   useEffect(() => {
     observer = new IntersectionObserver(processObservation, {
-      rootMargin: `-10% 0%`,
+      rootMargin: `-10% 0%`
     });
 
     const paragraphStartMarkers: any = document.querySelectorAll(
-      '*[id^="paragraphtext"]'
+      '*[id^="paragraphpanel"]'
     );
 
     paragraphStartMarkers.forEach((paragraphStartElement, index: number) => {
@@ -102,7 +102,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
       const paragraphEndElement = getNextSibling(
         paragraphStartElement,
-        "#endparagraphtext"
+        "#endparagraphpanel"
       );
 
       const top = paragraphStartElement.getBoundingClientRect().top;
@@ -130,13 +130,13 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = (props) => {
 
   useEffect(() => {
     const paragraphStartMarkers: any = document.querySelectorAll(
-      '*[id^="paragraphtext"]'
+      '*[id^="paragraphpanel"]'
     );
 
     paragraphStartMarkers.forEach((paragraphStartElement, index: number) => {
       const paragraphEndElement = getNextSibling(
         paragraphStartElement,
-        "#endparagraphtext"
+        "#endparagraphpanel"
       );
 
       const top = paragraphStartElement.getBoundingClientRect().top;

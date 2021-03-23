@@ -23,8 +23,6 @@ module.exports = {
       resolve(__dirname, "node_modules/d3-time")
     );
 
-    console.log(config);
-
     return {
       ...config,
       performance: {

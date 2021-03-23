@@ -12,6 +12,7 @@ import BackgroundTexture from "../BackgroundTexture/index";
 import MainTangle from "../MainTangle/index";
 import ScrollObserver from "../ScrollObserver/index";
 import ParagraphObserver from "../ParagraphObserver/index";
+import ParagraphPanel from "../ParagraphPanel/index";
 import DelayedHeader from "../DelayedHeader/index";
 import { gsap } from "gsap";
 
@@ -89,6 +90,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     industry: 1,
     livestock: 1
   });
+  const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -559,7 +561,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {/* Sets paragraph text where we break out of 
         scrolly panels (and hide background animations on mobile) */}
         {backgroundIsRendered && (
-          <ParagraphObserver setYOffset={setBackdropOffset} />
+          <>
+            <ParagraphObserver setYOffset={setBackdropOffset} />
+            <ParagraphPanel toggle={setParagraphTextVisible} />
+          </>
         )}
 
         {/* Just a line down the center of the screen for testing */}
