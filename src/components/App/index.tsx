@@ -552,9 +552,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           {/* )} */}
 
           <EndStrings opacity={endTangleOpacity} stringsNew={endStrings} />
+          <BackgroundTexture />
         </Portal>
 
-        <BackgroundTexture />
+        
 
         <ScrollObserver setMarker={setMarker} />
 
@@ -564,6 +565,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           <>
             <ParagraphObserver setYOffset={setBackdropOffset} />
             <ParagraphPanel toggle={setParagraphTextVisible} />
+            
           </>
         )}
 

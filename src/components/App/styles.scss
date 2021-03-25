@@ -27,17 +27,23 @@
 
     // Attribution panel
     background-color: rgba(255, 245, 235, 0.9);
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 360px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    .Header-byline {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
 
     @include for-desktop-up {
       margin: 0;
       position: relative;
       left: 50%;
-      margin-left: 150px;
+      margin-left: 10 0px !important;
     }
   }
+
   @include for-desktop-up {
     .u-layout > * {
       // width: 100%;
@@ -84,7 +90,6 @@
   #endparagraphtext {
     margin-bottom: 140vh;
   }
-
 
   .last-panel {
     margin-bottom: 130vh !important;

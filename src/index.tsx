@@ -1,5 +1,3 @@
-/** @format */
-
 // Feature detection
 import "./modernizer";
 let notIE = false;
@@ -62,46 +60,51 @@ declare global {
 const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
 const root = document.querySelector("#interactivemount");
 
-// Insert a div before the header
-const main = document.querySelector("main.Main");
-const delayedHeaderContainer = document.createElement("div");
-delayedHeaderContainer.className = "delayed-header u-full";
-if (main) main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
+function preInit() {
+  // Insert a div before the header
+  const main = document.querySelector("main.Main");
+  const delayedHeaderContainer = document.createElement("div");
+  delayedHeaderContainer.className = "delayed-header u-full";
+  if (main)
+    main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
 
-// Some initial transforms to the DOM
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// Set up text panels by moving elements within
-// #panel and #endpanel to the starting div
-const panelStarters: any = document.querySelectorAll("#panel");
-const panelsArray = [...panelStarters];
+  // Some initial transforms to the DOM
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // Set up text panels by moving elements within
+  // #panel and #endpanel to the starting div
+  const panelStarters: any = document.querySelectorAll("#panel");
+  const panelsArray = [...panelStarters];
 
-for (const panel of panelsArray) {
-  const container = document.createElement("div");
-  container.className = styles.panelContentContainer;
-  panel.className = styles.panel;
+  for (const panel of panelsArray) {
+    const container = document.createElement("div");
+    container.className = styles.panelContentContainer;
+    panel.className = styles.panel;
 
-  const elements = nextUntil(panel, "#endpanel");
+    const elements = nextUntil(panel, "#endpanel");
 
-  // Add content to container element
-  for (const element of elements) {
-    container.appendChild(element);
+    // Add content to container element
+    for (const element of elements) {
+      container.appendChild(element);
+    }
+
+    // Add container to panel
+    panel.appendChild(container);
   }
 
-  // Add container to panel
-  panel.appendChild(container);
-}
+  // Add classes to paragraphs from #fragments
+  classify("class");
 
-// Add classes to paragraphs from #fragments
-classify("class");
+  // Add spacing to last of type panels
+  const paragraphTextElements: any = document.querySelectorAll(
+    "#paragraphtext"
+  );
+  const paragraphTextElementsArray = [...paragraphTextElements];
 
-// Add spacing to last of type panels
-const paragraphTextElements: any = document.querySelectorAll("#paragraphtext");
-const paragraphTextElementsArray = [...paragraphTextElements];
-
-for (const el of paragraphTextElementsArray) {
-  // Get panel 2 from paragraph text and add class
-  const panel = el.previousSibling.previousSibling;
-  panel.classList.add("last-panel");
+  for (const el of paragraphTextElementsArray) {
+    // Get panel 2 from paragraph text and add class
+    const panel = el.previousSibling.previousSibling;
+    panel.classList.add("last-panel");
+  }
 }
 
 function init() {
@@ -110,9 +113,13 @@ function init() {
 
 const waitForOdyssey = () => {
   if (window.__ODYSSEY__) {
+    preInit();
     init();
   } else {
-    window.addEventListener("odyssey:api", init);
+    window.addEventListener("odyssey:api", () => {
+      preInit();
+      init();
+    });
   }
 };
 
