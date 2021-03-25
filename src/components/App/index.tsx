@@ -91,6 +91,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     livestock: 1
   });
   const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
+  const [questionCompleteness, setQuestionCompleteness] = useState("nothing");
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -192,7 +193,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // console.log("user input:", userInputState);
 
     // Check user state (buttons pressed) and act accordingly
-
     const nextUserStrings = userStrings;
 
     // Check renewables yes or no
@@ -265,8 +265,55 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       }
     }
 
-    // console.log("New user strings:", nextUserStrings);
     setUserStrings(nextUserStrings);
+
+    // Calculate questionCompleteness
+    function getMAIN1string(state): string {
+      if (state["MAINQ1-can-we-still-save-the-world"]) return "yesMAIN1";
+      else return "noMAIN1";
+    }
+
+    function getSUBstring(state): string {
+      // SUBQ1-renewables-zero-carbon
+      // SUBQ2-livestock-emissions
+      // SUBQ3-transportation-off-fossil
+      // SUBQ4-industry-emissions
+      // SUBQ5-carbon-capture
+
+      if (
+        state["SUBQ1-renewables-zero-carbon"] &&
+        state["SUBQ2-livestock-emissions"] &&
+        state["SUBQ3-transportation-off-fossil"] &&
+        state["SUBQ4-industry-emissions"] &&
+        state["SUBQ5-carbon-capture"]
+      )
+        return "allSUB";
+
+      if (
+        state["SUBQ1-renewables-zero-carbon"] ||
+        state["SUBQ2-livestock-emissions"] ||
+        state["SUBQ3-transportation-off-fossil"] ||
+        state["SUBQ4-industry-emissions"] ||
+        state["SUBQ5-carbon-capture"]
+      )
+        return "someSUB";
+
+      return "noSUB";
+    }
+
+    function getMAIN2(state): string {
+      if (state["MAINQ2-can-we-still-save-the-world-again-after-article"])
+        return "yesMAIN2";
+
+      return "noMAIN2";
+    }
+
+    const combinedCompletenessStrings =
+      getMAIN1string(userInputState) +
+      getSUBstring(userInputState) +
+      getMAIN2(userInputState);
+
+    setQuestionCompleteness(combinedCompletenessStrings);
   }, [userInputState]);
 
   useEffect(() => {
@@ -337,6 +384,12 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   }, [marker]);
 
   //
+
+  //
+
+  useEffect(() => {
+    console.log(questionCompleteness);
+  }, [questionCompleteness]);
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
@@ -555,8 +608,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           <BackgroundTexture />
         </Portal>
 
-        
-
         <ScrollObserver setMarker={setMarker} />
 
         {/* Sets paragraph text where we break out of 
@@ -565,7 +616,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           <>
             <ParagraphObserver setYOffset={setBackdropOffset} />
             <ParagraphPanel toggle={setParagraphTextVisible} />
-            
           </>
         )}
 
