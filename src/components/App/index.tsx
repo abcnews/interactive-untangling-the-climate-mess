@@ -92,6 +92,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   });
   const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
   const [questionCompleteness, setQuestionCompleteness] = useState("nothing");
+  const [convincedState, setConvincedState] = useState("incomplete");
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -314,6 +315,34 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       getMAIN2(userInputState);
 
     setQuestionCompleteness(combinedCompletenessStrings);
+
+    //
+    //
+
+    console.log("User input state:", userInputState);
+
+    // Determine if user was convinced or not or the same
+    const convincedLevels = {
+      certain: 4,
+      hopeful: 3,
+      doubtful: 2,
+      impossible: 1
+    };
+
+    const main1 = userInputState["MAINQ1-can-we-still-save-the-world"];
+    const main2 =
+      userInputState["MAINQ2-can-we-still-save-the-world-again-after-article"];
+
+    console.log(main1, main2);
+
+    const mainLevel1 = convincedLevels[main1]
+    const mainLevel2 = convincedLevels[main2]
+
+    if (mainLevel1 && main2) {
+      if (mainLevel1 === mainLevel2) setConvincedState("orange");
+      if (mainLevel1 > mainLevel2) setConvincedState("red");
+      if (mainLevel1 < mainLevel2) setConvincedState("green");
+    }
   }, [userInputState]);
 
   useEffect(() => {
@@ -384,12 +413,15 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   }, [marker]);
 
   //
-
   //
 
   useEffect(() => {
-    console.log(questionCompleteness);
+    console.log("Question completeness:", questionCompleteness);
   }, [questionCompleteness]);
+
+  useEffect(() => {
+    console.log("Convinced state:", convincedState);
+  }, [convincedState]);
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
