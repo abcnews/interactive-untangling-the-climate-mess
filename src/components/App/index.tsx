@@ -321,8 +321,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     console.log("User input state:", userInputState);
 
-    // Determine if user was convinced or not or the same
-    const convincedLevels = {
+    // Determine if main question level changed
+    const mainChangeLevels = {
       certain: 4,
       hopeful: 3,
       doubtful: 2,
@@ -335,8 +335,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     console.log(main1, main2);
 
-    const mainLevel1 = convincedLevels[main1]
-    const mainLevel2 = convincedLevels[main2]
+    const mainLevel1 = mainChangeLevels[main1];
+    const mainLevel2 = mainChangeLevels[main2];
 
     if (mainLevel1 && main2) {
       if (mainLevel1 === mainLevel2) setConvincedState("orange");
