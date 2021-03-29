@@ -119,8 +119,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     console.log("App mounted...");
 
     pollGet().then((result: any) => {
-      // console.log("Poll:", result.value);
-
       const values = result.value;
 
       if (!values) return;
@@ -150,8 +148,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       );
       pollTotals.industry = getAustraliaConvinced("SUBQ4-industry-emissions");
       pollTotals.carboncapture = getAustraliaConvinced("SUBQ5-carbon-capture");
-
-      // console.log(pollTotals);
 
       setAustraliaStrings(pollTotals);
     });
@@ -191,7 +187,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   useEffect(() => {
     if (!userInputState) return;
-    // console.log("user input:", userInputState);
 
     // Check user state (buttons pressed) and act accordingly
     const nextUserStrings = userStrings;
@@ -332,8 +327,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     const main1 = userInputState["MAINQ1-can-we-still-save-the-world"];
     const main2 =
       userInputState["MAINQ2-can-we-still-save-the-world-again-after-article"];
-
-    console.log(main1, main2);
 
     const mainLevel1 = mainChangeLevels[main1];
     const mainLevel2 = mainChangeLevels[main2];

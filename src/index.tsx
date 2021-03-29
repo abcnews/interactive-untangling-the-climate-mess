@@ -22,6 +22,7 @@ import App from "./components/App";
 import jankdefer from "jankdefer";
 import { nextUntil } from "./nextUntil";
 import styles from "./styles.scss";
+import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 
 // Keep TypeScript from throwing errors
 declare var Modernizr: any;
@@ -72,10 +73,21 @@ function preInit() {
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // Set up text panels by moving elements within
   // #panel and #endpanel to the starting div
-  const panelStarters: any = document.querySelectorAll("#panel");
+  const panelStarters: any = document.querySelectorAll("[id^='panel']");
   const panelsArray = [...panelStarters];
 
   for (const panel of panelsArray) {
+    // Get id string of panel
+    const idString: string = panel.id;
+
+    // Check if panel has config
+    if (idString !== "panel") {
+      console.log("id string:", idString);
+      // Get alternating case config
+      const panelConfig = alternatingCaseToObject(idString);
+      console.log("Panel config:", panelConfig);
+    }
+
     const container = document.createElement("div");
     container.className = styles.panelContentContainer;
     panel.className = styles.panel;
