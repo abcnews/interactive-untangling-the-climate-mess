@@ -77,6 +77,10 @@ function preInit() {
   const panelsArray = [...panelStarters];
 
   for (const panel of panelsArray) {
+    const container = document.createElement("div");
+    container.className = styles.panelContentContainer;
+    panel.className = styles.panel;
+
     // Get id string of panel
     const idString: string = panel.id;
 
@@ -86,11 +90,10 @@ function preInit() {
       // Get alternating case config
       const panelConfig = alternatingCaseToObject(idString);
       console.log("Panel config:", panelConfig);
+      if (panelConfig.center) {
+        panel.classList.add("nopullright");
+      }
     }
-
-    const container = document.createElement("div");
-    container.className = styles.panelContentContainer;
-    panel.className = styles.panel;
 
     const elements = nextUntil(panel, "#endpanel");
 
