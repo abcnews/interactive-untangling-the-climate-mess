@@ -25,6 +25,7 @@ import { AppContext } from "../../AppContext";
 import EndStrings from "../EndStrings";
 import BarChart from "../BarChart/index";
 import DynamicText from "../DynamicText";
+import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 
 // Set up our poll counter
 const GROUP = "interactive-untangling-the-climate-mess";
@@ -156,6 +157,54 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // Maybe consider simply doing an onScroll listener
     // subscribe(onSubscriptionUpdate);
     document.addEventListener("scroll", onSubscriptionUpdate);
+
+    const panelStarters: any = document.querySelectorAll(
+      "[id^='interactivepanel']"
+    );
+    const panelsArray = [...panelStarters];
+
+    for (const panel of panelsArray) {
+      console.log("Interactive panel:", panel);
+
+      // Get id string of panel
+      const idString: string = panel.id;
+
+      // Check if panel has config
+      if (idString !== "interactivepanel") {
+        console.log("id string:", idString);
+        // Get alternating case config
+        const panelConfig = alternatingCaseToObject(idString);
+        console.log("Panel config:", panelConfig);
+      }
+
+      // const container = document.createElement("div");
+      // container.className = styles.panelContentContainer;
+      // panel.className = styles.panel;
+
+      // // Get id string of panel
+      // const idString: string = panel.id;
+
+      // // Check if panel has config
+      // if (idString !== "panel") {
+      //   console.log("id string:", idString);
+      //   // Get alternating case config
+      //   const panelConfig = alternatingCaseToObject(idString);
+      //   console.log("Panel config:", panelConfig);
+      //   if (panelConfig.center) {
+      //     panel.classList.add("nopullright");
+      //   }
+      // }
+
+      // const elements = nextUntil(panel, "#endpanel");
+
+      // // Add content to container element
+      // for (const element of elements) {
+      //   container.appendChild(element);
+      // }
+
+      // // Add container to panel
+      // panel.appendChild(container);
+    }
 
     return () => {
       // unsubscribe(onSubscriptionUpdate);
