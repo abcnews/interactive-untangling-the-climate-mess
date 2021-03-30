@@ -26,6 +26,7 @@ import EndStrings from "../EndStrings";
 import BarChart from "../BarChart/index";
 import DynamicText from "../DynamicText";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
+import InteractivePanel from "../InteractivePanel/index";
 
 // Set up our poll counter
 const GROUP = "interactive-untangling-the-climate-mess";
@@ -94,6 +95,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
   const [questionCompleteness, setQuestionCompleteness] = useState("nothing");
   const [convincedState, setConvincedState] = useState("incomplete");
+  const [interactivePanelElements, setInteractivePanelElements]: [
+    any,
+    any
+  ] = useState();
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -162,6 +167,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       "[id^='interactivepanel']"
     );
     const panelsArray = [...panelStarters];
+
+    setInteractivePanelElements(panelsArray);
 
     for (const panel of panelsArray) {
       console.log("Interactive panel:", panel);
@@ -695,6 +702,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Just a line down the center of the screen for testing */}
         {/* <div className={styles.centerHint} /> */}
+
+        {interactivePanelElements?.map(panel => {
+          return (
+            <Portal node={panel}>
+              <InteractivePanel />
+            </Portal>
+          );
+        })}
       </>
     </AppContext.Provider>
   );
