@@ -37,6 +37,10 @@
   }
 }
 
+.hidden {
+  position: absolute; top: 9999px; left: -9999px;
+}
+
 // .panel {
 //   padding: 0 15px !important;
 //   margin-top: 80vh;
