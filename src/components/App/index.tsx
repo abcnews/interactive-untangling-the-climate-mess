@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useEffect, useState, useRef } from "react";
 import { Portal } from "react-portal";
 
