@@ -99,7 +99,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   // User input state ----------------
   const [questionCompleteness, setQuestionCompleteness] = useState("nothing");
   const [convincedState, setConvincedState] = useState("incomplete");
-  const [numberConvinvedOf, setNumberConvinvedOf] = useState(0);
+  const [subquestionsConvinvedOf, setSubquestionsConvinvedOf] = useState(0);
   // End user input state ----------------
 
   const componentRef = useRef({});
@@ -337,8 +337,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       if (nextUserStrings[area] === 0) localConvincedCount++;
     }
 
-    console.log(localConvincedCount);
-    setNumberConvinvedOf(localConvincedCount);
+    setSubquestionsConvinvedOf(localConvincedCount);
 
     // Calculate questionCompleteness
     function getMAIN1string(state): string {
@@ -492,6 +491,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   useEffect(() => {
     console.log("Convinced state:", convincedState);
   }, [convincedState]);
+
+  useEffect(() => {
+    console.log("Subquestions convinced of:", subquestionsConvinvedOf);
+  }, [subquestionsConvinvedOf]);
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
