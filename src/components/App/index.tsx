@@ -91,12 +91,16 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     livestock: 1
   });
   const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
-  const [questionCompleteness, setQuestionCompleteness] = useState("nothing");
-  const [convincedState, setConvincedState] = useState("incomplete");
   const [interactivePanelElements, setInteractivePanelElements]: [
     any,
     any
   ] = useState();
+
+  // User input state ----------------
+  const [questionCompleteness, setQuestionCompleteness] = useState("nothing");
+  const [convincedState, setConvincedState] = useState("incomplete");
+  const [numberConvinvedOf, setNumberConvinvedOf] = useState(0);
+  // End user input state ----------------
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -239,8 +243,15 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     }, 100);
   }, [backgroundIsRendered]);
 
+  // Effect when userInputState is changed
   useEffect(() => {
     if (!userInputState) return;
+
+    /**
+     * Here we are combining sentiment to simply positive or negative
+     * or convinced or unconvinced, depending on which subquestion
+     * or SUBQ a user presses.
+     */
 
     // Check user state (buttons pressed) and act accordingly
     const nextUserStrings = userStrings;
@@ -316,6 +327,18 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     }
 
     setUserStrings(nextUserStrings);
+
+    console.log(nextUserStrings);
+
+    // Count up number user convinced by
+    let localConvincedCount = 0;
+
+    for (const area in nextUserStrings) {
+      if (nextUserStrings[area] === 0) localConvincedCount++;
+    }
+
+    console.log(localConvincedCount);
+    setNumberConvinvedOf(localConvincedCount);
 
     // Calculate questionCompleteness
     function getMAIN1string(state): string {
@@ -701,9 +724,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {/* Just a line down the center of the screen for testing */}
         {/* <div className={styles.centerHint} /> */}
 
-        {interactivePanelElements?.map(panel => {
+        {interactivePanelElements?.map((panel, iteration) => {
           return (
-            <Portal node={panel}>
+            <Portal key={iteration} node={panel}>
               <InteractivePanel />
             </Portal>
           );

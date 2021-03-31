@@ -3,14 +3,14 @@ import styles from "./styles.scss";
 
 type InteractivePanelProps = {};
 
-const InteractivePanel: React.FC<InteractivePanelProps> = () => {
+const InteractivePanel: React.FC<InteractivePanelProps> = props => {
   const [hidden, setHidden] = useState(false);
 
   // onMount
   useEffect(() => {
-    setTimeout(() => {
-      setHidden(true);
-    }, 1000);
+    // setTimeout(() => {
+    //   setHidden(true);
+    // }, 10000);
   }, []);
 
   return (
