@@ -161,6 +161,16 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       setAustraliaStrings(pollTotals);
 
       console.log("Poll totals", pollTotals);
+
+      let localAusConvinced = 0;
+
+      for (const area in pollTotals) {
+        if (pollTotals[area] === 0) localAusConvinced++;
+      }
+
+      setAustraliaConvincedOf(localAusConvinced);
+
+      console.log("Aus convinced of:", localAusConvinced);
     });
 
     // Subscription might be getting delayed on Firefox
