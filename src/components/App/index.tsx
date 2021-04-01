@@ -99,9 +99,23 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   // User input state ----------------
   const [questionCompleteness, setQuestionCompleteness] = useState("nothing");
   const [convincedState, setConvincedState] = useState("incomplete");
-  const [subquestionsConvinvedOf, setSubQuestionsConvinvedOf] = useState(0);
+  const [subQuestionsConvinvedOf, setSubQuestionsConvinvedOf] = useState(0);
   // ----------------
   const [australiaConvincedOf, setAustraliaConvincedOf] = useState(0);
+
+  // ---- Combined config for InteractivePanel components
+  // const [interactivePanelInput, setInteractivePanelInput] = useState({
+  //   completeness: 0,
+  //   persuasiveness: "incomplete",
+
+  // });
+
+  /**
+   * TODO: I think we could move this to a single prop on the InteractivePanel
+   * component using input={{completeness: questionCompleteness}} etc etc.
+   * 
+   * Try when Easter is over...
+   */
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -508,8 +522,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   }, [convincedState]);
 
   useEffect(() => {
-    console.log("Subquestions convinced of:", subquestionsConvinvedOf);
-  }, [subquestionsConvinvedOf]);
+    console.log("Subquestions convinced of:", subQuestionsConvinvedOf);
+  }, [subQuestionsConvinvedOf]);
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
