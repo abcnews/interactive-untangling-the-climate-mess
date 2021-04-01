@@ -99,8 +99,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   // User input state ----------------
   const [questionCompleteness, setQuestionCompleteness] = useState("nothing");
   const [convincedState, setConvincedState] = useState("incomplete");
-  const [subquestionsConvinvedOf, setSubquestionsConvinvedOf] = useState(0);
-  // End user input state ----------------
+  const [subquestionsConvinvedOf, setSubQuestionsConvinvedOf] = useState(0);
+  // ----------------
+  const [australiaConvincedOf, setAustraliaConvincedOf] = useState(0);
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -158,6 +159,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       pollTotals.carboncapture = getAustraliaConvinced("SUBQ5-carbon-capture");
 
       setAustraliaStrings(pollTotals);
+
+      console.log("Poll totals", pollTotals);
     });
 
     // Subscription might be getting delayed on Firefox
@@ -337,7 +340,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       if (nextUserStrings[area] === 0) localConvincedCount++;
     }
 
-    setSubquestionsConvinvedOf(localConvincedCount);
+    setSubQuestionsConvinvedOf(localConvincedCount);
+
+    //
 
     // Calculate questionCompleteness
     function getMAIN1string(state): string {
