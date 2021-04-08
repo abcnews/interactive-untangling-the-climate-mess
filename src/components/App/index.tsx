@@ -355,8 +355,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     setUserStrings(nextUserStrings);
 
-    console.log(nextUserStrings);
-
     // Count up number user convinced by
     let localConvincedCount = 0;
 
@@ -419,7 +417,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     //
     //
 
-    console.log("User input state:", userInputState);
+    // console.log("User input state:", userInputState);
 
     // Determine if main question level changed
     const mainChangeLevels = {
@@ -513,17 +511,17 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   //
   //
 
-  useEffect(() => {
-    console.log("Question completeness:", questionCompleteness);
-  }, [questionCompleteness]);
+  // useEffect(() => {
+  //   console.log("Question completeness:", questionCompleteness);
+  // }, [questionCompleteness]);
 
-  useEffect(() => {
-    console.log("Convinced state:", convincedState);
-  }, [convincedState]);
+  // useEffect(() => {
+  //   console.log("Convinced state:", convincedState);
+  // }, [convincedState]);
 
-  useEffect(() => {
-    console.log("Subquestions convinced of:", subQuestionsConvinvedOf);
-  }, [subQuestionsConvinvedOf]);
+  // useEffect(() => {
+  //   console.log("Subquestions convinced of:", subQuestionsConvinvedOf);
+  // }, [subQuestionsConvinvedOf]);
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
