@@ -1,18 +1,36 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.scss";
 
-type InteractivePanelProps = { panelKey };
+type InteractivePanelProps = {
+  panelKey;
+  questionCompleteness;
+  convincedState;
+  subQuestionsConvinvedOf;
+  australiaConvincedOf;
+  userInputState;
+};
 
 const InteractivePanel: React.FC<InteractivePanelProps> = props => {
-  const { panelKey } = props;
+  // Deconstruct props
+  const {
+    panelKey,
+    questionCompleteness,
+    convincedState,
+    subQuestionsConvinvedOf,
+    australiaConvincedOf,
+    userInputState
+  } = props;
+
   const [hidden, setHidden] = useState(false);
-  const [panelText, setPanelText] = useState("This is the default panel text.");
+  const [panelText, setPanelText] = useState("<DEFAULT PANEL TEXT>");
 
   // onMount
   useEffect(() => {
-    // setTimeout(() => {
-    //   setHidden(true);
-    // }, 10000);
+    if (panelKey === "one") {
+      setPanelText(
+        "You didn’t answer any of the questions but here’s how the rest of the audience felt about the piece."
+      );
+    }
   }, []);
 
   return (

@@ -758,11 +758,17 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {interactivePanelElements?.map((panel, iteration) => {
           const panelConfig = alternatingCaseToObject(panel.id);
-          console.log(panelConfig);
 
           return (
             <Portal key={iteration} node={panel}>
-              <InteractivePanel panelKey={panelConfig.key} />
+              <InteractivePanel
+                panelKey={panelConfig.key}
+                questionCompleteness={questionCompleteness}
+                convincedState={convincedState}
+                subQuestionsConvinvedOf={subQuestionsConvinvedOf}
+                australiaConvincedOf={australiaConvincedOf}
+                userInputState={userInputState}
+              />
             </Portal>
           );
         })}
