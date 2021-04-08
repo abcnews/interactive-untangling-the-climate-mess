@@ -48,13 +48,15 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
         userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful"
       ) {
         setPanelText(
-          "We don’t know if you’re still convinced, as you didn’t answer, but here’s how the rest of the audience feel about the piece."
+          "We don’t know if you’re still convinced, as you didn’t answer, \
+          but here’s how the rest of the audience feel about the piece."
         );
-      } else
-      // They are doubtful 
-      {
+      }
+      // They are doubtful
+      else {
         setPanelText(
-          "We don’t know if you’re still not convinced, as you didn’t answer, but here’s how the rest of the audience feel about the piece."
+          "We don’t know if you’re still not convinced, as you didn’t answer, \
+          but here’s how the rest of the audience feel about the piece."
         );
       }
     }
