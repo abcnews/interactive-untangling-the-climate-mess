@@ -98,7 +98,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   // User input state ----------------
   const [questionCompleteness, setQuestionCompleteness] = useState("nothing");
-  const [convincedState, setConvincedState] = useState("incomplete");
+  const [convincedState, setConvincedState] = useState("orange");
   const [subQuestionsConvinvedOf, setSubQuestionsConvinvedOf] = useState(0);
   // ----------------
   const [australiaConvincedOf, setAustraliaConvincedOf] = useState(0);
