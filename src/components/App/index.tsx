@@ -113,7 +113,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   /**
    * TODO: I think we could move this to a single prop on the InteractivePanel
    * component using input={{completeness: questionCompleteness}} etc etc.
-   * 
+   *
    * Try when Easter is over...
    */
 
@@ -757,9 +757,12 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {/* <div className={styles.centerHint} /> */}
 
         {interactivePanelElements?.map((panel, iteration) => {
+          const panelConfig = alternatingCaseToObject(panel.id);
+          console.log(panelConfig);
+
           return (
             <Portal key={iteration} node={panel}>
-              <InteractivePanel />
+              <InteractivePanel panelKey={panelConfig.key} />
             </Portal>
           );
         })}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.scss";
 
-type InteractivePanelProps = {};
+type InteractivePanelProps = { panelKey };
 
 const InteractivePanel: React.FC<InteractivePanelProps> = props => {
   const [hidden, setHidden] = useState(false);
@@ -16,7 +16,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
   return (
     <div className={`${styles.root} ${hidden ? styles.hidden : ""}`}>
       <div className={styles.panelContentContainer}>
-        Interactive content will go here!!!
+        Panel key: {props.panelKey}
       </div>
     </div>
   );
