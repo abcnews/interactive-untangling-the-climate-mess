@@ -24,29 +24,31 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
   const [hidden, setHidden] = useState(false);
   const [panelText, setPanelText] = useState("<DEFAULT PANEL TEXT>");
 
-  function getLevel2Text(convincedState, userInputState) {
-    if (convincedState === "green")
-      return "So you’re more positive than at the start, that’s something.";
-    if (convincedState === "orange") {
-      if (
-        userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
-        userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful" ||
-        userInputState[
-          "MAINQ2-can-we-still-save-the-world-again-after-article"
-        ] === "certain" ||
-        userInputState[
-          "MAINQ2-can-we-still-save-the-world-again-after-article"
-        ] === "hopeful"
-      ) {
-        return "So you still think this can be done.";
-      } else {
-        return "It’s OK still not to be convinced, it’s a tricky problem.";
-      }
-    }
+  // TODO: Maybe make these functions return React components?
+  
+  // function getLevel2Text(convincedState, userInputState) {
+  //   if (convincedState === "green")
+  //     return "So you’re more positive than at the start, that’s something.";
+  //   if (convincedState === "orange") {
+  //     if (
+  //       userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
+  //       userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful" ||
+  //       userInputState[
+  //         "MAINQ2-can-we-still-save-the-world-again-after-article"
+  //       ] === "certain" ||
+  //       userInputState[
+  //         "MAINQ2-can-we-still-save-the-world-again-after-article"
+  //       ] === "hopeful"
+  //     ) {
+  //       return "So you still think this can be done.";
+  //     } else {
+  //       return "It’s OK still not to be convinced, it’s a tricky problem.";
+  //     }
+  //   }
 
-    if (convincedState === "red")
-      return "So now you’ve read all this you’re less convinced.";
-  }
+  //   if (convincedState === "red")
+  //     return "So now you’ve read all this you’re less convinced.";
+  // }
 
   // onMount
   useEffect(() => {}, []);
