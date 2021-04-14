@@ -17,9 +17,9 @@ if (Modernizr.arrow) {
 
   // This unfortunately doesn't stop our JS from
   // running due to Webpack pushing all the css etc up top
-  throw new Error(
-    "Something went badly wrong... you are using an unsupported browser"
-  );
+  // throw new Error(
+  //   "Something went badly wrong... you are using an unsupported browser"
+  // );
 }
 
 export {}
