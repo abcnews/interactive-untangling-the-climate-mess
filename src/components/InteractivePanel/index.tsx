@@ -54,11 +54,22 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
   useEffect(() => {}, []);
 
   useEffect(() => {
+    // KEY
+    // questionCompleteness === "noMAIN1noSUBnoMAIN2"  // 1
+    // questionCompleteness === "yesMAIN1noSUBnoMAIN2" // 2
+    // questionCompleteness === "noMAIN1noSUByesMAIN2" // 3
+    // questionCompleteness === "yesMAIN1noSUByesMAIN2" // 4
+    // questionCompleteness === "noMAIN1someSUBnoMAIN2" // 5
+    // questionCompleteness === "noMAIN1allSUBnoMAIN2" // 6
+    // questionCompleteness === "noMAIN1someSUByesMAIN2" // 7
+    // questionCompleteness === "noMAIN1allSUByesMAIN2" // 8
+    // questionCompleteness === "yesMAIN1allSUByesMAIN2" // 9
+
     switch (panelKey) {
       case "didntanswer":
         // A panel that displays text and subtly prompts people
         // to maybe go back and answer more
-        let shouldShow = questionCompleteness === "noMAIN1noSUBnoMAIN2"; // ||
+        let shouldShow = questionCompleteness === "noMAIN1noSUBnoMAIN2"; // 1 ||
         // questionCompleteness === "yesMAIN1noSUBnoMAIN2";
 
         // Show if incomplete
@@ -66,35 +77,14 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
         // Otherwise hide
         else setHidden(true);
 
-        // Were they initially positive?
-        // let werePositive =
-        //   userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
-        //   userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful";
-
-        // They didn't interact at all
-        // if (questionCompleteness === "noMAIN1noSUBnoMAIN2") {
         setPanelText(
           "You didn’t answer any of the questions but here’s how the \
           rest of the audience felt about the piece."
         );
-        // }
 
-        // else if (questionCompleteness === "yesMAIN1noSUBnoMAIN2") {
-        //   if (werePositive) {
-        //     setPanelText(
-        //       "We don’t know if you’re still convinced, as you didn’t answer, \
-        //   but here’s how the rest of the audience feel about the piece."
-        //     );
-        //   } else if (!werePositive) {
-        //     setPanelText(
-        //       "We don’t know if you’re still not convinced, as you didn’t answer, \
-        //   but here’s how the rest of the audience feel about the piece."
-        //     );
-        //   }
-        // }
         break;
       case "incompletefallback":
-        shouldShow = questionCompleteness === "yesMAIN1noSUBnoMAIN2";
+        shouldShow = questionCompleteness === "yesMAIN1noSUBnoMAIN2"; // 2
 
         if (shouldShow) setHidden(false);
         else setHidden(true);
@@ -118,7 +108,11 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
 
         break;
       case "level2answer":
-        shouldShow = questionCompleteness === "noMAIN1noSUByesMAIN2";
+        shouldShow =
+          questionCompleteness === "noMAIN1noSUByesMAIN2" || // 3
+          questionCompleteness === "yesMAIN1noSUByesMAIN2" || // 4
+          questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
+          questionCompleteness === "noMAIN1allSUByesMAIN2"; // 8
 
         if (shouldShow) setHidden(false);
         else setHidden(true);
@@ -128,10 +122,11 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           userInputState
         );
 
-        setPanelText(
-          `${level2answer} While we don’t know if you’re convinced by any of \
-          the challenges, here’s what the audience thought.`
-        );
+        const noSectionText =
+          "While we don’t know if you’re convinced by any of \
+        the challenges, here’s what the audience thought.";
+
+        setPanelText(`${level2answer}`);
         break;
       case "level3answer":
         setPanelText("Level 3 answer");
