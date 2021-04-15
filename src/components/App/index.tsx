@@ -200,8 +200,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     setInteractivePanelElements(panelsArray);
 
     for (const panel of panelsArray) {
-      console.log("Interactive panel:", panel);
-
       // Get id string of panel
       const idString: string = panel.id;
 

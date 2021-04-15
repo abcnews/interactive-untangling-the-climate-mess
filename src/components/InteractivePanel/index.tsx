@@ -26,29 +26,29 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
 
   // TODO: Maybe make these functions return React components?
 
-  // function getLevel2Text(convincedState, userInputState) {
-  //   if (convincedState === "green")
-  //     return "So you’re more positive than at the start, that’s something.";
-  //   if (convincedState === "orange") {
-  //     if (
-  //       userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
-  //       userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful" ||
-  //       userInputState[
-  //         "MAINQ2-can-we-still-save-the-world-again-after-article"
-  //       ] === "certain" ||
-  //       userInputState[
-  //         "MAINQ2-can-we-still-save-the-world-again-after-article"
-  //       ] === "hopeful"
-  //     ) {
-  //       return "So you still think this can be done.";
-  //     } else {
-  //       return "It’s OK still not to be convinced, it’s a tricky problem.";
-  //     }
-  //   }
+  function getLevel2Text(convincedState, userInputState) {
+    if (convincedState === "green")
+      return "So you’re more positive than at the start, that’s something.";
+    if (convincedState === "orange") {
+      if (
+        userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
+        userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful" ||
+        userInputState[
+          "MAINQ2-can-we-still-save-the-world-again-after-article"
+        ] === "certain" ||
+        userInputState[
+          "MAINQ2-can-we-still-save-the-world-again-after-article"
+        ] === "hopeful"
+      ) {
+        return "So you still think this can be done.";
+      } else {
+        return "It’s OK still not to be convinced, it’s a tricky problem.";
+      }
+    }
 
-  //   if (convincedState === "red")
-  //     return "So now you’ve read all this you’re less convinced.";
-  // }
+    if (convincedState === "red")
+      return "So now you’ve read all this you’re less convinced.";
+  }
 
   // onMount
   useEffect(() => {}, []);
@@ -58,9 +58,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
       case "didntanswer":
         // A panel that displays text and subtly prompts people
         // to maybe go back and answer more
-        const shouldShow =
-          questionCompleteness === "noMAIN1noSUBnoMAIN2" ||
-          questionCompleteness === "yesMAIN1noSUBnoMAIN2";
+        let shouldShow = questionCompleteness === "noMAIN1noSUBnoMAIN2"; // ||
+        // questionCompleteness === "yesMAIN1noSUBnoMAIN2";
 
         // Show if incomplete
         if (shouldShow) setHidden(false);
@@ -68,35 +67,71 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
         else setHidden(true);
 
         // Were they initially positive?
-        const werePositive =
+        // let werePositive =
+        //   userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
+        //   userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful";
+
+        // They didn't interact at all
+        // if (questionCompleteness === "noMAIN1noSUBnoMAIN2") {
+        setPanelText(
+          "You didn’t answer any of the questions but here’s how the \
+          rest of the audience felt about the piece."
+        );
+        // }
+
+        // else if (questionCompleteness === "yesMAIN1noSUBnoMAIN2") {
+        //   if (werePositive) {
+        //     setPanelText(
+        //       "We don’t know if you’re still convinced, as you didn’t answer, \
+        //   but here’s how the rest of the audience feel about the piece."
+        //     );
+        //   } else if (!werePositive) {
+        //     setPanelText(
+        //       "We don’t know if you’re still not convinced, as you didn’t answer, \
+        //   but here’s how the rest of the audience feel about the piece."
+        //     );
+        //   }
+        // }
+        break;
+      case "incompletefallback":
+        shouldShow = questionCompleteness === "yesMAIN1noSUBnoMAIN2";
+
+        if (shouldShow) setHidden(false);
+        else setHidden(true);
+
+        // Were they initially positive?
+        let werePositive =
           userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
           userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful";
 
-        // They didn't interact at all
-        if (questionCompleteness === "noMAIN1noSUBnoMAIN2") {
+        if (werePositive) {
           setPanelText(
-            "You didn’t answer any of the questions but here’s how the \
-          rest of the audience felt about the piece."
+            "We don’t know if you’re still convinced, as you didn’t answer, \
+          but here’s how the rest of the audience feel about the piece."
           );
-        } else if (questionCompleteness === "yesMAIN1noSUBnoMAIN2") {
-          if (werePositive) {
-            setPanelText(
-              "We don’t know if you’re still convinced, as you didn’t answer, \
+        } else if (!werePositive) {
+          setPanelText(
+            "We don’t know if you’re still not convinced, as you didn’t answer, \
           but here’s how the rest of the audience feel about the piece."
-            );
-          } else if (!werePositive) {
-            setPanelText(
-              "We don’t know if you’re still not convinced, as you didn’t answer, \
-          but here’s how the rest of the audience feel about the piece."
-            );
-          }
+          );
         }
-        break;
-      case "incompletefallback":
-        setPanelText("Incomplete");
+
         break;
       case "level2answer":
-        setPanelText("Level 2 answer");
+        shouldShow = questionCompleteness === "noMAIN1noSUByesMAIN2";
+
+        if (shouldShow) setHidden(false);
+        else setHidden(true);
+
+        let level2answer: string | undefined = getLevel2Text(
+          convincedState,
+          userInputState
+        );
+
+        setPanelText(
+          `${level2answer} While we don’t know if you’re convinced by any of \
+          the challenges, here’s what the audience thought.`
+        );
         break;
       case "level3answer":
         setPanelText("Level 3 answer");
