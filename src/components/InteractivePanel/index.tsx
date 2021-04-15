@@ -25,7 +25,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
   const [panelText, setPanelText] = useState("<DEFAULT PANEL TEXT>");
 
   // TODO: Maybe make these functions return React components?
-  
+
   // function getLevel2Text(convincedState, userInputState) {
   //   if (convincedState === "green")
   //     return "So you’re more positive than at the start, that’s something.";
@@ -54,42 +54,62 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
   useEffect(() => {}, []);
 
   useEffect(() => {
-    if (panelKey === "didntanswer") {
-      // A panel that displays text and subtly prompts people
-      // to maybe go back and answer more
-      const shouldShow =
-        questionCompleteness === "noMAIN1noSUBnoMAIN2" ||
-        questionCompleteness === "yesMAIN1noSUBnoMAIN2";
+    switch (panelKey) {
+      case "didntanswer":
+        // A panel that displays text and subtly prompts people
+        // to maybe go back and answer more
+        const shouldShow =
+          questionCompleteness === "noMAIN1noSUBnoMAIN2" ||
+          questionCompleteness === "yesMAIN1noSUBnoMAIN2";
 
-      // Show if incomplete
-      if (shouldShow) setHidden(false);
-      // Otherwise hide
-      else setHidden(true);
+        // Show if incomplete
+        if (shouldShow) setHidden(false);
+        // Otherwise hide
+        else setHidden(true);
 
-      // Were they initially positive?
-      const werePositive =
-        userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
-        userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful";
+        // Were they initially positive?
+        const werePositive =
+          userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
+          userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful";
 
-      // They didn't interact at all
-      if (questionCompleteness === "noMAIN1noSUBnoMAIN2") {
-        setPanelText(
-          "You didn’t answer any of the questions but here’s how the \
+        // They didn't interact at all
+        if (questionCompleteness === "noMAIN1noSUBnoMAIN2") {
+          setPanelText(
+            "You didn’t answer any of the questions but here’s how the \
           rest of the audience felt about the piece."
-        );
-      } else if (questionCompleteness === "yesMAIN1noSUBnoMAIN2") {
-        if (werePositive) {
-          setPanelText(
-            "We don’t know if you’re still convinced, as you didn’t answer, \
-          but here’s how the rest of the audience feel about the piece."
           );
-        } else if (!werePositive) {
-          setPanelText(
-            "We don’t know if you’re still not convinced, as you didn’t answer, \
+        } else if (questionCompleteness === "yesMAIN1noSUBnoMAIN2") {
+          if (werePositive) {
+            setPanelText(
+              "We don’t know if you’re still convinced, as you didn’t answer, \
           but here’s how the rest of the audience feel about the piece."
-          );
+            );
+          } else if (!werePositive) {
+            setPanelText(
+              "We don’t know if you’re still not convinced, as you didn’t answer, \
+          but here’s how the rest of the audience feel about the piece."
+            );
+          }
         }
-      }
+        break;
+      case "incompletefallback":
+        setPanelText("Incomplete");
+        break;
+      case "level2answer":
+        setPanelText("Level 2 answer");
+        break;
+      case "level3answer":
+        setPanelText("Level 3 answer");
+        break;
+      case "personalresults":
+        setPanelText("Personal results (chart)");
+        break;
+      case "ausvself":
+        setPanelText("Australia V Self");
+        break;
+    }
+
+    if (panelKey === "didntanswer") {
     }
 
     // if (panelKey === "one") {
@@ -133,7 +153,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
   }, [userInputState, questionCompleteness]);
 
   return (
-    <div className={`${styles.root} ${hidden ? styles.hidden : ""}`}>
+    <div
+      className={`${styles.root} ${hidden ? styles.hidden : ""} nopullright`}>
       <div className={styles.panelContentContainer}>{panelText}</div>
     </div>
   );
