@@ -65,17 +65,14 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
     // questionCompleteness === "noMAIN1allSUByesMAIN2" // 8
     // questionCompleteness === "yesMAIN1allSUByesMAIN2" // 9
 
+    let shouldShow;
+
     switch (panelKey) {
       case "didntanswer":
         // A panel that displays text and subtly prompts people
         // to maybe go back and answer more
-        let shouldShow = questionCompleteness === "noMAIN1noSUBnoMAIN2"; // 1 ||
+        shouldShow = questionCompleteness === "noMAIN1noSUBnoMAIN2"; // 1 ||
         // questionCompleteness === "yesMAIN1noSUBnoMAIN2";
-
-        // Show if incomplete
-        if (shouldShow) setHidden(false);
-        // Otherwise hide
-        else setHidden(true);
 
         setPanelText(
           "You didn’t answer any of the questions but here’s how the \
@@ -85,9 +82,6 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
         break;
       case "incompletefallback":
         shouldShow = questionCompleteness === "yesMAIN1noSUBnoMAIN2"; // 2
-
-        if (shouldShow) setHidden(false);
-        else setHidden(true);
 
         // Were they initially positive?
         let werePositive =
@@ -114,9 +108,6 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
           questionCompleteness === "noMAIN1allSUByesMAIN2"; // 8
 
-        if (shouldShow) setHidden(false);
-        else setHidden(true);
-
         let level2answer: string | undefined = getLevel2Text(
           convincedState,
           userInputState
@@ -126,21 +117,47 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           "While we don’t know if you’re convinced by any of \
         the challenges, here’s what the audience thought.";
 
-        setPanelText(`${level2answer}`);
+        // TODO: Set levels that get the no section text
+        setPanelText(`${level2answer} ${noSectionText}`);
         break;
       case "level3answer":
+        shouldShow =
+          questionCompleteness === "noMAIN1noSUByesMAIN2" || // 3
+          questionCompleteness === "yesMAIN1noSUByesMAIN2" || // 4
+          questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
+          questionCompleteness === "noMAIN1allSUBnoMAIN2" || // 6
+          questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
+          questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
+          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 9
+
         setPanelText("Level 3 answer");
         break;
       case "personalresults":
+        shouldShow =
+          questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
+          questionCompleteness === "noMAIN1allSUBnoMAIN2" || // 6
+          questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
+          questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
+          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 9
+
         setPanelText("Personal results (chart)");
         break;
       case "ausvself":
+        shouldShow =
+          questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
+          questionCompleteness === "noMAIN1allSUBnoMAIN2" || // 6
+          questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
+          questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
+          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 9
+
         setPanelText("Australia V Self");
         break;
     }
 
-    if (panelKey === "didntanswer") {
-    }
+    // Show if incomplete
+    if (shouldShow) setHidden(false);
+    // Otherwise hide
+    else setHidden(true);
 
     // if (panelKey === "one") {
     //   console.log("Convinced state:", convincedState);
