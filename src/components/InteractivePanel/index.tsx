@@ -71,13 +71,21 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
       case "didntanswer":
         // A panel that displays text and subtly prompts people
         // to maybe go back and answer more
-        shouldShow = questionCompleteness === "noMAIN1noSUBnoMAIN2"; // 1 ||
-        // questionCompleteness === "yesMAIN1noSUBnoMAIN2";
+        shouldShow =
+          questionCompleteness === "noMAIN1noSUBnoMAIN2" || // 1
+          questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
+          questionCompleteness === "noMAIN1allSUBnoMAIN2"; // 6
 
-        setPanelText(
-          "You didn’t answer any of the questions but here’s how the \
-          rest of the audience felt about the piece."
-        );
+        if (questionCompleteness === "noMAIN1noSUBnoMAIN2") {
+          setPanelText(
+            "You didn’t answer any of the questions but here’s how the \
+            rest of the audience felt about the piece."
+          );
+        } else {
+          setPanelText(
+            "You didn’t tell us whether you thought Australia could get to net zero, but here is the impact the things you were convinced by would have on our emissions"
+          );
+        }
 
         break;
       case "incompletefallback":
@@ -106,7 +114,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           questionCompleteness === "noMAIN1noSUByesMAIN2" || // 3
           questionCompleteness === "yesMAIN1noSUByesMAIN2" || // 4
           questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
-          questionCompleteness === "noMAIN1allSUByesMAIN2"; // 8
+          questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
+          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 9
 
         let level2answer: string | undefined = getLevel2Text(
           convincedState,
@@ -117,12 +126,19 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           "While we don’t know if you’re convinced by any of \
         the challenges, here’s what the audience thought.";
 
-        // TODO: Set levels that get the no section text
-        setPanelText(`${level2answer} ${noSectionText}`);
+        if (
+          questionCompleteness === "noMAIN1noSUByesMAIN2" || // 3
+          questionCompleteness === "yesMAIN1noSUByesMAIN2"
+        ) {
+          //4
+          setPanelText(`${level2answer} ${noSectionText}`);
+        } else {
+          setPanelText(`${level2answer}`);
+        }
+
         break;
       case "level3answer":
         shouldShow =
-          questionCompleteness === "noMAIN1noSUByesMAIN2" || // 3
           questionCompleteness === "yesMAIN1noSUByesMAIN2" || // 4
           questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
           questionCompleteness === "noMAIN1allSUBnoMAIN2" || // 6
@@ -197,6 +213,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
     //     );
     //   }
     // }
+
+    console.log(questionCompleteness);
   }, [userInputState, questionCompleteness]);
 
   return (
