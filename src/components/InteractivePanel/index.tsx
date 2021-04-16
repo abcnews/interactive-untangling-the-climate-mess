@@ -66,14 +66,15 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
     // questionCompleteness === "noMAIN1allSUBnoMAIN2" // 6
     // questionCompleteness === "noMAIN1someSUByesMAIN2" // 7
     // questionCompleteness === "noMAIN1allSUByesMAIN2" // 8
-    // questionCompleteness === "yesMAIN1allSUByesMAIN2" // 9
+    // questionCompleteness === "yesMAIN1someSUByesMAIN2" // 9
+    // questionCompleteness === "yesMAIN1allSUByesMAIN2" // 10
 
     let shouldShow;
 
     // Were they initially positive?
     let main1Positive =
-    userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
-    userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful";
+      userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
+      userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful";
 
     const main2Positive =
       userInputState[
@@ -113,8 +114,6 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
       case "incompletefallback":
         shouldShow = questionCompleteness === "yesMAIN1noSUBnoMAIN2"; // 2
 
-        
-
         if (main1Positive) {
           setPanelText(
             <p>
@@ -138,13 +137,14 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           questionCompleteness === "yesMAIN1noSUByesMAIN2" || // 4
           questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
           questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
-          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 9
+          questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
+          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
 
         let level2answer = getLevel2Text(convincedState, userInputState);
 
         const noSectionText = (
           <p>
-            While we don’t know if you’re convinced by any of \ the challenges,
+            While we don’t know if you’re convinced by any of the challenges,
             here’s what the audience thought.
           </p>
         );
@@ -188,12 +188,11 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
         } else {
           // Check how many convinced of
           console.log(subQuestionsConvinvedOf);
+          console.log(main2Positive)
 
           if (subQuestionsConvinvedOf >= 4) {
-            // Check if hopeful
-            if (
-              main2Positive
-            ) {
+            // Check if positive outloon on main2 question
+            if (main2Positive)
               setPanelText(
                 <p>
                   Let’s look at what the impact of doing the things you’re
@@ -202,7 +201,15 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
                   in this zero carbon world.
                 </p>
               );
-            }
+            else
+              setPanelText(
+                <p>
+                  Look even if you don’t think we can pull this off, if we just
+                  do the things you’re convinced by then Australia not only gets
+                  to net zero, we’ve set the country for a future in this zero
+                  carbon world.
+                </p>
+              );
           }
           setPanelText(<p>Level 3 answer</p>);
         }
