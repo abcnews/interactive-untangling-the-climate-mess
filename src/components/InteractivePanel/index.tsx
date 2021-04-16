@@ -22,13 +22,15 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
   } = props;
 
   const [hidden, setHidden] = useState(false);
-  const [panelText, setPanelText] = useState("<DEFAULT PANEL TEXT>");
+  const [panelText, setPanelText] = useState(<p>Test</p>);
 
   // TODO: Maybe make these functions return React components?
 
   function getLevel2Text(convincedState, userInputState) {
     if (convincedState === "green")
-      return "So you’re more positive than at the start, that’s something.";
+      return (
+        <p>So you’re more positive than at the start, that’s something.</p>
+      );
     if (convincedState === "orange") {
       if (
         userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
@@ -40,14 +42,15 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           "MAINQ2-can-we-still-save-the-world-again-after-article"
         ] === "hopeful"
       ) {
-        return "So you still think this can be done.";
+        return <p>So you still think this can be done.</p>;
       } else {
-        return "It’s OK still not to be convinced, it’s a tricky problem.";
+        return <p>It’s OK still not to be convinced, it’s a tricky problem.</p>;
       }
     }
 
     if (convincedState === "red")
-      return "So now you’ve read all this you’re less convinced.";
+      return <p>So now you’ve read all this you’re less convinced.</p>;
+    else return <></>;
   }
 
   // onMount
@@ -67,6 +70,19 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
 
     let shouldShow;
 
+    // Were they initially positive?
+    let main1Positive =
+    userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
+    userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful";
+
+    const main2Positive =
+      userInputState[
+        "MAINQ2-can-we-still-save-the-world-again-after-article"
+      ] === "certain" ||
+      userInputState[
+        "MAINQ2-can-we-still-save-the-world-again-after-article"
+      ] === "hopeful";
+
     switch (panelKey) {
       case "didntanswer":
         // A panel that displays text and subtly prompts people
@@ -78,12 +94,18 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
 
         if (questionCompleteness === "noMAIN1noSUBnoMAIN2") {
           setPanelText(
-            "You didn’t answer any of the questions but here’s how the \
-            rest of the audience felt about the piece."
+            <p>
+              You didn’t answer any of the questions but here’s how the rest of
+              the audience felt about the piece.
+            </p>
           );
         } else {
           setPanelText(
-            "You didn’t tell us whether you thought Australia could get to net zero, but here is the impact the things you were convinced by would have on our emissions"
+            <p>
+              You didn’t tell us whether you thought Australia could get to net
+              zero, but here is the impact the things you were convinced by
+              would have on our emissions.
+            </p>
           );
         }
 
@@ -91,20 +113,21 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
       case "incompletefallback":
         shouldShow = questionCompleteness === "yesMAIN1noSUBnoMAIN2"; // 2
 
-        // Were they initially positive?
-        let werePositive =
-          userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
-          userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful";
+        
 
-        if (werePositive) {
+        if (main1Positive) {
           setPanelText(
-            "We don’t know if you’re still convinced, as you didn’t answer, \
-          but here’s how the rest of the audience feel about the piece."
+            <p>
+              We don’t know if you’re still convinced, as you didn’t answer, but
+              here’s how the rest of the audience feel about the piece.
+            </p>
           );
-        } else if (!werePositive) {
+        } else if (!main1Positive) {
           setPanelText(
-            "We don’t know if you’re still not convinced, as you didn’t answer, \
-          but here’s how the rest of the audience feel about the piece."
+            <p>
+              We don’t know if you’re still not convinced, as you didn’t answer,
+              but here’s how the rest of the audience feel about the piece.
+            </p>
           );
         }
 
@@ -117,23 +140,27 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
           questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 9
 
-        let level2answer: string | undefined = getLevel2Text(
-          convincedState,
-          userInputState
-        );
+        let level2answer = getLevel2Text(convincedState, userInputState);
 
-        const noSectionText =
-          "While we don’t know if you’re convinced by any of \
-        the challenges, here’s what the audience thought.";
+        const noSectionText = (
+          <p>
+            While we don’t know if you’re convinced by any of \ the challenges,
+            here’s what the audience thought.
+          </p>
+        );
 
         if (
           questionCompleteness === "noMAIN1noSUByesMAIN2" || // 3
           questionCompleteness === "yesMAIN1noSUByesMAIN2"
         ) {
           //4
-          setPanelText(`${level2answer} ${noSectionText}`);
+          setPanelText(
+            <>
+              {level2answer} {noSectionText}
+            </>
+          );
         } else {
-          setPanelText(`${level2answer}`);
+          setPanelText(level2answer);
         }
 
         break;
@@ -146,7 +173,40 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
           questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 9
 
-        setPanelText("Level 3 answer");
+        if (
+          // They didn't answer MAIN questions
+          questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
+          questionCompleteness === "noMAIN1allSUBnoMAIN2" // 6
+        ) {
+          setPanelText(
+            <p>
+              You didn’t tell us whether you thought Australia could get to net
+              zero, but here is the impact the things you were convinced by
+              would have on our emissions.
+            </p>
+          );
+        } else {
+          // Check how many convinced of
+          console.log(subQuestionsConvinvedOf);
+
+          if (subQuestionsConvinvedOf >= 4) {
+            // Check if hopeful
+            if (
+              main2Positive
+            ) {
+              setPanelText(
+                <p>
+                  Let’s look at what the impact of doing the things you’re
+                  convinced of would be. If we can pull it off then Australia
+                  not only gets to net zero, we’ve set the country for a future
+                  in this zero carbon world.
+                </p>
+              );
+            }
+          }
+          setPanelText(<p>Level 3 answer</p>);
+        }
+
         break;
       case "personalresults":
         shouldShow =
@@ -156,7 +216,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
           questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 9
 
-        setPanelText("Personal results (chart)");
+        setPanelText(<p>Personal results (PUT CHART HERE)</p>);
         break;
       case "ausvself":
         shouldShow =
@@ -166,7 +226,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
           questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 9
 
-        setPanelText("Australia V Self");
+        setPanelText(<p>Australia V Self</p>);
         break;
     }
 
@@ -213,9 +273,12 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
     //     );
     //   }
     // }
-
-    console.log(questionCompleteness);
-  }, [userInputState, questionCompleteness]);
+  }, [
+    userInputState,
+    questionCompleteness,
+    subQuestionsConvinvedOf,
+    australiaConvincedOf
+  ]);
 
   return (
     <div
