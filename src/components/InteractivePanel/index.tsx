@@ -101,6 +101,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
             </p>
           );
         } else {
+          // They didn't answer MAIN questions
           setPanelText(
             <p>
               You didn’t tell us whether you thought Australia could get to net
@@ -187,8 +188,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           );
         } else {
           // Check how many convinced of
-          console.log(subQuestionsConvinvedOf);
-          console.log(main2Positive)
+          console.log("Sub questions convinced of:", subQuestionsConvinvedOf);
+          console.log("Main 2 positive?", main2Positive);
 
           if (subQuestionsConvinvedOf >= 4) {
             // Check if positive outloon on main2 question
@@ -201,6 +202,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
                   in this zero carbon world.
                 </p>
               );
+            // Otherwise negative
             else
               setPanelText(
                 <p>
@@ -211,6 +213,30 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
                 </p>
               );
           }
+
+          if (subQuestionsConvinvedOf == 3) {
+            if (main2Positive)
+              setPanelText(
+                <p>
+                  Let’s look at what the impact of doing the things you’re
+                  convinced of would be. If we can pull it off then Australia
+                  not only gets to net zero, we’ve set the country for a future
+                  in this zero carbon world.
+                </p>
+              );
+            else
+              setPanelText(
+                <p>
+                  Let’s look at what the impact of doing the things you’re
+                  convinced of would be. If we can pull them off then that would
+                  put Australia on track to be part of a world that keeps
+                  temperatures at or below 1.5 degrees.
+                </p>
+              );
+          }
+
+          //
+
           setPanelText(<p>Level 3 answer</p>);
         }
 
