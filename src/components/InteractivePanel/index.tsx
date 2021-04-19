@@ -214,6 +214,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
               );
           }
 
+          //
+
           if (subQuestionsConvinvedOf == 3) {
             if (main2Positive)
               setPanelText(
@@ -227,17 +229,79 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
             else
               setPanelText(
                 <p>
-                  Let’s look at what the impact of doing the things you’re
-                  convinced of would be. If we can pull them off then that would
-                  put Australia on track to be part of a world that keeps
-                  temperatures at or below 1.5 degrees.
+                  Look even if you don’t think we can pull this off, if we just
+                  do the things you’re convinced by then that puts Australia on
+                  track to be part of a world that keeps temperatures at or
+                  below 1.5 degrees.
                 </p>
               );
           }
 
           //
 
-          setPanelText(<p>Level 3 answer</p>);
+          if (subQuestionsConvinvedOf === 2) {
+            if (main2Positive)
+              setPanelText(
+                <p>
+                  Let’s look at what the impact of doing the things you’re
+                  convinced of would be. If we can just accomplish them by 2030,
+                  then that would keep Australia on track to be part of a world
+                  that keeps temperatures at or below 1.5 degrees.
+                </p>
+              );
+            else
+              setPanelText(
+                <p>
+                  Look even if you don’t think we can pull this off, if we can
+                  just accomplish the things you’re convinced of by 2030, then
+                  that would keep Australia on track to be part of a world that
+                  keeps temperatures at or below 1.5 degrees.
+                </p>
+              );
+          }
+
+          //
+
+          if (subQuestionsConvinvedOf === 2) {
+            if (main2Positive)
+              setPanelText(
+                <p>
+                  Let’s look at what the impact of doing the things you’re
+                  convinced of would be. Just reducing emissions in this one
+                  area over the next 5 years would put us on track for the most
+                  ambitious Paris agreement targets, and give us a chance of
+                  keeping temperature increases at or below 1.5 degrees.
+                </p>
+              );
+            else
+              setPanelText(
+                <p>
+                  We get it, it’s a big problem, but we don’t have to solve it
+                  all now. Let’s look at what the impact of doing the things
+                  you’re convinced of would be. Just reducing emissions in this
+                  one area over the next 5 years would put us on track for the
+                  most ambitious Paris agreement targets, and give us a chance
+                  of keeping temperature increases at or below 1.5 degrees.
+                </p>
+              );
+          }
+
+          //
+
+          if (subQuestionsConvinvedOf === 1) {
+            if (main2Positive)
+              setPanelText(
+                <p>
+                  It’s good that you’re optimistic about Australia getting to
+                  net zero, even if you’re not sure how we can get there.
+                </p>
+              );
+            else
+              setPanelText(
+                // TODO: Get Tim to write a proper answer:
+                <p>Well, I dunno what to tell ya????</p>
+              );
+          }
         }
 
         break;
