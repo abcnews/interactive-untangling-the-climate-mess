@@ -432,6 +432,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     const mainLevel1 = mainChangeLevels[main1];
     const mainLevel2 = mainChangeLevels[main2];
 
+    console.log("Main level 1", mainLevel1)
+    console.log("Main level 2", mainLevel2)
+
     if (mainLevel1 && main2) {
       if (mainLevel1 === mainLevel2) setConvincedState("orange");
       if (mainLevel1 > mainLevel2) setConvincedState("red");

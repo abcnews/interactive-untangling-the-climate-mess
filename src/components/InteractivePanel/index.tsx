@@ -189,8 +189,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           );
         } else {
           // Check how many convinced of
-          console.log("Sub questions convinced of:", subQuestionsConvinvedOf);
-          console.log("Main 2 positive?", main2Positive);
+          // console.log("Sub questions convinced of:", subQuestionsConvinvedOf);
+          // console.log("Main 2 positive?", main2Positive);
 
           if (subQuestionsConvinvedOf >= 4) {
             // Check if positive outloon on main2 question
@@ -326,6 +326,15 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
           questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
 
+        console.log(
+          "You convinced:",
+          subQuestionsConvinvedOf,
+          "Aus convinced:",
+          australiaConvincedOf,
+          "Convinced state:",
+          convincedState
+        );
+
         setPanelText(<p>Australia V Self</p>);
         break;
     }
@@ -377,7 +386,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
     userInputState,
     questionCompleteness,
     subQuestionsConvinvedOf,
-    australiaConvincedOf
+    australiaConvincedOf,
+    convincedState
   ]);
 
   return (
