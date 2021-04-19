@@ -335,7 +335,30 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           convincedState
         );
 
-        setPanelText(<p>Australia V Self</p>);
+        if (subQuestionsConvinvedOf > australiaConvincedOf)
+          setPanelText(
+            <p>
+              You’re more optimistic we can solve these challenges than most of
+              our readers, but even if we just reduce emissions in the areas
+              they’re convinced by, we’d still be on track for the most
+              ambitious Paris agreements.
+            </p>
+          );
+        else if (subQuestionsConvinvedOf === australiaConvincedOf)
+          setPanelText(
+            <p>
+              The good news is that most people who read this story agree with
+              you.
+            </p>
+          );
+        else if (subQuestionsConvinvedOf < australiaConvincedOf)
+          setPanelText(
+            <p>
+              Your fellow Australians are more optimistic than you. They’re
+              convinced we can do X, which would keep us on track for the most
+              ambitious Paris agreement B.
+            </p>
+          );
         break;
     }
 
