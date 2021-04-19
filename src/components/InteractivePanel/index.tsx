@@ -172,7 +172,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           questionCompleteness === "noMAIN1allSUBnoMAIN2" || // 6
           questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
           questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
-          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 9
+          questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
+          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
 
         if (
           // They didn't answer MAIN questions
@@ -311,7 +312,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           questionCompleteness === "noMAIN1allSUBnoMAIN2" || // 6
           questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
           questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
-          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 9
+          questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
+          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
 
         setPanelText(<p>Personal results (PUT CHART HERE)</p>);
         break;
@@ -321,7 +323,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
           questionCompleteness === "noMAIN1allSUBnoMAIN2" || // 6
           questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
           questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
-          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 9
+          questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
+          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
 
         setPanelText(<p>Australia V Self</p>);
         break;
