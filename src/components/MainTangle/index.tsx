@@ -13,9 +13,11 @@ import React, {
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 
-import untangleAnimation from "./assets/untangle-loop.svg";
+import untangleAnimation from "./assets/untangle-below.svg";
+console.log(untangleAnimation)
 
-const PLAY_RATE = 1.333;
+
+const PLAY_RATE = 1;
 
 const lookupRange = (marker: string) => {
   if (marker === "1" || marker === "initial")
@@ -74,12 +76,12 @@ const MainTangle: React.FC<MainTangleProps> = props => {
   const initSvg = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
-    import("./assets/animations").then(({ animate }) => {
+    import("./assets/animations-below").then(({ animate }) => {
       // Set up the animations and return a timeline
       component.timeline = animate();
       const timeline = component.timeline;
 
-      // console.log("Initialising SVG file: timeline:", timeline);
+      console.log("Initialising SVG file: timeline:", timeline);
 
       // Load up the timeline markers so we can compare them later
       setMarkers(timeline.l?.markers || timeline._options.markers);
