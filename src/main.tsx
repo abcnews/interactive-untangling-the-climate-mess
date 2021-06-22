@@ -8,7 +8,7 @@ import styles from "./styles.scss";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 
 // Keep TypeScript from throwing errors
-declare var Modernizr: any;
+declare var Modernizr: any; // Seems to affect __ODYSSEY__ for some reason
 declare var module: any;
 declare var __webpack_public_path__: any;
 

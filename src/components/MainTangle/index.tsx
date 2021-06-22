@@ -13,9 +13,8 @@ import React, {
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 
-import untangleAnimation from "./assets/untangle-below.svg";
-console.log(untangleAnimation)
-
+import untangleAnimation from "./assets/untangle-revision-1.svg";
+console.log(untangleAnimation);
 
 const PLAY_RATE = 1;
 
@@ -76,7 +75,7 @@ const MainTangle: React.FC<MainTangleProps> = props => {
   const initSvg = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
-    import("./assets/animations-below").then(({ animate }) => {
+    import("./assets/animations-revision-1").then(({ animate }) => {
       // Set up the animations and return a timeline
       component.timeline = animate();
       const timeline = component.timeline;
@@ -163,9 +162,7 @@ const MainTangle: React.FC<MainTangleProps> = props => {
         // the speed up at the bottom, but rather a build up of pressure
         // and no release... much like life.
         timeline.rate(
-          component.pressure > 1
-            ? PLAY_RATE * component.pressure
-            : PLAY_RATE
+          component.pressure > 1 ? PLAY_RATE * component.pressure : PLAY_RATE
         );
         timeline.loop(false);
         timeline.range(currentTime, playloop.end);
@@ -191,9 +188,7 @@ const MainTangle: React.FC<MainTangleProps> = props => {
       // If scrolling back up
       else if (currentTime > endTime) {
         timeline.rate(
-          component.pressure > 1
-            ? -PLAY_RATE * component.pressure
-            : -PLAY_RATE
+          component.pressure > 1 ? -PLAY_RATE * component.pressure : -PLAY_RATE
         );
         timeline.loop(false);
         timeline.range(playloop.loopback, currentTime);
