@@ -199,17 +199,16 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     setInteractivePanelElements(panelsArray);
 
-    for (const panel of panelsArray) {
-      // Get id string of panel
-      const idString: string = panel.id;
+    // for (const panel of panelsArray) {
+    //   // Get id string of panel
+    //   const idString: string = panel.id;
 
-      // Check if panel has config
-      if (idString !== "interactivepanel") {
-        console.log("id string:", idString);
-        // Get alternating case config
-        const panelConfig = alternatingCaseToObject(idString);
-        console.log("Panel config:", panelConfig);
-      }
+    //   // Check if panel has config
+    //   if (idString !== "interactivepanel") {
+    //     console.log("id string:", idString);
+    //     // Get alternating case config
+    //     const panelConfig = alternatingCaseToObject(idString);
+    //   }
 
       // const container = document.createElement("div");
       // container.className = styles.panelContentContainer;
@@ -238,7 +237,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
       // // Add container to panel
       // panel.appendChild(container);
-    }
+    // }
 
     return () => {
       // unsubscribe(onSubscriptionUpdate);

@@ -33,9 +33,11 @@
     // But causing issues when reloaded down page
     // transform: translate3d(0, 70%, 0);
 
-    svg {
-      transform: translate(0, -31%);
-    }
+    // Works better on the svg component itself
+    // svg {
+    //   transform: translate(0, -31%);
+    // }
+
     // transition: all 200ms;
     @include for-desktop-up {
       position: relative;

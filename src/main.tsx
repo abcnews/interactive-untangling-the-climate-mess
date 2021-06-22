@@ -59,6 +59,7 @@ function preInit() {
   const panelStarters: any = document.querySelectorAll("[id^='panel']");
   const panelsArray = [...panelStarters];
 
+  // Loop though panels
   for (const panel of panelsArray) {
     const container = document.createElement("div");
     container.className = styles.panelContentContainer;
@@ -72,7 +73,7 @@ function preInit() {
       console.log("id string:", idString);
       // Get alternating case config
       const panelConfig = alternatingCaseToObject(idString);
-      console.log("Panel config:", panelConfig);
+
       if (panelConfig.center) {
         panel.classList.add("nopullright");
       }
@@ -137,7 +138,7 @@ if (module.hot) {
   module.hot.accept("./components/App", () => {
     try {
       init();
-    } catch (err) {
+    } catch (err: any) {
       import("./components/ErrorBox").then(({ default: ErrorBox }) => {
         render(<ErrorBox error={err} />, root);
       });

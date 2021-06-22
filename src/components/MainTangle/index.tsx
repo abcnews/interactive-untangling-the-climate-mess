@@ -14,7 +14,6 @@ import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 
 import untangleAnimation from "./assets/untangle-revision-1.svg";
-console.log(untangleAnimation);
 
 const PLAY_RATE = 1;
 
@@ -41,6 +40,7 @@ const lookupRange = (marker: string) => {
       loopback: null
     };
 
+  // Make sure number is a number
   const markerInt: number = Number(marker);
 
   return {
