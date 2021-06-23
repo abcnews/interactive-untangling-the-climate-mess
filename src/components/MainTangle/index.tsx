@@ -13,7 +13,7 @@ import React, {
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 
-import untangleAnimation from "./assets/untangle-revision-1.svg";
+import untangleAnimation from "./assets/untangle-revision-2.svg";
 
 const PLAY_RATE = 1;
 
@@ -75,7 +75,7 @@ const MainTangle: React.FC<MainTangleProps> = props => {
   const initSvg = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
-    import("./assets/animations-revision-1").then(({ animate }) => {
+    import("./assets/animations-revision-2").then(({ animate }) => {
       // Set up the animations and return a timeline
       component.timeline = animate();
       const timeline = component.timeline;

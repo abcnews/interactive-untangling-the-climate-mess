@@ -30,6 +30,9 @@ import InteractivePanel from "../InteractivePanel/index";
 const GROUP = "interactive-untangling-the-climate-mess";
 const pollClient = new Client(GROUP);
 
+const TANGLE_DOWNPAGE_START = 0.9;
+const TANGLE_MAX_OFFSET = -200;
+
 // Promisify callback functions here whatever
 const pollIncrement = (...args) =>
   new Promise((resolve, reject) => {
@@ -120,17 +123,18 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
-  const onSubscriptionUpdate = () => {
+  const onScrollUpdate = () => {
     scrollY = window.pageYOffset;
 
     // Only process when user at top
     if (scrollY > window.innerHeight * 2) return;
 
-    const calculatedY = window.innerHeight * 0.75 - scrollY * 0.7;
+    const calculatedY =
+      window.innerHeight * TANGLE_DOWNPAGE_START - scrollY * 0.7;
 
     if (mainTangleEl) {
       gsap.to(mainTangleEl, {
-        y: calculatedY > 0 ? calculatedY : 0,
+        y: calculatedY > TANGLE_MAX_OFFSET ? calculatedY : TANGLE_MAX_OFFSET,
         ease: "power3",
         duration: 0.5
       });
@@ -190,7 +194,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // Subscription might be getting delayed on Firefox
     // Maybe consider simply doing an onScroll listener
     // subscribe(onSubscriptionUpdate);
-    document.addEventListener("scroll", onSubscriptionUpdate);
+    document.addEventListener("scroll", onScrollUpdate);
 
     const panelStarters: any = document.querySelectorAll(
       "[id^='interactivepanel']"
@@ -210,38 +214,38 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     //     const panelConfig = alternatingCaseToObject(idString);
     //   }
 
-      // const container = document.createElement("div");
-      // container.className = styles.panelContentContainer;
-      // panel.className = styles.panel;
+    // const container = document.createElement("div");
+    // container.className = styles.panelContentContainer;
+    // panel.className = styles.panel;
 
-      // // Get id string of panel
-      // const idString: string = panel.id;
+    // // Get id string of panel
+    // const idString: string = panel.id;
 
-      // // Check if panel has config
-      // if (idString !== "panel") {
-      //   console.log("id string:", idString);
-      //   // Get alternating case config
-      //   const panelConfig = alternatingCaseToObject(idString);
-      //   console.log("Panel config:", panelConfig);
-      //   if (panelConfig.center) {
-      //     panel.classList.add("nopullright");
-      //   }
-      // }
+    // // Check if panel has config
+    // if (idString !== "panel") {
+    //   console.log("id string:", idString);
+    //   // Get alternating case config
+    //   const panelConfig = alternatingCaseToObject(idString);
+    //   console.log("Panel config:", panelConfig);
+    //   if (panelConfig.center) {
+    //     panel.classList.add("nopullright");
+    //   }
+    // }
 
-      // const elements = nextUntil(panel, "#endpanel");
+    // const elements = nextUntil(panel, "#endpanel");
 
-      // // Add content to container element
-      // for (const element of elements) {
-      //   container.appendChild(element);
-      // }
+    // // Add content to container element
+    // for (const element of elements) {
+    //   container.appendChild(element);
+    // }
 
-      // // Add container to panel
-      // panel.appendChild(container);
+    // // Add container to panel
+    // panel.appendChild(container);
     // }
 
     return () => {
       // unsubscribe(onSubscriptionUpdate);
-      document.removeEventListener("scroll", onSubscriptionUpdate);
+      document.removeEventListener("scroll", onScrollUpdate);
     };
   }, []);
 
@@ -251,12 +255,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     setTimeout(() => {
       mainTangleEl = document.querySelector(".interactive-main-tangle");
 
+      // TODO: Calculate y scroll for loading downpage a bit
       if (window.pageYOffset < window.innerHeight * 2) {
         gsap.fromTo(
           mainTangleEl,
           { y: window.innerHeight * 1.25 },
           {
-            y: window.innerHeight * 0.75,
+            y: window.innerHeight * TANGLE_DOWNPAGE_START,
             ease: "power3",
             duration: 1.0
           }
@@ -264,7 +269,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       }
 
       setMainTangleOpacity(1.0);
-    }, 100);
+    }, 100); // Wait a bit to work
   }, [backgroundIsRendered]);
 
   // Effect when userInputState is changed
