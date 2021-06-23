@@ -270,15 +270,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       //     }
       //   );
       // }
-      
-      
 
-      setInterval(() => {
-        setMainTangleXPos(Math.random() * 100 - 50);
-        setMainTangleYPos(Math.random() * 100 - 20);
-        setMainTangleScale(Math.random() * 100 + 50);
-      }, 500) 
+      // setInterval(() => {
+      //   setMainTangleXPos(Math.random() * 100 - 50);
+      //   setMainTangleYPos(Math.random() * 100 - 20);
+      //   setMainTangleScale(Math.random() * 100 + 50);
+      // }, 500)
 
+      // Otherwise the tangle is invisible
       setMainTangleOpacity(1.0);
     }, 100); // Wait a bit to work
   }, [backgroundIsRendered]);

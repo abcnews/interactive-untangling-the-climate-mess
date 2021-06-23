@@ -3,7 +3,7 @@
 @use "../../100-percent-correct-break-points.scss" as *;
 
 .root {
-  z-index: 100;
+  z-index: -5;
   position: fixed;
   top: 0;
   // left: 50%;
