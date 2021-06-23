@@ -142,6 +142,7 @@ const MainTangle: React.FC<MainTangleProps> = props => {
       component.pressure = component.pressure + 1;
 
       const { scrollMarker }: { scrollMarker?: string } = props;
+      console.log("Scroll marker:", scrollMarker);
 
       const currentTime = timeline.time();
       // const markerTime = markers[scrollMarker];
