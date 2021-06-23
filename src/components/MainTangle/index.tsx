@@ -1,5 +1,3 @@
-/** @format */
-
 import "./keyshape";
 declare let KeyshapeJS;
 
@@ -12,6 +10,7 @@ import React, {
 } from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
+import { gsap } from "gsap";
 
 import untangleAnimation from "./assets/untangle-revision-2.svg";
 
@@ -56,6 +55,7 @@ interface MainTangleProps {
   yOffset?: number;
   setBackgroundIsRendered?: any;
   opacity: number;
+  yPos?: number;
 }
 
 const MainTangle: React.FC<MainTangleProps> = props => {
@@ -215,6 +215,17 @@ const MainTangle: React.FC<MainTangleProps> = props => {
       }
     }
   }, [props.scrollMarker]);
+
+  // props.yPos change effect
+  useEffect(() => {
+    if (!props.yPos) return;
+
+    gsap.to(mainEl.current, {
+      y: props.yPos,
+      ease: "power3",
+      duration: 0.5
+    });
+  }, [props.yPos]);
 
   return (
     <>

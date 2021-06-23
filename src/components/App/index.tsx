@@ -12,7 +12,7 @@ import ScrollObserver from "../ScrollObserver/index";
 import ParagraphObserver from "../ParagraphObserver/index";
 import ParagraphPanel from "../ParagraphPanel/index";
 import DelayedHeader from "../DelayedHeader/index";
-import { gsap } from "gsap";
+// import { gsap } from "gsap";
 
 import { Client } from "@abcnews/poll-counters-client";
 
@@ -77,6 +77,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [topAbove, setTopAbove] = useState();
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
   const [mainTangleOpacity, setMainTangleOpacity] = useState(0.0);
+  const [mainTangleYPos, setMainTangleYPos] = useState(
+    window.innerHeight + 500
+  );
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
   const [endStrings, setEndStrings] = useState({});
   const [userStrings, setUserStrings] = useState({
@@ -118,27 +121,26 @@ const App: React.FC<AppProps> = ({ projectName }) => {
    * component using input={{completeness: questionCompleteness}} etc etc.
    *
    * Try when Easter is over...
+   *
+   * ... or later
    */
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
   const onScrollUpdate = () => {
-    scrollY = window.pageYOffset;
-
-    // Only process when user at top
-    if (scrollY > window.innerHeight * 2) return;
-
-    const calculatedY =
-      window.innerHeight * TANGLE_DOWNPAGE_START - scrollY * 0.7;
-
-    if (mainTangleEl) {
-      gsap.to(mainTangleEl, {
-        y: calculatedY > TANGLE_MAX_OFFSET ? calculatedY : TANGLE_MAX_OFFSET,
-        ease: "power3",
-        duration: 0.5
-      });
-    }
+    // scrollY = window.pageYOffset;
+    // // Only process when user at top
+    // if (scrollY > window.innerHeight * 2) return;
+    // const calculatedY =
+    //   window.innerHeight * TANGLE_DOWNPAGE_START - scrollY * 0.7;
+    // if (mainTangleEl) {
+    //   gsap.to(mainTangleEl, {
+    //     y: calculatedY > TANGLE_MAX_OFFSET ? calculatedY : TANGLE_MAX_OFFSET,
+    //     ease: "power3",
+    //     duration: 0.5
+    //   });
+    // }
   };
 
   // onMount
@@ -191,9 +193,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       console.log("Aus convinced of:", localAusConvinced);
     });
 
-    // Subscription might be getting delayed on Firefox
-    // Maybe consider simply doing an onScroll listener
-    // subscribe(onSubscriptionUpdate);
+    // Listen for scroll
     document.addEventListener("scroll", onScrollUpdate);
 
     const panelStarters: any = document.querySelectorAll(
@@ -249,24 +249,28 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     };
   }, []);
 
+  // USED TO START TANGLE AT BOTTOM OF SCREEN AT FIRST
+  // WE ARE TRYING TO MOVE THIS FUNCTIONALITY INTO THE MAIN TANGLE
+  // COMPONENT
   useEffect(() => {
     if (!backgroundIsRendered) return;
 
     setTimeout(() => {
-      mainTangleEl = document.querySelector(".interactive-main-tangle");
+      // mainTangleEl = document.querySelector(".interactive-main-tangle");
 
-      // TODO: Calculate y scroll for loading downpage a bit
-      if (window.pageYOffset < window.innerHeight * 2) {
-        gsap.fromTo(
-          mainTangleEl,
-          { y: window.innerHeight * 1.25 },
-          {
-            y: window.innerHeight * TANGLE_DOWNPAGE_START,
-            ease: "power3",
-            duration: 1.0
-          }
-        );
-      }
+      // // TODO: Calculate y scroll for loading downpage a bit
+      // if (window.pageYOffset < window.innerHeight * 2) {
+      //   gsap.fromTo(
+      //     mainTangleEl,
+      //     { y: window.innerHeight * 1.25 },
+      //     {
+      //       y: window.innerHeight * TANGLE_DOWNPAGE_START,
+      //       ease: "power3",
+      //       duration: 1.0
+      //     }
+      //   );
+      // }
+      setMainTangleYPos(400);
 
       setMainTangleOpacity(1.0);
     }, 100); // Wait a bit to work
@@ -734,9 +738,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           <MainTangle
             animationFrame={animationFrame}
             scrollMarker={marker}
-            yOffset={backdropOffset}
+            // yOffset={backdropOffset}
             setBackgroundIsRendered={setBackgroundIsRendered}
             opacity={mainTangleOpacity}
+            yPos={mainTangleYPos}
           />
           {/* )} */}
 
@@ -750,7 +755,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         scrolly panels (and hide background animations on mobile) */}
         {backgroundIsRendered && (
           <>
-            <ParagraphObserver setYOffset={setBackdropOffset} />
+            <ParagraphObserver
+            // setYOffset={setBackdropOffset}
+            />
             <ParagraphPanel toggle={setParagraphTextVisible} />
           </>
         )}
