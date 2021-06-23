@@ -55,7 +55,8 @@ interface MainTangleProps {
   yOffset?: number;
   setBackgroundIsRendered?: any;
   opacity: number;
-  yPos?: number;
+  yPos?: number; // Percent
+  scale?: number; // Percent
 }
 
 const MainTangle: React.FC<MainTangleProps> = props => {
@@ -218,14 +219,16 @@ const MainTangle: React.FC<MainTangleProps> = props => {
 
   // props.yPos change effect
   useEffect(() => {
-    if (!props.yPos) return;
+    if (typeof props.yPos === "undefined" || typeof props.scale === "undefined")
+      return;
 
     gsap.to(mainEl.current, {
-      y: props.yPos,
+      y: props.yPos * 0.01 * window.innerHeight,
+      scale: props.scale * 0.01,
       ease: "power3",
-      duration: 0.5
+      duration: 2
     });
-  }, [props.yPos]);
+  }, [props.yPos, props.scale]);
 
   return (
     <>

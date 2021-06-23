@@ -3,13 +3,13 @@
 @use "../../100-percent-correct-break-points.scss" as *;
 
 .root {
-  z-index: -5;
+  z-index: 100;
   position: fixed;
   top: 0;
-  left: 50%;
+  // left: 50%;
   width: 100%;
   max-width: 700px;
-  transform: translateX(-50%);
+  // transform: translateX(-50%);
   text-align: right;
 
   // Keep SVG in window
@@ -37,14 +37,12 @@
     // svg {
     //   transform: translate(0, -31%);
     // }
+    transform-origin: top center;
 
     // transition: all 200ms;
     @include for-desktop-up {
       position: relative;
       right: 50%;
-
-
-
 
       // margin-left: auto;
 
@@ -56,7 +54,6 @@
     @include for-big-desktop-up {
       // position: relative;
       // right: 50%;
-
 
       // margin-right: -30px;
       // transform: translateX(-88px);
