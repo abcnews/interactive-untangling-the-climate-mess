@@ -77,6 +77,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [topAbove, setTopAbove] = useState();
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
   const [mainTangleOpacity, setMainTangleOpacity] = useState(0.0);
+  const [mainTangleXPos, setMainTangleXPos] = useState(0);
   const [mainTangleYPos, setMainTangleYPos] = useState(0);
   const [mainTangleScale, setMainTangleScale] = useState(100);
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
@@ -269,12 +270,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       //     }
       //   );
       // }
-      // setMainTangleYPos(10);
+      
       
 
-      setTimeout(() => {
-        setMainTangleScale(120);
-      }, 1000) 
+      setInterval(() => {
+        setMainTangleXPos(Math.random() * 100 - 50);
+        setMainTangleYPos(Math.random() * 100 - 20);
+        setMainTangleScale(Math.random() * 100 + 50);
+      }, 500) 
 
       setMainTangleOpacity(1.0);
     }, 100); // Wait a bit to work
@@ -745,6 +748,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             // yOffset={backdropOffset}
             setBackgroundIsRendered={setBackgroundIsRendered}
             opacity={mainTangleOpacity}
+            xPos={mainTangleXPos}
             yPos={mainTangleYPos}
             scale={mainTangleScale}
           />
