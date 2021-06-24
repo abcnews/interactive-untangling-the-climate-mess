@@ -26,11 +26,13 @@ import DynamicText from "../DynamicText";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 import InteractivePanel from "../InteractivePanel/index";
 
+const d3 = { ...require("d3-scale") };
+
 // Set up our poll counter
 const GROUP = "interactive-untangling-the-climate-mess";
 const pollClient = new Client(GROUP);
 
-const TANGLE_DOWNPAGE_START = 0.9;
+const TANGLE_DOWNPAGE_START = 0.8;
 const TANGLE_MAX_OFFSET = -200;
 
 // Promisify callback functions here whatever
@@ -76,9 +78,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [userInputState, setUserInputState] = useState({});
   const [topAbove, setTopAbove] = useState();
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
-  const [mainTangleOpacity, setMainTangleOpacity] = useState(0.0);
+  const [mainTangleOpacity, _setMainTangleOpacity] = useState(0.0);
   const [mainTangleXPos, setMainTangleXPos] = useState(0);
-  const [mainTangleYPos, setMainTangleYPos] = useState(0);
+  const [mainTangleYPos, setMainTangleYPos] = useState(1.1);
   const [mainTangleScale, setMainTangleScale] = useState(100);
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
   const [endStrings, setEndStrings] = useState({});
@@ -128,19 +130,28 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
+  const mainTangleOpacityRef = useRef(mainTangleOpacity);
+  // So we can use opacity in an event listener
+  const setMainTangleOpacity = data => {
+    mainTangleOpacityRef.current = data;
+    _setMainTangleOpacity(data);
+  };
+
   const onScrollUpdate = () => {
-    // scrollY = window.pageYOffset;
-    // // Only process when user at top
-    // if (scrollY > window.innerHeight * 2) return;
-    // const calculatedY =
-    //   window.innerHeight * TANGLE_DOWNPAGE_START - scrollY * 0.7;
-    // if (mainTangleEl) {
-    //   gsap.to(mainTangleEl, {
-    //     y: calculatedY > TANGLE_MAX_OFFSET ? calculatedY : TANGLE_MAX_OFFSET,
-    //     ease: "power3",
-    //     duration: 0.5
-    //   });
-    // }
+    scrollY = window.pageYOffset;
+    // Only process when user at top
+    if (scrollY > window.innerHeight * 2 || mainTangleOpacityRef.current < 0.9)
+      return;
+
+    const percentScale = d3
+      .scaleLinear()
+      .domain([0, window.innerHeight])
+      .range([0.8, 0.3])
+      .clamp(true);
+
+    const calculatedY = TANGLE_DOWNPAGE_START - scrollY / 2000;
+
+    setMainTangleYPos(percentScale(scrollY));
   };
 
   // onMount
@@ -271,15 +282,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       //   );
       // }
 
-      // setInterval(() => {
-      //   setMainTangleXPos(Math.random() * 100 - 50);
-      //   setMainTangleYPos(Math.random() * 100 - 20);
-      //   setMainTangleScale(Math.random() * 100 + 50);
-      // }, 500)
-
-      // Otherwise the tangle is invisible
-      setMainTangleOpacity(1.0);
-    }, 100); // Wait a bit to work
+      // Wait a while before we bring in the tangle
+      setTimeout(() => {
+        setMainTangleYPos(TANGLE_DOWNPAGE_START);
+        // Otherwise the tangle is invisible
+        setMainTangleOpacity(1.0);
+      }, 1000);
+    }, 100); // Wait a bit or else doesn't work properly
   }, [backgroundIsRendered]);
 
   // Effect when userInputState is changed

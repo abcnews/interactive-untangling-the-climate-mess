@@ -29,7 +29,7 @@
 
   p {
     font-size: 23px;
-    line-height: 1.4em;
+    line-height: 1.6em;
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
@@ -60,7 +60,7 @@
     }
 
     span {
-      background-color: #fef7ef;
+      background-color: rgba(254, 247, 239, 0.8);
       color: #22405a;
       padding: 0.1em 1rem 0.1em 1rem;
 
@@ -74,10 +74,12 @@
 
   .hero-text {
     margin-bottom: 80vh;
-    font-size: 38px;
+    font-size: 28px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    font-weight: bold;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #2a4059;
 
     @include for-desktop-up {
       // transform: translateX(-50%);

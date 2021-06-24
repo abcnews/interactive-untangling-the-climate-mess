@@ -228,11 +228,11 @@ const MainTangle: React.FC<MainTangleProps> = props => {
       return;
 
     gsap.to(mainEl.current, {
-      y: props.yPos * 0.01 * window.innerHeight,
-      x: props.xPos * 0.01 * window.innerWidth,
+      y: props.yPos * window.innerHeight,
+      x: props.xPos * window.innerWidth,
       scale: props.scale * 0.01,
       ease: "power3",
-      duration: 0.5
+      duration: 0.75
     });
   }, [props.yPos, props.scale, props.xPos]);
 
