@@ -302,7 +302,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         console.log(markerRef.current);
         if (markerRef.current === "initial")
           setMainTangleYPos(TANGLE_DOWNPAGE_START);
-        else setMainTangleYPos(markerConfig[markerRef.current]);
+        else setMainTangleYPos(markerConfig[markerRef.current] || 0.01);
 
         // We have initially positioned
         initialPositioningComplete = true;

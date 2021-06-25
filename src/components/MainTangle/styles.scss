@@ -3,12 +3,12 @@
 @use "../../100-percent-correct-break-points.scss" as *;
 
 .root {
-  z-index: -5;
+  z-index: -2;
   position: fixed;
   top: 0;
-  // left: 50%;
+  left: 0;
   width: 100%;
-  max-width: 700px;
+  max-width: 100%;
   // transform: translateX(-50%);
   text-align: right;
 
@@ -17,10 +17,10 @@
     max-height: 160vh;
   }
 
-  @include for-desktop-up {
-    width: calc(100vw / 2);
-    max-width: 700px;
-  }
+  // @include for-desktop-up {
+  //   width: calc(100vw / 2);
+  //   max-width: 700px;
+  // }
 
   // FIX FOR SAFARI BUG THAT CAUSES SLOW SCROLL UPDATES IF DROP-SHADOW
   // APPLIED TO THE SVG DIRECTLY SO JUST APPLY IT TO THE CONTAINING DOM ELEMENT
