@@ -6,24 +6,28 @@ import background2 from "./organic-panel-background-variation-2.svg";
 
 const backgrounds = [background, background2];
 
-type OrganicPanelProps = { backgroundVariation? };
+type OrganicPanelProps = { backgroundVariation?: number };
 
-const OrganicPanel: React.FC<OrganicPanelProps> = props => {
+const OrganicPanel: React.FC<OrganicPanelProps> = ({
+  backgroundVariation = 0,
+  children,
+  ...props
+}) => {
   return (
     <div className={styles.root}>
       <div className={styles.background}>
         <img
-          src={backgrounds[props.backgroundVariation]}
+          src={backgrounds[backgroundVariation]}
           className={styles.stretch}
         />
       </div>
-      {props.children}
+      {children}
     </div>
   );
 };
 
-OrganicPanel.defaultProps = {
-  backgroundVariation: 0
-};
+// OrganicPanel.defaultProps = {
+//   backgroundVariation: 0
+// };
 
 export default OrganicPanel;
