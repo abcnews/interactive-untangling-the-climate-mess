@@ -1,6 +1,6 @@
 {
   "arrowParens": "avoid",
-  "jsxBracketSameLine": true,
+  "jsxBracketSameLine": false,
   "trailingComma": "none",
   "bracketSpacing": true
 }

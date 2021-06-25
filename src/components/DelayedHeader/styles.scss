@@ -9,8 +9,8 @@
   padding-bottom: 45vh;
   max-width: 650px;
   margin: auto;
-  padding-left: 35px;
-  padding-right: 25px;
+  // padding-left: 35px;
+  // padding-right: 25px;
 
   @include for-desktop-up {
     position: relative;
@@ -27,7 +27,7 @@
     // margin-right: 0.8rem;
   }
 
-  p {
+  > p {
     font-size: 23px;
     line-height: 1.6em;
     margin-left: auto;

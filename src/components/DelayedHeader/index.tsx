@@ -1,7 +1,6 @@
-/** @format */
-
 import React from "react";
 import styles from "./styles.scss";
+import OrganicPanel from "../OrganicPanel";
 
 interface DelayedHeaderProps {}
 
@@ -14,22 +13,19 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
         data-mount="true"></div>
 
       <div className={`${styles.heroText}`}>
-        Climate change... <br />we get it, it’s a depressing mess.
+        Climate change... <br />
+        we get it, it’s a depressing mess.
       </div>
 
       <div className={styles.panel}>
-        {/* <p>
-          <span>Climate change - we get it, it’s a depressing mess.</span>
-        </p> */}
-        <p>
-          <span>
+        <OrganicPanel>
+          <p>
             We’ve spent the last thirty years not making the drastic changes
             needed to protect our way of life.
-          </span>
-        </p>
-        <p>
-          <span>We’ve even lost a few prime ministers over it.</span>
-        </p>
+          </p>
+
+          <p>We’ve even lost a few prime ministers over it.</p>
+        </OrganicPanel>
       </div>
 
       <div className={styles.panel}>
