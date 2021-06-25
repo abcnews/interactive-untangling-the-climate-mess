@@ -75,18 +75,32 @@ interface AppProps {
 }
 
 let scrollY = 0;
-let mainTangleEl;
+let initialPositioningComplete = false;
 
 const App: React.FC<AppProps> = ({ projectName }) => {
   const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
 
   const [backdropOffset, setBackdropOffset] = useState(0);
   const [animationFrame, setAnimationFrame] = useState(200);
-  const [marker, setMarker] = useState<any>();
+  const [marker, _setMarker] = useState<any>();
+  const markerRef = useRef(marker);
+  // So we can use opacity in an event listener
+  const setMarker = data => {
+    markerRef.current = data;
+    _setMarker(data);
+  };
+
   const [userInputState, setUserInputState] = useState({});
   const [topAbove, setTopAbove] = useState();
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
   const [mainTangleOpacity, _setMainTangleOpacity] = useState(0.0);
+  const mainTangleOpacityRef = useRef(mainTangleOpacity);
+  // So we can use opacity in an event listener
+  const setMainTangleOpacity = data => {
+    mainTangleOpacityRef.current = data;
+    _setMainTangleOpacity(data);
+  };
+
   const [mainTangleXPos, setMainTangleXPos] = useState(0);
   const [mainTangleYPos, setMainTangleYPos] = useState(1.1);
   const [mainTangleScale, setMainTangleScale] = useState(100);
@@ -137,13 +151,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
-
-  const mainTangleOpacityRef = useRef(mainTangleOpacity);
-  // So we can use opacity in an event listener
-  const setMainTangleOpacity = data => {
-    mainTangleOpacityRef.current = data;
-    _setMainTangleOpacity(data);
-  };
 
   const onScrollUpdate = () => {
     scrollY = window.pageYOffset;
@@ -292,7 +299,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
       // Wait a while before we bring in the tangle
       setTimeout(() => {
-        setMainTangleYPos(TANGLE_DOWNPAGE_START);
+        console.log(markerRef.current);
+        if (markerRef.current === "initial")
+          setMainTangleYPos(TANGLE_DOWNPAGE_START);
+        else setMainTangleYPos(markerConfig[markerRef.current]);
+
+        // We have initially positioned
+        initialPositioningComplete = true;
+
         // Otherwise the tangle is invisible
         setMainTangleOpacity(1.0);
       }, 1000);
@@ -393,8 +407,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     setSubQuestionsConvinvedOf(localConvincedCount);
 
-    //
-
     // Calculate questionCompleteness
     function getMAIN1string(state): string {
       if (state["MAINQ1-can-we-still-save-the-world"]) return "yesMAIN1";
@@ -443,10 +455,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     setQuestionCompleteness(combinedCompletenessStrings);
 
-    //
-
-    // console.log("User input state:", userInputState);
-
     // Determine if main question level changed
     const mainChangeLevels = {
       certain: 4,
@@ -473,11 +481,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // This effect does something depending on what marker it is
     if (typeof marker === "undefined") return;
 
-    
-
     console.log("Marker pos:", markerConfig[marker]);
 
-    if (typeof markerConfig[marker] !== "undefined") {
+    // Position tangle according to marker
+    if (
+      typeof markerConfig[marker] !== "undefined" &&
+      initialPositioningComplete
+    ) {
       setMainTangleYPos(markerConfig[marker]);
     }
 
@@ -544,21 +554,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       });
     }
   }, [marker]);
-
-  //
-  //
-
-  // useEffect(() => {
-  //   console.log("Question completeness:", questionCompleteness);
-  // }, [questionCompleteness]);
-
-  // useEffect(() => {
-  //   console.log("Convinced state:", convincedState);
-  // }, [convincedState]);
-
-  // useEffect(() => {
-  //   console.log("Subquestions convinced of:", subQuestionsConvinvedOf);
-  // }, [subQuestionsConvinvedOf]);
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
