@@ -46,12 +46,12 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
       </div>
 
       <div className={styles.panel}>
-        <p>
-          <span>
+        <OrganicPanel>
+          <p>
             What if Australia could get to net zero and actually… improve our
             lives?
-          </span>
-        </p>
+          </p>
+        </OrganicPanel>
         <div id="visualKEY2" data-component="Anchor" data-mount="true"></div>
       </div>
     </div>
