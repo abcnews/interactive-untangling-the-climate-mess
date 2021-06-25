@@ -30,6 +30,14 @@
     max-width: 360px;
     margin-left: auto !important;
     margin-right: auto !important;
+    border-radius: 5%;
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+
+    // Fiddly styles
+    * {
+      font-size: 1.123rem !important;
+    }
 
     .Header-byline {
       padding-left: 15px;
@@ -37,10 +45,10 @@
     }
 
     @include for-desktop-up {
-      margin: 0;
-      position: relative;
-      left: 50%;
-      margin-left: 150px !important;
+      // margin: 0;
+      // position: relative;
+      // left: 50%;
+      // margin-left: 150px !important;
     }
   }
 

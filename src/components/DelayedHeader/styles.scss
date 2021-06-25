@@ -12,13 +12,13 @@
   // padding-left: 35px;
   // padding-right: 25px;
 
-  @include for-desktop-up {
-    position: relative;
-    left: 50%;
-    max-width: 600px;
-    margin: 0;
-    transform: translateX(10px);
-  }
+  // @include for-desktop-up {
+  //   position: relative;
+  //   left: 50%;
+  //   max-width: 600px;
+  //   margin: 0;
+  //   transform: translateX(10px);
+  // }
 
   .panel {
     padding-top: 45vh;
@@ -88,13 +88,10 @@
     //   0 0 5px rgb(255, 255, 255);
 
     @include for-desktop-up {
-      // transform: translateX(-50%);
-      // position: absolute;
-      // left: 50px;
-      // top: 100px;
-
-      width: 100vw;
-      transform: translateX(-50%) translateX(-45px);
+      // width: 100vw;
+      // transform: translateX(-50%) translateX(-45px);
+      margin-left: -20vw;
+      margin-right: -20vw;
     }
 
     @include for-tablet-landscape-up {
