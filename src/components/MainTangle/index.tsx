@@ -232,7 +232,7 @@ const MainTangle: React.FC<MainTangleProps> = props => {
       x: props.xPos * window.innerWidth,
       scale: props.scale * 0.01,
       ease: "power3",
-      duration: 0.75
+      duration: 1.25
     });
   }, [props.yPos, props.scale, props.xPos]);
 

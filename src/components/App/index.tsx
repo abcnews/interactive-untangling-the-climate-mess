@@ -35,6 +35,13 @@ const pollClient = new Client(GROUP);
 const TANGLE_DOWNPAGE_START = 0.8;
 const TANGLE_MAX_OFFSET = -200;
 
+// Control position of main tangle depending on marker
+const markerConfig = {
+  initial: 0.2,
+  2: 0.01,
+  3: 0.2
+};
+
 // Promisify callback functions here whatever
 const pollIncrement = (...args) =>
   new Promise((resolve, reject) => {
@@ -146,7 +153,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     const percentScale = d3
       .scaleLinear()
       .domain([0, window.innerHeight])
-      .range([0.8, 0.3])
+      .range([0.8, 0.2])
       .clamp(true);
 
     const calculatedY = TANGLE_DOWNPAGE_START - scrollY / 2000;
@@ -454,9 +461,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     const mainLevel1 = mainChangeLevels[main1];
     const mainLevel2 = mainChangeLevels[main2];
 
-    console.log("Main level 1", mainLevel1);
-    console.log("Main level 2", mainLevel2);
-
     if (mainLevel1 && main2) {
       if (mainLevel1 === mainLevel2) setConvincedState("orange");
       if (mainLevel1 > mainLevel2) setConvincedState("red");
@@ -466,10 +470,19 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   useEffect(() => {
     // This effect does something depending on what marker it is
-    if (!marker) return;
+    if (typeof marker === "undefined") return;
+
+    
+
+    console.log("Marker pos:", markerConfig[marker]);
+
+    if (typeof markerConfig[marker] !== "undefined") {
+      setMainTangleYPos(markerConfig[marker]);
+    }
 
     if (marker === 18) {
-      // Hide for performance sake
+      // Hide main tangle for performance sake
+      // after a certain point
       setEndTangleOpacity(0.0);
     }
 
@@ -612,7 +625,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {/* inputlivestockemissions */}
 
         <Portal
-          node={document && document.getElementById("inputlivestockemissions")}>
+          node={document && document.getElementById("inputlivestockemissions")}
+        >
           <UserInputBox
             questionKey="SUBQ2-livestock-emissions"
             title={"Can we reach reach zero livestock emissions?"}
@@ -627,7 +641,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <Portal
-          node={document && document.getElementById("inputcarscansaveus")}>
+          node={document && document.getElementById("inputcarscansaveus")}
+        >
           <UserInputBox
             questionKey="ASIDE3-electric-vehicles"
             title={"So how are you feeling about EVs now?"}
@@ -641,7 +656,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <Portal
-          node={document && document.getElementById("inputfossiltransport")}>
+          node={document && document.getElementById("inputfossiltransport")}
+        >
           <UserInputBox
             questionKey="SUBQ3-transportation-off-fossil"
             title={
@@ -660,7 +676,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {/* Industry input buttons go here */}
         {/* inputindustryemissions */}
         <Portal
-          node={document && document.getElementById("inputindustryemissions")}>
+          node={document && document.getElementById("inputindustryemissions")}
+        >
           <UserInputBox
             questionKey="SUBQ4-industry-emissions"
             title={"Can we elliminate emissions from industry?"}
@@ -687,7 +704,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         </Portal>
 
         <Portal
-          node={document && document.getElementById("inputcarboncapture")}>
+          node={document && document.getElementById("inputcarboncapture")}
+        >
           <UserInputBox
             questionKey="SUBQ5-carbon-capture"
             title={"So, what do you think? Can we capture all that carbon?"}

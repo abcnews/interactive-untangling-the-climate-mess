@@ -109,5 +109,5 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
 export default ScrollObserver;
 
 ScrollObserver.defaultProps = {
-  waypoint: 80,
+  waypoint: 100,
 };
