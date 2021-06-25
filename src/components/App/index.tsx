@@ -39,7 +39,8 @@ const TANGLE_MAX_OFFSET = -200;
 const markerConfig = {
   initial: 0.2,
   2: 0.01,
-  3: 0.2
+  3: 0.1,
+  4: 0.01
 };
 
 // Promisify callback functions here whatever
