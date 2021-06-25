@@ -83,6 +83,10 @@
     margin-left: 15px;
     margin-right: 15px;
 
+    // -webkit-text-stroke: 1px rgb(255, 255, 255);
+    // text-shadow: 1px 1px 2px white, 0 0 25px rgb(255, 255, 255),
+    //   0 0 5px rgb(255, 255, 255);
+
     @include for-desktop-up {
       // transform: translateX(-50%);
       // position: absolute;
@@ -92,10 +96,6 @@
       width: 100vw;
       transform: translateX(-50%) translateX(-45px);
     }
-
-    // -webkit-text-stroke: 1px rgb(255, 255, 255);
-    text-shadow: 1px 1px 2px white, 0 0 25px rgb(255, 255, 255),
-      0 0 5px rgb(255, 255, 255);
 
     @include for-tablet-landscape-up {
       font-size: 48px;

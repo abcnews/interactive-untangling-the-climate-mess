@@ -10,7 +10,8 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
       <div
         id="visualKEYinitial"
         data-component="Anchor"
-        data-mount="true"></div>
+        data-mount="true"
+      ></div>
 
       <div className={`${styles.heroText}`}>
         Climate change... <br />
@@ -29,21 +30,19 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
       </div>
 
       <div className={styles.panel}>
-        <p>
-          <span>
+        <OrganicPanel backgroundVariation={1}>
+          <p>
             For three decades, we’ve been told that ditching our love affair
             with carbon will make us poorer, hotter, colder and more prone to
             sitting in candlelit rooms, and not the romantic kind.
-          </span>
-        </p>
-        <p>
-          <span>
+          </p>
+          <p>
             But what if it didn’t have to? What if, instead of an impending
             apocalypse, this were a good news story for Australia? A story of
             how we dodged a bullet, much like we’ve managed with coronavirus
             (touch wood) and the GFC?
-          </span>
-        </p>
+          </p>
+        </OrganicPanel>
       </div>
 
       <div className={styles.panel}>
