@@ -38,9 +38,9 @@ const TANGLE_MAX_OFFSET = -200;
 // Control position of main tangle depending on marker
 const markerConfig = {
   initial: 0.2,
-  2: 0.01,
-  3: 0.1,
-  4: 0.01
+  2: 0.01, // Story Title: Untangling The Climate Mess
+  3: 0.1, // Back to ball
+  4: 0.01 // Power lines (purple)
 };
 
 // Promisify callback functions here whatever
