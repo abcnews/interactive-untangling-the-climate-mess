@@ -65,32 +65,24 @@ function preInit() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  const organicPanelBackground = require("./components/OrganicPanel/organic-panel-background-variation-1.svg")
-    .default;
-  const organicPanelBackground2 = require("./components/OrganicPanel/organic-panel-background-variation-2.svg")
-    .default;
-  const organicPanelBackground3 = require("./components/OrganicPanel/organic-panel-background-variation-3.svg")
-    .default;
-
-  function getRandomBackground() {
-    const panels = [
-      organicPanelBackground,
-      organicPanelBackground2,
-      organicPanelBackground3
-    ];
-
-    return panels[getRandomInt(0, panels.length - 1)];
-  }
+  const panels = [
+    require("./components/OrganicPanel/organic-panel-background-variation-1.svg")
+      .default,
+    require("./components/OrganicPanel/organic-panel-background-variation-2.svg")
+      .default,
+    require("./components/OrganicPanel/organic-panel-background-variation-3.svg")
+      .default
+  ];
 
   // Loop though panels
-  for (const panel of panelsArray) {
+  panelsArray.forEach((panel, iteration) => {
     const container = document.createElement("div");
     container.innerHTML = `<div class="organic-panel-background">
-    <img
-      src="${getRandomBackground()}"
-      class="organic-panel-style-stretch"
-    />
-  </div>`;
+      <img
+        src="${panels[iteration % panels.length]}"
+        class="organic-panel-style-stretch"
+      />
+    </div>`;
     container.className = styles.panelContentContainer;
     panel.className = styles.panel;
 
@@ -117,7 +109,7 @@ function preInit() {
 
     // Add container to panel
     panel.appendChild(container);
-  }
+  });
 
   // Add classes to paragraphs from #fragments
   classify("class");
