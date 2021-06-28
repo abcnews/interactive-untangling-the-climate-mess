@@ -3,8 +3,9 @@ import styles from "./styles.scss";
 
 import background from "./organic-panel-background-variation-1.svg";
 import background2 from "./organic-panel-background-variation-2.svg";
+import background3 from "./organic-panel-background-variation-3.svg";
 
-const backgrounds = [background, background2];
+const backgrounds = [background, background2, background3];
 
 type OrganicPanelProps = { backgroundVariation?: number };
 

@@ -47,7 +47,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
 
       <div className={styles.panel}>
         <div id="visualKEY2" data-component="Anchor" data-mount="true"></div>
-        <OrganicPanel>
+        <OrganicPanel backgroundVariation={2}>
           <p>
             What if Australia could get to net zero and actually… improve our
             lives?
