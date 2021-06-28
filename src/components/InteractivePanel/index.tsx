@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.scss";
 
+import background from "../OrganicPanel/organic-panel-background-variation-1.svg";
+import background2 from "../OrganicPanel/organic-panel-background-variation-2.svg";
+import background3 from "../OrganicPanel/organic-panel-background-variation-3.svg";
+
+const backgrounds = [background, background2, background3];
+
 type InteractivePanelProps = {
   panelKey;
   questionCompleteness;
@@ -8,9 +14,13 @@ type InteractivePanelProps = {
   subQuestionsConvinvedOf;
   australiaConvincedOf;
   userInputState;
+  backgroundVariation?: number;
 };
 
-const InteractivePanel: React.FC<InteractivePanelProps> = props => {
+const InteractivePanel: React.FC<InteractivePanelProps> = ({
+  backgroundVariation = 0,
+  ...props
+}) => {
   // Deconstruct props
   const {
     panelKey,
@@ -415,8 +425,15 @@ const InteractivePanel: React.FC<InteractivePanelProps> = props => {
 
   return (
     <div
-      className={`${styles.root} ${hidden ? styles.hidden : ""} nopullright`}>
+      className={`${styles.root} ${hidden ? styles.hidden : ""} nopullright`}
+    >
       <div className={styles.panelContentContainer}>{panelText}</div>
+      <div className={styles.background}>
+        <img
+          src={backgrounds[backgroundVariation]}
+          className={styles.stretch}
+        />
+      </div>
     </div>
   );
 };

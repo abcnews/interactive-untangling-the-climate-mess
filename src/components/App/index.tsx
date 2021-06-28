@@ -799,6 +799,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {interactivePanelElements?.map((panel, iteration) => {
           const panelConfig = alternatingCaseToObject(panel.id);
 
+          // TODO: Cycle between variants
+          // console.log(iteration);
+
           return (
             <Portal key={iteration} node={panel}>
               <InteractivePanel
