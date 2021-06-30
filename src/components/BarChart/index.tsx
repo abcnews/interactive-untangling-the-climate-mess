@@ -13,9 +13,7 @@ const Bar = ({ color, percent, title, textColor }) => {
         {title}:{" "}
         <span style={{ color: textColor }}>{percent}% of emissions</span>
       </div>
-
       {/* Because this is not dynamic we can cheat here a bit and have pre-rendered SVGs */}
-
       {percent === 33 && (
         <svg
           width={`${percent}%`}
@@ -31,7 +29,6 @@ const Bar = ({ color, percent, title, textColor }) => {
           />
         </svg>
       )}
-
       {percent === 10 && (
         <svg
           width={`${percent}%`}
@@ -47,7 +44,6 @@ const Bar = ({ color, percent, title, textColor }) => {
           />
         </svg>
       )}
-
       {percent === 20 && (
         <svg
           width={`${percent}%`}
@@ -63,7 +59,6 @@ const Bar = ({ color, percent, title, textColor }) => {
           />
         </svg>
       )}
-
       {percent === 40 && (
         <svg
           width={`${percent}%`}
@@ -80,6 +75,7 @@ const Bar = ({ color, percent, title, textColor }) => {
         </svg>
       )}
 
+      {/* Deprecated in favour of organic bars */}
       {/* <div className={styles.barOutline}>
         <div
           className={styles.bar}
