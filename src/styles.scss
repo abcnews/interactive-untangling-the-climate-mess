@@ -20,13 +20,13 @@
     padding: 15px 28px;
     position: relative;
 
-    // @include for-tablet-portrait-up {
-    //   padding: 20px 1.75rem;
-    // }
+    @include for-tablet-portrait-up {
+      padding: 30px 2.25rem;
+    }
 
-    // @include for-desktop-up {
-    //   padding: 20px 1.75rem;
-    // }
+    @include for-desktop-up {
+      padding: 35px 2.75rem;
+    }
 
     // > * {
     //   margin-top: 2.25rem;
