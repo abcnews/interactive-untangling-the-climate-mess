@@ -744,10 +744,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         <Portal node={document && document.getElementById("chartproportions")}>
           <BarChart
             bars={[
-              { title: "Enery", percent: 33, color: "#ff8901" },
-              { title: "Burping cows", percent: 10, color: "#22405a" },
-              { title: "Transport", percent: 20, color: "#007e4e" },
-              { title: "Industry", percent: 40, color: "#ff4e00" }
+              { title: "Enery", percent: 33, color: "#A3297C" },
+              {
+                title: "Burping cows",
+                percent: 10,
+                color: "#C42F05"
+              },
+              { title: "Transport", percent: 20, color: "#007B52" },
+              { title: "Industry", percent: 40, color: "#0076C5" }
             ]}
           />
         </Portal>
