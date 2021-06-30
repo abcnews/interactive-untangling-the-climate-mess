@@ -4,6 +4,8 @@
   padding: 0 15px !important;
   margin-top: 80vh;
   margin-bottom: 80vh;
+  margin-left: 15px;
+  margin-right: 15px;
   line-height: 1.66666667;
   font-size: 1.125rem;
   position: relative;
@@ -15,6 +17,10 @@
     margin-left: 0 !important;
     width: calc(100vw / 2.1);
     max-width: 650px;
+  }
+
+  .panel-content-container {
+    padding: 15px 18px;
   }
 
   // .panel-content-container {

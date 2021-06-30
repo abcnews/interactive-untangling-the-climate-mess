@@ -427,13 +427,13 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     <div
       className={`${styles.root} ${hidden ? styles.hidden : ""} nopullright`}
     >
-      <div className={styles.panelContentContainer}>{panelText}</div>
       <div className={styles.background}>
         <img
           src={backgrounds[backgroundVariation]}
           className={styles.stretch}
         />
       </div>
+      <div className={styles.panelContentContainer}>{panelText}</div>
     </div>
   );
 };

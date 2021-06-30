@@ -2,21 +2,23 @@ import React from "react";
 import styles from "./styles.scss";
 
 const defaultProps = {
-  heading: "Proportion of emissions",
-  bars: [{ title: "Enery", percent: 33 }],
+  heading: undefined,
+  bars: [{ title: "Enery", percent: 33 }]
 };
 
 const Bar = ({ color, percent, title, textColor }) => {
   return (
     <div className={styles.barContainer}>
-      <div className={styles.text} style={{color: textColor}}>{title} <span style={{color: textColor}}>{percent}%</span></div>
+      <div className={styles.text} style={{ color: textColor }}>
+        {title} <span style={{ color: textColor }}>{percent}%</span>
+      </div>
       <div className={styles.barOutline}>
         <div
           className={styles.bar}
           style={{
             width: `${percent}%`,
             backgroundColor: color,
-            boxShadow: `0 0 0 3px ${color}`,
+            boxShadow: `0 0 0 3px ${color}`
           }}
         ></div>
       </div>
@@ -32,9 +34,15 @@ interface BarChartProps {
 const BarChart: React.FC<BarChartProps> = ({ heading, bars }) => {
   return (
     <div className={styles.root}>
-      <h3 className={styles.heading}>{heading}</h3>
+      {heading && <h3 className={styles.heading}>{heading}</h3>}
       {bars?.map((bar, index) => (
-        <Bar key={index} percent={bar.percent} color={bar.color} title={bar.title} textColor={bar.color} />
+        <Bar
+          key={index}
+          percent={bar.percent}
+          color={bar.color}
+          title={bar.title}
+          textColor={bar.color}
+        />
       ))}
     </div>
   );
