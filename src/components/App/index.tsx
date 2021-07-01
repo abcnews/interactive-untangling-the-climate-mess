@@ -564,7 +564,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputtier1")}>
           <UserInputBox
-            color={"#fA4059"}
+            color={"#2A4059"}
             questionKey="MAINQ1-can-we-still-save-the-world"
             title={"Can we still save the world?"}
             buttons={[
@@ -578,8 +578,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
+        {/* Energy questions */}
+
         <Portal node={document && document.getElementById("inputradelaide")}>
           <UserInputBox
+            color={"#A3297C"}
             questionKey="ASIDE1-south-australia-battery-good"
             title={"Still laughing at South Australia?"}
             buttons={[
@@ -592,6 +595,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputtoast")}>
           <UserInputBox
+            color={"#A3297C"}
             questionKey="ASIDE2-toast-affordable-zero-carbon"
             title={
               "So what do you reckon, can you have your toast in a zero carbon world and eat it too?"
@@ -606,6 +610,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputzerocarbon")}>
           <UserInputBox
+            color={"#A3297C"}
             questionKey="SUBQ1-renewables-zero-carbon"
             title={"So - what do you reckon our chances of doing this are?"}
             buttons={[
@@ -625,6 +630,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           node={document && document.getElementById("inputlivestockemissions")}
         >
           <UserInputBox
+            color={"#2A4059"}
             questionKey="SUBQ2-livestock-emissions"
             title={"Can we reach reach zero livestock emissions?"}
             buttons={[
@@ -641,6 +647,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           node={document && document.getElementById("inputcarscansaveus")}
         >
           <UserInputBox
+          color={"#007B52"}
             questionKey="ASIDE3-electric-vehicles"
             title={"So how are you feeling about EVs now?"}
             buttons={[
@@ -656,6 +663,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           node={document && document.getElementById("inputfossiltransport")}
         >
           <UserInputBox
+            color={"#007B52"}
             questionKey="SUBQ3-transportation-off-fossil"
             title={
               "So now you know how we quit fossil fuels in our transport system, can we do it?"
@@ -676,6 +684,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           node={document && document.getElementById("inputindustryemissions")}
         >
           <UserInputBox
+            color={"#F65C1B"}
             questionKey="SUBQ4-industry-emissions"
             title={"Can we elliminate emissions from industry?"}
             buttons={[
@@ -690,6 +699,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputbigseaweed")}>
           <UserInputBox
+            color={"#0076C5"}
             questionKey="ASIDE4-big-seaweed"
             title={"Where are you splashing your cash?"}
             buttons={[
@@ -704,6 +714,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           node={document && document.getElementById("inputcarboncapture")}
         >
           <UserInputBox
+            color={"#0076C5"}
             questionKey="SUBQ5-carbon-capture"
             title={"So, what do you think? Can we capture all that carbon?"}
             buttons={[
@@ -718,6 +729,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputmosquito")}>
           <UserInputBox
+            color={"#0076C5"}
             questionKey="ASIDE5-australia-make-a-difference"
             title={"What should we be?"}
             buttons={[
