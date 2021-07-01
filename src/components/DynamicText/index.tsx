@@ -1,5 +1,3 @@
-/** @format */
-
 import React from "react";
 import styles from "./styles.scss";
 
@@ -19,11 +17,7 @@ function getFinalText(userResponse) {
 
 const DynamicText: React.FC<DynamicTextProps> = props => {
   const { watchForKey, userInputState } = props;
-
   const userResponse = userInputState[watchForKey];
-
-  // console.log("Dynamic Text Component:", userResponse);
-
   const finalText: string = getFinalText(userResponse);
 
   return <p className={styles.root}>{finalText}</p>;

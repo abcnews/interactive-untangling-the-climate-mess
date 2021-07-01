@@ -152,7 +152,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
         props.padding ? styles.paddingLeftRight : ""
       }`}
     >
-      <h3>{props.title}</h3>
+      <h3 style={{ color: color }}>{props.title}</h3>
       <div className={styles.buttonContainer}>
         {buttons.map((button, iteration) => {
           const isSelected = selected === button.value;
