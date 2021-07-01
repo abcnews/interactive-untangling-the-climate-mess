@@ -83,10 +83,12 @@ interface UserInputBoxProps {
   handleUserInput?: any;
   padding?: boolean;
   color?: string;
+  response?: any;
 }
 
 const UserInputBox: React.FC<UserInputBoxProps> = ({
   color = "#A3297C",
+  response = <div>Hello...</div>,
   ...props
 }) => {
   const [buttons, setButtons] = useState([{ label: "", value: "" }]);
@@ -191,6 +193,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
           );
         })}
       </div>
+      {response}
     </div>
   );
 };
