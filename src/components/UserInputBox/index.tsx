@@ -29,20 +29,12 @@ interface Button {
   value: string;
 }
 
-interface UserInputBoxProps {
-  title: string;
-  buttons?: Button[];
-  poll?: any;
-  setUserInputState?: any;
-  questionKey: string;
-  handleUserInput?: any;
-  padding?: boolean;
-}
-
 const BackgroundSvg = ({
   stroke = "#A3297C",
   fill = "none",
   shapeIndex = 0,
+  color = "#A3297C",
+  selected = true,
   ...props
 }) => {
   return (
@@ -50,7 +42,7 @@ const BackgroundSvg = ({
       width="284"
       height="43"
       viewBox="0 0 284 43"
-      fill={fill}
+      fill={selected ? color : "none"}
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="none"
     >
@@ -83,7 +75,21 @@ const BackgroundSvg = ({
   );
 };
 
-const UserInputBox: React.FC<UserInputBoxProps> = props => {
+interface UserInputBoxProps {
+  title: string;
+  buttons?: Button[];
+  poll?: any;
+  setUserInputState?: any;
+  questionKey: string;
+  handleUserInput?: any;
+  padding?: boolean;
+  color?: string;
+}
+
+const UserInputBox: React.FC<UserInputBoxProps> = ({
+  color = "#A3297C",
+  ...props
+}) => {
   const [buttons, setButtons] = useState([{ label: "", value: "" }]);
   const [selected, setSelected] = useState("");
 
@@ -155,11 +161,16 @@ const UserInputBox: React.FC<UserInputBoxProps> = props => {
               id={button.value}
               className={selected === button.value ? styles.selected : ""}
               onClick={handleClick}
+              style={{ color: color }}
             >
               {button.label}
             </button>
             <div className={styles.organicBackground}>
-              <BackgroundSvg shapeIndex={iteration} />
+              <BackgroundSvg
+                shapeIndex={iteration}
+                color={color}
+                selected={selected === button.value}
+              />
             </div>
           </div>
         ))}
