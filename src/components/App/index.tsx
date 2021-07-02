@@ -281,12 +281,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       if (match) {
         const config = alternatingCaseToObject(match[0]);
 
-        console.log(config);
+        console.log(config.color);
 
         const pillEl = document.createElement("strong");
         pillEl.innerHTML = el.innerHTML;
 
         pillEl.classList.add(styles.pillbox)
+        pillEl.style.backgroundColor = `#${config.color}`
 
         if (el.parentNode) {
           el.parentNode.replaceChild(pillEl, el);
