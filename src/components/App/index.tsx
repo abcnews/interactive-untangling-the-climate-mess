@@ -272,6 +272,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // Let's try to convert some anchors into colored pillboxes
     const anchor = document.getElementsByTagName("a");
     for (var idx = 0; idx < anchor.length; ++idx) {
+      const el = anchor[idx];
+
       const href: string = anchor[idx].href || "";
       const reg = /#pillbox.*/;
       const match = href.match(reg);
@@ -280,6 +282,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         const config = alternatingCaseToObject(match[0]);
 
         console.log(config);
+
+        const newEl = document.createElement("span");
+        newEl.innerHTML = el.innerHTML;
+
+        if (el.parentNode) {
+          el.parentNode.replaceChild(newEl, el);
+        }
       }
     }
 
