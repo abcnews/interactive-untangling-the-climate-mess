@@ -9,8 +9,6 @@
     padding-right: 15px;
   }
 
-
-
   .background-container {
     position: relative;
 
@@ -45,6 +43,14 @@
   h3 {
     margin-top: 1em;
     font-weight: 700;
-    // font-size: 21px;
+  }
+
+  .response-box {
+    text-align: left;
+
+    * {
+      color: unset;
+    }
+    
   }
 }

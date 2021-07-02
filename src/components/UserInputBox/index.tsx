@@ -27,6 +27,18 @@ const pollGet = (...args) =>
 interface Button {
   label: string;
   value: string;
+  response?: any;
+}
+
+interface UserInputBoxProps {
+  title: string;
+  buttons?: Button[];
+  poll?: any;
+  setUserInputState?: any;
+  questionKey: string;
+  handleUserInput?: any;
+  padding?: boolean;
+  color?: string;
 }
 
 const BackgroundSvg = ({
@@ -74,25 +86,13 @@ const BackgroundSvg = ({
   );
 };
 
-interface UserInputBoxProps {
-  title: string;
-  buttons?: Button[];
-  poll?: any;
-  setUserInputState?: any;
-  questionKey: string;
-  handleUserInput?: any;
-  padding?: boolean;
-  color?: string;
-  response?: any;
-}
-
 const UserInputBox: React.FC<UserInputBoxProps> = ({
   color = "#A3297C",
-  response = <div>Hello...</div>,
   ...props
 }) => {
-  const [buttons, setButtons] = useState([{ label: "", value: "" }]);
+  const [buttons, setButtons] = useState<Button[]>([{ label: "", value: "" }]);
   const [selected, setSelected] = useState("");
+  const [responseBox, setResponseBox] = useState();
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -141,6 +141,14 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
 
     console.log(selected);
 
+    // See if there's response text to show
+    const selectedButton = buttons.find(button => {
+      return button.value === selected;
+    });
+
+    if (selectedButton) setResponseBox(selectedButton.response);
+
+    // Set previous state
     if (props.setUserInputState) {
       props.setUserInputState(prevState => {
         return { ...prevState, [props.questionKey]: selected };
@@ -193,7 +201,9 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
           );
         })}
       </div>
-      {response}
+      <div className={styles.responseBox} style={{ color: `${color}` }}>
+        {responseBox}
+      </div>
     </div>
   );
 };

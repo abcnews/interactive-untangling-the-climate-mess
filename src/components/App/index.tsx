@@ -269,6 +269,20 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // panel.appendChild(container);
     // }
 
+    // Let's try to convert some anchors into colored pillboxes
+    const anchor = document.getElementsByTagName("a");
+    for (var idx = 0; idx < anchor.length; ++idx) {
+      const href: string = anchor[idx].href || "";
+      const reg = /#pillbox.*/;
+      const match = href.match(reg);
+
+      if (match) {
+        const config = alternatingCaseToObject(match[0]);
+
+        console.log(config);
+      }
+    }
+
     return () => {
       // unsubscribe(onSubscriptionUpdate);
       document.removeEventListener("scroll", onScrollUpdate);
@@ -564,14 +578,56 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputtier1")}>
           <UserInputBox
-            color={"#2A4059"}
+            color={"green"}
             questionKey="MAINQ1-can-we-still-save-the-world"
             title={"Can we still save the world?"}
             buttons={[
-              { label: "Of course we can", value: "certain" },
-              { label: "Yes I think we can", value: "hopeful" },
-              { label: "Probably not", value: "doubtful" },
-              { label: "No way we're screwed", value: "impossible" }
+              {
+                label: "Of course we can",
+                value: "certain",
+                response: (
+                  <>
+                    <p>
+                      Ok, so you’re onboard - but how do we get there? Let’s see
+                      if you’re still convinced after reading what it takes.
+                    </p>
+                  </>
+                )
+              },
+              {
+                label: "Yes I think we can",
+                value: "hopeful",
+                response: (
+                  <>
+                    <p>
+                      Ok, so you’re onboard - but how do we get there? Let’s see
+                      if you’re still convinced after reading what it takes.
+                    </p>
+                  </>
+                )
+              },
+              {
+                label: "Probably not",
+                value: "doubtful",
+                response: (
+                  <p>
+                    Ok that's fair enough - we'd be skeptical too - but let’s
+                    see how you feel after reading what’s involved with
+                    cancelling Australia’s emissions.
+                  </p>
+                )
+              },
+              {
+                label: "No way we're screwed",
+                value: "impossible",
+                response: (
+                  <p>
+                    Ok that's fair enough - we'd be skeptical too - but let’s
+                    see how you feel after reading what’s involved with
+                    cancelling Australia’s emissions.
+                  </p>
+                )
+              }
             ]}
             poll={pollClient}
             setUserInputState={setUserInputState}
