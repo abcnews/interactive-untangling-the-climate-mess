@@ -647,7 +647,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           node={document && document.getElementById("inputcarscansaveus")}
         >
           <UserInputBox
-          color={"#007B52"}
+            color={"#007B52"}
             questionKey="ASIDE3-electric-vehicles"
             title={"So how are you feeling about EVs now?"}
             buttons={[
@@ -769,12 +769,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <Portal node={document?.getElementById("dynamictext-mainq1")}>
+        {/* Dynamic text to be built into the user input box */}
+        {/* <Portal node={document?.getElementById("dynamictext-mainq1")}>
           <DynamicText
             watchForKey={"MAINQ1-can-we-still-save-the-world"}
             userInputState={userInputState}
           />
-        </Portal>
+        </Portal> */}
 
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
