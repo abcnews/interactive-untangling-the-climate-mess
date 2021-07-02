@@ -283,11 +283,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         console.log(config);
 
-        const newEl = document.createElement("span");
-        newEl.innerHTML = el.innerHTML;
+        const pillEl = document.createElement("strong");
+        pillEl.innerHTML = el.innerHTML;
+
+        pillEl.classList.add(styles.pillbox)
 
         if (el.parentNode) {
-          el.parentNode.replaceChild(newEl, el);
+          el.parentNode.replaceChild(pillEl, el);
         }
       }
     }
