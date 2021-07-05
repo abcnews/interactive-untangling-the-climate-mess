@@ -1,10 +1,44 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.scss";
 import OrganicPanel from "../OrganicPanel";
+import { nextUntil } from "../../nextUntil";
+import convert from "react-from-dom";
 
 interface DelayedHeaderProps {}
 
 const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
+  const [contentArray, setContentArray] = useState<any>([]);
+
+  console.log(contentArray);
+
+  const onMount = async () => {
+    const markers = document.querySelectorAll("[id^='preheaderpanel']");
+    const markersArray = Array.from(markers);
+
+    const panelArray = markersArray.map((panel, i) => {
+      const panelContainer = document.createElement("div");
+
+      const panelElements = nextUntil(panel, "#endpreheaderpanel");
+
+      // Add content to container element
+      for (const element of panelElements) {
+        panelContainer.appendChild(element);
+      }
+
+      return convert(panelContainer);
+    });
+
+    if (contentArray.length === 0) setContentArray(panelArray);
+  };
+
+  useEffect(() => {
+    onMount();
+  }, []);
+
+  useEffect(() => {
+    
+  }, [contentArray]);
+
   return (
     <div className={styles.root}>
       <div
@@ -13,19 +47,21 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
         data-mount="true"
       ></div>
 
-      <div className={`${styles.heroText}`}>
+      <div className={styles.heroText}>
         Climate change... <br />
         we get it, it’s a depressing mess.
       </div>
 
       <div className={styles.panel}>
         <OrganicPanel>
-          <p>
+          {contentArray[0]}
+          {/* <p>
             We’ve spent the last thirty years not making the drastic changes
             needed to protect our way of life.
           </p>
 
-          <p>We’ve even lost a few prime ministers over it.</p>
+
+          <p>We’ve even lost a few prime ministers over it.</p> */}
         </OrganicPanel>
       </div>
 
