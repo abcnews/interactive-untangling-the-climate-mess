@@ -9,35 +9,36 @@ interface DelayedHeaderProps {}
 const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
   const [contentArray, setContentArray] = useState<any>([]);
 
-  console.log(contentArray);
+  // console.log(contentArray);
 
   const onMount = async () => {
-    const markers = document.querySelectorAll("[id^='preheaderpanel']");
+    const markers = document.querySelectorAll(".preheader-container");
     const markersArray = Array.from(markers);
 
-    const panelArray = markersArray.map((panel, i) => {
-      const panelContainer = document.createElement("div");
+    setContentArray(markersArray);
 
-      const panelElements = nextUntil(panel, "#endpreheaderpanel");
-
-      // Add content to container element
-      for (const element of panelElements) {
-        panelContainer.appendChild(element);
-      }
-
-      return convert(panelContainer);
-    });
-
-    if (contentArray.length === 0) setContentArray(panelArray);
+    // const panelArray = markersArray.map((panel, i) => {
+    //   const panelContainer = document.createElement("div");
+    //   const elementArray: any = [];
+    //   const panelElements = nextUntil(panel, "#endpreheaderpanel");
+    //   // Add content to container element
+    //   panelElements.forEach((element, iteration) => {
+    //     const reactEl: any = convert(element);
+    //     // reactEl.key = iteration;
+    //     elementArray.push(reactEl);
+    //   });
+    //   console.log(elementArray)
+    //   return elementArray;
+    // });
+    // console.log(panelArray);
+    // setContentArray(panelArray);
   };
 
   useEffect(() => {
     onMount();
   }, []);
 
-  useEffect(() => {
-    
-  }, [contentArray]);
+  useEffect(() => {}, [contentArray]);
 
   return (
     <div className={styles.root}>
@@ -54,7 +55,8 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
 
       <div className={styles.panel}>
         <OrganicPanel>
-          {contentArray[0]}
+          {convert(contentArray[0])}
+
           {/* <p>
             We’ve spent the last thirty years not making the drastic changes
             needed to protect our way of life.
@@ -67,7 +69,8 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
 
       <div className={styles.panel}>
         <OrganicPanel backgroundVariation={1}>
-          <p>
+          {convert(contentArray[1])}
+          {/* <p>
             For three decades, we’ve been told that ditching our love affair
             with carbon will make us poorer, hotter, colder and more prone to
             sitting in candlelit rooms, and not the romantic kind.
@@ -77,17 +80,18 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
             apocalypse, this were a good news story for Australia? A story of
             how we dodged a bullet, much like we’ve managed with coronavirus
             (touch wood) and the GFC?
-          </p>
+          </p> */}
         </OrganicPanel>
       </div>
 
       <div className={styles.panel}>
         <div id="visualKEY2" data-component="Anchor" data-mount="true"></div>
         <OrganicPanel backgroundVariation={2}>
-          <p>
+          {convert(contentArray[2])}
+          {/* <p>
             What if Australia could get to net zero and actually… improve our
             lives?
-          </p>
+          </p> */}
         </OrganicPanel>
       </div>
     </div>

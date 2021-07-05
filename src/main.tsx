@@ -111,6 +111,24 @@ function preInit() {
     panel.appendChild(container);
   });
 
+  // Set up pre header panel DOM
+  const markers = document.querySelectorAll("[id^='preheaderpanel']");
+  const markersArray = Array.from(markers);
+
+  const panelArray = markersArray.map((panel, i) => {
+    const panelContainer = document.createElement("div");
+    panelContainer.className = "preheader-container";
+    const elementArray: any = [];
+    const panelElements = nextUntil(panel, "#endpreheaderpanel");
+
+    // // Add content to container element
+    panelElements.forEach((element, iteration) => {
+      panelContainer.appendChild(element);
+    });
+
+    document.body.appendChild(panelContainer);
+  });
+
   // Add classes to paragraphs from #fragments
   classify("class");
 
