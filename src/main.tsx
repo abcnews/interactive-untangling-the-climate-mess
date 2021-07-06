@@ -83,7 +83,7 @@ function preInit() {
         class="organic-panel-style-stretch"
       />
     </div>`;
-    container.className = styles.panelContentContainer;
+    container.className = `${styles.panelContentContainer}`;
     panel.className = styles.panel;
 
     // Get id string of panel
