@@ -147,8 +147,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     );
   };
 
-  
-
   function later(value) {
     return new Promise(function (resolve) {
       console.log("unhiding...");
@@ -216,8 +214,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
 
       positionTangle(mainTangle, -topPixelsAboveFold);
 
-      
-
       // if (immediatePosition) {
       //   positionTangleImmediate(mainTangle, -topPixelsAboveFold);
       // } else {
@@ -226,8 +222,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
       // }
     } else {
       // We are pulling from underneath
-
-      
 
       if (mainOnTop) {
         // console.log("Flip to bottom");
@@ -243,11 +237,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
         mainTangle.style.visibility = "visible";
       }
 
-
-
       positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
-
-      
 
       // if (mainTop > window.innerHeight) {
       //   immediatePosition = false;
@@ -322,7 +312,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
     // Request animation frame fallback function
     rAf =
       window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
+      window["webkitRequestAnimationFrame"] ||
       window["mozRequestAnimationFrame"] ||
       window["msRequestAnimationFrame"] ||
       window["oRequestAnimationFrame"] ||

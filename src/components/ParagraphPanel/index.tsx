@@ -22,11 +22,11 @@ const isOneVisible = entries => {
   return false;
 };
 
-interface ParagraphObserverProps {
+interface ParagraphPanelProps {
   toggle: Function;
 }
 
-const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
+const ParagraphPanel: React.FC<ParagraphPanelProps> = props => {
   const windowSize = useWindowSize();
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -164,4 +164,4 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
   return <div className={styles.root}></div>;
 };
 
-export default ParagraphObserver;
+export default ParagraphPanel;
