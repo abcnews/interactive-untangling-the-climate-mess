@@ -59,12 +59,6 @@ function preInit() {
   const panelStarters: any = document.querySelectorAll("[id^='panel']");
   const panelsArray = [...panelStarters];
 
-  function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
   const panels = [
     require("./components/OrganicPanel/organic-panel-background-variation-1.svg")
       .default,
@@ -142,6 +136,21 @@ function preInit() {
     const panel = el.previousSibling.previousSibling;
     panel.classList.add("last-panel");
   }
+
+  // Add custom styles to headings
+  // Use #customstyleCOLOR443322 etc in Core to color the next element
+  const headingsCustomStyle = document.querySelectorAll("[id^='customstyle']");
+  headingsCustomStyle.forEach(heading => {
+    const config = alternatingCaseToObject(heading.id);
+
+    // Casting to any for now (unless anyone has a better Typescript idea)
+    const nextSibling: any = heading.nextElementSibling;
+
+    if (config.color && nextSibling) {
+      // nextSibling.setAttribute("style", `color: #${config.color}`);
+      nextSibling.style.color = `#${config.color}`;
+    }
+  });
 }
 
 function init() {
