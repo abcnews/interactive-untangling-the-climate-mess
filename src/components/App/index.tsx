@@ -132,12 +132,12 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [subQuestionsConvinvedOf, setSubQuestionsConvinvedOf] = useState(0);
   // ----------------
   const [australiaConvincedOf, setAustraliaConvincedOf] = useState(0);
+  const [sectionColor, setSectionColor] = useState();
 
   // ---- Combined config for InteractivePanel components
   // const [interactivePanelInput, setInteractivePanelInput] = useState({
   //   completeness: 0,
   //   persuasiveness: "incomplete",
-
   // });
 
   /**
@@ -590,7 +590,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputtier1")}>
           <UserInputBox
-            color={"green"}
+            color={"#F65C1B"}
             questionKey="MAINQ1-can-we-still-save-the-world"
             title={"Can we still save the world?"}
             buttons={[
