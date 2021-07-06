@@ -9,29 +9,11 @@ interface DelayedHeaderProps {}
 const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
   const [contentArray, setContentArray] = useState<any>([]);
 
-  // console.log(contentArray);
-
   const onMount = async () => {
     const markers = document.querySelectorAll(".preheader-container");
     const markersArray = Array.from(markers);
 
     setContentArray(markersArray);
-
-    // const panelArray = markersArray.map((panel, i) => {
-    //   const panelContainer = document.createElement("div");
-    //   const elementArray: any = [];
-    //   const panelElements = nextUntil(panel, "#endpreheaderpanel");
-    //   // Add content to container element
-    //   panelElements.forEach((element, iteration) => {
-    //     const reactEl: any = convert(element);
-    //     // reactEl.key = iteration;
-    //     elementArray.push(reactEl);
-    //   });
-    //   console.log(elementArray)
-    //   return elementArray;
-    // });
-    // console.log(panelArray);
-    // setContentArray(panelArray);
   };
 
   useEffect(() => {

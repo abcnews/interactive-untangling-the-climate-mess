@@ -198,10 +198,6 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
             </p>
           );
         } else {
-          // Check how many convinced of
-          // console.log("Sub questions convinced of:", subQuestionsConvinvedOf);
-          // console.log("Main 2 positive?", main2Positive);
-
           if (subQuestionsConvinvedOf >= 4) {
             // Check if positive outloon on main2 question
             if (main2Positive)
@@ -376,45 +372,6 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     if (shouldShow) setHidden(false);
     // Otherwise hide
     else setHidden(true);
-
-    // if (panelKey === "one") {
-    //   console.log("Convinced state:", convincedState);
-    //   console.log("Qn completeness:", questionCompleteness);
-    //   console.log("Input state:", userInputState);
-
-    //   // Abort if no interaction yet
-    //   if (questionCompleteness === "noMAIN1noSUBnoMAIN2") return;
-
-    //   // Clicked MAINQ1
-    //   if (questionCompleteness === "yesMAIN1noSUBnoMAIN2") {
-    //     // They are hopeful
-    //     if (
-    //       userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
-    //       userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful"
-    //     ) {
-    //       setPanelText(
-    //         "We don’t know if you’re still convinced, as you didn’t answer, \
-    //       but here’s how the rest of the audience feel about the piece."
-    //       );
-    //     }
-    //     // They are doubtful
-    //     else {
-    //       setPanelText(
-    //         "We don’t know if you’re still not convinced, as you didn’t answer, \
-    //       but here’s how the rest of the audience feel about the piece."
-    //       );
-    //     }
-    //   }
-
-    //   if (questionCompleteness === "noMAIN1noSUByesMAIN2") {
-    //     setPanelText(
-    //       `${getLevel2Text(
-    //         convincedState,
-    //         userInputState
-    //       )} While we don’t know if you’re convinced by any of the challenges, here’s what the audience thought.`
-    //     );
-    //   }
-    // }
   }, [
     userInputState,
     questionCompleteness,

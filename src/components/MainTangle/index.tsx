@@ -82,8 +82,6 @@ const MainTangle: React.FC<MainTangleProps> = props => {
       component.timeline = animate();
       const timeline = component.timeline;
 
-      console.log("Initialising SVG file: timeline:", timeline);
-
       // Load up the timeline markers so we can compare them later
       setMarkers(timeline.l?.markers || timeline._options.markers);
 
@@ -144,7 +142,6 @@ const MainTangle: React.FC<MainTangleProps> = props => {
       component.pressure = component.pressure + 1;
 
       const { scrollMarker }: { scrollMarker?: string } = props;
-      console.log("Scroll marker:", scrollMarker);
 
       const currentTime = timeline.time();
       // const markerTime = markers[scrollMarker];
@@ -153,10 +150,6 @@ const MainTangle: React.FC<MainTangleProps> = props => {
       const playloop = lookupRange(scrollMarker + "");
 
       const endTime = markers[playloop.end];
-
-      // console.log("Scroll marker:", props.scrollMarker);
-      // console.log("playloop:", playloop);
-      // console.log("Scroll animation pressure:", component.pressure);
 
       // If going forward
       if (currentTime < endTime) {
@@ -241,7 +234,8 @@ const MainTangle: React.FC<MainTangleProps> = props => {
       <div className={styles.root} style={{ opacity: props.opacity }}>
         <div
           className={`interactive-main-tangle ${styles.svgContainer}`}
-          ref={mainEl}>
+          ref={mainEl}
+        >
           <SVG
             className={styles.svg}
             src={untangleAnimation}

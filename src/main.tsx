@@ -91,7 +91,6 @@ function preInit() {
 
     // Check if panel has config
     if (idString !== "panel") {
-      // console.log("id string:", idString);
       // Get alternating case config
       const panelConfig = alternatingCaseToObject(idString);
 

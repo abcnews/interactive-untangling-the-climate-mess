@@ -21,7 +21,6 @@ const OrganicPanel: React.FC<OrganicPanelProps> = ({
     if (typeof contentEl === "undefined") return;
 
     if (thisRef.current) {
-      console.log(thisRef.current);
       const componentEl: any = thisRef.current;
       componentEl.appendChild(contentEl);
     }

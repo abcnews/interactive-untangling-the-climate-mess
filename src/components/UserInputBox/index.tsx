@@ -139,8 +139,6 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
 
     handleUserInput(questionKey, selected);
 
-    console.log(selected);
-
     // See if there's response text to show
     const selectedButton = buttons.find(button => {
       return button.value === selected;

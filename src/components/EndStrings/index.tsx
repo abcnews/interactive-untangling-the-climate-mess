@@ -25,7 +25,7 @@ const stringAnimations = {
   transportation: string2Animation,
   carboncapture: string3Animation,
   industry: string4Animation,
-  livestock: string5Animation,
+  livestock: string5Animation
 };
 
 const PLAY_RATE = 0.8;
@@ -38,7 +38,7 @@ interface EndStringsProps {
   stringsNew?: any;
 }
 
-const EndStrings: React.FC<EndStringsProps> = (props) => {
+const EndStrings: React.FC<EndStringsProps> = props => {
   const [allLoaded, setAllLoaded] = useState(false);
   const [stringOne, setStringOne] = useState(false);
   const [strings, setStrings] = useState({
@@ -46,7 +46,7 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
     transportation: 0,
     carboncapture: 0,
     industry: 0,
-    livestock: 0,
+    livestock: 0
   });
 
   function initAnimations(iteration) {
@@ -69,7 +69,6 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
 
   function resetAnimations() {
     for (const tl in timelines) {
-      console.log(tl);
       timelines[tl].pause(0);
     }
   }
@@ -100,11 +99,6 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
         timelines[key].loop(false);
         timelines[key].play();
 
-
-
-
-
-
         timelines[key].onfinish = function () {
           this.loop(true);
           this.range("1a", "2");
@@ -120,7 +114,6 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
         timelines[key].loop(false);
         timelines[key].play();
 
-
         timelines[key].onfinish = function () {
           // this.loop(true);
           // this.range("1a", "2");
@@ -131,31 +124,6 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
     }
 
     setStrings(stringsNew);
-
-    // TODO: find a better way to do this......
-
-    // console.log("strings:", strings);
-
-    // for (const string in strings) {
-    //   const currentTime = timelines[string].time();
-    //   console.log(strings[string])
-    //   if (strings[string]) {
-    //     timelines[string].range(currentTime, "1a");
-    //     timelines[string].play();
-    //   } else {
-    //     timelines[string].range(currentTime);
-    //     timelines[string].play();
-    //   }
-    // }
-
-    // const currentTime = timelines.one.time();
-    // if (stringOne) {
-    //   timelines.one.range(currentTime, "1a");
-    //   timelines.one.play();
-    // } else {
-    //   timelines.one.range(currentTime, timelines.one.duration() - 100);
-    //   timelines.one.play();
-    // }
   }, [props.stringsNew]);
 
   return (
@@ -165,7 +133,7 @@ const EndStrings: React.FC<EndStringsProps> = (props) => {
           <div className={styles.svgLayer} key={index}>
             <SVG
               src={svg}
-              preProcessor={(code) => {
+              preProcessor={code => {
                 return code;
               }}
               onLoad={(src, hasCache) => {

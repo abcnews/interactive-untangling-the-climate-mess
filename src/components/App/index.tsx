@@ -171,8 +171,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   // onMount
   useEffect(() => {
-    console.log("App mounted...");
-
     pollGet().then((result: any) => {
       const values = result.value;
 
@@ -206,8 +204,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
       setAustraliaStrings(pollTotals);
 
-      console.log("Poll totals", pollTotals);
-
       let localAusConvinced = 0;
 
       for (const area in pollTotals) {
@@ -215,8 +211,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       }
 
       setAustraliaConvincedOf(localAusConvinced);
-
-      console.log("Aus convinced of:", localAusConvinced);
     });
 
     // Listen for scroll
@@ -228,46 +222,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     const panelsArray = [...panelStarters];
 
     setInteractivePanelElements(panelsArray);
-
-    // for (const panel of panelsArray) {
-    //   // Get id string of panel
-    //   const idString: string = panel.id;
-
-    //   // Check if panel has config
-    //   if (idString !== "interactivepanel") {
-    //     console.log("id string:", idString);
-    //     // Get alternating case config
-    //     const panelConfig = alternatingCaseToObject(idString);
-    //   }
-
-    // const container = document.createElement("div");
-    // container.className = styles.panelContentContainer;
-    // panel.className = styles.panel;
-
-    // // Get id string of panel
-    // const idString: string = panel.id;
-
-    // // Check if panel has config
-    // if (idString !== "panel") {
-    //   console.log("id string:", idString);
-    //   // Get alternating case config
-    //   const panelConfig = alternatingCaseToObject(idString);
-    //   console.log("Panel config:", panelConfig);
-    //   if (panelConfig.center) {
-    //     panel.classList.add("nopullright");
-    //   }
-    // }
-
-    // const elements = nextUntil(panel, "#endpanel");
-
-    // // Add content to container element
-    // for (const element of elements) {
-    //   container.appendChild(element);
-    // }
-
-    // // Add container to panel
-    // panel.appendChild(container);
-    // }
 
     // Let's try to convert some anchors into colored pillboxes
     const anchor = document.getElementsByTagName("a");
@@ -281,13 +235,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       if (match) {
         const config = alternatingCaseToObject(match[0]);
 
-        console.log(config.color);
-
         const pillEl = document.createElement("strong");
         pillEl.innerHTML = el.innerHTML;
 
-        pillEl.classList.add(styles.pillbox)
-        pillEl.style.backgroundColor = `#${config.color}`
+        pillEl.classList.add(styles.pillbox);
+        pillEl.style.backgroundColor = `#${config.color}`;
 
         if (el.parentNode) {
           el.parentNode.replaceChild(pillEl, el);
@@ -325,7 +277,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
       // Wait a while before we bring in the tangle
       setTimeout(() => {
-        console.log(markerRef.current);
         if (markerRef.current === "initial")
           setMainTangleYPos(TANGLE_DOWNPAGE_START);
         else setMainTangleYPos(markerConfig[markerRef.current] || 0.01);
@@ -507,8 +458,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     // This effect does something depending on what marker it is
     if (typeof marker === "undefined") return;
 
-    console.log("Marker pos:", markerConfig[marker]);
-
     // Position tangle according to marker
     if (
       typeof markerConfig[marker] !== "undefined" &&
@@ -579,6 +528,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         livestock: 0
       });
     }
+
+    console.log("Current marker", marker);
   }, [marker]);
 
   return (
@@ -884,9 +835,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {interactivePanelElements?.map((panel, iteration) => {
           const panelConfig = alternatingCaseToObject(panel.id);
-
-          // TODO: Cycle between variants
-          // console.log(iteration);
 
           return (
             <Portal key={iteration} node={panel}>

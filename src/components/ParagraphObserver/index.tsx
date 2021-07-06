@@ -63,19 +63,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
   let mainTangle = component.mainTangle;
 
   const processObservation = entries => {
-    // console.log("OBSERVATION!!!", entries);
-
-    // Process (turbo boosted) on animation frame events
-    // THIS ONE VISIBLE FUNCTION DIDN'T WORK PROPERLY: DELETE
-    // if (isOneVisible(entries)) {
-    //   monitorScroll = true;
-    // } else {
-    //   monitorScroll = false;
-    //   // Fix fast scrolling up doesn't trigger onScroll
-    //   console.log("Not monitoring???")
-    //   positionTangle(mainTangle, 0);
-    // }
-
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         observationElementCount++;
@@ -149,7 +136,6 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
 
   function later(value) {
     return new Promise(function (resolve) {
-      console.log("unhiding...");
       mainTangle.style.visibility = "visible";
 
       resolve(value);
@@ -167,43 +153,16 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
       return false;
     } else lastPosition = window.pageYOffset;
 
-    // Process below per animation frame while scrolling
-
-    // We can either use paragraph text or the panel
-    // const { top } = currentElements[0].getBoundingClientRect();
-    // const { bottom } = currentElements[
-    //   currentElements.length - 1
-    // ].getBoundingClientRect();
-
     const { top, bottom } = currentPanel.getBoundingClientRect();
 
     const topPixelsAboveFold = window.innerHeight - top;
     const bottomPixelsAboveFold = window.innerHeight - bottom;
 
-    // console.log("Top:", top);
-    // console.log("Bottom:", bottom);
-    // console.log("Top above Fold:", topPixelsAboveFold);
-    // console.log("Bottom above Fold:", bottomPixelsAboveFold);
-
-    // TODO: This will require tweaking so that the animation
-    // appears seamless. Use positionTangleImmediate() to get the animation down the bottom.
-
-    // if (top < 300 && top > -300) {
-    //   flipImmediate = true;
-    // } else {
-    //   flipImmediate = false;
-    // }
-
-    // const { top: mainTop } = mainTangle.getBoundingClientRect();
-    // console.log(mainTop);
-
     if (top > 0) {
       // We are pushing top up
 
       if (!mainOnTop) {
-        // console.log("Flip to top");
         mainTangle.style.visibility = "hidden";
-        // unHideMainTangle();
         immediatePosition = true;
         mainOnTop = true;
       }
@@ -213,22 +172,11 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
       }
 
       positionTangle(mainTangle, -topPixelsAboveFold);
-
-      // if (immediatePosition) {
-      //   positionTangleImmediate(mainTangle, -topPixelsAboveFold);
-      // } else {
-      //   console.log("Positioning with delay...")
-      //   positionTangle(mainTangle, -topPixelsAboveFold);
-      // }
     } else {
       // We are pulling from underneath
 
       if (mainOnTop) {
-        // console.log("Flip to bottom");
         mainTangle.style.visibility = "hidden";
-        // Set an unhide for 1 second
-        // unHideMainTangle();
-        // immediatePosition = true;
 
         mainOnTop = false;
       }
@@ -238,71 +186,7 @@ const ParagraphObserver: React.FC<ParagraphObserverProps> = props => {
       }
 
       positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
-
-      // if (mainTop > window.innerHeight) {
-      //   immediatePosition = false;
-      // }
-
-      // if (immediatePosition) {
-      //   positionTangleImmediate(
-      //     mainTangle,
-      //     window.innerHeight - bottomPixelsAboveFold
-      //   );
-
-      //   console.log(window.innerHeight - bottomPixelsAboveFold)
-
-      //   // positionTangleImmediateFromTo(
-      //   //   mainTangle,
-      //   //   window.innerHeight - bottomPixelsAboveFold,
-      //   //   window.innerHeight - bottomPixelsAboveFold
-      //   // );
-      // } else {
-      //   console.log("Positioning with delay...")
-      // positionTangle(mainTangle, window.innerHeight - bottomPixelsAboveFold);
-      // }
     }
-
-    // if (topPixelsAboveFold > window.innerHeight - 200) {
-    //   positionTangleImmediate(mainTangle, window.innerHeight - bottomPixelsAboveFold + 400);
-    // } else {
-    //   if (topPixelsAboveFold < 0 || bottom < 0) {
-    //     positionTangleImmediate(mainTangle, 0);
-    //   } else {
-    //     positionTangleImmediate(
-    //       mainTangle,
-    //       // Don't go too far up if you don't have to
-    //       topPixelsAboveFold > window.innerHeight
-    //         ? -window.innerHeight
-    //         : -topPixelsAboveFold
-    //     );
-    //   }
-    // }
-
-    //
-
-    // FADE IN TEXT AS WE SCROLL
-    // (REMOVED FOR NOW)
-    // Above threshold make fully visible
-    // if (topPixelsAboveFold > FADE_IN_TEXT_THRESHOLD) {
-    //   // If not already fully visible...
-    //   if (currentElements[0].style.opacity < 1.0) {
-    //     currentElements.forEach((element) => {
-    //       element.style.opacity = 1.0;
-    //     });
-    //   }
-    // } else {
-    //   // Below the fold, make invisible
-    //   if (topPixelsAboveFold < 0) {
-    //     currentElements.forEach((element) => {
-    //       element.style.opacity = 0;
-    //     });
-    //   } else {
-    //     currentElements.forEach((element) => {
-    //       // Set elements visible corresponding to scroll position
-    //       element.style.opacity = fromBottomScale(topPixelsAboveFold);
-    //     });
-    //   }
-    // }
 
     // Recall the loop
     if (monitorScroll && rAf) rAf(onScroll);
