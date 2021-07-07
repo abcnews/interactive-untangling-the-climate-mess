@@ -151,9 +151,6 @@ function preInit() {
       nextSibling.style.color = `#${config.color}`;
     }
   });
-
-  const anchors = document.getElementsByTagName("a");
-  console.log(anchors)
 }
 
 function init() {

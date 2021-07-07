@@ -243,7 +243,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       const match = href.match(reg);
 
       if (match) {
-        console.log(pill);
         const config = alternatingCaseToObject(match[0]);
   
         const pillEl = document.createElement("strong");
