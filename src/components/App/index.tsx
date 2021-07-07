@@ -599,7 +599,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Energy questions */}
 
-        <Portal node={document && document.getElementById("inputradelaide")}>
+        {/* <Portal node={document && document.getElementById("inputradelaide")}>
           <UserInputBox
             color={"#A3297C"}
             questionKey="ASIDE1-south-australia-battery-good"
@@ -610,9 +610,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             ]}
             setUserInputState={setUserInputState}
           />
-        </Portal>
+        </Portal> */}
 
-        <Portal node={document && document.getElementById("inputtoast")}>
+        {/* <Portal node={document && document.getElementById("inputtoast")}>
           <UserInputBox
             color={"#A3297C"}
             questionKey="ASIDE2-toast-affordable-zero-carbon"
@@ -625,7 +625,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             ]}
             setUserInputState={setUserInputState}
           />
-        </Portal>
+        </Portal> */}
 
         <Portal node={document && document.getElementById("inputzerocarbon")}>
           <UserInputBox
@@ -662,7 +662,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <Portal
+        {/* <Portal
           node={document && document.getElementById("inputcarscansaveus")}
         >
           <UserInputBox
@@ -676,7 +676,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             padding={true}
             setUserInputState={setUserInputState}
           />
-        </Portal>
+        </Portal> */}
 
         <Portal
           node={document && document.getElementById("inputfossiltransport")}
@@ -716,7 +716,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <Portal node={document && document.getElementById("inputbigseaweed")}>
+        {/* <Portal node={document && document.getElementById("inputbigseaweed")}>
           <UserInputBox
             color={"#0076C5"}
             questionKey="ASIDE4-big-seaweed"
@@ -727,7 +727,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             ]}
             setUserInputState={setUserInputState}
           />
-        </Portal>
+        </Portal> */}
 
         <Portal
           node={document && document.getElementById("inputcarboncapture")}
@@ -746,7 +746,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        <Portal node={document && document.getElementById("inputmosquito")}>
+        {/* <Portal node={document && document.getElementById("inputmosquito")}>
           <UserInputBox
             color={"#0076C5"}
             questionKey="ASIDE5-australia-make-a-difference"
@@ -757,7 +757,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             ]}
             setUserInputState={setUserInputState}
           />
-        </Portal>
+        </Portal> */}
 
         <Portal node={document && document.getElementById("inputtier1again")}>
           <UserInputBox
