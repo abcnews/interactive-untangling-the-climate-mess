@@ -23,7 +23,7 @@ const isOneVisible = entries => {
 };
 
 interface ParagraphPanelProps {
-  toggle: Function;
+  toggle?: Function;
 }
 
 const ParagraphPanel: React.FC<ParagraphPanelProps> = props => {
@@ -124,9 +124,9 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = props => {
     };
   }, []);
 
-  useEffect(() => {
-    props.toggle(visible);
-  }, [visible]);
+  // useEffect(() => {
+  //   props.toggle(visible);
+  // }, [visible]);
 
   useEffect(() => {
     const paragraphStartMarkers: any = document.querySelectorAll(

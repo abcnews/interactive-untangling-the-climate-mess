@@ -6,7 +6,7 @@
   min-height: 90vh;
   text-align: center;
   padding-top: 30vh;
-  padding-bottom: 45vh;
+  // padding-bottom: 45vh;
   max-width: 650px;
   margin: auto;
   // padding-left: 35px;
@@ -25,6 +25,10 @@
     padding-bottom: 45vh;
     // margin-left: 2rem;
     // margin-right: 0.8rem;
+  }
+
+  .panel:last-of-type {
+    padding-bottom: 0;
   }
 
   // p {

@@ -120,7 +120,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     industry: 1,
     livestock: 1
   });
-  const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
+  // const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
   const [interactivePanelElements, setInteractivePanelElements]: [
     any,
     any
@@ -224,28 +224,83 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     setInteractivePanelElements(panelsArray);
 
     // Let's try to convert some anchors into colored pillboxes
-    const anchor = document.getElementsByTagName("a");
-    for (var idx = 0; idx < anchor.length; ++idx) {
-      const el = anchor[idx];
+    const anchors = document.getElementsByTagName("a");
+    const anchorArray = Array.from(anchors);
 
-      const href: string = anchor[idx].href || "";
+    // Filter the ones with #pillbox
+    const pillBoxes = anchorArray.filter(anchor => {
+      const href: string = anchor.href || "";
+      const reg = /#pillbox.*/;
+      const match = href.match(reg);
+
+      if (match) return true;
+    });
+
+    // Loop through and transform
+    for (const pill of pillBoxes) {
+      const href: string = pill.href || "";
       const reg = /#pillbox.*/;
       const match = href.match(reg);
 
       if (match) {
+        console.log(pill);
         const config = alternatingCaseToObject(match[0]);
-
+  
         const pillEl = document.createElement("strong");
-        pillEl.innerHTML = el.innerHTML;
-
+        pillEl.innerHTML = pill.innerHTML;
+  
         pillEl.classList.add(styles.pillbox);
         pillEl.style.backgroundColor = `#${config.color}`;
-
-        if (el.parentNode) {
-          el.parentNode.replaceChild(pillEl, el);
+  
+        if (pill.parentNode) {
+          pill.parentNode.replaceChild(pillEl, pill);
         }
       }
+
+      
     }
+    // const el = anchors[idx];
+
+    // const href: string = anchor.href || "";
+    // const reg = /#pillbox.*/;
+    // const match = href.match(reg);
+
+    // if (match) {
+    //   console.log(match);
+    // const config = alternatingCaseToObject(match[0]);
+
+    // const pillEl = document.createElement("strong");
+    // pillEl.innerHTML = anchor.innerHTML;
+
+    // pillEl.classList.add(styles.pillbox);
+    // pillEl.style.backgroundColor = `#${config.color}`;
+
+    // if (anchor.parentNode) {
+    //   anchor.parentNode.replaceChild(pillEl, anchor);
+    // }
+
+    // for (var idx = 0; idx < anchors.length; ++idx) {
+    //   const el = anchors[idx];
+
+    //   const href: string = anchors[idx].href || "";
+    //   const reg = /#pillbox.*/;
+    //   const match = href.match(reg);
+
+    //   if (match) {
+    //     console.log(match);
+    //     const config = alternatingCaseToObject(match[0]);
+
+    //     const pillEl = document.createElement("strong");
+    //     pillEl.innerHTML = el.innerHTML;
+
+    //     pillEl.classList.add(styles.pillbox);
+    //     pillEl.style.backgroundColor = `#${config.color}`;
+
+    //     if (el.parentNode) {
+    //       el.parentNode.replaceChild(pillEl, el);
+    //     }
+    //   }
+    // }
 
     return () => {
       // unsubscribe(onSubscriptionUpdate);
@@ -776,15 +831,30 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         <Portal node={document && document.getElementById("chartproportions")}>
           <BarChart
             bars={[
-              { title: "Enery", percent: 33, color: "#A3297C", textColor:  "#A3297C"},
+              {
+                title: "Enery",
+                percent: 33,
+                color: "#A3297C",
+                textColor: "#A3297C"
+              },
               {
                 title: "Burping cows",
                 percent: 10,
                 color: "#2A4059",
                 textColor: "#2A4059"
               },
-              { title: "Transport", percent: 20, color: "#007B52", textColor: "#007B52" },
-              { title: "Industry", percent: 40, color: "#F65C1B",textColor: "#C42F05" }
+              {
+                title: "Transport",
+                percent: 20,
+                color: "#007B52",
+                textColor: "#007B52"
+              },
+              {
+                title: "Industry",
+                percent: 40,
+                color: "#F65C1B",
+                textColor: "#C42F05"
+              }
             ]}
           />
         </Portal>
@@ -824,10 +894,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         scrolly panels (and hide background animations on mobile) */}
         {backgroundIsRendered && (
           <>
+            {/* A panel that goes over the top with paragraph text on it #paragraphpanel */}
+            <ParagraphPanel
+            // toggle={setParagraphTextVisible}
+            />
+
             <ParagraphObserver
             // setYOffset={setBackdropOffset}
             />
-            <ParagraphPanel toggle={setParagraphTextVisible} />
           </>
         )}
 
