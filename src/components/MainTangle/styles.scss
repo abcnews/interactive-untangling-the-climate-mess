@@ -9,8 +9,8 @@
   left: 0;
   width: 100%;
   max-width: 100%;
-  // transform: translateX(-50%);
   text-align: right;
+  transition: opacity 1s;
 
   // Keep SVG in window
   svg {

@@ -7,7 +7,7 @@ import { nextUntil } from "../../nextUntil";
 const d3 = { ...require("d3-scale") };
 
 const HEIGHT_COMPENSATION = 600;
-const FADE_IN_THRESHOLD = 300;
+const FADE_IN_THRESHOLD = window.innerHeight * 0.2;
 
 const fromBottomScale = d3
   .scaleLinear()
@@ -28,7 +28,7 @@ interface ParagraphFadeProps {
 }
 
 const ParagraphFade: React.FC<ParagraphFadeProps> = ({
-  setMainTangleOpacity = null,
+  setMainTangleOpacity,
   ...props
 }) => {
   const windowSize = useWindowSize();
@@ -52,7 +52,7 @@ const ParagraphFade: React.FC<ParagraphFadeProps> = ({
     }
 
     entries.forEach(entry => {
-      setVisible(entry.isIntersecting);
+      // setVisible(entry.isIntersecting);
 
       if (entry.isIntersecting) {
         currentPanel = entry.target;
@@ -66,13 +66,35 @@ const ParagraphFade: React.FC<ParagraphFadeProps> = ({
   // We need a scroll handler now to process paragraph fading
   const onScroll = () => {
     const top = currentElements[0].getBoundingClientRect().top;
-    const fromFold = window.innerHeight - top;
+    const topFromFold = window.innerHeight - top;
 
-    console.log("From fold:", fromFold);
+    const bottomFromTop = currentElements[
+      currentElements.length - 1
+    ].getBoundingClientRect().bottom;
 
-    if (setMainTangleOpacity && fromFold > 0) {
-      setMainTangleOpacity(fromBottomScale(fromFold));
+    console.log("Top:", topFromFold);
+
+    // Trigger top animation
+    if (topFromFold > 0 && topFromFold < FADE_IN_THRESHOLD) {
+      setMainTangleOpacity(fromBottomScale(topFromFold));
+    } else if (topFromFold <= 0) {
+      setMainTangleOpacity(1.0);
+    } else if (bottomFromTop > FADE_IN_THRESHOLD) {
+      setMainTangleOpacity(0.0);
+    } else if (bottomFromTop > 0 && bottomFromTop < FADE_IN_THRESHOLD) {
+      setMainTangleOpacity(fromBottomScale(bottomFromTop));
+    } else if (bottomFromTop < 0) {
+      setMainTangleOpacity(1.0);
     }
+
+    // If text below fold, set main tangle fully visible
+    // if (topFromFold < 0) setMainTangleOpacity(1.0);
+    // else if (topFromFold > FADE_IN_THRESHOLD) {
+    //   // Scrolled enough, just hide main tangle
+    //   setMainTangleOpacity(0.0);
+    // } else if (topFromFold > 0) {
+    //   setMainTangleOpacity(fromBottomScale(topFromFold));
+    // }
 
     // if (fromFold > FADE_IN_THRESHOLD) {
     //   // Already fully visible, never mind...
