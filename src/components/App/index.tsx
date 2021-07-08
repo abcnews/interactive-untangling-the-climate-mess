@@ -12,7 +12,7 @@ import ScrollObserver from "../ScrollObserver/index";
 import ParagraphObserver from "../ParagraphObserver/index";
 import ParagraphPanel from "../ParagraphPanel/index";
 import DelayedHeader from "../DelayedHeader/index";
-// import { gsap } from "gsap";
+import ParagraphFade from "../ParagraphFade";
 
 import { Client } from "@abcnews/poll-counters-client";
 
@@ -25,6 +25,7 @@ import BarChart from "../BarChart/index";
 import DynamicText from "../DynamicText";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 import InteractivePanel from "../InteractivePanel/index";
+
 
 const d3 = { ...require("d3-scale") };
 
@@ -901,6 +902,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             <ParagraphObserver
             // setYOffset={setBackdropOffset}
             />
+
+            <ParagraphFade setMainTangleOpacity={setMainTangleOpacity} />
           </>
         )}
 

@@ -7,12 +7,12 @@ import { nextUntil } from "../../nextUntil";
 const d3 = { ...require("d3-scale") };
 
 const HEIGHT_COMPENSATION = 600;
-const FADE_IN_TEXT_THRESHOLD = 300;
+const FADE_IN_THRESHOLD = 300;
 
 const fromBottomScale = d3
   .scaleLinear()
-  .domain([0, FADE_IN_TEXT_THRESHOLD])
-  .range([0, 1.0]);
+  .domain([0, FADE_IN_THRESHOLD])
+  .range([1.0, 0.0]);
 
 // Detect if at least one intersection is visible
 const isOneVisible = entries => {
@@ -24,9 +24,13 @@ const isOneVisible = entries => {
 
 interface ParagraphFadeProps {
   toggle?: Function;
+  setMainTangleOpacity: Function;
 }
 
-const ParagraphFade: React.FC<ParagraphFadeProps> = props => {
+const ParagraphFade: React.FC<ParagraphFadeProps> = ({
+  setMainTangleOpacity = null,
+  ...props
+}) => {
   const windowSize = useWindowSize();
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -64,28 +68,34 @@ const ParagraphFade: React.FC<ParagraphFadeProps> = props => {
     const top = currentElements[0].getBoundingClientRect().top;
     const fromFold = window.innerHeight - top;
 
-    if (fromFold > FADE_IN_TEXT_THRESHOLD) {
-      // Already fully visible, never mind...
-      if (currentElements[0].style.opacity >= 1.0) return;
+    console.log("From fold:", fromFold);
 
-      // Otherwise set visible and return
-      currentElements.forEach(element => {
-        element.style.opacity = 1.0;
-      });
-      return;
+    if (setMainTangleOpacity && fromFold > 0) {
+      setMainTangleOpacity(fromBottomScale(fromFold));
     }
 
-    // Below the fold, make invisible
-    if (fromFold < 0) {
-      currentElements.forEach(element => {
-        element.style.opacity = 0;
-      });
-    } else {
-      currentElements.forEach(element => {
-        // Set elements visible corresponding to scroll position
-        element.style.opacity = fromBottomScale(fromFold);
-      });
-    }
+    // if (fromFold > FADE_IN_THRESHOLD) {
+    //   // Already fully visible, never mind...
+    //   if (currentElements[0].style.opacity >= 1.0) return;
+
+    //   // Otherwise set visible and return
+    //   currentElements.forEach(element => {
+    //     element.style.opacity = 1.0;
+    //   });
+    //   return;
+    // }
+
+    // // Below the fold, make invisible
+    // if (fromFold < 0) {
+    //   currentElements.forEach(element => {
+    //     element.style.opacity = 0;
+    //   });
+    // } else {
+    //   currentElements.forEach(element => {
+    //     // Set elements visible corresponding to scroll position
+    //     element.style.opacity = fromBottomScale(fromFold);
+    //   });
+    // }
   };
 
   useEffect(() => {
