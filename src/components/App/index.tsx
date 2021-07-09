@@ -22,10 +22,9 @@ import { AppContext } from "../../AppContext";
 // Other imports etc.
 import EndStrings from "../EndStrings";
 import BarChart from "../BarChart/index";
-import DynamicText from "../DynamicText";
+// import DynamicText from "../DynamicText";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 import InteractivePanel from "../InteractivePanel/index";
-
 
 const d3 = { ...require("d3-scale") };
 
@@ -245,19 +244,17 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
       if (match) {
         const config = alternatingCaseToObject(match[0]);
-  
+
         const pillEl = document.createElement("strong");
         pillEl.innerHTML = pill.innerHTML;
-  
+
         pillEl.classList.add(styles.pillbox);
         pillEl.style.backgroundColor = `#${config.color}`;
-  
+
         if (pill.parentNode) {
           pill.parentNode.replaceChild(pillEl, pill);
         }
       }
-
-      
     }
     // const el = anchors[idx];
 
@@ -514,12 +511,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     if (typeof marker === "undefined") return;
 
     // Position tangle according to marker
-    if (
-      typeof markerConfig[marker] !== "undefined" &&
-      initialPositioningComplete
-    ) {
-      setMainTangleYPos(markerConfig[marker]);
-    }
+    // TODO: Now handled by CoreMedia #hash
+    // if (
+    //   typeof markerConfig[marker] !== "undefined" &&
+    //   initialPositioningComplete
+    // ) {
+    //   setMainTangleYPos(markerConfig[marker]);
+    // }
 
     if (marker === 18) {
       // Hide main tangle for performance sake
@@ -888,7 +886,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           <BackgroundTexture />
         </Portal>
 
-        <ScrollObserver setMarker={setMarker} />
+        <ScrollObserver
+          setMarker={setMarker}
+          setMainTangleYPos={setMainTangleYPos}
+        />
 
         {/* Sets paragraph text where we break out of 
         scrolly panels (and hide background animations on mobile) */}

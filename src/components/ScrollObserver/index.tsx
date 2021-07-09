@@ -7,11 +7,15 @@ const DEADZONE_ADJUST = 500; // How fast can a user scroll?
 
 // Define all the props for the component
 interface ScrollObserverProps {
+  setMainTangleYPos: Function;
   setMarker: Function;
   waypoint?: number;
 }
 
-const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
+const ScrollObserver: React.FC<ScrollObserverProps> = ({
+  setMainTangleYPos,
+  ...props
+}) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
@@ -22,9 +26,9 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
   let closestEntry = component.closestEntry;
 
   // This is called when a marker comes in or out of observation
-  let processMarker = (entries) => {
+  let processMarker = entries => {
     // Note: will usually only happen once (even though this is a forEach)
-    entries.forEach((entry) => {
+    entries.forEach(entry => {
       // Ignore once per marker due to Intersection Observer firing on page load
       if (initCount < markerEls.length) {
         // Set closest marker on load
@@ -32,8 +36,7 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
           closestEntry = entry;
         } else {
           // See if this marker is closer to the trigger point
-          const triggerPoint =
-            window.innerHeight * (props.waypoint! / 100);
+          const triggerPoint = window.innerHeight * (props.waypoint! / 100);
 
           const comparisonDistance = Math.abs(
             triggerPoint - closestEntry.boundingClientRect.y
@@ -66,15 +69,29 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
       const idString: string = entry.target.id;
       const markerObject = alternatingCaseToObject(idString);
 
+      let positionY;
+
+      // Moving forward, otherwise moving back
       if (entry.isIntersecting) {
         props.setMarker(markerObject.key);
+        console.log("Hash config", markerObject);
+        positionY = markerObject.position;
       } else {
         const currentIndex = +entry.target.dataset.index;
         const previousIndex = currentIndex === 0 ? 0 : currentIndex - 1;
         const previousMarkerEl = markerEls[previousIndex];
         const previousIdString: string = previousMarkerEl.id;
         const previousMarkerObject = alternatingCaseToObject(previousIdString);
+        console.log("Hash config", previousMarkerObject);
+        positionY = previousMarkerObject.position;
         props.setMarker(previousMarkerObject.key);
+      }
+
+      console.log(positionY);
+
+      // If position is set in Core, set it here
+      if (positionY) {
+        setMainTangleYPos(positionY / 100);
       }
     });
   };
@@ -83,7 +100,7 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
   useEffect(() => {
     observer = new IntersectionObserver(processMarker, {
       // Pull root top above the viewport
-      rootMargin: `${ROOT_PULL}px 0% -${100 - props.waypoint!}%`,
+      rootMargin: `${ROOT_PULL}px 0% -${100 - props.waypoint!}%`
     });
 
     markerEls = document.querySelectorAll('*[id^="visualKEY"]');
@@ -109,5 +126,5 @@ const ScrollObserver: React.FC<ScrollObserverProps> = (props) => {
 export default ScrollObserver;
 
 ScrollObserver.defaultProps = {
-  waypoint: 100,
+  waypoint: 100
 };

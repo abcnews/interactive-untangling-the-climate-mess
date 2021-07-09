@@ -75,18 +75,6 @@ const Bar = ({ color, percent, title, textColor, index = 0, ...props }) => {
           />
         </svg>
       )}
-
-      {/* Deprecated in favour of organic bars */}
-      {/* <div className={styles.barOutline}>
-        <div
-          className={styles.bar}
-          style={{
-            width: `${percent}%`,
-            backgroundColor: color,
-            boxShadow: `0 0 0 3px ${color}`
-          }}
-        ></div>
-      </div> */}
     </div>
   );
 };
@@ -96,7 +84,7 @@ interface BarChartProps {
   bars?: any[];
 }
 
-const BarChart: React.FC<BarChartProps> = ({ heading, bars }) => {
+const BarChart: React.FC<BarChartProps> = ({ heading, bars, ...props }) => {
   return (
     <div className={styles.root}>
       {heading && <h3 className={styles.heading}>{heading}</h3>}
