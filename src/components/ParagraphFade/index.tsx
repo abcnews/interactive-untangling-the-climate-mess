@@ -72,8 +72,6 @@ const ParagraphFade: React.FC<ParagraphFadeProps> = ({
       currentElements.length - 1
     ].getBoundingClientRect().bottom;
 
-    console.log("Top:", topFromFold);
-
     // Trigger top animation
     if (topFromFold > 0 && topFromFold < FADE_IN_THRESHOLD) {
       setMainTangleOpacity(fromBottomScale(topFromFold));
