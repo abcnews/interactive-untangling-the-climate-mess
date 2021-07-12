@@ -164,6 +164,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           answer: "engagement-count"
         })
       );
+
+      if (err) console.error(err);
     })();
   }, [userHasEngaged]);
 
@@ -772,8 +774,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        
-
         <Portal node={document && document.getElementById("inputtier1again")}>
           <UserInputBox
             questionKey="MAINQ2-can-we-still-save-the-world-again-after-article"
@@ -819,8 +819,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             ]}
           />
         </Portal>
-
-        
 
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>

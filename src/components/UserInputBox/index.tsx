@@ -3,6 +3,7 @@ import styles from "./styles.scss";
 import { Client } from "@abcnews/poll-counters-client";
 import debounce from "debounce-promise";
 import to from "await-to-js";
+import { CSSTransition } from "react-transition-group";
 
 // Set up our poll counter
 // const GROUP = "interactive-untangling-the-climate-mess";
@@ -211,9 +212,11 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
           );
         })}
       </div>
-      <div className={styles.responseBox} style={{ color: `${color}` }}>
-        {responseBox}
-      </div>
+      <CSSTransition in={typeof responseBox !== "undefined"} timeout={500} classNames={"response-box-styles"}>
+        <div className={styles.responseBox} style={{ color: `${color}` }}>
+          {responseBox}
+        </div>
+      </CSSTransition>
     </div>
   );
 };

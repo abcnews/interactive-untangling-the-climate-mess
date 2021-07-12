@@ -59,12 +59,28 @@
     * {
       color: unset;
     }
-    
   }
 
   .pre-title {
     margin-bottom: 0.2em;
     font-size: 17px;
     font-weight: 700;
+  }
+}
+
+:global {
+  .response-box-styles-enter {
+    opacity: 0;
+  }
+  .response-box-styles-enter-active {
+    opacity: 1;
+    transition: opacity 800ms;
+  }
+  .response-box-styles-exit {
+    opacity: 1;
+  }
+  .response-box-styles-exit-active {
+    opacity: 0;
+    transition: opacity 800ms;
   }
 }
