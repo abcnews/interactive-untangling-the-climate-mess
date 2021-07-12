@@ -8,11 +8,12 @@ const d3 = { ...require("d3-scale") };
 
 const HEIGHT_COMPENSATION = 600;
 const FADE_IN_THRESHOLD = window.innerHeight * 0.2;
+const OPACITY_MIN = 0.1;
 
 const fromBottomScale = d3
   .scaleLinear()
   .domain([0, FADE_IN_THRESHOLD])
-  .range([1.0, 0.0]);
+  .range([1.0, OPACITY_MIN]);
 
 // Detect if at least one intersection is visible
 const isOneVisible = entries => {
@@ -78,7 +79,7 @@ const ParagraphFade: React.FC<ParagraphFadeProps> = ({
     } else if (topFromFold <= 0) {
       setMainTangleOpacity(1.0);
     } else if (bottomFromTop > FADE_IN_THRESHOLD) {
-      setMainTangleOpacity(0.0);
+      setMainTangleOpacity(OPACITY_MIN);
     } else if (bottomFromTop > 0 && bottomFromTop < FADE_IN_THRESHOLD) {
       setMainTangleOpacity(fromBottomScale(bottomFromTop));
     } else if (bottomFromTop < 0) {
