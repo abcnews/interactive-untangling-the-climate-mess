@@ -120,7 +120,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     industry: 1,
     livestock: 1
   });
-  // const [paragraphTextVisible, setParagraphTextVisible] = useState(false);
   const [interactivePanelElements, setInteractivePanelElements]: [
     any,
     any
@@ -148,6 +147,14 @@ const App: React.FC<AppProps> = ({ projectName }) => {
    *
    * ... or later
    */
+
+  // Used to test if the user has actively engaged with the article
+  // (whether that is by reading it or clicking on a button, etc)
+  const [userHasEngaged, setUserHasEngaged] = useState(false);
+  useEffect(() => {
+    if (!userHasEngaged) return;
+    console.log("User has engaged!");
+  }, [userHasEngaged]);
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -540,8 +547,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
     // Make end strings visible if needed
     if (endStringsMarkers.includes(marker)) setEndTangleOpacity(1.0);
+    else setEndTangleOpacity(0.0);
 
-    // TODO: make mechanism for bringing in appropriate strings
+    // mechanism for bringing in appropriate strings
     if (marker === "endstrings") {
       setMainTangleOpacity(0.0);
 

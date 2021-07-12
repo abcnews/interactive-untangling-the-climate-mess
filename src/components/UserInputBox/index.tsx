@@ -16,6 +16,7 @@ const pollIncrement = (...args) =>
       resolve(question);
     });
   });
+
 const pollGet = (...args) =>
   new Promise((resolve, reject) => {
     pollClient.get(...args, (err, result) => {
@@ -119,6 +120,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
   }
 
   useEffect(() => {
+    // Set up component reference for a debounce
     component.debouncedPollIncrement = debounce(pollIncrement, 5000);
 
     // Set some default buttons (in case they're not set in App — but they will be)
@@ -132,6 +134,14 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
     } else {
       setButtons(props.buttons);
     }
+
+    // async test
+    const test = async () => {
+      const result = await pollGet({ question: questionKey });
+      console.log(result);
+    };
+
+    test();
   }, []); // Init effect
 
   useEffect(() => {

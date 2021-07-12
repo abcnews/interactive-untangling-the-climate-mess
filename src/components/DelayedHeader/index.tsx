@@ -67,7 +67,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
       </div>
 
       <div className={styles.panel}>
-        <div id="visualKEY2" data-component="Anchor" data-mount="true"></div>
+        {/* <div id="visualKEY2" data-component="Anchor" data-mount="true"></div> */}
         <OrganicPanel backgroundVariation={2}>
           {convert(contentArray[2])}
           {/* <p>
