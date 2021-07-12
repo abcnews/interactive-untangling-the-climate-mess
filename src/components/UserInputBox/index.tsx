@@ -5,25 +5,8 @@ import debounce from "debounce-promise";
 import to from "await-to-js";
 
 // Set up our poll counter
-const GROUP = "interactive-untangling-the-climate-mess";
-const pollClient = new Client(GROUP);
-
-// Promisify callback functions here whatever
-const pollIncrement = (...args) =>
-  new Promise((resolve, reject) => {
-    pollClient.increment(...args, (err, question) => {
-      if (err) return reject(err);
-      resolve(question);
-    });
-  });
-
-const pollGet = (...args) =>
-  new Promise((resolve, reject) => {
-    pollClient.get(...args, (err, result) => {
-      if (err) return reject(err);
-      resolve(result);
-    });
-  });
+// const GROUP = "interactive-untangling-the-climate-mess";
+// const pollClient = new Client(GROUP);
 
 interface Button {
   label: string;
@@ -40,6 +23,7 @@ interface UserInputBoxProps {
   handleUserInput?: any;
   padding?: boolean;
   color?: string;
+  pollClient: any;
 }
 
 const BackgroundSvg = ({
@@ -89,6 +73,8 @@ const BackgroundSvg = ({
 
 const UserInputBox: React.FC<UserInputBoxProps> = ({
   color = "#A3297C",
+  pollClient,
+  questionKey,
   ...props
 }) => {
   const [buttons, setButtons] = useState<Button[]>([{ label: "", value: "" }]);
@@ -98,7 +84,22 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
-  const { questionKey } = props;
+  // Promisify callback functions here whatever
+  const pollIncrement = (...args) =>
+    new Promise((resolve, reject) => {
+      pollClient.increment(...args, (err, question) => {
+        if (err) return reject(err);
+        resolve(question);
+      });
+    });
+
+  const pollGet = (...args) =>
+    new Promise((resolve, reject) => {
+      pollClient.get(...args, (err, result) => {
+        if (err) return reject(err);
+        resolve(result);
+      });
+    });
 
   const handleClick = (e: SyntheticEvent) => {
     const selectedId = (e.target as Element).id;
@@ -136,12 +137,12 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
     }
 
     // async test
-    const test = async () => {
-      const result = await pollGet({ question: questionKey });
-      console.log(result);
-    };
+    // const test = async () => {
+    //   const result = await pollGet({ question: questionKey });
+    //   console.log(result);
+    // };
 
-    test();
+    // test();
   }, []); // Init effect
 
   useEffect(() => {
@@ -159,7 +160,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
     // Set previous state
     if (props.setUserInputState) {
       props.setUserInputState(prevState => {
-        return { ...prevState, [props.questionKey]: selected };
+        return { ...prevState, [questionKey]: selected };
       });
     }
   }, [selected]);

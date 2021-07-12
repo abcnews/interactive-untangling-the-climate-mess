@@ -26,6 +26,8 @@ import BarChart from "../BarChart/index";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 import InteractivePanel from "../InteractivePanel/index";
 
+import to from "await-to-js";
+
 const d3 = { ...require("d3-scale") };
 
 // Set up our poll counter
@@ -154,6 +156,13 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   useEffect(() => {
     if (!userHasEngaged) return;
     console.log("User has engaged!");
+
+    (async () => {
+      const [err, result] = await to(pollIncrement({
+        question: "USERINFO",
+        answer: "engagement-count"
+      }));
+    })();
   }, [userHasEngaged]);
 
   const componentRef = useRef({});
@@ -590,6 +599,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       });
     }
 
+    // If user has scrolled enough, set them as has engaged
+    if (marker === 2) {
+      setUserHasEngaged(true);
+    }
+
     console.log("Current marker", marker);
   }, [marker]);
 
@@ -602,7 +616,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         <Portal node={document && document.getElementById("inputtier1")}>
           <UserInputBox
-            color={"#F65C1B"}
+            color={"#2A4059"}
             questionKey="MAINQ1-can-we-still-save-the-world"
             title={"Can we still save the world?"}
             buttons={[
@@ -655,6 +669,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             ]}
             poll={pollClient}
             setUserInputState={setUserInputState}
+            pollClient={pollClient}
           />
         </Portal>
 
@@ -700,6 +715,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "You're dreaming", value: "impossible" }
             ]}
             setUserInputState={setUserInputState}
+            pollClient={pollClient}
           />
         </Portal>
 
@@ -720,6 +736,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "You're dreaming", value: "impossible" }
             ]}
             setUserInputState={setUserInputState}
+            pollClient={pollClient}
           />
         </Portal>
 
@@ -755,6 +772,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "You're dreaming", value: "impossible" }
             ]}
             setUserInputState={setUserInputState}
+            pollClient={pollClient}
           />
         </Portal>
 
@@ -774,6 +792,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "You're dreaming", value: "impossible" }
             ]}
             setUserInputState={setUserInputState}
+            pollClient={pollClient}
           />
         </Portal>
 
@@ -804,6 +823,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "You're dreaming", value: "impossible" }
             ]}
             setUserInputState={setUserInputState}
+            pollClient={pollClient}
           />
         </Portal>
 
@@ -831,6 +851,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               { label: "No way we're screwed", value: "impossible" }
             ]}
             setUserInputState={setUserInputState}
+            pollClient={pollClient}
           />
         </Portal>
 
