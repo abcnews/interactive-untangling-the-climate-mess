@@ -1,4 +1,4 @@
-export default animate = () => {
+export default () => {
   return ks
     .animate(
       "#BlueStringJank",

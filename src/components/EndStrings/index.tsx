@@ -13,6 +13,7 @@ import endString5 from "./assets/end-string-5.svg";
 
 // Put them in an array
 const endStrings = [endString1, endString2, endString3, endString4, endString5];
+console.log(endStrings);
 
 import string1Animation from "./assets/end-string-1";
 import string2Animation from "./assets/end-string-2";
@@ -28,7 +29,7 @@ const stringAnimations = {
   livestock: string5Animation
 };
 
-const PLAY_RATE = 0.8;
+const PLAY_RATE = 1.0;
 
 // define our timesline, just module scoped for now
 let timelines: any = {};
@@ -40,7 +41,7 @@ interface EndStringsProps {
 
 const EndStrings: React.FC<EndStringsProps> = props => {
   const [allLoaded, setAllLoaded] = useState(false);
-  const [stringOne, setStringOne] = useState(false);
+  // const [stringOne, setStringOne] = useState(false);
   const [strings, setStrings] = useState({
     renewables: 0,
     transportation: 0,
@@ -60,6 +61,8 @@ const EndStrings: React.FC<EndStringsProps> = props => {
 
       setAllLoaded(true);
     }
+
+    console.log(stringAnimations[animationNumber]);
 
     // Load all timelines into a timeline object
     timelines[animationNumber] = stringAnimations[animationNumber]()
