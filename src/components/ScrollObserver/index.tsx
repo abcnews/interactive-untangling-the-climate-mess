@@ -87,8 +87,6 @@ const ScrollObserver: React.FC<ScrollObserverProps> = ({
         props.setMarker(previousMarkerObject.key);
       }
 
-      console.log(positionY);
-
       // If position is set in Core, set it here
       if (positionY) {
         setMainTangleYPos(positionY / 100);

@@ -5,11 +5,11 @@ import "../MainTangle/keyshape";
 declare let KeyshapeJS;
 
 // Load up end tangles
-import endString1 from "./assets/EndString1.svg";
-import endString2 from "./assets/EndString2.svg";
-import endString3 from "./assets/EndString3.svg";
-import endString4 from "./assets/EndString4.svg";
-import endString5 from "./assets/EndString5.svg";
+import endString1 from "./assets/end-string-1.svg";
+import endString2 from "./assets/end-string-2.svg";
+import endString3 from "./assets/end-string-3.svg";
+import endString4 from "./assets/end-string-4.svg";
+import endString5 from "./assets/end-string-5.svg";
 
 // Put them in an array
 const endStrings = [endString1, endString2, endString3, endString4, endString5];
