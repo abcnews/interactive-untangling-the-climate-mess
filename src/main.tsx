@@ -150,6 +150,11 @@ function preInit() {
       // nextSibling.setAttribute("style", `color: #${config.color}`);
       nextSibling.style.color = `#${config.color}`;
     }
+
+    // Add extra padding if in config
+    if (config.extrapadding && nextSibling) {
+      nextSibling.style.paddingBottom = `0.8em`;
+    }
   });
 }
 
