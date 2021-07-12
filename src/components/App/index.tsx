@@ -22,7 +22,6 @@ import { AppContext } from "../../AppContext";
 // Other imports etc.
 import EndStrings from "../EndStrings";
 import BarChart from "../BarChart/index";
-// import DynamicText from "../DynamicText";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 import InteractivePanel from "../InteractivePanel/index";
 
@@ -152,16 +151,19 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
   // Used to test if the user has actively engaged with the article
   // (whether that is by reading it or clicking on a button, etc)
+  // Immediately invoking this effect just because it will only be used once.
   const [userHasEngaged, setUserHasEngaged] = useState(false);
   useEffect(() => {
     if (!userHasEngaged) return;
     console.log("User has engaged!");
 
     (async () => {
-      const [err, result] = await to(pollIncrement({
-        question: "USERINFO",
-        answer: "engagement-count"
-      }));
+      const [err, result] = await to(
+        pollIncrement({
+          question: "USERINFO",
+          answer: "engagement-count"
+        })
+      );
     })();
   }, [userHasEngaged]);
 
@@ -675,34 +677,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
 
         {/* Energy questions */}
 
-        {/* <Portal node={document && document.getElementById("inputradelaide")}>
-          <UserInputBox
-            color={"#A3297C"}
-            questionKey="ASIDE1-south-australia-battery-good"
-            title={"Still laughing at South Australia?"}
-            buttons={[
-              { label: "No, good one Radelaide", value: "positive" },
-              { label: "Yes, they speak funny", value: "negative" }
-            ]}
-            setUserInputState={setUserInputState}
-          />
-        </Portal> */}
-
-        {/* <Portal node={document && document.getElementById("inputtoast")}>
-          <UserInputBox
-            color={"#A3297C"}
-            questionKey="ASIDE2-toast-affordable-zero-carbon"
-            title={
-              "So what do you reckon, can you have your toast in a zero carbon world and eat it too?"
-            }
-            buttons={[
-              { label: "Yeah", value: "positive" },
-              { label: "Nah", value: "negative" }
-            ]}
-            setUserInputState={setUserInputState}
-          />
-        </Portal> */}
-
         <Portal node={document && document.getElementById("inputzerocarbon")}>
           <UserInputBox
             color={"#A3297C"}
@@ -739,22 +713,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             pollClient={pollClient}
           />
         </Portal>
-
-        {/* <Portal
-          node={document && document.getElementById("inputcarscansaveus")}
-        >
-          <UserInputBox
-            color={"#007B52"}
-            questionKey="ASIDE3-electric-vehicles"
-            title={"So how are you feeling about EVs now?"}
-            buttons={[
-              { label: "CARS CAN SAVE US", value: "positive" },
-              { label: "UTEPOCALYPSE IS NIGH", value: "negative" }
-            ]}
-            padding={true}
-            setUserInputState={setUserInputState}
-          />
-        </Portal> */}
 
         <Portal
           node={document && document.getElementById("inputfossiltransport")}
@@ -796,19 +754,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        {/* <Portal node={document && document.getElementById("inputbigseaweed")}>
-          <UserInputBox
-            color={"#0076C5"}
-            questionKey="ASIDE4-big-seaweed"
-            title={"Where are you splashing your cash?"}
-            buttons={[
-              { label: "BIG SEAWEED", value: "positive" },
-              { label: "BIG FOSSIL", value: "negative" }
-            ]}
-            setUserInputState={setUserInputState}
-          />
-        </Portal> */}
-
         <Portal
           node={document && document.getElementById("inputcarboncapture")}
         >
@@ -827,18 +772,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        {/* <Portal node={document && document.getElementById("inputmosquito")}>
-          <UserInputBox
-            color={"#0076C5"}
-            questionKey="ASIDE5-australia-make-a-difference"
-            title={"What should we be?"}
-            buttons={[
-              { label: "MOSQUITO", value: "negative" },
-              { label: "DUNG BEETLE", value: "positive" }
-            ]}
-            setUserInputState={setUserInputState}
-          />
-        </Portal> */}
+        
 
         <Portal node={document && document.getElementById("inputtier1again")}>
           <UserInputBox
@@ -886,13 +820,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           />
         </Portal>
 
-        {/* Dynamic text to be built into the user input box */}
-        {/* <Portal node={document?.getElementById("dynamictext-mainq1")}>
-          <DynamicText
-            watchForKey={"MAINQ1-can-we-still-save-the-world"}
-            userInputState={userInputState}
-          />
-        </Portal> */}
+        
 
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
@@ -902,7 +830,6 @@ const App: React.FC<AppProps> = ({ projectName }) => {
           <MainTangle
             animationFrame={animationFrame}
             scrollMarker={marker}
-            // yOffset={backdropOffset}
             setBackgroundIsRendered={setBackgroundIsRendered}
             opacity={mainTangleOpacity}
             xPos={mainTangleXPos}
@@ -925,14 +852,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {backgroundIsRendered && (
           <>
             {/* A panel that goes over the top with paragraph text on it #paragraphpanel */}
-            <ParagraphPanel
-            // toggle={setParagraphTextVisible}
-            />
-
-            <ParagraphObserver
-            // setYOffset={setBackdropOffset}
-            />
-
+            <ParagraphPanel />
+            <ParagraphObserver />
             <ParagraphFade setMainTangleOpacity={setMainTangleOpacity} />
           </>
         )}
