@@ -53,16 +53,20 @@ interface MainTangleProps {
   yPos?: number; // Percent
   scale?: number; // Percent
   hidden?: boolean;
+  maskPosition?: number;
 }
 
 const MainTangle: React.FC<MainTangleProps> = ({
   hidden = true,
+  maskPosition = 0,
   ...props
 }) => {
   const mainEl = useRef(null);
   // Component state
   const [markers, setMarkers] = useState({});
   const prevScrollMarker = usePrevious(props.scrollMarker);
+
+  
 
   // Use a component ref objet to store things properly
   // across renders.
@@ -248,6 +252,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
             onLoad={initSvg}
             uniqueHash={"maintangle"}
             uniquifyIDs={true}
+            style={{WebkitMaskPosition: `0 ${maskPosition}vh`}}
           />
         </div>
       </div>

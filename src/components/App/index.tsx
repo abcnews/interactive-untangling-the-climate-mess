@@ -108,6 +108,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [mainTangleScale, setMainTangleScale] = useState(100);
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
   const [mainTangleHidden, setMainTangleHidden] = useState(false);
+  const [mainTangleMaskPos, setMainTangleMaskPos] = useState(0);
   const [endStrings, setEndStrings] = useState({});
   const [userStrings, setUserStrings] = useState({
     renewables: 1,
@@ -796,6 +797,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             yPos={mainTangleYPos}
             scale={mainTangleScale}
             hidden={mainTangleHidden}
+            maskPosition={mainTangleMaskPos}
           />
           {/* )} */}
 
@@ -813,7 +815,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         {backgroundIsRendered && (
           <>
             {/* A panel that goes over the top with paragraph text on it #paragraphpanel */}
-            <ParagraphPanel />
+            <ParagraphPanel setMaskPosition={setMainTangleMaskPos} />
             <ParagraphObserver />
             <ParagraphFade setMainTangleOpacity={setMainTangleOpacity} />
             <ParagraphPull

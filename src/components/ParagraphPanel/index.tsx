@@ -24,9 +24,13 @@ const isOneVisible = entries => {
 
 interface ParagraphPanelProps {
   toggle?: Function;
+  setMaskPosition?: Function;
 }
 
-const ParagraphPanel: React.FC<ParagraphPanelProps> = props => {
+const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
+  setMaskPosition,
+  ...props
+}) => {
   const windowSize = useWindowSize();
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -63,6 +67,8 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = props => {
   const onScroll = () => {
     const top = currentElements[0].getBoundingClientRect().top;
     const fromFold = window.innerHeight - top;
+
+    if (setMaskPosition) setMaskPosition(-fromFold);
 
     if (fromFold > FADE_IN_TEXT_THRESHOLD) {
       // Already fully visible, never mind...
