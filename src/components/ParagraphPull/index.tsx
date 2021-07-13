@@ -15,6 +15,11 @@ const fromBottomScale = d3
   .domain([0, FADE_IN_THRESHOLD])
   .range([1.0, OPACITY_MIN]);
 
+  const heightScale = d3
+  .scaleLinear()
+  .domain([0, window.innerHeight])
+  .range([0.0, 1.0]);
+
 // Detect if at least one intersection is visible
 const isOneVisible = entries => {
   for (const entry of entries) {
@@ -26,10 +31,14 @@ const isOneVisible = entries => {
 interface ParagraphPullProps {
   toggle?: Function;
   setMainTangleOpacity: Function;
+  setMainTangleYPos: Function;
+  mainTangleYPos: number;
 }
 
 const ParagraphPull: React.FC<ParagraphPullProps> = ({
   setMainTangleOpacity,
+  setMainTangleYPos,
+  mainTangleYPos,
   ...props
 }) => {
   const windowSize = useWindowSize();
@@ -73,50 +82,25 @@ const ParagraphPull: React.FC<ParagraphPullProps> = ({
       currentElements.length - 1
     ].getBoundingClientRect().bottom;
 
-    // Trigger top animation
-    if (topFromFold > 0 && topFromFold < FADE_IN_THRESHOLD) {
-      setMainTangleOpacity(fromBottomScale(topFromFold));
-    } else if (topFromFold <= 0) {
-      setMainTangleOpacity(1.0);
-    } else if (bottomFromTop > FADE_IN_THRESHOLD) {
-      setMainTangleOpacity(OPACITY_MIN);
-    } else if (bottomFromTop > 0 && bottomFromTop < FADE_IN_THRESHOLD) {
-      setMainTangleOpacity(fromBottomScale(bottomFromTop));
-    } else if (bottomFromTop < 0) {
-      setMainTangleOpacity(1.0);
+    // console.log(topFromFold, bottomFromTop);
+
+    if (topFromFold > 0) {
+      setMainTangleYPos(-heightScale(topFromFold));
+
     }
 
-    // If text below fold, set main tangle fully visible
-    // if (topFromFold < 0) setMainTangleOpacity(1.0);
-    // else if (topFromFold > FADE_IN_THRESHOLD) {
-    //   // Scrolled enough, just hide main tangle
-    //   setMainTangleOpacity(0.0);
-    // } else if (topFromFold > 0) {
-    //   setMainTangleOpacity(fromBottomScale(topFromFold));
-    // }
-
-    // if (fromFold > FADE_IN_THRESHOLD) {
-    //   // Already fully visible, never mind...
-    //   if (currentElements[0].style.opacity >= 1.0) return;
-
-    //   // Otherwise set visible and return
-    //   currentElements.forEach(element => {
-    //     element.style.opacity = 1.0;
-    //   });
-    //   return;
-    // }
-
-    // // Below the fold, make invisible
-    // if (fromFold < 0) {
-    //   currentElements.forEach(element => {
-    //     element.style.opacity = 0;
-    //   });
-    // } else {
-    //   currentElements.forEach(element => {
-    //     // Set elements visible corresponding to scroll position
-    //     element.style.opacity = fromBottomScale(fromFold);
-    //   });
-    // }
+    // Trigger top animation
+    //   if (topFromFold > 0 && topFromFold < FADE_IN_THRESHOLD) {
+    //     setMainTangleYPos(fromBottomScale(topFromFold));
+    //   } else if (topFromFold <= 0) {
+    //     setMainTangleYPos(1.0);
+    //   } else if (bottomFromTop > FADE_IN_THRESHOLD) {
+    //     setMainTangleYPos(OPACITY_MIN);
+    //   } else if (bottomFromTop > 0 && bottomFromTop < FADE_IN_THRESHOLD) {
+    //     setMainTangleYPos(fromBottomScale(bottomFromTop));
+    //   } else if (bottomFromTop < 0) {
+    //     setMainTangleYPos(1.0);
+    //   }
   };
 
   useEffect(() => {

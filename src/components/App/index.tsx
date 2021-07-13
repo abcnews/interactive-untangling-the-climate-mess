@@ -13,6 +13,7 @@ import ParagraphObserver from "../ParagraphObserver/index";
 import ParagraphPanel from "../ParagraphPanel/index";
 import DelayedHeader from "../DelayedHeader/index";
 import ParagraphFade from "../ParagraphFade";
+import ParagraphPull from "../ParagraphPull";
 
 import { Client } from "@abcnews/poll-counters-client";
 
@@ -853,6 +854,11 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             <ParagraphPanel />
             <ParagraphObserver />
             <ParagraphFade setMainTangleOpacity={setMainTangleOpacity} />
+            <ParagraphPull
+              setMainTangleOpacity={setMainTangleOpacity}
+              setMainTangleYPos={setMainTangleYPos}
+              mainTangleYPos={mainTangleYPos}
+            />
           </>
         )}
 

@@ -1,13 +1,7 @@
 import "./keyshape";
 declare let KeyshapeJS;
 
-import React, {
-  useEffect,
-  useRef,
-  useLayoutEffect,
-  useContext,
-  useState
-} from "react";
+import React, { useEffect, useRef, useContext, useState } from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 import { gsap } from "gsap";
@@ -58,9 +52,13 @@ interface MainTangleProps {
   xPos?: number;
   yPos?: number; // Percent
   scale?: number; // Percent
+  hidden?: boolean;
 }
 
-const MainTangle: React.FC<MainTangleProps> = props => {
+const MainTangle: React.FC<MainTangleProps> = ({
+  hidden = true,
+  ...props
+}) => {
   const mainEl = useRef(null);
   // Component state
   const [markers, setMarkers] = useState({});
@@ -231,7 +229,12 @@ const MainTangle: React.FC<MainTangleProps> = props => {
 
   return (
     <>
-      <div className={styles.root} style={{ opacity: props.opacity }}>
+      <div
+        className={`${styles.root} ${
+          hidden ? styles.hidden : styles.notHidden
+        }`}
+        style={{ opacity: props.opacity }}
+      >
         <div
           className={`interactive-main-tangle ${styles.svgContainer}`}
           ref={mainEl}
