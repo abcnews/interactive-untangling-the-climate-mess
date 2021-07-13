@@ -1,5 +1,7 @@
 /** @format */
 
+$fade-height: 300px;
+
 @use "../../100-percent-correct-break-points.scss" as *;
 
 .root {
@@ -15,6 +17,52 @@
   // Keep SVG in window
   svg {
     max-height: 160vh;
+
+    -webkit-transition: all 1s ease;
+
+    -webkit-mask-size: 100vw 100vh;
+
+    // -webkit-mask-image: -webkit-gradient(
+    //   linear,
+    //   right bottom,
+    //   right top,
+    //   color-stop(0, rgba(0, 0, 0, 1)),
+    //   color-stop(0.35, rgba(0, 0, 0, 1)),
+    //   color-stop(0.5, rgba(0, 0, 0, 0)),
+    //   color-stop(0.75, rgba(0, 0, 0, 0)),
+    //   color-stop(1, rgba(0, 0, 0, 0))
+    // );
+
+    -webkit-mask-position: 0px -100vh;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-mode: alpha;
+
+    // hsla(0, 0%, 100%, 0) $fade-height * 0,
+    // hsla(0, 0%, 100%, 0.013) $fade-height * 0.081,
+    // hsla(0, 0%, 100%, 0.049) $fade-height * 0.155,
+    // hsla(0, 0%, 100%, 0.104) $fade-height * 0.225,
+    // hsla(0, 0%, 100%, 0.175) $fade-height * 0.29,
+    // hsla(0, 0%, 100%, 0.259) $fade-height * 0.353,
+    // hsla(0, 0%, 100%, 0.352) $fade-height * 0.412,
+    // hsla(0, 0%, 100%, 0.45) $fade-height * 0.471,
+    // hsla(0, 0%, 100%, 0.55) $fade-height * 0.529,
+    // hsla(0, 0%, 100%, 0.648) $fade-height * 0.588,
+    // hsla(0, 0%, 100%, 0.741) $fade-height * 0.647,
+    // hsla(0, 0%, 100%, 0.825) $fade-height * 0.71,
+    // hsla(0, 0%, 100%, 0.896) $fade-height * 0.775,
+    // hsla(0, 0%, 100%, 0.951) $fade-height * 0.845,
+    // hsla(0, 0%, 100%, 0.987) $fade-height * 0.919,
+    // hsl(0, 0%, 100%) $fade-height * 1,
+    // hsla(0, 0%, 100%, 1) $fade-height * 1.1,
+    // hsla(0, 0%, 100%, 1) $fade-height * 1.2,
+    // hsla(0, 0%, 100%, 0) $fade-height * 1.2,
+    // hsla(0, 0%, 100%, 0) 100%
+
+    -webkit-mask-image: linear-gradient(
+      to top,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 1) 50vh
+    );
   }
 
   // @include for-desktop-up {

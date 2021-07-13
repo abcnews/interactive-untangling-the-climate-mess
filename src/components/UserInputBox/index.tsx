@@ -149,6 +149,8 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
   useEffect(() => {
     if (selected === "") return;
 
+    setResponseBox(undefined);
+
     handleUserInput(questionKey, selected);
 
     // See if there's response text to show
