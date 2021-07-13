@@ -34,7 +34,7 @@ const d3 = { ...require("d3-scale") };
 const GROUP = "interactive-untangling-the-climate-mess";
 const pollClient = new Client(GROUP);
 
-const TANGLE_DOWNPAGE_START = 0.8;
+const TANGLE_DOWNPAGE_START = 0.7;
 const TANGLE_MAX_OFFSET = -200;
 
 // Control position of main tangle depending on marker
@@ -107,6 +107,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const [mainTangleYPos, setMainTangleYPos] = useState(1.1);
   const [mainTangleScale, setMainTangleScale] = useState(100);
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
+  const [mainTangleHidden, setMainTangleHidden] = useState(false);
   const [endStrings, setEndStrings] = useState({});
   const [userStrings, setUserStrings] = useState({
     renewables: 1,
@@ -173,22 +174,22 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
-  const onScrollUpdate = () => {
-    scrollY = window.pageYOffset;
-    // Only process when user at top
-    if (scrollY > window.innerHeight * 2 || mainTangleOpacityRef.current < 0.9)
-      return;
+  // const onScrollUpdate = () => {
+  //   scrollY = window.pageYOffset;
+  //   // Only process when user at top
+  //   if (scrollY > window.innerHeight * 2 || mainTangleOpacityRef.current < 0.9)
+  //     return;
 
-    const percentScale = d3
-      .scaleLinear()
-      .domain([0, window.innerHeight])
-      .range([0.8, 0.2])
-      .clamp(true);
+  //   const percentScale = d3
+  //     .scaleLinear()
+  //     .domain([0, window.innerHeight])
+  //     .range([0.8, 0.2])
+  //     .clamp(true);
 
-    const calculatedY = TANGLE_DOWNPAGE_START - scrollY / 2000;
+  //   const calculatedY = TANGLE_DOWNPAGE_START - scrollY / 2000;
 
-    setMainTangleYPos(percentScale(scrollY));
-  };
+  //   setMainTangleYPos(percentScale(scrollY));
+  // };
 
   // onMount
   useEffect(() => {
@@ -235,7 +236,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     });
 
     // Listen for scroll
-    document.addEventListener("scroll", onScrollUpdate);
+    // document.addEventListener("scroll", onScrollUpdate);
 
     const panelStarters: any = document.querySelectorAll(
       "[id^='interactivepanel']"
@@ -277,52 +278,10 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         }
       }
     }
-    // const el = anchors[idx];
-
-    // const href: string = anchor.href || "";
-    // const reg = /#pillbox.*/;
-    // const match = href.match(reg);
-
-    // if (match) {
-    //   console.log(match);
-    // const config = alternatingCaseToObject(match[0]);
-
-    // const pillEl = document.createElement("strong");
-    // pillEl.innerHTML = anchor.innerHTML;
-
-    // pillEl.classList.add(styles.pillbox);
-    // pillEl.style.backgroundColor = `#${config.color}`;
-
-    // if (anchor.parentNode) {
-    //   anchor.parentNode.replaceChild(pillEl, anchor);
-    // }
-
-    // for (var idx = 0; idx < anchors.length; ++idx) {
-    //   const el = anchors[idx];
-
-    //   const href: string = anchors[idx].href || "";
-    //   const reg = /#pillbox.*/;
-    //   const match = href.match(reg);
-
-    //   if (match) {
-    //     console.log(match);
-    //     const config = alternatingCaseToObject(match[0]);
-
-    //     const pillEl = document.createElement("strong");
-    //     pillEl.innerHTML = el.innerHTML;
-
-    //     pillEl.classList.add(styles.pillbox);
-    //     pillEl.style.backgroundColor = `#${config.color}`;
-
-    //     if (el.parentNode) {
-    //       el.parentNode.replaceChild(pillEl, el);
-    //     }
-    //   }
-    // }
 
     return () => {
       // unsubscribe(onSubscriptionUpdate);
-      document.removeEventListener("scroll", onScrollUpdate);
+      // document.removeEventListener("scroll", onScrollUpdate);
     };
   }, []);
 
@@ -352,7 +311,9 @@ const App: React.FC<AppProps> = ({ projectName }) => {
       setTimeout(() => {
         if (markerRef.current === "initial")
           setMainTangleYPos(TANGLE_DOWNPAGE_START);
-        else setMainTangleYPos(markerConfig[markerRef.current] || 0.01);
+        // else setMainTangleYPos(markerConfig[markerRef.current] || 0.01);
+        // TODO: Start at Core position config
+        else setMainTangleYPos(0.01);
 
         // We have initially positioned
         initialPositioningComplete = true;
@@ -834,6 +795,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
             xPos={mainTangleXPos}
             yPos={mainTangleYPos}
             scale={mainTangleScale}
+            hidden={mainTangleHidden}
           />
           {/* )} */}
 
@@ -858,6 +820,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
               setMainTangleOpacity={setMainTangleOpacity}
               setMainTangleYPos={setMainTangleYPos}
               mainTangleYPos={mainTangleYPos}
+              setMainTangleHidden={setMainTangleHidden}
             />
           </>
         )}

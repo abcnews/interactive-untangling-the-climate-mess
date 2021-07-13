@@ -7,15 +7,10 @@ import { nextUntil } from "../../nextUntil";
 const d3 = { ...require("d3-scale") };
 
 const HEIGHT_COMPENSATION = 600;
-const FADE_IN_THRESHOLD = window.innerHeight * 0.2;
+const PUSH_THRESHOLD = window.innerHeight * 0.6;
 const OPACITY_MIN = 0.1;
 
-const fromBottomScale = d3
-  .scaleLinear()
-  .domain([0, FADE_IN_THRESHOLD])
-  .range([1.0, OPACITY_MIN]);
-
-  const heightScale = d3
+const heightScale = d3
   .scaleLinear()
   .domain([0, window.innerHeight])
   .range([0.0, 1.0]);
@@ -33,12 +28,14 @@ interface ParagraphPullProps {
   setMainTangleOpacity: Function;
   setMainTangleYPos: Function;
   mainTangleYPos: number;
+  setMainTangleHidden: Function;
 }
 
 const ParagraphPull: React.FC<ParagraphPullProps> = ({
   setMainTangleOpacity,
   setMainTangleYPos,
   mainTangleYPos,
+  setMainTangleHidden,
   ...props
 }) => {
   const windowSize = useWindowSize();
@@ -84,9 +81,12 @@ const ParagraphPull: React.FC<ParagraphPullProps> = ({
 
     // console.log(topFromFold, bottomFromTop);
 
-    if (topFromFold > 0) {
-      setMainTangleYPos(-heightScale(topFromFold));
+    if (bottomFromTop < window.innerHeight) {
+      setMainTangleYPos(-1.0)
+    }
 
+    else if (topFromFold > 0) {
+      setMainTangleYPos(-heightScale(topFromFold));
     }
 
     // Trigger top animation

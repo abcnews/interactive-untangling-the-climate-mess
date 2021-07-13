@@ -8,7 +8,7 @@ const d3 = { ...require("d3-scale") };
 
 const HEIGHT_COMPENSATION = 600;
 const FADE_IN_THRESHOLD = window.innerHeight * 0.2;
-const OPACITY_MIN = 0.1;
+const OPACITY_MIN = 0.0;
 
 const fromBottomScale = d3
   .scaleLinear()

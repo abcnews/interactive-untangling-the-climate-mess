@@ -22,10 +22,12 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
 
   useEffect(() => {}, [contentArray]);
 
+  // TODO: MAP THE PANELS IF WE NEED MORE
+
   return (
     <div className={styles.root}>
       <div
-        id="visualKEYinitial"
+        id="visualKEYinitialPOSITION70"
         data-component="Anchor"
         data-mount="true"
       ></div>
@@ -65,6 +67,12 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
           </p> */}
         </OrganicPanel>
       </div>
+
+      <div
+        id="visualKEYinitialPOSITION10MINUSfalse"
+        data-component="Anchor"
+        data-mount="true"
+      ></div>
 
       <div className={styles.panel}>
         {/* <div id="visualKEY2" data-component="Anchor" data-mount="true"></div> */}
