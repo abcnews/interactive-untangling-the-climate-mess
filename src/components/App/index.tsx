@@ -34,7 +34,7 @@ const d3 = { ...require("d3-scale") };
 const GROUP = "interactive-untangling-the-climate-mess";
 const pollClient = new Client(GROUP);
 
-const TANGLE_DOWNPAGE_START = 0.7;
+const TANGLE_DOWNPAGE_START = 0.75;
 const TANGLE_MAX_OFFSET = -200;
 
 // Control position of main tangle depending on marker

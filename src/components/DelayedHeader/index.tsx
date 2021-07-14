@@ -27,7 +27,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
   return (
     <div className={styles.root}>
       <div
-        id="visualKEYinitialPOSITION70"
+        id="visualKEYinitialPOSITION75"
         data-component="Anchor"
         data-mount="true"
       ></div>
@@ -38,6 +38,11 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
       </div>
 
       <div className={styles.panel}>
+        <div
+          id="visualKEYinitialPOSITION10MINUSfalse"
+          data-component="Anchor"
+          data-mount="true"
+        ></div>
         <OrganicPanel>
           {convert(contentArray[0])}
 
@@ -57,7 +62,6 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
           data-component="Anchor"
           data-mount="true"
         ></div> */}
-
 
         <OrganicPanel backgroundVariation={1}>
           {convert(contentArray[1])}

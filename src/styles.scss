@@ -1,11 +1,15 @@
 @use "./100-percent-correct-break-points.scss" as *;
 
 .panel {
-  padding: 0 15px !important;
-  margin-top: 92vh;
-  margin-bottom: 92vh;
+  // padding: 0 15px !important;
+  // margin-top: 92vh;
+  // margin-bottom: 92vh;
   line-height: 1.66666667;
   font-size: 1.125rem;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  padding-top: 45vh !important;
+  padding-bottom: 45vh !important;
 
   @include for-desktop-up {
     font-size: 1.375rem;
@@ -17,7 +21,7 @@
   }
 
   .panel-content-container {
-    padding: 15px 28px;
+    padding: 20px 30px;
     position: relative;
 
     @include for-tablet-portrait-up {

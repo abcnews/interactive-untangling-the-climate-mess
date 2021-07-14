@@ -21,15 +21,17 @@
   // }
 
   .panel {
-    margin-top: 85vh;
-    margin-bottom: 85vh;
+    padding-top: 45vh !important;
+    padding-bottom: 45vh !important;
+    // margin-top: 85vh;
+    // margin-bottom: 85vh;
     // margin-left: 2rem;
     // margin-right: 0.8rem;
   }
 
-  .panel:last-of-type {
-    padding-bottom: 0;
-  }
+  // .panel:last-of-type {
+  //   padding-bottom: 0;
+  // }
 
   // p {
   //   font-size: 23px;
@@ -77,7 +79,7 @@
   // }
 
   .hero-text {
-    margin-bottom: 80vh;
+    margin-bottom: 45vh;
     font-size: 28px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
