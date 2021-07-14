@@ -198,4 +198,16 @@
   body > div.preheader-container {
     display: none;
   }
+
+  // Normal paragraph
+
+  @include for-desktop-up {
+    #content > p {
+      width: calc(100vw / 2.1);
+      max-width: 650px;
+      position: relative;
+      left: 50%;
+      margin-left: 0 !important;
+    }
+  }
 }
