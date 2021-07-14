@@ -36,7 +36,7 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
   const { current: component }: { current: any } = componentRef;
 
   // Set state
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
 
   // Init some component vars
   let observer = component.observer;
@@ -44,18 +44,21 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
   let currentElements = component.currentElements;
 
   const processObservation = entries => {
+    console.log("Observed!");
     // Process onScroll events if any one paragraph panel is visible
     if (isOneVisible(entries)) {
       window.addEventListener("scroll", onScroll);
     } else {
-      window.removeEventListener("scroll", onScroll);
+      // window.removeEventListener("scroll", onScroll);
     }
 
     entries.forEach(entry => {
-      setVisible(entry.isIntersecting);
+      // setVisible(entry.isIntersecting);
 
       if (entry.isIntersecting) {
         currentPanel = entry.target;
+
+        console.log(currentPanel);
 
         // Get elements between hash markers
         currentElements = nextUntil(currentPanel, "#endparagraphpanel");
@@ -66,7 +69,7 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
   // We need a scroll handler now to process paragraph fading
   const onScroll = () => {
     if (window.innerWidth >= 1200) return;
-    
+
     const top = currentElements[0].getBoundingClientRect().top;
     const fromFold = window.innerHeight - top;
 
@@ -99,7 +102,7 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
   useEffect(() => {
     // Observe bottom half of the screen and a little more
     observer = new IntersectionObserver(processObservation, {
-      rootMargin: `50% 0% -10% 0%`
+      rootMargin: `-90% 0px 0px 0px`
     });
 
     const paragraphStartMarkers: any = document.querySelectorAll(
