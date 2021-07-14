@@ -53,15 +53,16 @@
     // margin-left: 2rem;
     // margin-right: 0.8rem;
 
+    // Push panel on Desktop
     @include for-desktop-up {
       padding-top: 25vh !important;
       padding-bottom: 25vh !important;
       font-size: 29px;
-      max-width: 585px;
-      // max-width: calc(100vw / 2.5);
+      width: calc(100vw / 2.5);
+      max-width: 650px;
       position: relative;
       left: 50%;
-      margin-left: -10px;
+      // margin-left: 0;
     }
   }
 
