@@ -252,7 +252,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
             onLoad={initSvg}
             uniqueHash={"maintangle"}
             uniquifyIDs={true}
-            style={{WebkitMaskPosition: `0 ${maskPosition}vh`}}
+            // style={{WebkitMaskPosition: `0 ${maskPosition}vh`}}
           />
         </div>
       </div>

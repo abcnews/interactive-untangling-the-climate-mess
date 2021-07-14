@@ -153,19 +153,21 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
 
     handleUserInput(questionKey, selected);
 
-    // See if there's response text to show
-    const selectedButton = buttons.find(button => {
-      return button.value === selected;
-    });
-
-    if (selectedButton) setResponseBox(selectedButton.response);
-
-    // Set previous state
-    if (props.setUserInputState) {
-      props.setUserInputState(prevState => {
-        return { ...prevState, [questionKey]: selected };
+    setTimeout(() => {
+      // See if there's response text to show
+      const selectedButton = buttons.find(button => {
+        return button.value === selected;
       });
-    }
+
+      if (selectedButton) setResponseBox(selectedButton.response);
+
+      // Set previous state
+      if (props.setUserInputState) {
+        props.setUserInputState(prevState => {
+          return { ...prevState, [questionKey]: selected };
+        });
+      }
+    }, 100);
   }, [selected]);
 
   return (
@@ -214,7 +216,11 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
           );
         })}
       </div>
-      <CSSTransition in={typeof responseBox !== "undefined"} timeout={500} classNames={"response-box-styles"}>
+      <CSSTransition
+        in={typeof responseBox !== "undefined"}
+        timeout={500}
+        classNames={"response-box-styles"}
+      >
         <div className={styles.responseBox} style={{ color: `${color}` }}>
           {responseBox}
         </div>
