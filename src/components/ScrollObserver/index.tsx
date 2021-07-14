@@ -8,12 +8,14 @@ const DEADZONE_ADJUST = 500; // How fast can a user scroll?
 // Define all the props for the component
 interface ScrollObserverProps {
   setMainTangleYPos: Function;
+  setMainTangleXPos: Function;
   setMarker: Function;
   waypoint?: number;
 }
 
 const ScrollObserver: React.FC<ScrollObserverProps> = ({
   setMainTangleYPos,
+  setMainTangleXPos,
   ...props
 }) => {
   const componentRef = useRef({});

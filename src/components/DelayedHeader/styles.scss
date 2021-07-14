@@ -27,6 +27,15 @@
     // margin-bottom: 85vh;
     // margin-left: 2rem;
     // margin-right: 0.8rem;
+
+    @include for-desktop-up {
+      font-size: 29px;
+      // max-width: 585px;
+      max-width: calc(100vw / 2.5);
+      position: relative;
+      left: 50%;
+      margin-left: -10px;
+    }
   }
 
   // .panel:last-of-type {
@@ -52,14 +61,7 @@
   //     font-size: 28px;
   //   }
 
-  //   @include for-desktop-up {
-  //     font-size: 29px;
-  //     // max-width: 585px;
-  //     // max-width: calc(100vw / 2.5);
-  //     // position: relative;
-  //     // left: 50%;
-  //     // margin-left: -10px;
-  //   }
+    
 
   //   @include for-big-desktop-up {
   //     font-size: 30px;

@@ -9,14 +9,13 @@ interface DelayedHeaderProps {}
 const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
   const [contentArray, setContentArray] = useState<any>([]);
 
-  const onMount = async () => {
-    const markers = document.querySelectorAll(".preheader-container");
-    const markersArray = Array.from(markers);
-
-    setContentArray(markersArray);
-  };
-
   useEffect(() => {
+    const onMount = async () => {
+      const markers = document.querySelectorAll(".preheader-container");
+      const markersArray = Array.from(markers);
+
+      setContentArray(markersArray);
+    };
     onMount();
   }, []);
 

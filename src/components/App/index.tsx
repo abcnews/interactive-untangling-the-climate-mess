@@ -14,6 +14,7 @@ import ParagraphPanel from "../ParagraphPanel/index";
 import DelayedHeader from "../DelayedHeader/index";
 import ParagraphFade from "../ParagraphFade";
 import ParagraphPull from "../ParagraphPull";
+import useWindowSize from "../ParagraphObserver/useWindowSize";
 
 import { Client } from "@abcnews/poll-counters-client";
 
@@ -79,7 +80,7 @@ interface AppProps {
 let scrollY = 0;
 let initialPositioningComplete = false;
 
-const App: React.FC<AppProps> = ({ projectName }) => {
+const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
 
   const [backdropOffset, setBackdropOffset] = useState(0);
@@ -136,6 +137,8 @@ const App: React.FC<AppProps> = ({ projectName }) => {
   // ----------------
   const [australiaConvincedOf, setAustraliaConvincedOf] = useState(0);
   const [sectionColor, setSectionColor] = useState();
+
+  const windowSize = useWindowSize();
 
   // ---- Combined config for InteractivePanel components
   // const [interactivePanelInput, setInteractivePanelInput] = useState({
@@ -574,6 +577,20 @@ const App: React.FC<AppProps> = ({ projectName }) => {
     console.log("Current marker", marker);
   }, [marker]);
 
+  useEffect(() => {
+    if (!windowSize) return;
+
+    console.log(windowSize);
+
+    const {width, height} = windowSize;
+
+    if (width >= 1200) {
+      setMainTangleXPos(-0.25);
+    } else {
+      setMainTangleXPos(0);
+    }
+  }, [windowSize.width, windowSize.height]);
+
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
       <>
@@ -808,6 +825,7 @@ const App: React.FC<AppProps> = ({ projectName }) => {
         <ScrollObserver
           setMarker={setMarker}
           setMainTangleYPos={setMainTangleYPos}
+          setMainTangleXPos={setMainTangleXPos}
         />
 
         {/* Sets paragraph text where we break out of 
