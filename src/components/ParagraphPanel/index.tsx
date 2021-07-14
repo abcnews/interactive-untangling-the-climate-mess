@@ -46,7 +46,7 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
   const processObservation = entries => {
     // Process onScroll events if any one paragraph panel is visible
     if (isOneVisible(entries)) {
-      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("scroll", onScroll);
     } else {
       window.removeEventListener("scroll", onScroll);
     }
@@ -68,7 +68,7 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
     const top = currentElements[0].getBoundingClientRect().top;
     const fromFold = window.innerHeight - top;
 
-    if (setMaskPosition) setMaskPosition(-fromFold);
+    // if (setMaskPosition) setMaskPosition(-fromFold);
 
     if (fromFold > FADE_IN_TEXT_THRESHOLD) {
       // Already fully visible, never mind...
@@ -95,8 +95,9 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
   };
 
   useEffect(() => {
+    // Observe bottom half of the screen and a little more
     observer = new IntersectionObserver(processObservation, {
-      rootMargin: `-10% 0%`
+      rootMargin: `50% 0% -10% 0%`
     });
 
     const paragraphStartMarkers: any = document.querySelectorAll(
