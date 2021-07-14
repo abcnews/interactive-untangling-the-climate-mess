@@ -65,6 +65,8 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
 
   // We need a scroll handler now to process paragraph fading
   const onScroll = () => {
+    if (window.innerWidth >= 1200) return;
+    
     const top = currentElements[0].getBoundingClientRect().top;
     const fromFold = window.innerHeight - top;
 

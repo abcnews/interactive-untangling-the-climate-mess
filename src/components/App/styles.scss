@@ -5,39 +5,20 @@
   --anchorColor: #ff8901;
 }
 
-// TODO: Use this code to try to make CSS pill box styling
+// PILLBOX STYLING
 // Maybe try multiple backgrounds with different border radius settings
-// body > main > p > strong,
-//   #main_content > p > strong {
-//     background-color: rgba(14, 51, 79, 0.55);
-//     font-family: ABCSans, sans-serif;
-//     font-weight: 900;
-//     -moz-border-radius: 23px;
-//     -webkit-border-radius: 23px;
-//     border-radius: 23px;
-//     padding-left: 10px;
-//     padding-right: 10px;
-//     padding-top: 2px;
-//     padding-bottom: 3px;
-//     // white-space: nowrap;
-//     -webkit-box-decoration-break: clone;
-//     -o-box-decoration-break: clone;
-//     box-decoration-break: clone;
-//   }
-/////// HERE IT IS BELOW
 
 .pillbox {
   color: white !important;
   background-color: rgba(14, 51, 79, 1);
-  // font-family: ABCSans, sans-serif;
   font-weight: 700;
   -moz-border-radius: 23px;
   -webkit-border-radius: 23px;
   border-radius: 35px 20px 40px 40px / 40px 40px 20px 20px;
   padding-left: 10px;
   padding-right: 10px;
-  padding-top: 0px;
-  padding-bottom: 2px;
+  padding-top: 0.5px;
+  padding-bottom: 2.5px;
   // white-space: nowrap;
   -webkit-box-decoration-break: clone;
   -o-box-decoration-break: clone;
@@ -146,55 +127,6 @@
     margin-bottom: 130vh !important;
   }
 
-  // .Main h3, .Main h2 {
-  //   font-family: "Pacifico", cursive;
-  //   font-weight: normal;
-  //   background-image: linear-gradient(
-  //     45deg,
-  //     #ca4246 16.666%,
-  //     #e16541 16.666%,
-  //     #e16541 33.333%,
-  //     #f18f43 33.333%,
-  //     #f18f43 50%,
-  //     #8b9862 50%,
-  //     #8b9862 66.666%,
-  //     #476098 66.666%,
-  //     #476098 83.333%,
-  //     #a7489b 83.333%
-  //   );
-  //   -webkit-background-clip: text;
-  //   -moz-background-clip: text;
-  //   background-clip: text;
-  //   -webkit-text-fill-color: transparent;
-  //   -moz-text-fill-color: transparent;
-
-  //   background-size: 100%;
-  // }
-
-  // For testing markers
-  // .Main > a[id],
-  // .Main > a[name],
-  // .Main > [data-mount][id^="visualKEY"] {
-  //   border-top: 1px solid red;
-  // }
-
-  // #paneltop {
-  //   margin-top: 45vh;
-  // }
-
-  // #panelmiddle {
-  //   z-index: -1;
-  //   position: absolute;
-  //   left: 50%;
-  //   transform: translateX(-50%) translateY(-20px);
-  //   background-color: rgba(254,246,238, 0.95);
-  //   height: 400px;
-  // }
-
-  // #panelbottom {
-  //   margin-bottom: 45vh;
-  // }
-
   body > div.preheader-container {
     display: none;
   }
@@ -203,8 +135,8 @@
 
   @include for-desktop-up {
     #content > p {
-      width: calc(100vw / 2.1);
-      max-width: 650px;
+      width: calc(100vw / 2.2);
+      max-width: 660px;
       position: relative;
       left: 50%;
       margin-left: 0 !important;
