@@ -54,11 +54,13 @@ interface MainTangleProps {
   scale?: number; // Percent
   hidden?: boolean;
   maskPosition?: number;
+  windowSize: number;
 }
 
 const MainTangle: React.FC<MainTangleProps> = ({
   hidden = true,
   maskPosition = 0,
+  windowSize,
   ...props
 }) => {
   const mainEl = useRef(null);
@@ -229,7 +231,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
       ease: "power3",
       duration: 1.25
     });
-  }, [props.yPos, props.scale, props.xPos]);
+  }, [props.yPos, props.scale, props.xPos, windowSize]);
 
   return (
     <>

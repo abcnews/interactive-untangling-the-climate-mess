@@ -580,9 +580,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   useEffect(() => {
     if (!windowSize) return;
 
-    console.log(windowSize);
-
-    const {width, height} = windowSize;
+    const { width, height } = windowSize;
 
     if (width >= 1200) {
       setMainTangleXPos(-0.25);
@@ -815,6 +813,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             scale={mainTangleScale}
             hidden={mainTangleHidden}
             maskPosition={mainTangleMaskPos}
+            windowSize={windowSize}
           />
           {/* )} */}
 
