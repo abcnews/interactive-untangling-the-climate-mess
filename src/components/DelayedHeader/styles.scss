@@ -55,8 +55,10 @@
 
     // Push panel on Desktop
     @include for-desktop-up {
-      padding-top: 25vh !important;
-      padding-bottom: 25vh !important;
+      padding-top: 0vh !important;
+    padding-bottom: 0vh !important;
+      margin-top: 25vh;
+      margin-bottom: 25vh;
       font-size: 29px;
       width: calc(100vw / 2.5);
       max-width: 650px;
