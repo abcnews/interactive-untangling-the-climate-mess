@@ -6,7 +6,8 @@ import { nextUntil } from "../../nextUntil";
 
 const d3 = { ...require("d3-scale") };
 
-const HEIGHT_COMPENSATION = 600;
+// This corresponds to the css $fade-height var
+const HEIGHT_COMPENSATION = 360 * 2;
 const FADE_IN_TEXT_THRESHOLD = 300;
 
 const fromBottomScale = d3
@@ -102,7 +103,7 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
   useEffect(() => {
     // Observe bottom half of the screen and a little more
     observer = new IntersectionObserver(processObservation, {
-      rootMargin: `-90% 0px 0px 0px`
+      rootMargin: `-90% 0px 30px 0px`
     });
 
     const paragraphStartMarkers: any = document.querySelectorAll(
