@@ -800,7 +800,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
         {/* Background visual */}
         <Portal node={document && document.getElementById("portalmount")}>
-          {/* {marker && !endStringsMarkers.includes(marker) && ( */}
           {/* Don't unmount this because elements are being observed by ParagraphObserver
           Maybe try visibility hidden or display none instead */}
           <MainTangle
@@ -815,7 +814,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             maskPosition={mainTangleMaskPos}
             windowSize={windowSize}
           />
-          {/* )} */}
 
           <EndStrings opacity={endTangleOpacity} stringsNew={endStrings} />
           <BackgroundTexture />

@@ -1,7 +1,7 @@
 export default () => {
   return ks
     .animate(
-      "#BlueStringJank",
+      "#RedStringJank",
       [
         {
           p: "opacity",
@@ -10,7 +10,7 @@ export default () => {
           e: [[3, 1], [3, 1], [0]]
         }
       ],
-      "#BlueString1",
+      "#RedString1",
       [
         {
           p: "opacity",
@@ -21,7 +21,7 @@ export default () => {
         {
           p: "strokeDashoffset",
           t: [0, 3000, 4000, 7000],
-          v: [4500, -1440, -1440, 4500],
+          v: [5300, -1300, -1300, 5300],
           e: [[1, 0.4, 0.6, 0.6, 1], [0], [0], [0]]
         }
       ],

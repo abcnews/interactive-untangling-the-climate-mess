@@ -1,7 +1,7 @@
 export default () => {
   return ks
     .animate(
-      "#RedStringJank",
+      "#GreenStringJank",
       [
         {
           p: "opacity",
@@ -10,7 +10,7 @@ export default () => {
           e: [[3, 1], [3, 1], [0]]
         }
       ],
-      "#RedString1",
+      "#GreenString1",
       [
         {
           p: "opacity",

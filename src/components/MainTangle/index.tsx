@@ -58,7 +58,7 @@ interface MainTangleProps {
 }
 
 const MainTangle: React.FC<MainTangleProps> = ({
-  hidden = true,
+  hidden = false,
   maskPosition = 0,
   windowSize,
   ...props
