@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import SVG from "react-inlinesvg";
 import "../MainTangle/keyshape";
 declare let KeyshapeJS;
+import { gsap } from "gsap";
 
 // Load up end tangles
 import endString1 from "./assets/end-string-1.svg";
@@ -36,9 +37,17 @@ let timelines: any = {};
 interface EndStringsProps {
   opacity: number;
   stringsNew?: any;
+  yPos?: number;
+  xPos?: number;
+  windowSize?: any;
 }
 
-const EndStrings: React.FC<EndStringsProps> = props => {
+const EndStrings: React.FC<EndStringsProps> = ({
+  yPos,
+  xPos,
+  windowSize,
+  ...props
+}) => {
   const [allLoaded, setAllLoaded] = useState(false);
   // const [stringOne, setStringOne] = useState(false);
   const [strings, setStrings] = useState({
@@ -48,6 +57,8 @@ const EndStrings: React.FC<EndStringsProps> = props => {
     industry: 0,
     livestock: 0
   });
+
+  const mainEl = useRef(null);
 
   function initAnimations(iteration) {
     // So we can load up all the animations
@@ -126,8 +137,24 @@ const EndStrings: React.FC<EndStringsProps> = props => {
     setStrings(stringsNew);
   }, [props.stringsNew]);
 
+  useEffect(() => {
+    if (typeof yPos === "undefined" || typeof xPos === "undefined") return;
+
+    gsap.to(mainEl.current, {
+      y: yPos * window.innerHeight,
+      x: xPos * window.innerWidth,
+
+      ease: "power3",
+      duration: 1.25
+    });
+  }, [yPos, xPos, windowSize]);
+
   return (
-    <div className={styles.root} style={{ opacity: props.opacity }}>
+    <div
+      className={styles.root}
+      style={{ opacity: props.opacity }}
+      ref={mainEl}
+    >
       {endStrings.map((svg, index) => {
         return (
           <div className={styles.svgLayer} key={index}>

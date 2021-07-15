@@ -815,7 +815,13 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             windowSize={windowSize}
           />
 
-          <EndStrings opacity={endTangleOpacity} stringsNew={endStrings} />
+          <EndStrings
+            opacity={endTangleOpacity}
+            stringsNew={endStrings}
+            windowSize={windowSize}
+            xPos={mainTangleXPos}
+            yPos={mainTangleYPos}
+          />
           <BackgroundTexture />
         </Portal>
 

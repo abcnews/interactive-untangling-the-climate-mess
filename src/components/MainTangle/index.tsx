@@ -54,7 +54,7 @@ interface MainTangleProps {
   scale?: number; // Percent
   hidden?: boolean;
   maskPosition?: number;
-  windowSize: number;
+  windowSize: any;
 }
 
 const MainTangle: React.FC<MainTangleProps> = ({
@@ -67,8 +67,6 @@ const MainTangle: React.FC<MainTangleProps> = ({
   // Component state
   const [markers, setMarkers] = useState({});
   const prevScrollMarker = usePrevious(props.scrollMarker);
-
-  
 
   // Use a component ref objet to store things properly
   // across renders.
@@ -215,7 +213,6 @@ const MainTangle: React.FC<MainTangleProps> = ({
     }
   }, [props.scrollMarker]);
 
-  // props.yPos change effect
   useEffect(() => {
     if (
       typeof props.yPos === "undefined" ||
@@ -234,31 +231,25 @@ const MainTangle: React.FC<MainTangleProps> = ({
   }, [props.yPos, props.scale, props.xPos, windowSize]);
 
   return (
-    <>
-      <div
-        className={`${styles.root} ${
-          hidden ? styles.hidden : styles.notHidden
-        }`}
-        style={{ opacity: props.opacity }}
-      >
-        <div
-          className={`interactive-main-tangle ${styles.svgContainer}`}
-          ref={mainEl}
-        >
-          <SVG
-            className={styles.svg}
-            src={untangleAnimation}
-            preProcessor={code => {
-              return code;
-            }}
-            onLoad={initSvg}
-            uniqueHash={"maintangle"}
-            uniquifyIDs={true}
-            // style={{WebkitMaskPosition: `0 ${maskPosition}vh`}}
-          />
-        </div>
+    <div
+      className={`${styles.root} ${hidden ? styles.hidden : styles.notHidden}`}
+      style={{ opacity: props.opacity }}
+      ref={mainEl}
+    >
+      <div className={`interactive-main-tangle ${styles.svgContainer}`}>
+        <SVG
+          className={styles.svg}
+          src={untangleAnimation}
+          preProcessor={code => {
+            return code;
+          }}
+          onLoad={initSvg}
+          uniqueHash={"maintangle"}
+          uniquifyIDs={true}
+          // style={{WebkitMaskPosition: `0 ${maskPosition}vh`}}
+        />
       </div>
-    </>
+    </div>
   );
 };
 
