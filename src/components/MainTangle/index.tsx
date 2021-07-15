@@ -6,7 +6,7 @@ import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 import { gsap } from "gsap";
 
-import untangleAnimation from "./assets/untangle-revision-2.svg";
+import untangleAnimation from "./assets/untangling-color-change.svg";
 
 const PLAY_RATE = 1;
 
@@ -81,7 +81,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
   const initSvg = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
-    import("./assets/animations-revision-2").then(({ animate }) => {
+    import("./assets/untangling-color-change").then(({ animate }) => {
       // Set up the animations and return a timeline
       component.timeline = animate();
       const timeline = component.timeline;

@@ -36,30 +36,22 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
-  // Set state
-  // const [visible, setVisible] = useState(false);
-
   // Init some component vars
   let observer = component.observer;
   let currentPanel = component.currentPanel;
   let currentElements = component.currentElements;
 
   const processObservation = entries => {
-    console.log("Observed!");
     // Process onScroll events if any one paragraph panel is visible
     if (isOneVisible(entries)) {
       window.addEventListener("scroll", onScroll);
     } else {
-      // window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", onScroll);
     }
 
     entries.forEach(entry => {
-      // setVisible(entry.isIntersecting);
-
       if (entry.isIntersecting) {
         currentPanel = entry.target;
-
-        console.log(currentPanel);
 
         // Get elements between hash markers
         currentElements = nextUntil(currentPanel, "#endparagraphpanel");
@@ -136,10 +128,6 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
-
-  // useEffect(() => {
-  //   props.toggle(visible);
-  // }, [visible]);
 
   useEffect(() => {
     const paragraphStartMarkers: any = document.querySelectorAll(
