@@ -1,15 +1,6 @@
 @use "../../100-percent-correct-break-points.scss" as *;
 
 .root {
-  // padding: 0 15px !important;
-  // margin-top: 80vh;
-  // margin-bottom: 80vh;
-  // margin-left: 15px;
-  // margin-right: 15px;
-  // line-height: 1.66666667;
-  // font-size: 1.125rem;
-  // position: relative;
-
   line-height: 1.66666667;
   font-size: 1.125rem;
   padding-left: 15px !important;
@@ -18,13 +9,6 @@
   padding-bottom: 45vh !important;
 
   @include for-desktop-up {
-    // font-size: 1.375rem;
-    // position: relative;
-    // left: 50%;
-    // margin-left: 0 !important;
-    // width: calc(100vw / 2.1);
-    // max-width: 650px;
-
     padding-top: 0vh !important;
     padding-bottom: 0vh !important;
     margin-top: 25vh;
@@ -70,60 +54,3 @@
   width: 100%;
   height: 100%;
 }
-
-// .panel {
-//   padding: 0 15px !important;
-//   margin-top: 80vh;
-//   margin-bottom: 80vh;
-//   line-height: 1.66666667;
-//   font-size: 1.125rem;
-
-//   @include for-desktop-up {
-//     font-size: 1.375rem;
-//     position: relative;
-//     left: 50%;
-//     margin-left: 0 !important;
-//     width: calc(100vw / 2.1);
-//     max-width: 650px;
-//   }
-
-//   .panel-content-container {
-//     background-color: rgba(254, 246, 238, 0.9);
-//     padding: 20px 18px;
-//     // -webkit-backdrop-filter: blur(10px);
-//     // backdrop-filter: blur(10px);
-
-//     @include for-tablet-portrait-up {
-//       padding: 20px 1.75rem;
-//     }
-
-//     @include for-desktop-up {
-//       padding: 20px 1.75rem;
-//     }
-
-//     > * {
-//       margin-top: 2.25rem;
-//       margin-bottom: 2.25rem;
-//     }
-//   }
-// }
-
-// .panel-content-container {
-//   background-color: rgba(254, 246, 238, 0.9);
-//   padding: 20px 18px;
-//   // -webkit-backdrop-filter: blur(10px);
-//   // backdrop-filter: blur(10px);
-
-//   @include for-tablet-portrait-up {
-//     padding: 20px 1.75rem;
-//   }
-
-//   @include for-desktop-up {
-//     padding: 20px 1.75rem;
-//   }
-
-//   > * {
-//     margin-top: 2.25rem;
-//     margin-bottom: 2.25rem;
-//   }
-// }
