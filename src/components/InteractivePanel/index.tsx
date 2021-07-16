@@ -311,7 +311,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         }
 
         break;
-      case "personalresults":
+      case "personalresults.":
         shouldShow =
           questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
           questionCompleteness === "noMAIN1allSUBnoMAIN2" || // 6
@@ -349,22 +349,22 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                 {
                   title: "Burping cows",
                   percent: 10,
-                  color: "#2A4059",
-                  textColor: "#2A4059",
+                  color: "#F65C1B",
+                  textColor: "#C42F05",
                   greyedOut: isGreyedOut("SUBQ2-livestock-emissions")
                 },
                 {
                   title: "Transport",
                   percent: 20,
-                  color: "#007B52",
-                  textColor: "#007B52",
+                  color: "#007CBF",
+                  textColor: "#007CBF",
                   greyedOut: isGreyedOut("SUBQ3-transportation-off-fossil")
                 },
                 {
                   title: "Industry",
                   percent: 40,
-                  color: "#F65C1B",
-                  textColor: "#C42F05",
+                  color: "#007B52",
+                  textColor: "#007B52",
                   greyedOut: isGreyedOut("SUBQ4-industry-emissions")
                 },
                 {

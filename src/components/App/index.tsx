@@ -21,6 +21,7 @@ import AudienceChart from "../AudienceChart";
 import BarChart from "../BarChart";
 import InteractivePanel from "../InteractivePanel";
 import EndStrings from "../EndStrings";
+import UserCount from "../UserCount";
 
 import useWindowSize from "../ParagraphObserver/useWindowSize";
 import { Client } from "@abcnews/poll-counters-client";
@@ -760,20 +761,20 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               {
                 title: "Burping cows",
                 percent: 10,
-                color: "#2A4059",
-                textColor: "#2A4059"
+                color: "#F65C1B", //"#2A4059",
+                textColor: "#C42F05" //"#2A4059"
               },
               {
                 title: "Transport",
                 percent: 20,
-                color: "#007B52",
-                textColor: "#007B52"
+                color: "#007CBF", //#007B52",
+                textColor: "#007CBF" //"#007B52"
               },
               {
                 title: "Industry",
                 percent: 40,
-                color: "#F65C1B",
-                textColor: "#C42F05"
+                color: "#007B52", //"#F65C1B",
+                textColor: "#007B52"
               }
             ]}
           />
@@ -879,6 +880,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             </Portal>
           );
         })}
+
+        <UserCount />
       </>
     </AppContext.Provider>
   );
