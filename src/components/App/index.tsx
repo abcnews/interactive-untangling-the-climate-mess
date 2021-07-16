@@ -21,7 +21,7 @@ import AudienceChart from "../AudienceChart";
 import BarChart from "../BarChart";
 import InteractivePanel from "../InteractivePanel";
 import EndStrings from "../EndStrings";
-import UserCount from "../UserCount";
+import AnchorTransform from "../AnchorTransform";
 
 import useWindowSize from "../ParagraphObserver/useWindowSize";
 import { Client } from "@abcnews/poll-counters-client";
@@ -134,7 +134,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const [subQuestionsConvinvedOf, setSubQuestionsConvinvedOf] = useState(0);
   // ----------------
   const [australiaConvincedOf, setAustraliaConvincedOf] = useState(0);
-  const [sectionColor, setSectionColor] = useState();
 
   const windowSize = useWindowSize();
 
@@ -172,6 +171,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       if (err) console.error(err);
     })();
   }, [userHasEngaged]);
+
+  const [numberOfEngagedUsers, setNumberOfEngagedUsers] = useState(0);
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -260,6 +261,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         }
       }
     }
+
+    (async () => {
+      // Get number of engaged users from Firebase
+      const [err, pollGetResponse]: [any, any] = await to(
+        pollGet({
+          question: "USERINFO",
+          answer: "engagement-count"
+        })
+      );
+
+      console.log(pollGetResponse);
+
+      if (!err) {
+        setNumberOfEngagedUsers(pollGetResponse.value);
+      }
+    })();
 
     return () => {
       // unsubscribe(onSubscriptionUpdate);
@@ -878,7 +895,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           );
         })}
 
-        <UserCount />
+        <AnchorTransform>{numberOfEngagedUsers}</AnchorTransform>
       </>
     </AppContext.Provider>
   );
