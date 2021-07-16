@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.scss";
 
+import BarChart from "../BarChart";
+
 import background from "../OrganicPanel/organic-panel-background-variation-1.svg";
 import background2 from "../OrganicPanel/organic-panel-background-variation-2.svg";
 import background3 from "../OrganicPanel/organic-panel-background-variation-3.svg";
@@ -321,7 +323,40 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
           questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
 
-        setPanelText(<p>Personal results (PUT CHART HERE)</p>);
+        setPanelText(
+          <>
+            <p>Personal results</p>
+            <BarChart
+              bars={[
+                {
+                  title: "Enery",
+                  percent: 33,
+                  color: "#A3297C",
+                  textColor: "#A3297C"
+                },
+                {
+                  title: "Burping cows",
+                  percent: 10,
+                  color: "#2A4059",
+                  textColor: "#2A4059"
+                },
+                {
+                  title: "Transport",
+                  percent: 20,
+                  color: "#007B52",
+                  textColor: "#007B52"
+                },
+                {
+                  title: "Industry",
+                  percent: 40,
+                  color: "#F65C1B",
+                  textColor: "#C42F05"
+                }
+              ]}
+              greyedOutBars={[1]}
+            />
+          </>
+        );
         break;
       case "ausvself":
         shouldShow =

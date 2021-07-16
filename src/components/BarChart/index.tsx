@@ -99,7 +99,7 @@ interface BarChartProps {
 const BarChart: React.FC<BarChartProps> = ({
   heading = undefined,
   bars = [{ title: "Enery", percent: 33 }],
-  greyedOutBars = [0],
+  greyedOutBars = [],
   ...props
 }) => {
   return (
