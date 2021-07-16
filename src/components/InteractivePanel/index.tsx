@@ -325,13 +325,13 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
             userInputState[key] === "certain" ||
             userInputState[key] === "hopeful"
           )
-            return false;
+            return true;
 
           if (
             userInputState[key] === "doubtful" ||
             userInputState[key] === "impossible"
           )
-            return true;
+            return false;
         };
 
         setPanelText(
