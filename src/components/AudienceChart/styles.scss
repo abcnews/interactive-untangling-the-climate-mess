@@ -1,0 +1,45 @@
+.root {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+
+  h3 {
+    margin-bottom: 0.5em;
+  }
+
+  .heading {
+    text-align: center;
+  }
+}
+
+.bar-container {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.bar-outline {
+  border: 3px solid rgb(196, 196, 196);
+  border-radius: 4px;
+}
+
+.bar {
+  height: 20px;
+  width: 30%;
+  background-color: crimson;
+  box-shadow: 0 0 0 3px crimson;
+  border-radius: 1px;
+}
+
+.text {
+  font-size: 15px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: "ABCSans", sans-serif;
+  margin-bottom: -0.2em;
+
+  span {
+    font-size: 13px;
+    font-weight: 900;
+    margin-left: 8px;
+  }
+}

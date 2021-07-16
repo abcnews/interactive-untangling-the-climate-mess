@@ -4,6 +4,9 @@ import { Portal } from "react-portal";
 // Import stylsheets
 import styles from "./styles.scss";
 
+// Using the React context API for global state
+import { AppContext } from "../../AppContext";
+
 // Import components
 import UserInputBox from "../UserInputBox/index";
 import BackgroundTexture from "../BackgroundTexture/index";
@@ -14,21 +17,15 @@ import ParagraphPanel from "../ParagraphPanel/index";
 import DelayedHeader from "../DelayedHeader/index";
 import ParagraphFade from "../ParagraphFade";
 import ParagraphPull from "../ParagraphPull";
-import useWindowSize from "../ParagraphObserver/useWindowSize";
-
-import { Client } from "@abcnews/poll-counters-client";
-
-// Using the React context API for global state
-import { AppContext } from "../../AppContext";
-
-// Other imports etc.
+import AudienceChart from "../AudienceChart";
+import BarChart from "../BarChart";
+import InteractivePanel from "../InteractivePanel";
 import EndStrings from "../EndStrings";
-import BarChart from "../BarChart/index";
+
+import useWindowSize from "../ParagraphObserver/useWindowSize";
+import { Client } from "@abcnews/poll-counters-client";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
-import InteractivePanel from "../InteractivePanel/index";
-
 import to from "await-to-js";
-
 const d3 = { ...require("d3-scale") };
 
 // Set up our poll counter
@@ -795,6 +792,37 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               }
             ]}
           />
+        </Portal>
+
+        <Portal node={document && document.getElementById("chartconvinced")}>
+          <AudienceChart
+            bars={[
+              {
+                title: "Enery",
+                percent: 50,
+                color: "#A3297C",
+                textColor: "#A3297C"
+              },
+              {
+                title: "Burping cows",
+                percent: 50,
+                color: "#2A4059",
+                textColor: "#2A4059"
+              },
+              {
+                title: "Transport",
+                percent: 50,
+                color: "#007B52",
+                textColor: "#007B52"
+              },
+              {
+                title: "Industry",
+                percent: 50,
+                color: "#F65C1B",
+                textColor: "#C42F05"
+              }
+            ]}
+          ></AudienceChart>
         </Portal>
 
         {/* Background visual */}

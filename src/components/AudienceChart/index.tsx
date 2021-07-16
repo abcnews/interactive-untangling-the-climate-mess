@@ -22,7 +22,7 @@ const Bar = ({
       >
         {title}:{" "}
         <span style={{ color: greyedOut ? GREYED_OUT_COLOR : textColor }}>
-          {percent}% of emissions
+          {percent}% convinced
         </span>
       </div>
       {/* Because this is not dynamic we can cheat here a bit and have pre-rendered SVGs */}
@@ -99,7 +99,7 @@ interface BarChartProps {
 const BarChart: React.FC<BarChartProps> = ({
   heading = undefined,
   bars = [{ title: "Enery", percent: 33 }],
-  greyedOutBars = [0],
+  greyedOutBars = [],
   ...props
 }) => {
   return (
