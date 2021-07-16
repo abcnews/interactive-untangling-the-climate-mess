@@ -29,7 +29,7 @@ interface UserInputBoxProps {
 
 const BackgroundSvg = ({
   shapeIndex = 0,
-  color = "#A3297C",
+  color = "#2A4059",
   selected = true,
   greyedOut = false,
   ...props

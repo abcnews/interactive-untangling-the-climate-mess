@@ -311,7 +311,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         }
 
         break;
-      case "personalresults.":
+      case "personalresults":
         shouldShow =
           questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
           questionCompleteness === "noMAIN1allSUBnoMAIN2" || // 6
@@ -336,11 +336,11 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
 
         setPanelText(
           <>
-            <p>Personal results</p>
+            <p>Personal results.</p>
             <BarChart
               bars={[
                 {
-                  title: "Enery",
+                  title: "Energy",
                   percent: 33,
                   color: "#A3297C",
                   textColor: "#A3297C",

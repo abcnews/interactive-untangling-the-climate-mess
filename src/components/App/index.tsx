@@ -750,6 +750,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
         <Portal node={document && document.getElementById("inputtier1again")}>
           <UserInputBox
+            color={"#2A4059"}
             questionKey="MAINQ2-can-we-still-save-the-world-again-after-article"
             title={"So, how about now? Can we save the world?"}
             buttons={[
@@ -767,7 +768,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           <BarChart
             bars={[
               {
-                title: "Enery",
+                title: "Energy",
                 percent: 33,
                 color: "#A3297C",
                 textColor: "#A3297C"
@@ -799,25 +800,25 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             bars={[
               {
                 title: "Enery",
-                percent: 50,
+                percent: 65,
                 color: "#A3297C",
                 textColor: "#A3297C"
               },
               {
                 title: "Burping cows",
-                percent: 50,
+                percent: 36,
                 color: "#2A4059",
                 textColor: "#2A4059"
               },
               {
                 title: "Transport",
-                percent: 50,
+                percent: 73,
                 color: "#007B52",
                 textColor: "#007B52"
               },
               {
                 title: "Industry",
-                percent: 50,
+                percent: 29,
                 color: "#F65C1B",
                 textColor: "#C42F05"
               }
