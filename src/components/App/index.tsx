@@ -220,9 +220,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       setAustraliaConvincedOf(localAusConvinced);
     });
 
-    // Listen for scroll
-    // document.addEventListener("scroll", onScrollUpdate);
-
     const panelStarters: any = document.querySelectorAll(
       "[id^='interactivepanel']"
     );
