@@ -13,8 +13,8 @@ type InteractivePanelProps = {
   panelKey;
   questionCompleteness;
   convincedState;
-  subQuestionsConvinvedOf;
-  australiaConvincedOf;
+  subQuestionsConvinvedOf: number;
+  australiaConvincedOf: number;
   userInputState;
   backgroundVariation?: number;
 };
@@ -64,9 +64,6 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
       return <p>So now you’ve read all this you’re less convinced.</p>;
     else return <></>;
   }
-
-  // onMount
-  useEffect(() => {}, []);
 
   useEffect(() => {
     // KEY
@@ -323,6 +320,20 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
           questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
 
+        const isGreyedOut = (key: string) => {
+          if (
+            userInputState[key] === "certain" ||
+            userInputState[key] === "hopeful"
+          )
+            return false;
+
+          if (
+            userInputState[key] === "doubtful" ||
+            userInputState[key] === "impossible"
+          )
+            return true;
+        };
+
         setPanelText(
           <>
             <p>Personal results</p>
@@ -332,35 +343,39 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                   title: "Enery",
                   percent: 33,
                   color: "#A3297C",
-                  textColor: "#A3297C"
+                  textColor: "#A3297C",
+                  greyedOut: isGreyedOut("SUBQ1-renewables-zero-carbon")
                 },
                 {
                   title: "Burping cows",
                   percent: 10,
                   color: "#2A4059",
-                  textColor: "#2A4059"
+                  textColor: "#2A4059",
+                  greyedOut: isGreyedOut("SUBQ2-livestock-emissions")
                 },
                 {
                   title: "Transport",
                   percent: 20,
                   color: "#007B52",
-                  textColor: "#007B52"
+                  textColor: "#007B52",
+                  greyedOut: isGreyedOut("SUBQ3-transportation-off-fossil")
                 },
                 {
                   title: "Industry",
                   percent: 40,
                   color: "#F65C1B",
-                  textColor: "#C42F05"
+                  textColor: "#C42F05",
+                  greyedOut: isGreyedOut("SUBQ4-industry-emissions")
                 },
                 {
                   title: "Carbon capture",
                   percent: 60,
                   color: "#0000FF",
                   textColor: "#0000FF",
-                  label: "All the rest"
+                  label: "All the rest",
+                  greyedOut: isGreyedOut("SUBQ5-carbon-capture")
                 }
               ]}
-              greyedOutBars={[1]}
             />
           </>
         );

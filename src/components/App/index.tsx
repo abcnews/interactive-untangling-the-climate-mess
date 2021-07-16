@@ -35,6 +35,7 @@ const pollClient = new Client(GROUP);
 const TANGLE_DOWNPAGE_START = 0.75;
 
 // Control position of main tangle depending on marker
+// NOW DONE THROUGH CORE
 const markerConfig = {
   initial: 0.2,
   2: 0.01, // Story Title: Untangling The Climate Mess
@@ -60,7 +61,7 @@ const pollGet = (...args) =>
   });
 
 // Add all markers here. They control string visibility later
-const mainStringMarkers = ["initial", 1];
+// const mainStringMarkers = ["initial", 1];
 const endStringsMarkers = [
   "endstrings",
   "userstrings",
@@ -94,7 +95,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
   const [mainTangleOpacity, _setMainTangleOpacity] = useState(0.0);
   const mainTangleOpacityRef = useRef(mainTangleOpacity);
-  // So we can use opacity in an event listener
+  // So we can use opacity in an event listener or setTimeout
   const setMainTangleOpacity = data => {
     mainTangleOpacityRef.current = data;
     _setMainTangleOpacity(data);
@@ -173,23 +174,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
-
-  // const onScrollUpdate = () => {
-  //   scrollY = window.pageYOffset;
-  //   // Only process when user at top
-  //   if (scrollY > window.innerHeight * 2 || mainTangleOpacityRef.current < 0.9)
-  //     return;
-
-  //   const percentScale = d3
-  //     .scaleLinear()
-  //     .domain([0, window.innerHeight])
-  //     .range([0.8, 0.2])
-  //     .clamp(true);
-
-  //   const calculatedY = TANGLE_DOWNPAGE_START - scrollY / 2000;
-
-  //   setMainTangleYPos(percentScale(scrollY));
-  // };
 
   // onMount
   useEffect(() => {
@@ -327,6 +311,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   // Effect when userInputState is changed
   useEffect(() => {
     if (!userInputState) return;
+    console.log(userInputState);
 
     /**
      * Here we are combining sentiment to simply positive or negative

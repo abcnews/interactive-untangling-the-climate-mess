@@ -100,13 +100,11 @@ const Bar = ({
 interface BarChartProps {
   heading?: string;
   bars?: any[];
-  greyedOutBars?: any[];
 }
 
 const BarChart: React.FC<BarChartProps> = ({
   heading = undefined,
   bars = [{ title: "Enery", percent: 33 }],
-  greyedOutBars = [],
   ...props
 }) => {
   return (
@@ -120,7 +118,7 @@ const BarChart: React.FC<BarChartProps> = ({
           title={bar.title}
           textColor={bar.textColor}
           index={index}
-          greyedOut={greyedOutBars.includes(index)}
+          greyedOut={bar.greyedOut}
           label={bar.label}
         />
       ))}
