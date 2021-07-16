@@ -11,6 +11,7 @@ const Bar = ({
   textColor,
   index = 0,
   greyedOut = false,
+  label,
   ...props
 }) => {
   const NUMBER_OF_VARIATIONS = 4;
@@ -21,9 +22,15 @@ const Bar = ({
         style={{ color: greyedOut ? GREYED_OUT_COLOR : textColor }}
       >
         {title}:{" "}
-        <span style={{ color: greyedOut ? GREYED_OUT_COLOR : textColor }}>
-          {percent}% of emissions
-        </span>
+        {label ? (
+          <span style={{ color: greyedOut ? GREYED_OUT_COLOR : textColor }}>
+            {label}
+          </span>
+        ) : (
+          <span style={{ color: greyedOut ? GREYED_OUT_COLOR : textColor }}>
+            {percent}% of emissions
+          </span>
+        )}
       </div>
       {/* Because this is not dynamic we can cheat here a bit and have pre-rendered SVGs */}
       {index % NUMBER_OF_VARIATIONS === 0 && (
@@ -114,6 +121,7 @@ const BarChart: React.FC<BarChartProps> = ({
           textColor={bar.textColor}
           index={index}
           greyedOut={greyedOutBars.includes(index)}
+          label={bar.label}
         />
       ))}
     </div>

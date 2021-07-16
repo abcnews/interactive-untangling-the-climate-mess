@@ -351,6 +351,13 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                   percent: 40,
                   color: "#F65C1B",
                   textColor: "#C42F05"
+                },
+                {
+                  title: "Carbon capture",
+                  percent: 60,
+                  color: "#0000FF",
+                  textColor: "#0000FF",
+                  label: "All the rest"
                 }
               ]}
               greyedOutBars={[1]}
