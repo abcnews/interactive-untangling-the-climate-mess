@@ -676,7 +676,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           node={document && document.getElementById("inputlivestockemissions")}
         >
           <UserInputBox
-            color={"#2A4059"}
+            color={"#F65C1B"}
             questionKey="SUBQ2-livestock-emissions"
             title={"Can we reach reach zero livestock emissions?"}
             buttons={[
@@ -716,7 +716,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           node={document && document.getElementById("inputindustryemissions")}
         >
           <UserInputBox
-            color={"#F65C1B"}
+            color={"#007B52"}
             questionKey="SUBQ4-industry-emissions"
             title={"Can we elliminate emissions from industry?"}
             buttons={[
@@ -734,7 +734,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           node={document && document.getElementById("inputcarboncapture")}
         >
           <UserInputBox
-            color={"#0076C5"}
+            color={"#2A4059"}
             questionKey="SUBQ5-carbon-capture"
             title={"So, what do you think? Can we capture all that carbon?"}
             buttons={[
@@ -896,7 +896,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           );
         })}
 
-        <AnchorTransform>{numberOfEngagedUsers}</AnchorTransform>
+        <AnchorTransform>{numberOfEngagedUsers.toLocaleString()}</AnchorTransform>
       </>
     </AppContext.Provider>
   );

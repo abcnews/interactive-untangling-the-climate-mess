@@ -370,8 +370,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                 {
                   title: "Carbon capture",
                   percent: 60,
-                  color: "#0000FF",
-                  textColor: "#0000FF",
+                  color: "#2A4059",
+                  textColor: "#2A4059",
                   label: "All the rest",
                   greyedOut: isGreyedOut("SUBQ5-carbon-capture")
                 }
