@@ -271,8 +271,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         })
       );
 
-      console.log(pollGetResponse);
-
       if (!err) {
         setNumberOfEngagedUsers(pollGetResponse.value);
       }

@@ -77,7 +77,6 @@ const ScrollObserver: React.FC<ScrollObserverProps> = ({
       // Moving forward, otherwise moving back
       if (entry.isIntersecting) {
         props.setMarker(markerObject.key);
-        console.log("Hash config", markerObject);
         positionY = markerObject.position;
         if (markerObject.minus) isMinus = true;
       } else {
@@ -86,7 +85,6 @@ const ScrollObserver: React.FC<ScrollObserverProps> = ({
         const previousMarkerEl = markerEls[previousIndex];
         const previousIdString: string = previousMarkerEl.id;
         const previousMarkerObject = alternatingCaseToObject(previousIdString);
-        console.log("Hash config", previousMarkerObject);
         positionY = previousMarkerObject.position;
         if (previousMarkerObject.minus) isMinus = true;
         props.setMarker(previousMarkerObject.key);
