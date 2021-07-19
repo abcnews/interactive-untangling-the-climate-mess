@@ -857,6 +857,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           setMarker={setMarker}
           setMainTangleYPos={setMainTangleYPos}
           setMainTangleXPos={setMainTangleXPos}
+          waypoint={80}
         />
 
         {/* Sets paragraph text where we break out of 
