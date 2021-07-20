@@ -650,6 +650,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             poll={pollClient}
             setUserInputState={setUserInputState}
             pollClient={pollClient}
+            windowWidth={windowSize.width}
           />
         </Portal>
 
@@ -668,6 +669,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             ]}
             setUserInputState={setUserInputState}
             pollClient={pollClient}
+            windowWidth={windowSize.width}
           />
         </Portal>
 
@@ -689,6 +691,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             ]}
             setUserInputState={setUserInputState}
             pollClient={pollClient}
+            windowWidth={windowSize.width}
           />
         </Portal>
 
@@ -709,6 +712,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             ]}
             setUserInputState={setUserInputState}
             pollClient={pollClient}
+            windowWidth={windowSize.width}
           />
         </Portal>
 
@@ -729,6 +733,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             ]}
             setUserInputState={setUserInputState}
             pollClient={pollClient}
+            windowWidth={windowSize.width}
           />
         </Portal>
 
@@ -747,6 +752,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             ]}
             setUserInputState={setUserInputState}
             pollClient={pollClient}
+            windowWidth={windowSize.width}
           />
         </Portal>
 
@@ -763,6 +769,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             ]}
             setUserInputState={setUserInputState}
             pollClient={pollClient}
+            windowWidth={windowSize.width}
           />
         </Portal>
 
