@@ -800,7 +800,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           <AudienceChart
             bars={[
               {
-                title: "Enery",
+                title: "Energy",
                 percent: 65,
                 color: "#A3297C",
                 textColor: "#A3297C"

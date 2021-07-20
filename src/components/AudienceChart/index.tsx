@@ -20,10 +20,7 @@ const Bar = ({
         className={styles.text}
         style={{ color: greyedOut ? GREYED_OUT_COLOR : textColor }}
       >
-        {title}:{" "}
-        <span style={{ color: greyedOut ? GREYED_OUT_COLOR : textColor }}>
-          {percent}% convinced
-        </span>
+        {title}
       </div>
       {/* Because this is not dynamic we can cheat here a bit and have pre-rendered SVGs */}
       {index % NUMBER_OF_VARIATIONS === 0 && (
@@ -86,6 +83,12 @@ const Bar = ({
           />
         </svg>
       )}
+      <div className={styles.convinced}>
+        <span style={{ color: greyedOut ? GREYED_OUT_COLOR : textColor }}>
+          {percent}% convinced
+        </span>
+        <span>XX% not convinced</span>
+      </div>
     </div>
   );
 };

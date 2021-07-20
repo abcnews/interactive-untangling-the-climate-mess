@@ -32,7 +32,7 @@
 
 .text {
   font-size: 15px;
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
   font-family: "ABCSans", sans-serif;
   margin-bottom: -0.2em;
@@ -42,4 +42,16 @@
     font-weight: 900;
     margin-left: 8px;
   }
+}
+
+.convinced {
+  margin-top: -0.2em;
+  margin-bottom: 1em;
+  max-width: 325px;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-family: "ABCSans", sans-serif;
+  display: flex;
+  justify-content: space-between;
 }
