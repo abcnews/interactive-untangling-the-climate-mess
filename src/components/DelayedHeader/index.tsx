@@ -4,9 +4,11 @@ import OrganicPanel from "../OrganicPanel";
 import { nextUntil } from "../../nextUntil";
 import convert from "react-from-dom";
 
-interface DelayedHeaderProps {}
+interface DelayedHeaderProps {
+  setTransformsComplete: (complete: boolean) => void;
+}
 
-const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
+const DelayedHeader: React.FC<DelayedHeaderProps> = ({setTransformsComplete, ...props}) => {
   const [contentArray, setContentArray] = useState<any>([]);
 
   useEffect(() => {
@@ -19,7 +21,11 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = () => {
     onMount();
   }, []);
 
-  useEffect(() => {}, [contentArray]);
+  useEffect(() => {
+    if (contentArray.length > 0) {
+      setTransformsComplete(true);
+    }
+  }, [contentArray]);
 
   // TODO: MAP THE PANELS IF WE NEED MORE
 

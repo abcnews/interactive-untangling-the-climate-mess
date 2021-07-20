@@ -11,11 +11,13 @@ interface ScrollObserverProps {
   setMainTangleXPos: Function;
   setMarker: Function;
   waypoint?: number;
+  transformsComplete?: boolean;
 }
 
 const ScrollObserver: React.FC<ScrollObserverProps> = ({
   setMainTangleYPos,
   setMainTangleXPos,
+  transformsComplete = false,
   ...props
 }) => {
   const componentRef = useRef({});
@@ -100,6 +102,8 @@ const ScrollObserver: React.FC<ScrollObserverProps> = ({
 
   // Initialise component
   useEffect(() => {
+    if (!transformsComplete) return;
+
     observer = new IntersectionObserver(processMarker, {
       // Pull root top above the viewport
       rootMargin: `${ROOT_PULL}px 0% -${100 - props.waypoint!}%`
@@ -120,7 +124,7 @@ const ScrollObserver: React.FC<ScrollObserverProps> = ({
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [transformsComplete]);
 
   return <div className={styles.root}></div>;
 };

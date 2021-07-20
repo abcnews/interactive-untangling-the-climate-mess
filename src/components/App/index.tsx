@@ -135,6 +135,9 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   // ----------------
   const [australiaConvincedOf, setAustraliaConvincedOf] = useState(0);
 
+  // Used to wait for transforms before intersection observing 
+  const [transformsComplete, setTransformsComplete] = useState(false);
+
   const windowSize = useWindowSize();
 
   // ---- Combined config for InteractivePanel components
@@ -587,7 +590,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
       <>
         <Portal node={document && document.querySelector(".delayed-header")}>
-          <DelayedHeader />
+          <DelayedHeader setTransformsComplete={setTransformsComplete} />
         </Portal>
 
         <Portal node={document && document.getElementById("inputtier1")}>
@@ -692,7 +695,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           node={document && document.getElementById("inputfossiltransport")}
         >
           <UserInputBox
-            color={"#007B52"}
+            color={"#007cbf"}
             questionKey="SUBQ3-transportation-off-fossil"
             title={
               "So now you know how we quit fossil fuels in our transport system, can we do it?"
@@ -851,12 +854,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           <BackgroundTexture />
         </Portal>
 
-        <ScrollObserver
-          setMarker={setMarker}
-          setMainTangleYPos={setMainTangleYPos}
-          setMainTangleXPos={setMainTangleXPos}
-          waypoint={80}
-        />
+        
 
         {/* Sets paragraph text where we break out of 
         scrolly panels (and hide background animations on mobile) */}
@@ -896,6 +894,14 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         })}
 
         <AnchorTransform>{numberOfEngagedUsers.toLocaleString()}</AnchorTransform>
+
+        <ScrollObserver
+          setMarker={setMarker}
+          setMainTangleYPos={setMainTangleYPos}
+          setMainTangleXPos={setMainTangleXPos}
+          waypoint={80}
+          transformsComplete={transformsComplete}
+        />
       </>
     </AppContext.Provider>
   );
