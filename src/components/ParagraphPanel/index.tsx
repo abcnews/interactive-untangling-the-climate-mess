@@ -95,7 +95,7 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
   useEffect(() => {
     // Observe bottom half of the screen and a little more
     observer = new IntersectionObserver(processObservation, {
-      rootMargin: `-90% 0px 30px 0px`
+      rootMargin: `-95% 0px 0px 0px`
     });
 
     const paragraphStartMarkers: any = document.querySelectorAll(

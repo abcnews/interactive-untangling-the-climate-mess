@@ -4,7 +4,6 @@
   min-height: 90vh;
   text-align: center;
   padding-top: 30vh;
-  // padding-bottom: 45vh;
   max-width: 650px;
   margin: auto;
   // padding-left: 35px;
@@ -48,10 +47,6 @@
   .panel {
     padding-top: 45vh !important;
     padding-bottom: 45vh !important;
-    // margin-top: 85vh;
-    // margin-bottom: 85vh;
-    // margin-left: 2rem;
-    // margin-right: 0.8rem;
 
     // Push panel on Desktop
     @include for-desktop-up {
@@ -66,44 +61,4 @@
       left: 50%;
     }
   }
-
-  // .panel:last-of-type {
-  //   padding-bottom: 0;
-  // }
-
-  // p {
-  //   font-size: 23px;
-  //   line-height: 1.6em;
-  //   margin-left: auto;
-  //   margin-right: auto;
-  //   margin-top: 0;
-  //   margin-bottom: 2.25rem;
-  //   text-align: left;
-  //   transform: translateX(-1.33333rem);
-  //   background-color: unset;
-
-  //   @include for-tablet-portrait-up {
-  //     font-size: 25px;
-  //   }
-
-  //   @include for-tablet-landscape-up {
-  //     font-size: 28px;
-  //   }
-
-  //   @include for-big-desktop-up {
-  //     font-size: 30px;
-  //   }
-
-  //   span {
-  //     background-color: rgba(254, 247, 239, 0.8);
-  //     color: #22405a;
-  //     padding: 0.1em 1rem 0.1em 1rem;
-
-  //     font-weight: bold;
-
-  //     /* Needs prefixing */
-  //     box-decoration-break: clone;
-  //     -webkit-box-decoration-break: clone;
-  //   }
-  // }
 }

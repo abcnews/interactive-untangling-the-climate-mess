@@ -187,14 +187,6 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
     } else {
       setButtons(props.buttons);
     }
-
-    // async test
-    // const test = async () => {
-    //   const result = await pollGet({ question: questionKey });
-    //   console.log(result);
-    // };
-
-    // test();
   }, []); // Init effect
 
   useEffect(() => {
