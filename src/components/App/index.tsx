@@ -224,6 +224,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       setAustraliaConvincedOf(localAusConvinced);
     });
 
+    // Set up interactive panel elements
     const panelStarters: any = document.querySelectorAll(
       "[id^='interactivepanel']"
     );

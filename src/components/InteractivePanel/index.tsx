@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.scss";
 
 import BarChart from "../BarChart";
@@ -23,6 +23,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
   backgroundVariation = 0,
   ...props
 }) => {
+  const rootRef = useRef(null);
+
   // Deconstruct props
   const {
     panelKey,
@@ -437,8 +439,21 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     convincedState
   ]);
 
+  useEffect(() => {
+    if (!hidden) return;
+
+    if (rootRef.current) {
+      const currentEl: any = rootRef.current;
+
+      currentEl.parentElement.style = {};
+    }
+  }, [hidden]);
+
   return (
-    <div className={`${styles.root} ${hidden ? styles.hidden : ""}`}>
+    <div
+      ref={rootRef}
+      className={`${styles.root} ${hidden ? styles.hidden : ""}`}
+    >
       <div className={styles.panelContentContainer}>
         <div className={styles.background}>
           <img
