@@ -85,7 +85,7 @@ const BackgroundSvgWide = ({
       width="394"
       height="43"
       viewBox="0 0 394 43"
-      fill="none"
+      fill={selected ? color : "none"}
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="none"
     >
