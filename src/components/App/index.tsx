@@ -809,7 +809,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             bars={[
               {
                 title: "Energy",
-                percent: 65,
+                percent: 50,
                 color: "#A3297C",
                 textColor: "#A3297C"
               },
