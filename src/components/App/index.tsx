@@ -832,6 +832,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
                 textColor: "#C42F05"
               }
             ]}
+            windowWidth={windowSize.width}
           ></AudienceChart>
         </Portal>
 
