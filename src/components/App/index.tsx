@@ -135,8 +135,9 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   // ----------------
   const [australiaConvincedOf, setAustraliaConvincedOf] = useState(0);
 
-  // Used to wait for transforms before intersection observing 
+  // Used to wait for transforms before intersection observing
   const [transformsComplete, setTransformsComplete] = useState(false);
+  const [energyConvinced, setEnergyConvinced] = useState(0);
 
   const windowSize = useWindowSize();
 
@@ -187,8 +188,11 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
       if (!values) return;
 
+      console.log(values);
+
       const pollTotals: any = {};
 
+      // If more people are convinced than unconvinced then remove string
       function getAustraliaConvinced(keyString: string) {
         const certainOn: number = values[keyString].certain || 0;
         const hopefulOn: number = values[keyString].hopeful || 0;
@@ -215,6 +219,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
       setAustraliaStrings(pollTotals);
 
+      // Count how many areas Australia is convinced of
+      // For later comparison in interactive panels
       let localAusConvinced = 0;
 
       for (const area in pollTotals) {
@@ -222,6 +228,27 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       }
 
       setAustraliaConvincedOf(localAusConvinced);
+
+      // Get percentages of people convinced
+      const getPercentageConvinced = (keyString: string, values: any) => {
+        const certainOn: number = values[keyString].certain || 0;
+        const hopefulOn: number = values[keyString].hopeful || 0;
+        const doubtfulOn: number = values[keyString].doubtful || 0;
+        const impossibleOn: number = values[keyString].impossible || 0;
+
+        // Get number convinced
+        const convincedCount = certainOn + hopefulOn;
+        const unconvincedCount = doubtfulOn + impossibleOn;
+
+        // Calculate percentages
+
+        const total = convincedCount + unconvincedCount;
+        const percentConvinced = (convincedCount / total) * 100;
+
+        return percentConvinced;
+      };
+
+      getPercentageConvinced("SUBQ1-renewables-zero-carbon", values);
     });
 
     // Set up interactive panel elements
@@ -863,8 +890,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           <BackgroundTexture />
         </Portal>
 
-        
-
         {/* Sets paragraph text where we break out of 
         scrolly panels (and hide background animations on mobile) */}
         {backgroundIsRendered && (
@@ -902,7 +927,9 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           );
         })}
 
-        <AnchorTransform>{numberOfEngagedUsers.toLocaleString()}</AnchorTransform>
+        <AnchorTransform>
+          {numberOfEngagedUsers.toLocaleString()}
+        </AnchorTransform>
 
         <ScrollObserver
           setMarker={setMarker}
