@@ -104,7 +104,9 @@ function preInit() {
     panel.appendChild(container);
   });
 
-  // Set up pre header panel DOM
+  // Set up pre header panel DOM nodes
+  // Basically put all elements within #preheaderpanel and #endpreheaderpanel
+  // into their own div
   const markers = document.querySelectorAll("[id^='preheaderpanel']");
   const markersArray = Array.from(markers);
 
@@ -114,7 +116,7 @@ function preInit() {
     const elementArray: any = [];
     const panelElements = nextUntil(panel, "#endpreheaderpanel");
 
-    // // Add content to container element
+    // Add content to container element
     panelElements.forEach((element, iteration) => {
       panelContainer.appendChild(element);
     });

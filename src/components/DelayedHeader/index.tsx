@@ -8,7 +8,10 @@ interface DelayedHeaderProps {
   setTransformsComplete: (complete: boolean) => void;
 }
 
-const DelayedHeader: React.FC<DelayedHeaderProps> = ({setTransformsComplete, ...props}) => {
+const DelayedHeader: React.FC<DelayedHeaderProps> = ({
+  setTransformsComplete,
+  ...props
+}) => {
   const [contentArray, setContentArray] = useState<any>([]);
 
   useEffect(() => {
@@ -19,15 +22,30 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({setTransformsComplete, ...
       setContentArray(markersArray);
     };
     onMount();
+
+    return () => {
+      console.log("CLEANUP");
+      console.log(contentArray);
+
+      contentArray.forEach(el => {
+        console.log(el);
+
+        document.body.appendChild(el);
+      });
+    };
   }, []);
 
   useEffect(() => {
     if (contentArray.length > 0) {
+      // contentArray.forEach(el => {
+      //   el.parentNode.removeChild(el);
+      // });
       setTransformsComplete(true);
     }
   }, [contentArray]);
 
   // TODO: MAP THE PANELS IF WE NEED MORE
+  // But probably just keep it manual for now
 
   return (
     <div className={styles.root}>
@@ -85,7 +103,11 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({setTransformsComplete, ...
       </div>
 
       <div className={styles.panel}>
-        {/* <div id="visualKEY2" data-component="Anchor" data-mount="true"></div> */}
+        <div
+          id="visualKEY2POSITION1"
+          data-component="Anchor"
+          data-mount="true"
+        ></div>
         <OrganicPanel backgroundVariation={2}>
           {convert(contentArray[2])}
           {/* <p>
