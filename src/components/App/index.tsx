@@ -459,6 +459,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     setUserStrings(nextUserStrings);
 
     // Count up number user convinced by
+    // I DON'T THINK THIS IS WORKING
     let localConvincedCount = 0;
 
     for (const area in nextUserStrings) {

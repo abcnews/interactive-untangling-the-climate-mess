@@ -36,7 +36,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
   } = props;
 
   const [hidden, setHidden] = useState(false);
-  const [panelText, setPanelText] = useState(<p>Test</p>);
+  const [panelText, setPanelText] = useState(<p>Panel initial state (this should not show up!!!!!)</p>);
 
   // TODO: Maybe make these functions return React components?
 
@@ -186,20 +186,20 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
           questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
 
-        if (
-          // They didn't answer MAIN questions
-          questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
-          questionCompleteness === "noMAIN1allSUBnoMAIN2" // 6
-        ) {
-          setPanelText(
-            <p>
-              You didn’t tell us whether you thought Australia could get to net
-              zero, but here is the impact the things you were convinced by
-              would have on our emissions.
-            </p>
-          );
-        } else {
-          if (subQuestionsConvinvedOf >= 4) {
+        // if (
+        //   // They didn't answer MAIN questions
+        //   questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
+        //   questionCompleteness === "noMAIN1allSUBnoMAIN2" // 6
+        // ) {
+        //   setPanelText(
+        //     <p>
+        //       You didn’t tell us whether you thought Australia could get to net
+        //       zero, but here is the impact the things you were convinced by
+        //       would have on our emissions.
+        //     </p>
+        //   );
+        // } else {
+          if (subQuestionsConvinvedOf >= 5) {
             // Check if positive outloon on main2 question
             if (main2Positive)
               setPanelText(
@@ -224,7 +224,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
 
           //
 
-          if (subQuestionsConvinvedOf == 3) {
+          if (subQuestionsConvinvedOf == 4) {
             if (main2Positive)
               setPanelText(
                 <p>
@@ -247,7 +247,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
 
           //
 
-          if (subQuestionsConvinvedOf === 2) {
+          if (subQuestionsConvinvedOf === 3) {
             if (main2Positive)
               setPanelText(
                 <p>
@@ -310,7 +310,21 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                 <p>Well, I dunno what to tell ya????</p>
               );
           }
-        }
+
+          if (subQuestionsConvinvedOf === 0) {
+
+            setPanelText(
+              // TODO: Get Tim to write a proper answer:
+              <p>
+                You're a tough nut to crack!!!
+              </p>
+            );
+
+          }
+
+
+          
+        // }
 
         break;
       case "personalresults":
@@ -426,6 +440,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           );
         break;
     }
+    console.log("Subquestions convinced of", subQuestionsConvinvedOf);
 
     // Show if incomplete
     if (shouldShow) setHidden(false);
