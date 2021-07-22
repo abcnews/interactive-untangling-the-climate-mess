@@ -137,7 +137,13 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
   // Used to wait for transforms before intersection observing
   const [transformsComplete, setTransformsComplete] = useState(false);
+
+  // Percentages of Australians convinced
   const [energyConvinced, setEnergyConvinced] = useState(0);
+  const [livestockConvinced, setLiveStockConvinced] = useState(0);
+  const [transportConvinced, setTransportConvinced] = useState(0);
+  const [industryConvinced, setIndustryConvinced] = useState(0);
+  const [carbonCaptureConvinced, setCarbonCaptureConvinced] = useState(0);
 
   const windowSize = useWindowSize();
 
@@ -237,18 +243,32 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         const impossibleOn: number = values[keyString].impossible || 0;
 
         // Get number convinced
-        const convincedCount = certainOn + hopefulOn;
-        const unconvincedCount = doubtfulOn + impossibleOn;
+        const convincedCount: number = certainOn + hopefulOn;
+        const unconvincedCount: number = doubtfulOn + impossibleOn;
 
         // Calculate percentages
 
-        const total = convincedCount + unconvincedCount;
-        const percentConvinced = (convincedCount / total) * 100;
+        const total: number = convincedCount + unconvincedCount;
+        const percentConvinced: number = (convincedCount / total) * 100;
 
-        return percentConvinced;
+        return Math.round(percentConvinced);
       };
 
-      getPercentageConvinced("SUBQ1-renewables-zero-carbon", values);
+      setEnergyConvinced(
+        getPercentageConvinced("SUBQ1-renewables-zero-carbon", values)
+      );
+      setLiveStockConvinced(
+        getPercentageConvinced("SUBQ2-livestock-emissions", values)
+      );
+      setTransportConvinced(
+        getPercentageConvinced("SUBQ3-transportation-off-fossil", values)
+      );
+      setIndustryConvinced(
+        getPercentageConvinced("SUBQ4-industry-emissions", values)
+      );
+      setCarbonCaptureConvinced(
+        getPercentageConvinced("SUBQ5-carbon-capture", values)
+      );
     });
 
     // Set up interactive panel elements
@@ -836,25 +856,25 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             bars={[
               {
                 title: "Energy",
-                percent: 50,
+                percent: energyConvinced,
                 color: "#A3297C",
                 textColor: "#A3297C"
               },
               {
                 title: "Burping cows",
-                percent: 36,
+                percent: livestockConvinced,
                 color: "#2A4059",
                 textColor: "#2A4059"
               },
               {
                 title: "Transport",
-                percent: 73,
+                percent: transportConvinced,
                 color: "#007B52",
                 textColor: "#007B52"
               },
               {
                 title: "Industry",
-                percent: 29,
+                percent: industryConvinced,
                 color: "#F65C1B",
                 textColor: "#C42F05"
               }

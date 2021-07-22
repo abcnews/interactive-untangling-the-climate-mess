@@ -170,7 +170,7 @@ const BarDesktop = ({
         <span style={{ color: greyedOut ? GREYED_OUT_COLOR : textColor }}>
           {percent}% convinced
         </span>
-        <span>XX% not convinced</span>
+        <span>{100 - percent}% not convinced</span>
       </div>
     </div>
   );
@@ -340,7 +340,7 @@ const Bar = ({
         <span style={{ color: greyedOut ? GREYED_OUT_COLOR : textColor }}>
           {percent}% convinced
         </span>
-        <span>XX% not convinced</span>
+        <span>{100 - percent}% not convinced</span>
       </div>
     </div>
   );
