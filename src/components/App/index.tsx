@@ -661,7 +661,10 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
       <>
         <Portal node={document && document.querySelector(".delayed-header")}>
-          <DelayedHeader setTransformsComplete={setTransformsComplete} />
+          <DelayedHeader
+            setTransformsComplete={setTransformsComplete}
+            openingCentered={openingCentered}
+          />
         </Portal>
 
         <Portal node={document && document.getElementById("inputtier1")}>

@@ -6,10 +6,12 @@ import convert from "react-from-dom";
 
 interface DelayedHeaderProps {
   setTransformsComplete: (complete: boolean) => void;
+  openingCentered: boolean;
 }
 
 const DelayedHeader: React.FC<DelayedHeaderProps> = ({
   setTransformsComplete,
+  openingCentered,
   ...props
 }) => {
   const [contentArray, setContentArray] = useState<any>([]);
@@ -55,7 +57,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
         data-mount="true"
       ></div>
 
-      <div className={styles.heroText}>
+      <div className={`${styles.heroText} ${styles.pullLeft}`}>
         Climate change... <br />
         we get it, it’s a depressing mess.
       </div>
