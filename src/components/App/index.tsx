@@ -33,9 +33,9 @@ const d3 = { ...require("d3-scale") };
 const GROUP = "interactive-untangling-the-climate-mess";
 const pollClient = new Client(GROUP);
 
-const TOP_DOCK_POSITION = 0.015;
-const BOTTOM_DOCK_POSITION = 1.01;
-const TANGLE_DOWNPAGE_START = 1.01;
+const TOP_DOCK_POSITION = 0.01;
+const BOTTOM_DOCK_POSITION = 1;
+const BOTTOM_DOCK_SIDE_BY_SIDE_POSITION = 0.8;
 
 // Control position of main tangle depending on marker
 // NOW DONE THROUGH CORE
@@ -205,7 +205,12 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     const percentScale = d3
       .scaleLinear()
       .domain([0, window.innerHeight])
-      .range([BOTTOM_DOCK_POSITION, TOP_DOCK_POSITION])
+      .range([
+        openingCentered
+          ? BOTTOM_DOCK_POSITION
+          : BOTTOM_DOCK_SIDE_BY_SIDE_POSITION,
+        TOP_DOCK_POSITION
+      ])
       .clamp(true);
 
     setMainTangleYPos(percentScale(scrollY));
@@ -369,7 +374,11 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       // Wait a while before we bring in the tangle
       setTimeout(() => {
         if (markerRef.current === "initial")
-          setMainTangleYPos(TANGLE_DOWNPAGE_START);
+          setMainTangleYPos(
+            openingCentered
+              ? BOTTOM_DOCK_POSITION
+              : BOTTOM_DOCK_SIDE_BY_SIDE_POSITION
+          );
         // else setMainTangleYPos(markerConfig[markerRef.current] || 0.01);
         // TODO: Start at Core position config
         else setMainTangleYPos(0.01);
