@@ -184,8 +184,31 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
   const [numberOfEngagedUsers, setNumberOfEngagedUsers] = useState(0);
 
+  // Track if we are on Desktop or not
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Switch between pull left and centered opening
+  const [openingCentered, setOpeningCentered] = useState(false);
+
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
+
+  const onScrollUpdate = () => {
+    scrollY = window.pageYOffset;
+    // Only process when user at top
+    if (scrollY > window.innerHeight * 2 || mainTangleOpacityRef.current < 0.9)
+      return;
+
+    const percentScale = d3
+      .scaleLinear()
+      .domain([0, window.innerHeight])
+      .range([0.8, 0.2])
+      .clamp(true);
+
+    const calculatedY = TANGLE_DOWNPAGE_START - scrollY / 2000;
+
+    setMainTangleYPos(percentScale(scrollY));
+  };
 
   // onMount
   useEffect(() => {
@@ -271,6 +294,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       );
     });
 
+    document.addEventListener("scroll", onScrollUpdate);
+
     // Set up interactive panel elements
     const panelStarters: any = document.querySelectorAll(
       "[id^='interactivepanel']"
@@ -329,7 +354,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
     return () => {
       // unsubscribe(onSubscriptionUpdate);
-      // document.removeEventListener("scroll", onScrollUpdate);
+      document.removeEventListener("scroll", onScrollUpdate);
     };
   }, []);
 
@@ -614,8 +639,10 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     const { width, height } = windowSize;
 
     if (width >= 1200) {
-      setMainTangleXPos(-0.25);
+      if (!openingCentered) setMainTangleXPos(-0.25);
+      setIsDesktop(true);
     } else {
+      setIsDesktop(false);
       setMainTangleXPos(0);
     }
   }, [windowSize.width, windowSize.height]);
