@@ -195,6 +195,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
   const onScrollUpdate = () => {
     scrollY = window.pageYOffset;
+
     // Only process when user at top
     if (scrollY > window.innerHeight * 2 || mainTangleOpacityRef.current < 0.9)
       return;
@@ -202,10 +203,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     const percentScale = d3
       .scaleLinear()
       .domain([0, window.innerHeight])
-      .range([0.8, 0.2])
+      .range([0.8, 0.01])
       .clamp(true);
-
-    const calculatedY = TANGLE_DOWNPAGE_START - scrollY / 2000;
 
     setMainTangleYPos(percentScale(scrollY));
   };
