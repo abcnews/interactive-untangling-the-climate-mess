@@ -12,12 +12,14 @@ interface ScrollObserverProps {
   setMarker: Function;
   waypoint?: number;
   transformsComplete?: boolean;
+  isDesktop: boolean;
 }
 
 const ScrollObserver: React.FC<ScrollObserverProps> = ({
   setMainTangleYPos,
   setMainTangleXPos,
   transformsComplete = false,
+  isDesktop,
   ...props
 }) => {
   const componentRef = useRef({});
@@ -93,7 +95,8 @@ const ScrollObserver: React.FC<ScrollObserverProps> = ({
       }
 
       // If position is set in Core, set it here
-      if (positionY) {
+      // Unless on Desktop, in which case we don't want to set it
+      if (positionY && !isDesktop) {
         if (isMinus) setMainTangleYPos(-positionY / 100);
         else setMainTangleYPos(positionY / 100);
       }

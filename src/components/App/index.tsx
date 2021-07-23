@@ -33,16 +33,18 @@ const d3 = { ...require("d3-scale") };
 const GROUP = "interactive-untangling-the-climate-mess";
 const pollClient = new Client(GROUP);
 
-const TANGLE_DOWNPAGE_START = 0.75;
+const TOP_DOCK_POSITION = 0.015;
+const BOTTOM_DOCK_POSITION = 1.01;
+const TANGLE_DOWNPAGE_START = 1.01;
 
 // Control position of main tangle depending on marker
 // NOW DONE THROUGH CORE
-const markerConfig = {
-  initial: 0.2,
-  2: 0.01, // Story Title: Untangling The Climate Mess
-  3: 0.1, // Back to ball
-  4: 0.01 // Power lines (purple)
-};
+// const markerConfig = {
+//   initial: 0.2,
+//   2: 0.01, // Story Title: Untangling The Climate Mess
+//   3: 0.1, // Back to ball
+//   4: 0.01 // Power lines (purple)
+// };
 
 // Promisify callback functions here whatever
 const pollIncrement = (...args) =>
@@ -203,7 +205,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     const percentScale = d3
       .scaleLinear()
       .domain([0, window.innerHeight])
-      .range([0.8, 0.01])
+      .range([BOTTOM_DOCK_POSITION, TOP_DOCK_POSITION])
       .clamp(true);
 
     setMainTangleYPos(percentScale(scrollY));
@@ -975,6 +977,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           setMainTangleXPos={setMainTangleXPos}
           waypoint={80}
           transformsComplete={transformsComplete}
+          isDesktop={isDesktop}
         />
       </>
     </AppContext.Provider>
