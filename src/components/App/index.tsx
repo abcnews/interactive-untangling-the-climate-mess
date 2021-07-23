@@ -340,21 +340,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     if (!backgroundIsRendered) return;
 
     setTimeout(() => {
-      // mainTangleEl = document.querySelector(".interactive-main-tangle");
-
-      // // TODO: Calculate y scroll for loading downpage a bit
-      // if (window.pageYOffset < window.innerHeight * 2) {
-      //   gsap.fromTo(
-      //     mainTangleEl,
-      //     { y: window.innerHeight * 1.25 },
-      //     {
-      //       y: window.innerHeight * TANGLE_DOWNPAGE_START,
-      //       ease: "power3",
-      //       duration: 1.0
-      //     }
-      //   );
-      // }
-
       // Wait a while before we bring in the tangle
       setTimeout(() => {
         if (markerRef.current === "initial")
@@ -864,20 +849,26 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               {
                 title: "Burping cows",
                 percent: livestockConvinced,
-                color: "#2A4059",
-                textColor: "#2A4059"
+                color: "#F65C1B",
+                textColor: "#C42F05"
               },
               {
                 title: "Transport",
                 percent: transportConvinced,
-                color: "#007B52",
-                textColor: "#007B52"
+                color: "#007CBF",
+                textColor: "#007CBF"
               },
               {
                 title: "Industry",
                 percent: industryConvinced,
-                color: "#F65C1B",
-                textColor: "#C42F05"
+                color: "#007B52",
+                textColor: "#007B52"
+              },
+              {
+                title: "Carbon capture",
+                percent: carbonCaptureConvinced,
+                color: "#2A4059",
+                textColor: "#2A4059"
               }
             ]}
             windowWidth={windowSize.width}

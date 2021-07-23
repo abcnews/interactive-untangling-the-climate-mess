@@ -315,6 +315,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
 
             setPanelText(
               // TODO: Get Tim to write a proper answer:
+              // ALSO BATTLE TEST ALL THE POSSIBLE WAYS OF ANSWERING THE BUTTONS
               <p>
                 You're a tough nut to crack!!!
               </p>
