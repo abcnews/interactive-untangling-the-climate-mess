@@ -30,7 +30,12 @@
 
     &.pull-left {
       // TODO: Pull this left
-      color: blue !important;
+      // color: blue !important;
+      position: relative;
+      left: 55%;
+      max-width: 400px;
+      margin-left: 0;
+      margin-right: 0;
     }
 
     // -webkit-text-stroke: 1px rgb(255, 255, 255);

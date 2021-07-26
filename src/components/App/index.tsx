@@ -664,6 +664,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           <DelayedHeader
             setTransformsComplete={setTransformsComplete}
             openingCentered={openingCentered}
+            isDesktop={isDesktop}
           />
         </Portal>
 

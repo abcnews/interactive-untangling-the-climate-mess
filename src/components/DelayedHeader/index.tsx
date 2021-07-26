@@ -7,11 +7,13 @@ import convert from "react-from-dom";
 interface DelayedHeaderProps {
   setTransformsComplete: (complete: boolean) => void;
   openingCentered: boolean;
+  isDesktop: boolean;
 }
 
 const DelayedHeader: React.FC<DelayedHeaderProps> = ({
   setTransformsComplete,
   openingCentered,
+  isDesktop,
   ...props
 }) => {
   const [contentArray, setContentArray] = useState<any>([]);
@@ -57,7 +59,11 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
         data-mount="true"
       ></div>
 
-      <div className={`${styles.heroText} ${styles.pullLeft}`}>
+      <div
+        className={`${styles.heroText} ${
+          !openingCentered && isDesktop && styles.pullLeft
+        }`}
+      >
         Climate change... <br />
         we get it, it’s a depressing mess.
       </div>
@@ -105,11 +111,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
       </div>
 
       <div className={styles.panel}>
-        <div
-          id="visualKEY2"
-          data-component="Anchor"
-          data-mount="true"
-        ></div>
+        <div id="visualKEY2" data-component="Anchor" data-mount="true"></div>
         <OrganicPanel backgroundVariation={2}>
           {convert(contentArray[2])}
           {/* <p>
