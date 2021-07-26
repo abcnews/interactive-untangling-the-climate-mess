@@ -18,7 +18,7 @@
   // }
 
   .hero-text {
-    margin-bottom: 45vh;
+    margin-bottom: 120vh;
     font-size: 28px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -37,6 +37,7 @@
       max-width: 650px;
       margin-left: 0;
       margin-right: 0;
+      margin-bottom: 45vh;
     }
 
     // -webkit-text-stroke: 1px rgb(255, 255, 255);
@@ -61,15 +62,21 @@
 
     // Push panel on Desktop
     @include for-desktop-up {
-      padding-top: 0vh !important;
-      padding-bottom: 0vh !important;
-      margin-top: 25vh;
-      margin-bottom: 25vh;
-      font-size: 29px;
-      width: calc(100vw / 2.5);
-      max-width: 650px;
-      position: relative;
-      left: 50%;
+      &.pull-left {
+        padding-top: 0vh !important;
+        padding-bottom: 0vh !important;
+        margin-top: 25vh;
+        margin-bottom: 25vh;
+        font-size: 29px;
+        width: calc(100vw / 2.5);
+        max-width: 650px;
+        position: relative;
+        left: 50%;
+      }
     }
+  }
+
+  .panel:last-of-type {
+    padding-bottom: 75vh !important;
   }
 }

@@ -190,7 +190,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const [isDesktop, setIsDesktop] = useState(false);
 
   // Switch between pull left and centered opening
-  const [openingCentered, setOpeningCentered] = useState(false);
+  const [openingCentered, setOpeningCentered] = useState(true);
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
