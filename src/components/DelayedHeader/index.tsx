@@ -3,20 +3,41 @@ import styles from "./styles.scss";
 import OrganicPanel from "../OrganicPanel";
 import { nextUntil } from "../../nextUntil";
 import convert from "react-from-dom";
+import { InView } from "react-intersection-observer";
+import { useInView } from "react-intersection-observer";
 
 interface DelayedHeaderProps {
   setTransformsComplete: (complete: boolean) => void;
   openingCentered: boolean;
   isDesktop: boolean;
+  setIsPastOpening: (isPastOpening: boolean) => void;
 }
 
 const DelayedHeader: React.FC<DelayedHeaderProps> = ({
   setTransformsComplete,
   openingCentered,
   isDesktop,
+  setIsPastOpening,
   ...props
 }) => {
   const [contentArray, setContentArray] = useState<any>([]);
+
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    // threshold: 0,
+  });
+
+  useEffect(() => {
+    if (typeof entry === "undefined") return;
+    // console.log(entry);
+    const marker: any = entry.target;
+    const bounds = marker.getBoundingClientRect();
+
+    console.log(bounds.y);
+
+    if (bounds.y > 0) setIsPastOpening(false);
+    else setIsPastOpening(true);
+  }, [entry]);
 
   useEffect(() => {
     const onMount = async () => {
@@ -24,6 +45,8 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
       const markersArray = Array.from(markers);
 
       setContentArray(markersArray);
+
+      // Observe intersections
     };
     onMount();
 
@@ -68,7 +91,11 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
         we get it, it’s a depressing mess.
       </div>
 
-      <div className={styles.panel}>
+      <div
+        className={`${styles.panel} ${
+          !openingCentered && isDesktop && styles.pullLeft
+        }`}
+      >
         {/* <div
           id="visualKEYinitialPOSITION10MINUSfalse"
           data-component="Anchor"
@@ -87,7 +114,11 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
         </OrganicPanel>
       </div>
 
-      <div className={styles.panel}>
+      <div
+        className={`${styles.panel} ${
+          !openingCentered && isDesktop && styles.pullLeft
+        }`}
+      >
         {/* <div
           id="visualKEYinitialPOSITION10MINUSfalse"
           data-component="Anchor"
@@ -110,8 +141,17 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
         </OrganicPanel>
       </div>
 
-      <div className={styles.panel}>
-        <div id="visualKEY2" data-component="Anchor" data-mount="true"></div>
+      <div
+        className={`${styles.panel} ${
+          !openingCentered && isDesktop && styles.pullLeft
+        }`}
+      >
+        <div
+          ref={ref}
+          id="visualKEY2"
+          data-component="Anchor"
+          data-mount="true"
+        ></div>
         <OrganicPanel backgroundVariation={2}>
           {convert(contentArray[2])}
           {/* <p>

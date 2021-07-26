@@ -190,7 +190,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const [isDesktop, setIsDesktop] = useState(false);
 
   // Switch between pull left and centered opening
-  const [openingCentered, setOpeningCentered] = useState(true);
+  const [openingCentered, setOpeningCentered] = useState(false);
+  const [isPastOpening, setIsPastOpening] = useState(false);
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
@@ -648,14 +649,18 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
     const { width, height } = windowSize;
 
+    // On Desktop
     if (width >= 1200) {
-      if (!openingCentered) setMainTangleXPos(-0.25);
+      if (openingCentered) {
+        if (isPastOpening) setMainTangleXPos(-0.25);
+        if (!isPastOpening) setMainTangleXPos(0.0);
+      } else setMainTangleXPos(-0.25);
       setIsDesktop(true);
     } else {
       setIsDesktop(false);
-      setMainTangleXPos(0);
+      setMainTangleXPos(0.0);
     }
-  }, [windowSize.width, windowSize.height]);
+  }, [windowSize.width, windowSize.height, isPastOpening]);
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
@@ -665,6 +670,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             setTransformsComplete={setTransformsComplete}
             openingCentered={openingCentered}
             isDesktop={isDesktop}
+            setIsPastOpening={setIsPastOpening}
           />
         </Portal>
 

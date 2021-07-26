@@ -18,7 +18,7 @@
   // }
 
   .hero-text {
-    margin-bottom: 120vh;
+    margin-bottom: 100vh;
     font-size: 28px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -60,6 +60,15 @@
     padding-top: 45vh !important;
     padding-bottom: 45vh !important;
 
+    .panel:last-of-type {
+      padding-bottom: 75vh !important;
+
+      @include for-desktop-up {
+        padding-bottom: 45vh !important;
+
+      }
+    }
+
     // Push panel on Desktop
     @include for-desktop-up {
       &.pull-left {
@@ -74,9 +83,5 @@
         left: 50%;
       }
     }
-  }
-
-  .panel:last-of-type {
-    padding-bottom: 75vh !important;
   }
 }

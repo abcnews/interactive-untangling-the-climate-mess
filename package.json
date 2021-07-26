@@ -48,6 +48,7 @@
     "react-dom": "^17.0.2",
     "react-from-dom": "^0.5.1",
     "react-inlinesvg": "^2.2.2",
+    "react-intersection-observer": "^8.32.0",
     "react-portal": "^4.2.1",
     "react-transition-group": "^4.4.2",
     "regenerator-runtime": "^0.13.7"
