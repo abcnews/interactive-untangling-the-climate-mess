@@ -37,15 +37,6 @@ const TOP_DOCK_POSITION = 0.01;
 const BOTTOM_DOCK_POSITION = 1;
 const BOTTOM_DOCK_SIDE_BY_SIDE_POSITION = 0.35;
 
-// Control position of main tangle depending on marker
-// NOW DONE THROUGH CORE
-// const markerConfig = {
-//   initial: 0.2,
-//   2: 0.01, // Story Title: Untangling The Climate Mess
-//   3: 0.1, // Back to ball
-//   4: 0.01 // Power lines (purple)
-// };
-
 // Promisify callback functions here whatever
 const pollIncrement = (...args) =>
   new Promise((resolve, reject) => {
@@ -147,23 +138,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const [industryConvinced, setIndustryConvinced] = useState(0);
   const [carbonCaptureConvinced, setCarbonCaptureConvinced] = useState(0);
 
-  const windowSize = useWindowSize();
-
-  // ---- Combined config for InteractivePanel components
-  // const [interactivePanelInput, setInteractivePanelInput] = useState({
-  //   completeness: 0,
-  //   persuasiveness: "incomplete",
-  // });
-
-  /**
-   * TODO: I think we could move this to a single prop on the InteractivePanel
-   * component using input={{completeness: questionCompleteness}} etc etc.
-   *
-   * Try when Easter is over...
-   *
-   * ... or later
-   */
-
   // Used to test if the user has actively engaged with the article
   // (whether that is by reading it or clicking on a button, etc)
   // Immediately invoking this effect just because it will only be used once.
@@ -189,12 +163,14 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   // Track if we are on Desktop or not
   const [isDesktop, setIsDesktop] = useState(false);
 
-  // Switch between pull left and centered opening
-  const [openingCentered, setOpeningCentered] = useState(false);
+  // Switch between pull left (Tim) and centered (Ben) opening
+  const [openingCentered, setOpeningCentered] = useState(true);
   const [isPastOpening, setIsPastOpening] = useState(false);
 
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
+
+  const windowSize = useWindowSize();
 
   const onScrollUpdate = () => {
     scrollY = window.pageYOffset;

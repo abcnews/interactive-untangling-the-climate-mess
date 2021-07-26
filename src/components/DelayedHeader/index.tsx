@@ -22,19 +22,13 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
 }) => {
   const [contentArray, setContentArray] = useState<any>([]);
 
-  const { ref, inView, entry } = useInView({
-    /* Optional options */
-    // threshold: 0,
-  });
+  const { ref: lastPanelRef, inView, entry } = useInView({});
 
   useEffect(() => {
+    // Uses intersection observer to check if scrolled past a certain point
     if (typeof entry === "undefined") return;
-    // console.log(entry);
     const marker: any = entry.target;
     const bounds = marker.getBoundingClientRect();
-
-    console.log(bounds.y);
-
     if (bounds.y > 0) setIsPastOpening(false);
     else setIsPastOpening(true);
   }, [entry]);
@@ -109,7 +103,6 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
             needed to protect our way of life.
           </p>
 
-
           <p>We’ve even lost a few prime ministers over it.</p> */}
         </OrganicPanel>
       </div>
@@ -119,12 +112,6 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
           !openingCentered && isDesktop && styles.pullLeft
         }`}
       >
-        {/* <div
-          id="visualKEYinitialPOSITION10MINUSfalse"
-          data-component="Anchor"
-          data-mount="true"
-        ></div> */}
-
         <OrganicPanel backgroundVariation={1}>
           {convert(contentArray[1])}
           {/* <p>
@@ -147,7 +134,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
         }`}
       >
         <div
-          ref={ref}
+          ref={lastPanelRef}
           id="visualKEY2"
           data-component="Anchor"
           data-mount="true"

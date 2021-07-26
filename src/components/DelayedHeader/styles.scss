@@ -6,16 +6,6 @@
   padding-top: 30vh;
   max-width: 650px;
   margin: auto;
-  // padding-left: 35px;
-  // padding-right: 25px;
-
-  // @include for-desktop-up {
-  //   position: relative;
-  //   left: 50%;
-  //   max-width: 600px;
-  //   margin: 0;
-  //   transform: translateX(10px);
-  // }
 
   .hero-text {
     margin-bottom: 100vh;
@@ -29,8 +19,6 @@
     margin-right: 15px;
 
     &.pull-left {
-      // TODO: Pull this left
-      // color: blue !important;
       position: relative;
       left: 50%;
       width: calc(100vw / 2.5);
@@ -40,13 +28,7 @@
       margin-bottom: 45vh;
     }
 
-    // -webkit-text-stroke: 1px rgb(255, 255, 255);
-    // text-shadow: 1px 1px 2px white, 0 0 25px rgb(255, 255, 255),
-    //   0 0 5px rgb(255, 255, 255);
-
     @include for-desktop-up {
-      // width: 100vw;
-      // transform: translateX(-50%) translateX(-45px);
       margin-left: -20vw;
       margin-right: -20vw;
     }
@@ -65,7 +47,6 @@
 
       @include for-desktop-up {
         padding-bottom: 45vh !important;
-
       }
     }
 
