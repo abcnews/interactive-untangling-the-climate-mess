@@ -35,7 +35,7 @@ const pollClient = new Client(GROUP);
 
 const TOP_DOCK_POSITION = 0.01;
 const BOTTOM_DOCK_POSITION = 1;
-const BOTTOM_DOCK_SIDE_BY_SIDE_POSITION = 0.8;
+const BOTTOM_DOCK_SIDE_BY_SIDE_POSITION = 0.35;
 
 // Control position of main tangle depending on marker
 // NOW DONE THROUGH CORE

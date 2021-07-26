@@ -32,8 +32,9 @@
       // TODO: Pull this left
       // color: blue !important;
       position: relative;
-      left: 55%;
-      max-width: 400px;
+      left: 50%;
+      width: calc(100vw / 2.5);
+      max-width: 650px;
       margin-left: 0;
       margin-right: 0;
     }
