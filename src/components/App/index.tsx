@@ -277,7 +277,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       );
     });
 
-    document.addEventListener("scroll", onScrollUpdate);
+    // document.addEventListener("scroll", onScrollUpdate);
+    subscribe(onScrollUpdate);
 
     // Set up interactive panel elements
     const panelStarters: any = document.querySelectorAll(
@@ -336,8 +337,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     })();
 
     return () => {
-      // unsubscribe(onSubscriptionUpdate);
-      document.removeEventListener("scroll", onScrollUpdate);
+      unsubscribe(onScrollUpdate);
+      // document.removeEventListener("scroll", onScrollUpdate);
     };
   }, []);
 
@@ -372,7 +373,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   // Effect when userInputState is changed
   useEffect(() => {
     if (!userInputState) return;
-    console.log(userInputState);
 
     /**
      * Here we are combining sentiment to simply positive or negative
@@ -924,23 +924,25 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
       {/* Sets paragraph text where we break out of 
         scrolly panels (and hide background animations on mobile) */}
+
+        {/* Note: rewriting the paragraph panels */}
       {backgroundIsRendered && (
         <>
           {/* A panel that goes over the top with paragraph text on it #paragraphpanel */}
-          <ParagraphPanel setMaskPosition={setMainTangleMaskPos} />
-          <ParagraphObserver />
-          <ParagraphFade setMainTangleOpacity={setMainTangleOpacity} />
-          <ParagraphPull
+          {/* <ParagraphPanel setMaskPosition={setMainTangleMaskPos} /> */}
+          {/* <ParagraphObserver /> */}
+          {/* <ParagraphFade setMainTangleOpacity={setMainTangleOpacity} /> */}
+          {/* <ParagraphPull
             setMainTangleOpacity={setMainTangleOpacity}
             setMainTangleYPos={setMainTangleYPos}
             mainTangleYPos={mainTangleYPos}
             setMainTangleHidden={setMainTangleHidden}
-          />
+          /> */}
         </>
       )}
 
       {/* Just a line down the center of the screen for testing */}
-      {/* <div className={styles.centerHint} /> */}
+      <div className={styles.centerHint} />
 
       {interactivePanelElements?.map((panel, iteration) => {
         const panelConfig = alternatingCaseToObject(panel.id);

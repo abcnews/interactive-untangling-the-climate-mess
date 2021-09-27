@@ -82,7 +82,7 @@ const ParagraphPanel: React.FC<ParagraphPanelProps> = ({
     // Below the fold, make invisible
     if (fromFold < 0) {
       currentElements.forEach(element => {
-        element.style.opacity = 0;
+        element.style.opacity = 0.5;
       });
     } else {
       currentElements.forEach(element => {

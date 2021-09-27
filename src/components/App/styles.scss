@@ -59,9 +59,9 @@
     padding-bottom: 40px !important;
 
     // Fiddly styles
-    * {
-      font-size: 1.123rem !important;
-    }
+    // * {
+    //   font-size: 1.123rem !important;
+    // }
 
     .Header-byline {
       padding-left: 15px;
@@ -73,13 +73,6 @@
       // position: relative;
       // left: 50%;
       // margin-left: 150px !important;
-    }
-  }
-
-  @include for-desktop-up {
-    .u-layout > * {
-      // width: 100%;
-      // max-width: 980px;
     }
   }
 

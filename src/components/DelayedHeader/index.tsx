@@ -45,9 +45,6 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
     onMount();
 
     return () => {
-      console.log("CLEANUP");
-      console.log(contentArray);
-
       contentArray.forEach(el => {
         console.log(el);
 
@@ -133,13 +130,13 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
           !openingCentered && isDesktop && styles.pullLeft
         }`}
       >
-        <div
-          ref={lastPanelRef}
-          id="visualKEY2"
-          data-component="Anchor"
-          data-mount="true"
-        ></div>
         <OrganicPanel backgroundVariation={2}>
+          <div
+            ref={lastPanelRef}
+            id="visualKEY2"
+            data-component="Anchor"
+            data-mount="true"
+          ></div>
           {convert(contentArray[2])}
           {/* <p>
             What if Australia could get to net zero and actually… improve our

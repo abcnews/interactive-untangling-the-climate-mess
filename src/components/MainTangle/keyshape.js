@@ -644,7 +644,7 @@ window["KeyshapeJS"] = (function () {
       reqAnimationFrame(mainloop);
       // setTimeout(() => {
       //   reqAnimationFrame(mainloop);
-      // }, 1000 / 50); // Hack to limit framerate 
+      // }, 1000 / 40); // Hack to limit framerate 
     } else {
       isTicking = false;
     }

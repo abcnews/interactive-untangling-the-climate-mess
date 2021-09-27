@@ -115,7 +115,6 @@ const ScrollObserver: React.FC<ScrollObserverProps> = ({
     markerEls = document.querySelectorAll('*[id^="visualKEY"]');
 
     markerEls.forEach((markerEl, index: number) => {
-      console.log(markerEl.id);
       markerEl.dataset.index = index;
       observer.observe(markerEl);
     });
