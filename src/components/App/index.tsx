@@ -33,8 +33,8 @@ const d3 = { ...require("d3-scale") };
 const GROUP = "interactive-untangling-the-climate-mess";
 const pollClient = new Client(GROUP);
 
-const TOP_DOCK_POSITION = 0.01;
-const BOTTOM_DOCK_POSITION = 1;
+const TOP_DOCK_POSITION = 0.03;
+const BOTTOM_DOCK_POSITION = 0.9;
 const BOTTOM_DOCK_SIDE_BY_SIDE_POSITION = 0.35;
 
 // Promisify callback functions here whatever
@@ -640,341 +640,335 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
-      <>
-        <Portal node={document && document.querySelector(".delayed-header")}>
-          <DelayedHeader
-            setTransformsComplete={setTransformsComplete}
-            openingCentered={openingCentered}
-            isDesktop={isDesktop}
-            setIsPastOpening={setIsPastOpening}
-          />
-        </Portal>
-
-        <Portal node={document && document.getElementById("inputtier1")}>
-          <UserInputBox
-            color={"#2A4059"}
-            questionKey="MAINQ1-can-we-still-save-the-world"
-            title={"Can we still save the world?"}
-            buttons={[
-              {
-                label: "Of course we can",
-                value: "certain",
-                response: (
-                  <>
-                    <p>
-                      Ok, so you’re onboard - but how do we get there? Let’s see
-                      if you’re still convinced after reading what it takes.
-                    </p>
-                  </>
-                )
-              },
-              {
-                label: "Yes I think we can",
-                value: "hopeful",
-                response: (
-                  <>
-                    <p>
-                      Ok, so you’re onboard - but how do we get there? Let’s see
-                      if you’re still convinced after reading what it takes.
-                    </p>
-                  </>
-                )
-              },
-              {
-                label: "Probably not",
-                value: "doubtful",
-                response: (
-                  <p>
-                    Ok that's fair enough - we'd be skeptical too - but let’s
-                    see how you feel after reading what’s involved with
-                    cancelling Australia’s emissions.
-                  </p>
-                )
-              },
-              {
-                label: "No way we're screwed",
-                value: "impossible",
-                response: (
-                  <p>
-                    Ok that's fair enough - we'd be skeptical too - but let’s
-                    see how you feel after reading what’s involved with
-                    cancelling Australia’s emissions.
-                  </p>
-                )
-              }
-            ]}
-            poll={pollClient}
-            setUserInputState={setUserInputState}
-            pollClient={pollClient}
-            windowWidth={windowSize.width}
-          />
-        </Portal>
-
-        {/* Energy questions */}
-
-        <Portal node={document && document.getElementById("inputzerocarbon")}>
-          <UserInputBox
-            color={"#A3297C"}
-            questionKey="SUBQ1-renewables-zero-carbon"
-            title={"So - what do you reckon our chances of doing this are?"}
-            buttons={[
-              { label: "That's a piece of cake", value: "certain" },
-              { label: "It can be done", value: "hopeful" },
-              { label: "This sounds like a stretch", value: "doubtful" },
-              { label: "You're dreaming", value: "impossible" }
-            ]}
-            setUserInputState={setUserInputState}
-            pollClient={pollClient}
-            windowWidth={windowSize.width}
-          />
-        </Portal>
-
-        {/* Livestock user input here */}
-        {/* inputlivestockemissions */}
-
-        <Portal
-          node={document && document.getElementById("inputlivestockemissions")}
-        >
-          <UserInputBox
-            color={"#F65C1B"}
-            questionKey="SUBQ2-livestock-emissions"
-            title={"Can we reach reach zero livestock emissions?"}
-            buttons={[
-              { label: "That's a piece of cake", value: "certain" },
-              { label: "It can be done", value: "hopeful" },
-              { label: "This sounds like a stretch", value: "doubtful" },
-              { label: "You're dreaming", value: "impossible" }
-            ]}
-            setUserInputState={setUserInputState}
-            pollClient={pollClient}
-            windowWidth={windowSize.width}
-          />
-        </Portal>
-
-        <Portal
-          node={document && document.getElementById("inputfossiltransport")}
-        >
-          <UserInputBox
-            color={"#007cbf"}
-            questionKey="SUBQ3-transportation-off-fossil"
-            title={
-              "So now you know how we quit fossil fuels in our transport system, can we do it?"
-            }
-            buttons={[
-              { label: "That's a piece of cake", value: "certain" },
-              { label: "It can be done", value: "hopeful" },
-              { label: "This sounds like a stretch", value: "doubtful" },
-              { label: "You're dreaming", value: "impossible" }
-            ]}
-            setUserInputState={setUserInputState}
-            pollClient={pollClient}
-            windowWidth={windowSize.width}
-          />
-        </Portal>
-
-        {/* Industry input buttons go here */}
-        {/* inputindustryemissions */}
-        <Portal
-          node={document && document.getElementById("inputindustryemissions")}
-        >
-          <UserInputBox
-            color={"#007B52"}
-            questionKey="SUBQ4-industry-emissions"
-            title={"Can we elliminate emissions from industry?"}
-            buttons={[
-              { label: "That's a piece of cake", value: "certain" },
-              { label: "It can be done", value: "hopeful" },
-              { label: "This sounds like a stretch", value: "doubtful" },
-              { label: "You're dreaming", value: "impossible" }
-            ]}
-            setUserInputState={setUserInputState}
-            pollClient={pollClient}
-            windowWidth={windowSize.width}
-          />
-        </Portal>
-
-        <Portal
-          node={document && document.getElementById("inputcarboncapture")}
-        >
-          <UserInputBox
-            color={"#2A4059"}
-            questionKey="SUBQ5-carbon-capture"
-            title={"So, what do you think? Can we capture all that carbon?"}
-            buttons={[
-              { label: "That's a piece of cake", value: "certain" },
-              { label: "It can be done", value: "hopeful" },
-              { label: "This sounds like a stretch", value: "doubtful" },
-              { label: "You're dreaming", value: "impossible" }
-            ]}
-            setUserInputState={setUserInputState}
-            pollClient={pollClient}
-            windowWidth={windowSize.width}
-          />
-        </Portal>
-
-        <Portal node={document && document.getElementById("inputtier1again")}>
-          <UserInputBox
-            color={"#2A4059"}
-            questionKey="MAINQ2-can-we-still-save-the-world-again-after-article"
-            title={"So, how about now? Can we save the world?"}
-            buttons={[
-              { label: "Of course we can", value: "certain" },
-              { label: "Yes I think we can", value: "hopeful" },
-              { label: "Probably not", value: "doubtful" },
-              { label: "No way we're screwed", value: "impossible" }
-            ]}
-            setUserInputState={setUserInputState}
-            pollClient={pollClient}
-            windowWidth={windowSize.width}
-          />
-        </Portal>
-
-        <Portal node={document && document.getElementById("chartproportions")}>
-          <BarChart
-            bars={[
-              {
-                title: "Energy",
-                percent: 33,
-                color: "#A3297C",
-                textColor: "#A3297C"
-              },
-              {
-                title: "Burping cows",
-                percent: 10,
-                color: "#F65C1B", //"#2A4059",
-                textColor: "#C42F05" //"#2A4059"
-              },
-              {
-                title: "Transport",
-                percent: 20,
-                color: "#007CBF", //#007B52",
-                textColor: "#007CBF" //"#007B52"
-              },
-              {
-                title: "Industry",
-                percent: 40,
-                color: "#007B52", //"#F65C1B",
-                textColor: "#007B52"
-              }
-            ]}
-          />
-        </Portal>
-
-        <Portal node={document && document.getElementById("chartconvinced")}>
-          <AudienceChart
-            bars={[
-              {
-                title: "Energy",
-                percent: energyConvinced,
-                color: "#A3297C",
-                textColor: "#A3297C"
-              },
-              {
-                title: "Burping cows",
-                percent: livestockConvinced,
-                color: "#F65C1B",
-                textColor: "#C42F05"
-              },
-              {
-                title: "Transport",
-                percent: transportConvinced,
-                color: "#007CBF",
-                textColor: "#007CBF"
-              },
-              {
-                title: "Industry",
-                percent: industryConvinced,
-                color: "#007B52",
-                textColor: "#007B52"
-              },
-              {
-                title: "Carbon capture",
-                percent: carbonCaptureConvinced,
-                color: "#2A4059",
-                textColor: "#2A4059"
-              }
-            ]}
-            windowWidth={windowSize.width}
-          ></AudienceChart>
-        </Portal>
-
-        {/* Background visual */}
-        <Portal node={document && document.getElementById("portalmount")}>
-          {/* Don't unmount this because elements are being observed by ParagraphObserver
-          Maybe try visibility hidden or display none instead */}
-          <MainTangle
-            animationFrame={animationFrame}
-            scrollMarker={marker}
-            setBackgroundIsRendered={setBackgroundIsRendered}
-            opacity={mainTangleOpacity}
-            xPos={mainTangleXPos}
-            yPos={mainTangleYPos}
-            scale={mainTangleScale}
-            hidden={mainTangleHidden}
-            maskPosition={mainTangleMaskPos}
-            windowSize={windowSize}
-          />
-
-          <EndStrings
-            opacity={endTangleOpacity}
-            stringsNew={endStrings}
-            windowSize={windowSize}
-            xPos={mainTangleXPos}
-            yPos={mainTangleYPos}
-          />
-          <BackgroundTexture />
-        </Portal>
-
-        {/* Sets paragraph text where we break out of 
-        scrolly panels (and hide background animations on mobile) */}
-        {backgroundIsRendered && (
-          <>
-            {/* A panel that goes over the top with paragraph text on it #paragraphpanel */}
-            <ParagraphPanel setMaskPosition={setMainTangleMaskPos} />
-            <ParagraphObserver />
-            <ParagraphFade setMainTangleOpacity={setMainTangleOpacity} />
-            <ParagraphPull
-              setMainTangleOpacity={setMainTangleOpacity}
-              setMainTangleYPos={setMainTangleYPos}
-              mainTangleYPos={mainTangleYPos}
-              setMainTangleHidden={setMainTangleHidden}
-            />
-          </>
-        )}
-
-        {/* Just a line down the center of the screen for testing */}
-        {/* <div className={styles.centerHint} /> */}
-
-        {interactivePanelElements?.map((panel, iteration) => {
-          const panelConfig = alternatingCaseToObject(panel.id);
-
-          return (
-            <Portal key={iteration} node={panel}>
-              <InteractivePanel
-                panelKey={panelConfig.key}
-                questionCompleteness={questionCompleteness}
-                convincedState={convincedState}
-                subQuestionsConvinvedOf={subQuestionsConvinvedOf}
-                australiaConvincedOf={australiaConvincedOf}
-                userInputState={userInputState}
-              />
-            </Portal>
-          );
-        })}
-
-        <AnchorTransform>
-          {numberOfEngagedUsers.toLocaleString()}
-        </AnchorTransform>
-
-        <ScrollObserver
-          setMarker={setMarker}
-          setMainTangleYPos={setMainTangleYPos}
-          setMainTangleXPos={setMainTangleXPos}
-          waypoint={80}
-          transformsComplete={transformsComplete}
+      <Portal node={document && document.querySelector(".delayed-header")}>
+        <DelayedHeader
+          setTransformsComplete={setTransformsComplete}
+          openingCentered={openingCentered}
           isDesktop={isDesktop}
+          setIsPastOpening={setIsPastOpening}
         />
-      </>
+      </Portal>
+
+      <Portal node={document && document.getElementById("inputtier1")}>
+        <UserInputBox
+          color={"#2A4059"}
+          questionKey="MAINQ1-can-we-still-save-the-world"
+          title={"Can we still save the world?"}
+          buttons={[
+            {
+              label: "Of course we can",
+              value: "certain",
+              response: (
+                <>
+                  <p>
+                    Ok, so you’re onboard - but how do we get there? Let’s see
+                    if you’re still convinced after reading what it takes.
+                  </p>
+                </>
+              )
+            },
+            {
+              label: "Yes I think we can",
+              value: "hopeful",
+              response: (
+                <>
+                  <p>
+                    Ok, so you’re onboard - but how do we get there? Let’s see
+                    if you’re still convinced after reading what it takes.
+                  </p>
+                </>
+              )
+            },
+            {
+              label: "Probably not",
+              value: "doubtful",
+              response: (
+                <p>
+                  Ok that's fair enough - we'd be skeptical too - but let’s see
+                  how you feel after reading what’s involved with cancelling
+                  Australia’s emissions.
+                </p>
+              )
+            },
+            {
+              label: "No way we're screwed",
+              value: "impossible",
+              response: (
+                <p>
+                  Ok that's fair enough - we'd be skeptical too - but let’s see
+                  how you feel after reading what’s involved with cancelling
+                  Australia’s emissions.
+                </p>
+              )
+            }
+          ]}
+          poll={pollClient}
+          setUserInputState={setUserInputState}
+          pollClient={pollClient}
+          windowWidth={windowSize.width}
+        />
+      </Portal>
+
+      {/* Energy questions */}
+
+      <Portal node={document && document.getElementById("inputzerocarbon")}>
+        <UserInputBox
+          color={"#A3297C"}
+          questionKey="SUBQ1-renewables-zero-carbon"
+          title={"So - what do you reckon our chances of doing this are?"}
+          buttons={[
+            { label: "That's a piece of cake", value: "certain" },
+            { label: "It can be done", value: "hopeful" },
+            { label: "This sounds like a stretch", value: "doubtful" },
+            { label: "You're dreaming", value: "impossible" }
+          ]}
+          setUserInputState={setUserInputState}
+          pollClient={pollClient}
+          windowWidth={windowSize.width}
+        />
+      </Portal>
+
+      {/* Livestock user input here */}
+      {/* inputlivestockemissions */}
+
+      <Portal
+        node={document && document.getElementById("inputlivestockemissions")}
+      >
+        <UserInputBox
+          color={"#F65C1B"}
+          questionKey="SUBQ2-livestock-emissions"
+          title={"Can we reach reach zero livestock emissions?"}
+          buttons={[
+            { label: "That's a piece of cake", value: "certain" },
+            { label: "It can be done", value: "hopeful" },
+            { label: "This sounds like a stretch", value: "doubtful" },
+            { label: "You're dreaming", value: "impossible" }
+          ]}
+          setUserInputState={setUserInputState}
+          pollClient={pollClient}
+          windowWidth={windowSize.width}
+        />
+      </Portal>
+
+      <Portal
+        node={document && document.getElementById("inputfossiltransport")}
+      >
+        <UserInputBox
+          color={"#007cbf"}
+          questionKey="SUBQ3-transportation-off-fossil"
+          title={
+            "So now you know how we quit fossil fuels in our transport system, can we do it?"
+          }
+          buttons={[
+            { label: "That's a piece of cake", value: "certain" },
+            { label: "It can be done", value: "hopeful" },
+            { label: "This sounds like a stretch", value: "doubtful" },
+            { label: "You're dreaming", value: "impossible" }
+          ]}
+          setUserInputState={setUserInputState}
+          pollClient={pollClient}
+          windowWidth={windowSize.width}
+        />
+      </Portal>
+
+      {/* Industry input buttons go here */}
+      {/* inputindustryemissions */}
+      <Portal
+        node={document && document.getElementById("inputindustryemissions")}
+      >
+        <UserInputBox
+          color={"#007B52"}
+          questionKey="SUBQ4-industry-emissions"
+          title={"Can we elliminate emissions from industry?"}
+          buttons={[
+            { label: "That's a piece of cake", value: "certain" },
+            { label: "It can be done", value: "hopeful" },
+            { label: "This sounds like a stretch", value: "doubtful" },
+            { label: "You're dreaming", value: "impossible" }
+          ]}
+          setUserInputState={setUserInputState}
+          pollClient={pollClient}
+          windowWidth={windowSize.width}
+        />
+      </Portal>
+
+      <Portal node={document && document.getElementById("inputcarboncapture")}>
+        <UserInputBox
+          color={"#2A4059"}
+          questionKey="SUBQ5-carbon-capture"
+          title={"So, what do you think? Can we capture all that carbon?"}
+          buttons={[
+            { label: "That's a piece of cake", value: "certain" },
+            { label: "It can be done", value: "hopeful" },
+            { label: "This sounds like a stretch", value: "doubtful" },
+            { label: "You're dreaming", value: "impossible" }
+          ]}
+          setUserInputState={setUserInputState}
+          pollClient={pollClient}
+          windowWidth={windowSize.width}
+        />
+      </Portal>
+
+      <Portal node={document && document.getElementById("inputtier1again")}>
+        <UserInputBox
+          color={"#2A4059"}
+          questionKey="MAINQ2-can-we-still-save-the-world-again-after-article"
+          title={"So, how about now? Can we save the world?"}
+          buttons={[
+            { label: "Of course we can", value: "certain" },
+            { label: "Yes I think we can", value: "hopeful" },
+            { label: "Probably not", value: "doubtful" },
+            { label: "No way we're screwed", value: "impossible" }
+          ]}
+          setUserInputState={setUserInputState}
+          pollClient={pollClient}
+          windowWidth={windowSize.width}
+        />
+      </Portal>
+
+      <Portal node={document && document.getElementById("chartproportions")}>
+        <BarChart
+          bars={[
+            {
+              title: "Energy",
+              percent: 33,
+              color: "#A3297C",
+              textColor: "#A3297C"
+            },
+            {
+              title: "Burping cows",
+              percent: 10,
+              color: "#F65C1B", //"#2A4059",
+              textColor: "#C42F05" //"#2A4059"
+            },
+            {
+              title: "Transport",
+              percent: 20,
+              color: "#007CBF", //#007B52",
+              textColor: "#007CBF" //"#007B52"
+            },
+            {
+              title: "Industry",
+              percent: 40,
+              color: "#007B52", //"#F65C1B",
+              textColor: "#007B52"
+            }
+          ]}
+        />
+      </Portal>
+
+      <Portal node={document && document.getElementById("chartconvinced")}>
+        <AudienceChart
+          bars={[
+            {
+              title: "Energy",
+              percent: energyConvinced,
+              color: "#A3297C",
+              textColor: "#A3297C"
+            },
+            {
+              title: "Burping cows",
+              percent: livestockConvinced,
+              color: "#F65C1B",
+              textColor: "#C42F05"
+            },
+            {
+              title: "Transport",
+              percent: transportConvinced,
+              color: "#007CBF",
+              textColor: "#007CBF"
+            },
+            {
+              title: "Industry",
+              percent: industryConvinced,
+              color: "#007B52",
+              textColor: "#007B52"
+            },
+            {
+              title: "Carbon capture",
+              percent: carbonCaptureConvinced,
+              color: "#2A4059",
+              textColor: "#2A4059"
+            }
+          ]}
+          windowWidth={windowSize.width}
+        ></AudienceChart>
+      </Portal>
+
+      {/* Background visual */}
+      <Portal node={document && document.getElementById("portalmount")}>
+        {/* Don't unmount this because elements are being observed by ParagraphObserver
+          Maybe try visibility hidden or display none instead */}
+        <MainTangle
+          animationFrame={animationFrame}
+          scrollMarker={marker}
+          setBackgroundIsRendered={setBackgroundIsRendered}
+          opacity={mainTangleOpacity}
+          xPos={mainTangleXPos}
+          yPos={mainTangleYPos}
+          scale={mainTangleScale}
+          hidden={mainTangleHidden}
+          maskPosition={mainTangleMaskPos}
+          windowSize={windowSize}
+        />
+
+        <EndStrings
+          opacity={endTangleOpacity}
+          stringsNew={endStrings}
+          windowSize={windowSize}
+          xPos={mainTangleXPos}
+          yPos={mainTangleYPos}
+        />
+        <BackgroundTexture />
+      </Portal>
+
+      {/* Sets paragraph text where we break out of 
+        scrolly panels (and hide background animations on mobile) */}
+      {backgroundIsRendered && (
+        <>
+          {/* A panel that goes over the top with paragraph text on it #paragraphpanel */}
+          <ParagraphPanel setMaskPosition={setMainTangleMaskPos} />
+          <ParagraphObserver />
+          <ParagraphFade setMainTangleOpacity={setMainTangleOpacity} />
+          <ParagraphPull
+            setMainTangleOpacity={setMainTangleOpacity}
+            setMainTangleYPos={setMainTangleYPos}
+            mainTangleYPos={mainTangleYPos}
+            setMainTangleHidden={setMainTangleHidden}
+          />
+        </>
+      )}
+
+      {/* Just a line down the center of the screen for testing */}
+      {/* <div className={styles.centerHint} /> */}
+
+      {interactivePanelElements?.map((panel, iteration) => {
+        const panelConfig = alternatingCaseToObject(panel.id);
+
+        return (
+          <Portal key={iteration} node={panel}>
+            <InteractivePanel
+              panelKey={panelConfig.key}
+              questionCompleteness={questionCompleteness}
+              convincedState={convincedState}
+              subQuestionsConvinvedOf={subQuestionsConvinvedOf}
+              australiaConvincedOf={australiaConvincedOf}
+              userInputState={userInputState}
+            />
+          </Portal>
+        );
+      })}
+
+      <AnchorTransform>{numberOfEngagedUsers.toLocaleString()}</AnchorTransform>
+
+      <ScrollObserver
+        setMarker={setMarker}
+        setMainTangleYPos={setMainTangleYPos}
+        setMainTangleXPos={setMainTangleXPos}
+        waypoint={80}
+        transformsComplete={transformsComplete}
+        isDesktop={isDesktop}
+      />
     </AppContext.Provider>
   );
 };

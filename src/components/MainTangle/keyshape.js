@@ -641,9 +641,10 @@ window["KeyshapeJS"] = (function () {
     // note: onfinish callback may add active animations, in that case isTicking should stay true
     if (updateAllAnimations(true) && !holdTimelineTime) {
       isTicking = true;
-      setTimeout(() => {
-        reqAnimationFrame(mainloop);
-      }, 1000 / 50); // Hack to limit framerate 
+      reqAnimationFrame(mainloop);
+      // setTimeout(() => {
+      //   reqAnimationFrame(mainloop);
+      // }, 1000 / 50); // Hack to limit framerate 
     } else {
       isTicking = false;
     }

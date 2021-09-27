@@ -5,6 +5,9 @@ import React, { useEffect, useRef, useContext, useState } from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 import { gsap } from "gsap";
+import throttle from "lodash.throttle";
+
+const throttledGsapTo = throttle(gsap.to, 5);
 
 import untangleAnimation from "./assets/untangling-color-change.svg";
 
@@ -221,7 +224,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
     )
       return;
 
-    gsap.to(mainEl.current, {
+    throttledGsapTo(mainEl.current, {
       y: props.yPos * window.innerHeight,
       x: props.xPos * window.innerWidth,
       scale: props.scale * 0.01,
@@ -255,7 +258,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
 
 export default MainTangle;
 
-// Hook
+// Hooks
 function usePrevious(value) {
   // The ref object is a generic container whose current property is mutable ...
   // ... and can hold any value, similar to an instance property on a class
