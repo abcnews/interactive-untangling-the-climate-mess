@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Portal } from "react-portal";
+import SmoothScroll from "smooth-scroll";
 
 // Import stylsheets
 import styles from "./styles.scss";
@@ -335,6 +336,13 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         setNumberOfEngagedUsers(pollGetResponse.value);
       }
     })();
+
+    const scroll = new SmoothScroll('a[href*="#"]', {
+      offset: (anchor, toggle) => {
+        const offset = window.innerHeight * 0.2;
+        return offset;
+      }
+    });
 
     return () => {
       unsubscribe(onScrollUpdate);
@@ -792,7 +800,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         />
       </Portal>
 
-      <Portal node={document && document.getElementById("inputcarboncapture")}>
+      {/* <Portal node={document && document.getElementById("inputcarboncapture")}>
         <UserInputBox
           color={"#2A4059"}
           questionKey="SUBQ5-carbon-capture"
@@ -807,7 +815,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           pollClient={pollClient}
           windowWidth={windowSize.width}
         />
-      </Portal>
+      </Portal> */}
 
       <Portal node={document && document.getElementById("inputtier1again")}>
         <UserInputBox
@@ -925,7 +933,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       {/* Sets paragraph text where we break out of 
         scrolly panels (and hide background animations on mobile) */}
 
-        {/* Note: rewriting the paragraph panels */}
+      {/* Note: rewriting the paragraph panels */}
       {backgroundIsRendered && (
         <>
           {/* A panel that goes over the top with paragraph text on it #paragraphpanel */}
