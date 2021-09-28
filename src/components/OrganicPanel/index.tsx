@@ -39,8 +39,4 @@ const OrganicPanel: React.FC<OrganicPanelProps> = ({
   );
 };
 
-// OrganicPanel.defaultProps = {
-//   backgroundVariation: 0
-// };
-
 export default OrganicPanel;

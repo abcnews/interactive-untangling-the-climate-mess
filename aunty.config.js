@@ -23,7 +23,7 @@ module.exports = {
       resolve(__dirname, "node_modules/d3-time")
     );
 
-    const ADDITIONAL_ENTRY_POINTS = ["main", "ie"];
+    const ADDITIONAL_ENTRY_POINTS = ["main"];
 
     ADDITIONAL_ENTRY_POINTS.forEach(name => {
       config.entry[name] = [config.entry.index[0].replace("index", name)];

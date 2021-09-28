@@ -33,7 +33,7 @@ const d3 = { ...require("d3-scale") };
 const GROUP = "interactive-untangling-the-climate-mess";
 const pollClient = new Client(GROUP);
 
-const TOP_DOCK_POSITION = 0.03;
+const TOP_DOCK_POSITION = 0.02;
 const BOTTOM_DOCK_POSITION = 0.9;
 const BOTTOM_DOCK_SIDE_BY_SIDE_POSITION = 0.35;
 
@@ -942,7 +942,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       )}
 
       {/* Just a line down the center of the screen for testing */}
-      <div className={styles.centerHint} />
+      {/* <div className={styles.centerHint} /> */}
 
       {interactivePanelElements?.map((panel, iteration) => {
         const panelConfig = alternatingCaseToObject(panel.id);
