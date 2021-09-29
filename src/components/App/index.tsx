@@ -206,6 +206,20 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     setMainTangleYPos(percentScale(scrollY));
   };
 
+  const applySkipAhead = (questionSkipped: string) => {
+    console.log("User skipped ahead!");
+    if (!questionSkipped) return;
+
+    // When a user skips down the page,
+    // that means they are probably "convinced"
+    // So out of the possible options "certain" "hopeful" "doubtful" "impossible"
+    // Let's set "hopeful" (possibly "certain")
+    // It should come out binary in the end anyway
+    setUserInputState(prevState => {
+      return { ...prevState, [questionSkipped]: "hopeful" };
+    });
+  };
+
   // onMount
   useEffect(() => {
     pollGet().then((result: any) => {
@@ -348,8 +362,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         setNumberOfEngagedUsers(pollGetResponse.value);
       }
     })();
-
-    
 
     return () => {
       unsubscribe(onScrollUpdate);
@@ -717,7 +729,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               )
             }
           ]}
-          poll={pollClient}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
           windowWidth={windowSize.width}
@@ -990,7 +1001,11 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       {mounts.map((mount, index) => {
         return (
           <Portal key={index} node={mount}>
-            <SkipAhead mount={mount} scroll={scroll} />
+            <SkipAhead
+              mount={mount}
+              scroll={scroll}
+              applySkipAhead={applySkipAhead}
+            />
           </Portal>
         );
       })}

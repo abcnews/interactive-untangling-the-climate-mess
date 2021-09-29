@@ -18,10 +18,8 @@ interface Button {
 interface UserInputBoxProps {
   title: string;
   buttons?: Button[];
-  poll?: any;
   setUserInputState?: any;
   questionKey: string;
-  handleUserInput?: any;
   padding?: boolean;
   color?: string;
   pollClient: any;
@@ -123,6 +121,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
   pollClient,
   questionKey,
   windowWidth,
+  setUserInputState,
   ...props
 }) => {
   const [buttons, setButtons] = useState<Button[]>([{ label: "", value: "" }]);
@@ -205,8 +204,8 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
       if (selectedButton) setResponseBox(selectedButton.response);
 
       // Set previous state
-      if (props.setUserInputState) {
-        props.setUserInputState(prevState => {
+      if (setUserInputState) {
+        setUserInputState(prevState => {
           return { ...prevState, [questionKey]: selected };
         });
       }
