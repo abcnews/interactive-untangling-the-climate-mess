@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Portal } from "react-portal";
 import SmoothScroll from "smooth-scroll";
+import { isMount, getMountValue, selectMounts } from "@abcnews/mount-utils";
 
 // Import stylsheets
 import styles from "./styles.scss";
@@ -23,6 +24,7 @@ import BarChart from "../BarChart";
 import InteractivePanel from "../InteractivePanel";
 import EndStrings from "../EndStrings";
 import AnchorTransform from "../AnchorTransform";
+import SkipAhead from "../SkipAhead";
 
 import useWindowSize from "../ParagraphObserver/useWindowSize";
 import { Client } from "@abcnews/poll-counters-client";
@@ -64,6 +66,13 @@ const endStringsMarkers = [
   "endaustralia",
   "endstorycomplete"
 ];
+
+const scroll = new SmoothScroll('a[href*="#"]', {
+  offset: (anchor, toggle) => {
+    const offset = window.innerHeight * 0.2;
+    return offset;
+  }
+});
 
 interface AppProps {
   projectName: string;
@@ -143,6 +152,9 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   // (whether that is by reading it or clicking on a button, etc)
   // Immediately invoking this effect just because it will only be used once.
   const [userHasEngaged, setUserHasEngaged] = useState(false);
+
+  const mounts = selectMounts("skipahead", { includeOwnUsed: true });
+
   useEffect(() => {
     if (!userHasEngaged) return;
     console.log("User has engaged!");
@@ -337,12 +349,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       }
     })();
 
-    const scroll = new SmoothScroll('a[href*="#"]', {
-      offset: (anchor, toggle) => {
-        const offset = window.innerHeight * 0.2;
-        return offset;
-      }
-    });
+    
 
     return () => {
       unsubscribe(onScrollUpdate);
@@ -979,6 +986,14 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         transformsComplete={transformsComplete}
         isDesktop={isDesktop}
       />
+
+      {mounts.map((mount, index) => {
+        return (
+          <Portal key={index} node={mount}>
+            <SkipAhead mount={mount} scroll={scroll} />
+          </Portal>
+        );
+      })}
     </AppContext.Provider>
   );
 };
