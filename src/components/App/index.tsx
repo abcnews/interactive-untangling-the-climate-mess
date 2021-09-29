@@ -206,7 +206,10 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     setMainTangleYPos(percentScale(scrollY));
   };
 
-  const applySkipAhead = (questionSkipped: string) => {
+  const applySkipAhead = async (
+    questionSkipped: string,
+    convincedState: string = "hopeful"
+  ) => {
     console.log("User skipped ahead!");
     if (!questionSkipped) return;
 
@@ -216,8 +219,14 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     // Let's set "hopeful" (possibly "certain")
     // It should come out binary in the end anyway
     setUserInputState(prevState => {
-      return { ...prevState, [questionSkipped]: "hopeful" };
+      return { ...prevState, [questionSkipped]: convincedState };
     });
+
+    const result = await pollIncrement({
+      question: questionSkipped,
+      answer: convincedState
+    });
+    console.log(result);
   };
 
   // onMount
