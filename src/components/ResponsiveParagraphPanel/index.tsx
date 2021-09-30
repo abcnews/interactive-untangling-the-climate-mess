@@ -16,14 +16,12 @@ const ResponsiveParagraphPanel: React.FC<ResponsiveParagraphPanelProps> = () => 
       paragraphWrapper.classList.add(styles.paragraphWrapper);
 
       const elementsBetween = nextUntil(startEl, "#endparagraphpanel");
-      console.log(elementsBetween);
 
       elementsBetween.forEach((el: any) => {
         paragraphWrapper.appendChild(el);
       });
 
       insertBefore(paragraphWrapper, startEl);
-      console.log("Hello")
     });
   }, []);
 

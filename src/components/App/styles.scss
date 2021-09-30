@@ -126,13 +126,13 @@
 
   // Normal paragraph
 
-  @include for-desktop-up {
-    #content > p {
-      width: calc(100vw / 2.2);
-      max-width: 660px;
-      position: relative;
-      left: 50%;
-      margin-left: 0 !important;
-    }
-  }
+  // @include for-desktop-up {
+  //   #content > p {
+  //     width: calc(100vw / 2.2);
+  //     max-width: 660px;
+  //     position: relative;
+  //     left: 50%;
+  //     margin-left: 0 !important;
+  //   }
+  // }
 }

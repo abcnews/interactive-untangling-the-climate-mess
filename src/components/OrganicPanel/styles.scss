@@ -7,6 +7,10 @@
   margin-left: 15px;
   margin-right: 15px;
 
+  @include for-tablet-portrait-up {
+    padding: 22px 40px;
+  }
+
   @include for-desktop-up {
     padding: 24px 42px;
   }

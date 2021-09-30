@@ -30,7 +30,7 @@
     position: relative;
 
     @include for-tablet-portrait-up {
-      padding: 30px 2.25rem;
+      padding: 30px 2.5rem;
     }
 
     @include for-desktop-up {

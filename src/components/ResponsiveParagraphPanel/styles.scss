@@ -1,5 +1,7 @@
 @use "../../100-percent-correct-break-points.scss" as *;
 
+$fade-height: 400px;
+
 .root {
   // border: 1px solid rgb(255, 115, 0);
   // padding: 20px;
@@ -8,9 +10,95 @@
 }
 
 .paragraph-wrapper {
-  background-color: white;
+  // background-color: white;
+  width: 100%;
   font-size: 1.125rem;
+  line-height: 1.555555556;
+
+  @include for-tablet-portrait-up {
+    line-height: 1.666666667;
+  }
+
+  background-image: linear-gradient(
+      to bottom,
+      hsla(30, 89%, 96%, 0) $fade-height * 0,
+      hsla(30, 89%, 96%, 0.013) $fade-height * 0.081,
+      hsla(30, 89%, 96%, 0.049) $fade-height * 0.155,
+      hsla(30, 89%, 96%, 0.104) $fade-height * 0.225,
+      hsla(30, 89%, 96%, 0.175) $fade-height * 0.29,
+      hsla(30, 89%, 96%, 0.259) $fade-height * 0.353,
+      hsla(30, 89%, 96%, 0.352) $fade-height * 0.412,
+      hsla(30, 89%, 96%, 0.45) $fade-height * 0.471,
+      hsla(30, 89%, 96%, 0.55) $fade-height * 0.529,
+      hsla(30, 89%, 96%, 0.648) $fade-height * 0.588,
+      hsla(30, 89%, 96%, 0.741) $fade-height * 0.647,
+      hsla(30, 89%, 96%, 0.825) $fade-height * 0.71,
+      hsla(30, 89%, 96%, 0.896) $fade-height * 0.775,
+      hsla(30, 89%, 96%, 0.951) $fade-height * 0.845,
+      hsla(30, 89%, 96%, 0.987) $fade-height * 0.919,
+      hsl(30, 89%, 96%) $fade-height * 1,
+      hsla(30, 89%, 96%, 1) $fade-height * 1.1,
+      hsla(30, 89%, 96%, 1) $fade-height * 1.2,
+      hsla(30, 89%, 96%, 0) $fade-height * 1.2,
+      hsla(30, 89%, 96%, 0) 100%
+    ),
+    linear-gradient(
+      to top,
+      hsla(30, 89%, 96%, 0) $fade-height * 0,
+      hsla(30, 89%, 96%, 0.013) $fade-height * 0.081,
+      hsla(30, 89%, 96%, 0.049) $fade-height * 0.155,
+      hsla(30, 89%, 96%, 0.104) $fade-height * 0.225,
+      hsla(30, 89%, 96%, 0.175) $fade-height * 0.29,
+      hsla(30, 89%, 96%, 0.259) $fade-height * 0.353,
+      hsla(30, 89%, 96%, 0.352) $fade-height * 0.412,
+      hsla(30, 89%, 96%, 0.45) $fade-height * 0.471,
+      hsla(30, 89%, 96%, 0.55) $fade-height * 0.529,
+      hsla(30, 89%, 96%, 0.648) $fade-height * 0.588,
+      hsla(30, 89%, 96%, 0.741) $fade-height * 0.647,
+      hsla(30, 89%, 96%, 0.825) $fade-height * 0.71,
+      hsla(30, 89%, 96%, 0.896) $fade-height * 0.775,
+      hsla(30, 89%, 96%, 0.951) $fade-height * 0.845,
+      hsla(30, 89%, 96%, 0.987) $fade-height * 0.919,
+      hsl(30, 89%, 96%) $fade-height * 1,
+      hsla(30, 89%, 96%, 1) $fade-height * 1.1,
+      hsla(30, 89%, 96%, 1) $fade-height * 1.2,
+      hsla(30, 89%, 96%, 0) $fade-height * 1.2,
+      hsla(30, 89%, 96%, 0) 100%
+    ),
+    linear-gradient(
+      hsla(30, 89%, 96%, 0) 0%,
+      hsla(30, 89%, 96%, 0) $fade-height,
+      hsla(30, 89%, 96%, 1) $fade-height,
+      hsla(30, 89%, 96%, 1) calc(100% - #{$fade-height}),
+      hsla(30, 89%, 96%, 0) calc(100% - #{$fade-height}),
+      hsla(30, 89%, 96%, 0) calc(100%)
+    );
+
   @include for-desktop-up {
+    background-image: unset;
     background-color: unset;
+    width: calc(100vw / 2.2);
+    max-width: 610px;
+    position: relative;
+    left: 50%;
+    margin-left: 0 !important;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 24px;
+    max-width: 610px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include for-tablet-landscape-up {
+      margin-bottom: 32px;
+    }
+  }
+}
+
+:global {
+  .Main {
+    width: 100% !important;
   }
 }
