@@ -1,0 +1,16 @@
+@use "../../100-percent-correct-break-points.scss" as *;
+
+.root {
+  // border: 1px solid rgb(255, 115, 0);
+  // padding: 20px;
+  // text-align: center;
+  // color: black;
+}
+
+.paragraph-wrapper {
+  background-color: white;
+  font-size: 1.125rem;
+  @include for-desktop-up {
+    background-color: unset;
+  }
+}

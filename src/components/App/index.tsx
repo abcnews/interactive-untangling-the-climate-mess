@@ -25,6 +25,7 @@ import InteractivePanel from "../InteractivePanel";
 import EndStrings from "../EndStrings";
 import AnchorTransform from "../AnchorTransform";
 import SkipAhead from "../SkipAhead";
+import ResponsiveParagraphPanel from "../ResponsiveParagraphPanel";
 
 import useWindowSize from "../ParagraphObserver/useWindowSize";
 import { Client } from "@abcnews/poll-counters-client";
@@ -1018,6 +1019,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           </Portal>
         );
       })}
+
+      <ResponsiveParagraphPanel />
     </AppContext.Provider>
   );
 };
