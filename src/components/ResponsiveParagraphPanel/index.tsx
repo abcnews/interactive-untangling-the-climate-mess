@@ -5,6 +5,9 @@ import { nextUntil } from "../../nextUntil";
 type ResponsiveParagraphPanelProps = {};
 
 const ResponsiveParagraphPanel: React.FC<ResponsiveParagraphPanelProps> = () => {
+  // onMount take the paragraphs and put them in a div
+  // Place them above the paragraphpanel elements
+  // so they aren't processed on hot reload
   useEffect(() => {
     const paragraphStartMarkers: any = document.querySelectorAll(
       '*[id^="paragraphpanel"]'
@@ -12,9 +15,7 @@ const ResponsiveParagraphPanel: React.FC<ResponsiveParagraphPanelProps> = () => 
 
     paragraphStartMarkers.forEach((startEl, index: number) => {
       const paragraphWrapper = document.createElement("div");
-
       paragraphWrapper.classList.add(styles.paragraphWrapper);
-
       const elementsBetween = nextUntil(startEl, "#endparagraphpanel");
 
       elementsBetween.forEach((el: any) => {

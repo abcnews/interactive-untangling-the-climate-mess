@@ -10,10 +10,11 @@ $fade-height: 400px;
 }
 
 .paragraph-wrapper {
-  // background-color: white;
   width: 100%;
   font-size: 1.125rem;
   line-height: 1.555555556;
+  padding-top: $fade-height - 100px;
+  padding-bottom: $fade-height - 100px;
 
   @include for-tablet-portrait-up {
     line-height: 1.666666667;
@@ -76,7 +77,6 @@ $fade-height: 400px;
 
   @include for-desktop-up {
     background-image: unset;
-    background-color: unset;
     width: calc(100vw / 2.2);
     max-width: 610px;
     position: relative;
