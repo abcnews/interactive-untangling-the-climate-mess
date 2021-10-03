@@ -1,10 +1,45 @@
 import React, { useEffect } from "react";
 import styles from "./styles.scss";
 import { nextUntil } from "../../nextUntil";
+import { gsap } from "gsap";
+const d3 = { ...require("d3-scale") };
+
+const FADE_IN_TEXT_THRESHOLD = window.innerHeight * 0.25;
+
+const fromBottomScale = d3
+  .scaleLinear()
+  .domain([0, FADE_IN_TEXT_THRESHOLD])
+  .range([0, 1.0]);
 
 type ResponsiveParagraphPanelProps = {};
 
+let paragraphPanels;
+
 const ResponsiveParagraphPanel: React.FC<ResponsiveParagraphPanelProps> = () => {
+  // TODO: Maybe only process near viewport panels
+  // if needed using intersection observer
+  const onScroll = e => {
+    if (window.innerWidth >= 1200) return;
+
+    paragraphPanels.forEach(panel => {
+      const { firstChild } = panel;
+      const top = firstChild.getBoundingClientRect().top;
+      if (top < 100) {
+        panel.style.opacity = 1.0;
+        return;
+      }
+
+      if (top > window.innerHeight) {
+        panel.style.opacity = 0.0;
+        return;
+      }
+
+      // Else fade in
+      const fromBottom = window.innerHeight - top;
+      panel.style.opacity = fromBottomScale(fromBottom);
+    });
+  };
+
   // onMount take the paragraphs and put them in a div
   // Place them above the paragraphpanel elements
   // so they aren't processed on hot reload
@@ -22,8 +57,16 @@ const ResponsiveParagraphPanel: React.FC<ResponsiveParagraphPanelProps> = () => 
         paragraphWrapper.appendChild(el);
       });
 
-      insertBefore(paragraphWrapper, startEl);
+      if (elementsBetween.length > 0) insertBefore(paragraphWrapper, startEl);
     });
+
+    paragraphPanels = document.querySelectorAll(`.${styles.paragraphWrapper}`);
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (
@@ -42,5 +85,3 @@ function insertAfter(el, referenceNode) {
 function insertBefore(el, referenceNode) {
   referenceNode.parentNode.insertBefore(el, referenceNode);
 }
-
-

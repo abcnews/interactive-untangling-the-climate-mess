@@ -974,6 +974,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             mainTangleYPos={mainTangleYPos}
             setMainTangleHidden={setMainTangleHidden}
           /> */}
+          <ResponsiveParagraphPanel />
         </>
       )}
 
@@ -1019,8 +1020,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           </Portal>
         );
       })}
-
-      <ResponsiveParagraphPanel />
     </AppContext.Provider>
   );
 };
