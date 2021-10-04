@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Portal } from "react-portal";
 import SmoothScroll from "smooth-scroll";
 import { isMount, getMountValue, selectMounts } from "@abcnews/mount-utils";
+import { useDynamicText } from "../../lib/fetchDynamicText";
 
 // Import stylsheets
 import styles from "./styles.scss";
@@ -153,6 +154,13 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   // (whether that is by reading it or clicking on a button, etc)
   // Immediately invoking this effect just because it will only be used once.
   const [userHasEngaged, setUserHasEngaged] = useState(false);
+
+  const {
+    dynamicText,
+    dynamicTextLoading,
+    dynamicTextError
+  } = useDynamicText();
+  // console.log("dt", dynamicText);
 
   const mounts = selectMounts("skipahead", { includeOwnUsed: true });
 
@@ -675,6 +683,10 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     }
   }, [windowSize.width, windowSize.height, isPastOpening]);
 
+  useEffect(() => {
+    console.log(dynamicText["MAIN1-optimistic"]);
+  }, [dynamicText]);
+
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
       <Portal node={document && document.querySelector(".delayed-header")}>
@@ -697,10 +709,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               value: "certain",
               response: (
                 <>
-                  <p>
-                    Ok, so you’re onboard - but how do we get there? Let’s see
-                    if you’re still convinced after reading what it takes.
-                  </p>
+                  <p>{dynamicText["MAIN1-optimistic"]}</p>
                 </>
               )
             },
@@ -709,10 +718,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               value: "hopeful",
               response: (
                 <>
-                  <p>
-                    Ok, so you’re onboard - but how do we get there? Let’s see
-                    if you’re still convinced after reading what it takes.
-                  </p>
+                  <p>{dynamicText["MAIN1-optimistic"]}</p>
                 </>
               )
             },
@@ -721,9 +727,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               value: "doubtful",
               response: (
                 <p>
-                  Ok that's fair enough - we'd be skeptical too - but let’s see
-                  how you feel after reading what’s involved with cancelling
-                  Australia’s emissions.
+                  {dynamicText["MAIN1-pessimistic"]}
                 </p>
               )
             },
@@ -732,9 +736,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               value: "impossible",
               response: (
                 <p>
-                  Ok that's fair enough - we'd be skeptical too - but let’s see
-                  how you feel after reading what’s involved with cancelling
-                  Australia’s emissions.
+                  {dynamicText["MAIN1-pessimistic"]}
                 </p>
               )
             }

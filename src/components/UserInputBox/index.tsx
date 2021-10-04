@@ -174,7 +174,9 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
   useEffect(() => {
     // Set up component reference for a debounce
     component.debouncedPollIncrement = debounce(pollIncrement, 5000);
+  }, []); // Init effect
 
+  useEffect(() => {
     // Set some default buttons (in case they're not set in App — but they will be)
     if (!props.buttons) {
       setButtons([
@@ -186,7 +188,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
     } else {
       setButtons(props.buttons);
     }
-  }, []); // Init effect
+  }, [props.buttons]);
 
   useEffect(() => {
     if (selected === "") return;
