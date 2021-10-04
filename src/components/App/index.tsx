@@ -683,9 +683,9 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     }
   }, [windowSize.width, windowSize.height, isPastOpening]);
 
-  useEffect(() => {
-    console.log(dynamicText["MAIN1-optimistic"]);
-  }, [dynamicText]);
+  // useEffect(() => {
+  //   console.log(dynamicText["MAIN1-optimistic"]);
+  // }, [dynamicText]);
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
