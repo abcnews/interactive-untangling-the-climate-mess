@@ -15,7 +15,9 @@
     "deploy": "aunty build && aunty deploy",
     "release": "aunty release",
     "test": "aunty test",
-    "data": "node utils/dataDeploy.js"
+    "data": "node utils/dataDeploy.js",
+    "predeploy": "npm run data",
+    "prerelease": "npm run data"
   },
   "abc": {
     "css": {
