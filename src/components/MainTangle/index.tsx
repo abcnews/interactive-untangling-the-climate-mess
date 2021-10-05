@@ -11,7 +11,8 @@ const throttledGsapTo = throttle(gsap.to, 5);
 
 import untangleAnimation from "./assets/untangling-color-change.svg";
 
-const PLAY_RATE = 1;
+const PLAY_RATE = 1.0;
+const FAST_SKIP_INCREASE = 1.0;
 
 const lookupRange = (marker: string) => {
   if (marker === "1" || marker === "initial")
@@ -144,7 +145,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
       loadDownPage();
     } else {
       // Speeds up animations if user is scrolling quickly
-      component.pressure = component.pressure + 1;
+      component.pressure = component.pressure + FAST_SKIP_INCREASE;
 
       const { scrollMarker }: { scrollMarker?: string } = props;
 
