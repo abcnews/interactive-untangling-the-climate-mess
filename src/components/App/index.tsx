@@ -3,6 +3,7 @@ import { Portal } from "react-portal";
 import SmoothScroll from "smooth-scroll";
 import { isMount, getMountValue, selectMounts } from "@abcnews/mount-utils";
 import { useDynamicText } from "../../lib/fetchDynamicText";
+import Markdown from "markdown-to-jsx";
 
 // Import stylsheets
 import styles from "./styles.scss";
@@ -705,22 +706,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "Of course we can",
               value: "certain",
-              response: dynamicText["MAINQ1-optimistic"]
+              response: <Markdown>{dynamicText["MAINQ1-optimistic"]}</Markdown>
             },
             {
               label: "Yes I think we can",
               value: "hopeful",
-              response: dynamicText["MAINQ1-optimistic"]
+              response: <Markdown>{dynamicText["MAINQ1-optimistic"]}</Markdown>
             },
             {
               label: "Probably not",
               value: "doubtful",
-              response: dynamicText["MAINQ1-pessimistic"]
+              response: <Markdown>{dynamicText["MAINQ1-pessimistic"]}</Markdown>
             },
             {
               label: "No way we're screwed",
               value: "impossible",
-              response: dynamicText["MAINQ1-pessimistic"]
+              response: <Markdown>{dynamicText["MAINQ1-pessimistic"]}</Markdown>
             }
           ]}
           setUserInputState={setUserInputState}
@@ -740,22 +741,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "That's a piece of cake",
               value: "certain",
-              response: dynamicText["SUBQ1-optimistic"]
+              response: <Markdown>{dynamicText["SUBQ1-optimistic"]}</Markdown>
             },
             {
               label: "It can be done",
               value: "hopeful",
-              response: dynamicText["SUBQ1-optimistic"]
+              response: <Markdown>{dynamicText["SUBQ1-optimistic"]}</Markdown>
             },
             {
               label: "This sounds like a stretch",
               value: "doubtful",
-              response: dynamicText["SUBQ1-pessimistic"]
+              response: <Markdown>{dynamicText["SUBQ1-pessimistic"]}</Markdown>
             },
             {
               label: "You're dreaming",
               value: "impossible",
-              response: dynamicText["SUBQ1-pessimistic"]
+              response: <Markdown>{dynamicText["SUBQ1-pessimistic"]}</Markdown>
             }
           ]}
           setUserInputState={setUserInputState}
@@ -778,22 +779,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "That's a piece of cake",
               value: "certain",
-              response: dynamicText["SUBQ2-optimistic"]
+              response: <Markdown>{dynamicText["SUBQ2-optimistic"]}</Markdown>
             },
             {
               label: "It can be done",
               value: "hopeful",
-              response: dynamicText["SUBQ2-optimistic"]
+              response: <Markdown>{dynamicText["SUBQ2-optimistic"]}</Markdown>
             },
             {
               label: "This sounds like a stretch",
               value: "doubtful",
-              response: dynamicText["SUBQ2-pessimistic"]
+              response: <Markdown>{dynamicText["SUBQ2-pessimistic"]}</Markdown>
             },
             {
               label: "You're dreaming",
               value: "impossible",
-              response: dynamicText["SUBQ2-pessimistic"]
+              response: <Markdown>{dynamicText["SUBQ2-pessimistic"]}</Markdown>
             }
           ]}
           setUserInputState={setUserInputState}
@@ -815,22 +816,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "That's a piece of cake",
               value: "certain",
-              response: dynamicText["SUBQ3-optimistic"]
+              response: <Markdown>{dynamicText["SUBQ3-optimistic"]}</Markdown>
             },
             {
               label: "It can be done",
               value: "hopeful",
-              response: dynamicText["SUBQ3-optimistic"]
+              response: <Markdown>{dynamicText["SUBQ3-optimistic"]}</Markdown>
             },
             {
               label: "This sounds like a stretch",
               value: "doubtful",
-              response: dynamicText["SUBQ3-pessimistic"]
+              response: <Markdown>{dynamicText["SUBQ3-pessimistic"]}</Markdown>
             },
             {
               label: "You're dreaming",
               value: "impossible",
-              response: dynamicText["SUBQ3-pessimistic"]
+              response: <Markdown>{dynamicText["SUBQ3-pessimistic"]}</Markdown>
             }
           ]}
           setUserInputState={setUserInputState}
@@ -852,22 +853,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "That's a piece of cake",
               value: "certain",
-              response: dynamicText["SUBQ4-optimistic"]
+              response: <Markdown>{dynamicText["SUBQ4-optimistic"]}</Markdown>
             },
             {
               label: "It can be done",
               value: "hopeful",
-              response: dynamicText["SUBQ4-optimistic"]
+              response: <Markdown>{dynamicText["SUBQ4-optimistic"]}</Markdown>
             },
             {
               label: "This sounds like a stretch",
               value: "doubtful",
-              response: dynamicText["SUBQ4-pessimistic"]
+              response: <Markdown>{dynamicText["SUBQ4-pessimistic"]}</Markdown>
             },
             {
               label: "You're dreaming",
               value: "impossible",
-              response: dynamicText["SUBQ4-pessimistic"]
+              response: <Markdown>{dynamicText["SUBQ4-pessimistic"]}</Markdown>
             }
           ]}
           setUserInputState={setUserInputState}
@@ -899,10 +900,26 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           questionKey="MAINQ2-can-we-still-save-the-world-again-after-article"
           title={"So, how about now? Can we save the world?"}
           buttons={[
-            { label: "Of course we can", value: "certain", response: dynamicText["MAINQ2-optimistic"] },
-            { label: "Yes I think we can", value: "hopeful", response: dynamicText["MAINQ2-optimistic"] },
-            { label: "Probably not", value: "doubtful", response: dynamicText["MAINQ2-pessimistic"] },
-            { label: "No way we're screwed", value: "impossible", response: dynamicText["MAINQ2-pessimistic"] }
+            {
+              label: "Of course we can",
+              value: "certain",
+              response: <Markdown>{dynamicText["MAINQ2-optimistic"]}</Markdown>
+            },
+            {
+              label: "Yes I think we can",
+              value: "hopeful",
+              response: <Markdown>{dynamicText["MAINQ2-optimistic"]}</Markdown>
+            },
+            {
+              label: "Probably not",
+              value: "doubtful",
+              response: <Markdown>{dynamicText["MAINQ2-pessimistic"]}</Markdown>
+            },
+            {
+              label: "No way we're screwed",
+              value: "impossible",
+              response: <Markdown>{dynamicText["MAINQ2-pessimistic"]}</Markdown>
+            }
           ]}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
@@ -967,13 +984,13 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               percent: industryConvinced,
               color: "#007B52",
               textColor: "#007B52"
-            },
-            {
-              title: "Carbon capture",
-              percent: carbonCaptureConvinced,
-              color: "#2A4059",
-              textColor: "#2A4059"
             }
+            // {
+            //   title: "Carbon capture",
+            //   percent: carbonCaptureConvinced,
+            //   color: "#2A4059",
+            //   textColor: "#2A4059"
+            // }
           ]}
           windowWidth={windowSize.width}
         ></AudienceChart>
@@ -982,6 +999,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       {/* Background visual */}
       <Portal node={document && document.getElementById("portalmount")}>
         {/* Don't unmount this because elements are being observed by ParagraphObserver
+        and they get lost otherwise.
           Maybe try visibility hidden or display none instead */}
         <MainTangle
           animationFrame={animationFrame}
