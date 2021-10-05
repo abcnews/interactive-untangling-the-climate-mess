@@ -29,7 +29,8 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
     if (typeof entry === "undefined") return;
     const marker: any = entry.target;
     const bounds = marker.getBoundingClientRect();
-    if (bounds.y > 0) setIsPastOpening(false);
+    console.log(bounds);
+    if (bounds.bottom > 0) setIsPastOpening(false);
     else setIsPastOpening(true);
   }, [entry]);
 
@@ -125,23 +126,20 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
         </OrganicPanel>
       </div>
 
-      <div
-        className={`${styles.panel} ${
-          !openingCentered && isDesktop && styles.pullLeft
-        }`}
-      >
+      <div className={styles.panel}>
         <OrganicPanel backgroundVariation={2}>
           <div
             ref={lastPanelRef}
             id="visualKEY2"
             data-component="Anchor"
             data-mount="true"
-          ></div>
-          {convert(contentArray[2])}
-          {/* <p>
+          >
+            {convert(contentArray[2])}
+            {/* <p>
             What if Australia could get to net zero and actually… improve our
             lives?
           </p> */}
+          </div>
         </OrganicPanel>
       </div>
     </div>

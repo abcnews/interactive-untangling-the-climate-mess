@@ -721,20 +721,12 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "Probably not",
               value: "doubtful",
-              response: (
-                <p>
-                  {dynamicText["MAIN1-pessimistic"]}
-                </p>
-              )
+              response: <p>{dynamicText["MAIN1-pessimistic"]}</p>
             },
             {
               label: "No way we're screwed",
               value: "impossible",
-              response: (
-                <p>
-                  {dynamicText["MAIN1-pessimistic"]}
-                </p>
-              )
+              response: <p>{dynamicText["MAIN1-pessimistic"]}</p>
             }
           ]}
           setUserInputState={setUserInputState}

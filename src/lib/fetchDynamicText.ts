@@ -1,8 +1,19 @@
 import useSWR from "swr";
+import {
+  // getApplication,
+  // getGeneration,
+  getTier,
+  // requestDOMPermit
+} from "@abcnews/env-utils";
 
 const fetcher = async id => {
-  const result = await fetch("https://data-bridge.vercel.app/climate-tangle");
+  // If article is LIVE on the site then access data directly from FTP.
+  // Otherwise get from Vercel <- Airtable
+  const result = await fetch(
+    getTier() === "preview" ? id : `${__webpack_public_path__}dynamic-text.json`
+  );
   const json = await result.json();
+  console.log(json);
   return json;
 };
 
