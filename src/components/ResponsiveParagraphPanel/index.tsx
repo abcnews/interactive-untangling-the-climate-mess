@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.scss";
 import { nextUntil } from "../../nextUntil";
 import { gsap } from "gsap";
 const d3 = { ...require("d3-scale") };
+import useWindowSize from "../ParagraphObserver/useWindowSize";
 
 const FADE_IN_TEXT_THRESHOLD = window.innerHeight * 0.25;
 
@@ -16,10 +17,14 @@ type ResponsiveParagraphPanelProps = {};
 let paragraphPanels;
 
 const ResponsiveParagraphPanel: React.FC<ResponsiveParagraphPanelProps> = () => {
+  const windowSize = useWindowSize();
+
   // TODO: Maybe only process near viewport panels
   // if needed using intersection observer
   const onScroll = e => {
-    if (window.innerWidth >= 1200) return;
+    if (window.innerWidth >= 1200) {
+      return;
+    }
 
     paragraphPanels.forEach(panel => {
       const { firstChild } = panel;
@@ -68,6 +73,17 @@ const ResponsiveParagraphPanel: React.FC<ResponsiveParagraphPanelProps> = () => 
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const { width, height } = windowSize;
+
+    paragraphPanels.forEach(panel => {
+      if (width > 1200) {
+        panel.style.opacity = 1.0;
+        return;
+      }
+    });
+  }, [windowSize.width, windowSize.height]);
 
   return (
     <div className={styles.root}>

@@ -683,6 +683,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     }
   }, [windowSize.width, windowSize.height, isPastOpening]);
 
+  console.log(dynamicText);
+
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
       <Portal node={document && document.querySelector(".delayed-header")}>
@@ -703,30 +705,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "Of course we can",
               value: "certain",
-              response: (
-                <>
-                  <p>{dynamicText["MAIN1-optimistic"]}</p>
-                </>
-              )
+              response: dynamicText["MAINQ1-optimistic"]
             },
             {
               label: "Yes I think we can",
               value: "hopeful",
-              response: (
-                <>
-                  <p>{dynamicText["MAIN1-optimistic"]}</p>
-                </>
-              )
+              response: dynamicText["MAINQ1-optimistic"]
             },
             {
               label: "Probably not",
               value: "doubtful",
-              response: <p>{dynamicText["MAIN1-pessimistic"]}</p>
+              response: dynamicText["MAINQ1-pessimistic"]
             },
             {
               label: "No way we're screwed",
               value: "impossible",
-              response: <p>{dynamicText["MAIN1-pessimistic"]}</p>
+              response: dynamicText["MAINQ1-pessimistic"]
             }
           ]}
           setUserInputState={setUserInputState}
@@ -743,10 +737,26 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           questionKey="SUBQ1-renewables-zero-carbon"
           title={"So - what do you reckon our chances of doing this are?"}
           buttons={[
-            { label: "That's a piece of cake", value: "certain" },
-            { label: "It can be done", value: "hopeful" },
-            { label: "This sounds like a stretch", value: "doubtful" },
-            { label: "You're dreaming", value: "impossible" }
+            {
+              label: "That's a piece of cake",
+              value: "certain",
+              response: dynamicText["SUBQ1-optimistic"]
+            },
+            {
+              label: "It can be done",
+              value: "hopeful",
+              response: dynamicText["SUBQ1-optimistic"]
+            },
+            {
+              label: "This sounds like a stretch",
+              value: "doubtful",
+              response: dynamicText["SUBQ1-pessimistic"]
+            },
+            {
+              label: "You're dreaming",
+              value: "impossible",
+              response: dynamicText["SUBQ1-pessimistic"]
+            }
           ]}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
@@ -765,10 +775,26 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           questionKey="SUBQ2-livestock-emissions"
           title={"Can we reach reach zero livestock emissions?"}
           buttons={[
-            { label: "That's a piece of cake", value: "certain" },
-            { label: "It can be done", value: "hopeful" },
-            { label: "This sounds like a stretch", value: "doubtful" },
-            { label: "You're dreaming", value: "impossible" }
+            {
+              label: "That's a piece of cake",
+              value: "certain",
+              response: dynamicText["SUBQ2-optimistic"]
+            },
+            {
+              label: "It can be done",
+              value: "hopeful",
+              response: dynamicText["SUBQ2-optimistic"]
+            },
+            {
+              label: "This sounds like a stretch",
+              value: "doubtful",
+              response: dynamicText["SUBQ2-pessimistic"]
+            },
+            {
+              label: "You're dreaming",
+              value: "impossible",
+              response: dynamicText["SUBQ2-pessimistic"]
+            }
           ]}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
@@ -786,10 +812,26 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             "So now you know how we quit fossil fuels in our transport system, can we do it?"
           }
           buttons={[
-            { label: "That's a piece of cake", value: "certain" },
-            { label: "It can be done", value: "hopeful" },
-            { label: "This sounds like a stretch", value: "doubtful" },
-            { label: "You're dreaming", value: "impossible" }
+            {
+              label: "That's a piece of cake",
+              value: "certain",
+              response: dynamicText["SUBQ3-optimistic"]
+            },
+            {
+              label: "It can be done",
+              value: "hopeful",
+              response: dynamicText["SUBQ3-optimistic"]
+            },
+            {
+              label: "This sounds like a stretch",
+              value: "doubtful",
+              response: dynamicText["SUBQ3-pessimistic"]
+            },
+            {
+              label: "You're dreaming",
+              value: "impossible",
+              response: dynamicText["SUBQ3-pessimistic"]
+            }
           ]}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
@@ -807,10 +849,26 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           questionKey="SUBQ4-industry-emissions"
           title={"Can we elliminate emissions from industry?"}
           buttons={[
-            { label: "That's a piece of cake", value: "certain" },
-            { label: "It can be done", value: "hopeful" },
-            { label: "This sounds like a stretch", value: "doubtful" },
-            { label: "You're dreaming", value: "impossible" }
+            {
+              label: "That's a piece of cake",
+              value: "certain",
+              response: dynamicText["SUBQ4-optimistic"]
+            },
+            {
+              label: "It can be done",
+              value: "hopeful",
+              response: dynamicText["SUBQ4-optimistic"]
+            },
+            {
+              label: "This sounds like a stretch",
+              value: "doubtful",
+              response: dynamicText["SUBQ4-pessimistic"]
+            },
+            {
+              label: "You're dreaming",
+              value: "impossible",
+              response: dynamicText["SUBQ4-pessimistic"]
+            }
           ]}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
@@ -841,10 +899,10 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           questionKey="MAINQ2-can-we-still-save-the-world-again-after-article"
           title={"So, how about now? Can we save the world?"}
           buttons={[
-            { label: "Of course we can", value: "certain" },
-            { label: "Yes I think we can", value: "hopeful" },
-            { label: "Probably not", value: "doubtful" },
-            { label: "No way we're screwed", value: "impossible" }
+            { label: "Of course we can", value: "certain", response: dynamicText["MAINQ2-optimistic"] },
+            { label: "Yes I think we can", value: "hopeful", response: dynamicText["MAINQ2-optimistic"] },
+            { label: "Probably not", value: "doubtful", response: dynamicText["MAINQ2-pessimistic"] },
+            { label: "No way we're screwed", value: "impossible", response: dynamicText["MAINQ2-pessimistic"] }
           ]}
           setUserInputState={setUserInputState}
           pollClient={pollClient}

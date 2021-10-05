@@ -13,7 +13,6 @@ const fetcher = async id => {
     getTier() === "preview" ? id : `${__webpack_public_path__}dynamic-text.json`
   );
   const json = await result.json();
-  console.log(json);
   return json;
 };
 
