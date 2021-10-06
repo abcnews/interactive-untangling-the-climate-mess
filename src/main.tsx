@@ -42,7 +42,8 @@ declare global {
 }
 
 const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
-const root = document.querySelector("#interactivemount");
+
+
 
 function preInit() {
   // Insert a div before the header
@@ -161,6 +162,7 @@ function preInit() {
 }
 
 function init() {
+  const root = document.querySelector("#interactivemount");
   render(<App projectName={PROJECT_NAME} />, root);
 }
 
@@ -194,6 +196,7 @@ if (module.hot) {
       init();
     } catch (err: any) {
       import("./components/ErrorBox").then(({ default: ErrorBox }) => {
+        const root = document.querySelector("#interactivemount");
         render(<ErrorBox error={err} />, root);
       });
     }

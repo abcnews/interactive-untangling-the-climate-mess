@@ -686,8 +686,15 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
   console.log(dynamicText);
 
+  
+
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
+      <Portal>
+        {/* Just a line down the center of the screen for testing */}
+        <div className={styles.centerHint}></div>
+      </Portal>
+
       <Portal node={document && document.querySelector(".delayed-header")}>
         <DelayedHeader
           setTransformsComplete={setTransformsComplete}
@@ -1043,9 +1050,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           <ResponsiveParagraphPanel />
         </>
       )}
-
-      {/* Just a line down the center of the screen for testing */}
-      {/* <div className={styles.centerHint} /> */}
 
       {interactivePanelElements?.map((panel, iteration) => {
         const panelConfig = alternatingCaseToObject(panel.id);
