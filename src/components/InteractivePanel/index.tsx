@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDynamicText } from "../../lib/fetchDynamicText";
-import Markdown from "markdown-to-jsx";
+import DynText from "../DynText";
 
 import styles from "./styles.scss";
 
@@ -43,7 +43,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     dynamicTextLoading,
     dynamicTextError
   } = useDynamicText();
-  // console.log("dt", dynamicText);
+  console.log("dt", dynamicText);
 
   const [hidden, setHidden] = useState(false);
   const [panelText, setPanelText] = useState(
@@ -57,7 +57,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
 
   function getLevel2Text(convincedState, userInputState) {
     if (convincedState === "green")
-      return <Markdown>{dynamicText["LEVEL2-green"]}</Markdown>;
+      return <DynText>{dynamicText["LEVEL2-green"]}</DynText>;
     if (convincedState === "orange") {
       if (
         userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
@@ -69,20 +69,20 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           "MAINQ2-can-we-still-save-the-world-again-after-article"
         ] === "hopeful"
       ) {
-        return <p>So you still think this can be done.</p>;
+        return <DynText>{dynamicText["LEVEL2-orange-optimistic"]}</DynText>;
       } else {
-        return <p>It’s OK still not to be convinced, it’s a tricky problem.</p>;
+        return <DynText>{dynamicText["LEVEL2-orange-pessimistic"]}</DynText>;
       }
     }
 
     if (convincedState === "red")
-      return <p>So now you’ve read all this you’re less convinced.</p>;
+      return <DynText>{dynamicText["LEVEL2-red"]}</DynText>;
     else return <></>;
   }
 
   useEffect(() => {
     // KEY
-    // questionCompleteness === "noMAIN1noSUBnoMAIN2"  // 1
+    // questionCompleteness === "noMAIN1noSUBnoMAIN2"  // 1z
     // questionCompleteness === "yesMAIN1noSUBnoMAIN2" // 2
     // questionCompleteness === "noMAIN1noSUByesMAIN2" // 3
     // questionCompleteness === "yesMAIN1noSUByesMAIN2" // 4
@@ -96,7 +96,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     let shouldShow;
 
     // Were they initially positive?
-    let main1Positive =
+    const main1Positive =
       userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
       userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful";
 
@@ -118,21 +118,15 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "noMAIN1allSUBnoMAIN2"; // 6
 
         if (questionCompleteness === "noMAIN1noSUBnoMAIN2") {
-          setPanelText(
-            <p>
-              You didn’t answer any of the questions but here’s how the rest of
-              the audience felt about the piece.
-            </p>
-          );
+          setPanelText(<DynText>{dynamicText["NOANSWER-nothing"]}</DynText>);
+          /* You didn’t answer any of the questions but here’s how
+          the rest of the audience felt about the piece. */
         } else {
           // They didn't answer MAIN questions
-          setPanelText(
-            <p>
-              You didn’t tell us whether you thought Australia could get to net
-              zero, but here is the impact the things you were convinced by
-              would have on our emissions.
-            </p>
-          );
+          setPanelText(<DynText>{dynamicText["NOANSWER-some-subq"]}</DynText>);
+          /* You didn’t tell us whether you thought Australia could get to net
+          zero, but here is the impact the things you were convinced by
+          would have on our emissions. */
         }
 
         break;
@@ -141,18 +135,16 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
 
         if (main1Positive) {
           setPanelText(
-            <p>
-              We don’t know if you’re still convinced, as you didn’t answer, but
-              here’s how the rest of the audience feel about the piece.
-            </p>
+            <DynText>{dynamicText["INCOMPLETE-optimistic"]}</DynText>
           );
+          /* We don’t know if you’re still convinced, as you didn’t answer, but
+          here’s how the rest of the audience feel about the piece. */
         } else if (!main1Positive) {
           setPanelText(
-            <p>
-              We don’t know if you’re still not convinced, as you didn’t answer,
-              but here’s how the rest of the audience feel about the piece.
-            </p>
+            <DynText>{dynamicText["INCOMPLETE-pessimistic"]}</DynText>
           );
+          /* We don’t know if you’re still not convinced, as you didn’t answer,
+          but here’s how the rest of the audience feel about the piece. */
         }
 
         break;
@@ -168,11 +160,10 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         let level2answer = getLevel2Text(convincedState, userInputState);
 
         const noSectionText = (
-          <p>
-            While we don’t know if you’re convinced by any of the challenges,
-            here’s what the audience thought.
-          </p>
+          <DynText>{dynamicText["INCOMPLETE-no-challenges"]}</DynText>
         );
+        /* While we don’t know if you’re convinced by any of the challenges,
+        here’s what the audience thought. */
 
         if (
           questionCompleteness === "noMAIN1noSUByesMAIN2" || // 3
@@ -391,14 +382,14 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                   textColor: "#007B52",
                   greyedOut: isGreyedOut("SUBQ4-industry-emissions")
                 },
-                {
-                  title: "Carbon capture",
-                  percent: 60,
-                  color: "#2A4059",
-                  textColor: "#2A4059",
-                  label: "All the rest",
-                  greyedOut: isGreyedOut("SUBQ5-carbon-capture")
-                }
+                // {
+                //   title: "Carbon capture",
+                //   percent: 60,
+                //   color: "#2A4059",
+                //   textColor: "#2A4059",
+                //   label: "All the rest",
+                //   greyedOut: isGreyedOut("SUBQ5-carbon-capture")
+                // }
               ]}
             />
           </>
