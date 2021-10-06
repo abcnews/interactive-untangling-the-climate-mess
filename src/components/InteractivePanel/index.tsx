@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useDynamicText } from "../../lib/fetchDynamicText";
+import Markdown from "markdown-to-jsx";
+
 import styles from "./styles.scss";
 
 import BarChart from "../BarChart";
@@ -35,16 +38,26 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     userInputState
   } = props;
 
+  const {
+    dynamicText,
+    dynamicTextLoading,
+    dynamicTextError
+  } = useDynamicText();
+  // console.log("dt", dynamicText);
+
   const [hidden, setHidden] = useState(false);
-  const [panelText, setPanelText] = useState(<p>Panel initial state (this should not show up!!!!!)</p>);
+  const [panelText, setPanelText] = useState(
+    <p>
+      Panel initial state (if you're seeing this text in article, please contact
+      byrd.joshua@abc.net.au). Thanks!
+    </p>
+  );
 
   // TODO: Maybe make these functions return React components?
 
   function getLevel2Text(convincedState, userInputState) {
     if (convincedState === "green")
-      return (
-        <p>So you’re more positive than at the start, that’s something.</p>
-      );
+      return <Markdown>{dynamicText["LEVEL2-green"]}</Markdown>;
     if (convincedState === "orange") {
       if (
         userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
@@ -199,132 +212,126 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         //     </p>
         //   );
         // } else {
-          if (subQuestionsConvinvedOf >= 5) {
-            // Check if positive outloon on main2 question
-            if (main2Positive)
-              setPanelText(
-                <p>
-                  Let’s look at what the impact of doing the things you’re
-                  convinced of would be. If we can pull it off then Australia
-                  not only gets to net zero, we’ve set the country for a future
-                  in this zero carbon world.
-                </p>
-              );
-            // Otherwise negative
-            else
-              setPanelText(
-                <p>
-                  Look even if you don’t think we can pull this off, if we just
-                  do the things you’re convinced by then Australia not only gets
-                  to net zero, we’ve set the country for a future in this zero
-                  carbon world.
-                </p>
-              );
-          }
-
-          //
-
-          if (subQuestionsConvinvedOf == 4) {
-            if (main2Positive)
-              setPanelText(
-                <p>
-                  Let’s look at what the impact of doing the things you’re
-                  convinced of would be. If we can pull it off then Australia
-                  not only gets to net zero, we’ve set the country for a future
-                  in this zero carbon world.
-                </p>
-              );
-            else
-              setPanelText(
-                <p>
-                  Look even if you don’t think we can pull this off, if we just
-                  do the things you’re convinced by then that puts Australia on
-                  track to be part of a world that keeps temperatures at or
-                  below 1.5 degrees.
-                </p>
-              );
-          }
-
-          //
-
-          if (subQuestionsConvinvedOf === 3) {
-            if (main2Positive)
-              setPanelText(
-                <p>
-                  Let’s look at what the impact of doing the things you’re
-                  convinced of would be. If we can just accomplish them by 2030,
-                  then that would keep Australia on track to be part of a world
-                  that keeps temperatures at or below 1.5 degrees.
-                </p>
-              );
-            else
-              setPanelText(
-                <p>
-                  Look even if you don’t think we can pull this off, if we can
-                  just accomplish the things you’re convinced of by 2030, then
-                  that would keep Australia on track to be part of a world that
-                  keeps temperatures at or below 1.5 degrees.
-                </p>
-              );
-          }
-
-          //
-
-          if (subQuestionsConvinvedOf === 2) {
-            if (main2Positive)
-              setPanelText(
-                <p>
-                  Let’s look at what the impact of doing the things you’re
-                  convinced of would be. Just reducing emissions in this one
-                  area over the next 5 years would put us on track for the most
-                  ambitious Paris agreement targets, and give us a chance of
-                  keeping temperature increases at or below 1.5 degrees.
-                </p>
-              );
-            else
-              setPanelText(
-                <p>
-                  We get it, it’s a big problem, but we don’t have to solve it
-                  all now. Let’s look at what the impact of doing the things
-                  you’re convinced of would be. Just reducing emissions in this
-                  one area over the next 5 years would put us on track for the
-                  most ambitious Paris agreement targets, and give us a chance
-                  of keeping temperature increases at or below 1.5 degrees.
-                </p>
-              );
-          }
-
-          //
-
-          if (subQuestionsConvinvedOf === 1) {
-            if (main2Positive)
-              setPanelText(
-                <p>
-                  It’s good that you’re optimistic about Australia getting to
-                  net zero, even if you’re not sure how we can get there.
-                </p>
-              );
-            else
-              setPanelText(
-                // TODO: Get Tim to write a proper answer:
-                <p>Well, I dunno what to tell ya????</p>
-              );
-          }
-
-          if (subQuestionsConvinvedOf === 0) {
-
+        if (subQuestionsConvinvedOf >= 5) {
+          // Check if positive outloon on main2 question
+          if (main2Positive)
             setPanelText(
-              // TODO: Get Tim to write a proper answer:
-              // ALSO BATTLE TEST ALL THE POSSIBLE WAYS OF ANSWERING THE BUTTONS
               <p>
-                You're a tough nut to crack!!!
+                Let’s look at what the impact of doing the things you’re
+                convinced of would be. If we can pull it off then Australia not
+                only gets to net zero, we’ve set the country for a future in
+                this zero carbon world.
               </p>
             );
+          // Otherwise negative
+          else
+            setPanelText(
+              <p>
+                Look even if you don’t think we can pull this off, if we just do
+                the things you’re convinced by then Australia not only gets to
+                net zero, we’ve set the country for a future in this zero carbon
+                world.
+              </p>
+            );
+        }
 
-          }
+        //
 
+        if (subQuestionsConvinvedOf == 4) {
+          if (main2Positive)
+            setPanelText(
+              <p>
+                Let’s look at what the impact of doing the things you’re
+                convinced of would be. If we can pull it off then Australia not
+                only gets to net zero, we’ve set the country for a future in
+                this zero carbon world.
+              </p>
+            );
+          else
+            setPanelText(
+              <p>
+                Look even if you don’t think we can pull this off, if we just do
+                the things you’re convinced by then that puts Australia on track
+                to be part of a world that keeps temperatures at or below 1.5
+                degrees.
+              </p>
+            );
+        }
 
-          
+        //
+
+        if (subQuestionsConvinvedOf === 3) {
+          if (main2Positive)
+            setPanelText(
+              <p>
+                Let’s look at what the impact of doing the things you’re
+                convinced of would be. If we can just accomplish them by 2030,
+                then that would keep Australia on track to be part of a world
+                that keeps temperatures at or below 1.5 degrees.
+              </p>
+            );
+          else
+            setPanelText(
+              <p>
+                Look even if you don’t think we can pull this off, if we can
+                just accomplish the things you’re convinced of by 2030, then
+                that would keep Australia on track to be part of a world that
+                keeps temperatures at or below 1.5 degrees.
+              </p>
+            );
+        }
+
+        //
+
+        if (subQuestionsConvinvedOf === 2) {
+          if (main2Positive)
+            setPanelText(
+              <p>
+                Let’s look at what the impact of doing the things you’re
+                convinced of would be. Just reducing emissions in this one area
+                over the next 5 years would put us on track for the most
+                ambitious Paris agreement targets, and give us a chance of
+                keeping temperature increases at or below 1.5 degrees.
+              </p>
+            );
+          else
+            setPanelText(
+              <p>
+                We get it, it’s a big problem, but we don’t have to solve it all
+                now. Let’s look at what the impact of doing the things you’re
+                convinced of would be. Just reducing emissions in this one area
+                over the next 5 years would put us on track for the most
+                ambitious Paris agreement targets, and give us a chance of
+                keeping temperature increases at or below 1.5 degrees.
+              </p>
+            );
+        }
+
+        //
+
+        if (subQuestionsConvinvedOf === 1) {
+          if (main2Positive)
+            setPanelText(
+              <p>
+                It’s good that you’re optimistic about Australia getting to net
+                zero, even if you’re not sure how we can get there.
+              </p>
+            );
+          else
+            setPanelText(
+              // TODO: Get Tim to write a proper answer:
+              <p>Well, I dunno what to tell ya????</p>
+            );
+        }
+
+        if (subQuestionsConvinvedOf === 0) {
+          setPanelText(
+            // TODO: Get Tim to write a proper answer:
+            // ALSO BATTLE TEST ALL THE POSSIBLE WAYS OF ANSWERING THE BUTTONS
+            <p>You're a tough nut to crack!!!</p>
+          );
+        }
+
         // }
 
         break;

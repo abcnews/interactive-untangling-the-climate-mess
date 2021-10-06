@@ -3,6 +3,7 @@ import { Portal } from "react-portal";
 import SmoothScroll from "smooth-scroll";
 import { isMount, getMountValue, selectMounts } from "@abcnews/mount-utils";
 import { useDynamicText } from "../../lib/fetchDynamicText";
+import DynText from "../DynText";
 import Markdown from "markdown-to-jsx";
 
 // Import stylsheets
@@ -684,16 +685,10 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     }
   }, [windowSize.width, windowSize.height, isPastOpening]);
 
-  console.log(dynamicText);
-
-  
-
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
-      <Portal>
-        {/* Just a line down the center of the screen for testing */}
-        <div className={styles.centerHint}></div>
-      </Portal>
+      {/* Just a line down the center of the screen for testing */}
+      {/* <div className={styles.centerHint}></div> */}
 
       <Portal node={document && document.querySelector(".delayed-header")}>
         <DelayedHeader
@@ -713,22 +708,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "Of course we can",
               value: "certain",
-              response: <Markdown>{dynamicText["MAINQ1-optimistic"]}</Markdown>
+              response: <DynText>{dynamicText["MAINQ1-optimistic"]}</DynText>
             },
             {
               label: "Yes I think we can",
               value: "hopeful",
-              response: <Markdown>{dynamicText["MAINQ1-optimistic"]}</Markdown>
+              response: <DynText>{dynamicText["MAINQ1-optimistic"]}</DynText>
             },
             {
               label: "Probably not",
               value: "doubtful",
-              response: <Markdown>{dynamicText["MAINQ1-pessimistic"]}</Markdown>
+              response: <DynText>{dynamicText["MAINQ1-pessimistic"]}</DynText>
             },
             {
               label: "No way we're screwed",
               value: "impossible",
-              response: <Markdown>{dynamicText["MAINQ1-pessimistic"]}</Markdown>
+              response: <DynText>{dynamicText["MAINQ1-pessimistic"]}</DynText>
             }
           ]}
           setUserInputState={setUserInputState}
@@ -748,22 +743,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "That's a piece of cake",
               value: "certain",
-              response: <Markdown>{dynamicText["SUBQ1-optimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ1-optimistic"]}</DynText>
             },
             {
               label: "It can be done",
               value: "hopeful",
-              response: <Markdown>{dynamicText["SUBQ1-optimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ1-optimistic"]}</DynText>
             },
             {
               label: "This sounds like a stretch",
               value: "doubtful",
-              response: <Markdown>{dynamicText["SUBQ1-pessimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ1-pessimistic"]}</DynText>
             },
             {
               label: "You're dreaming",
               value: "impossible",
-              response: <Markdown>{dynamicText["SUBQ1-pessimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ1-pessimistic"]}</DynText>
             }
           ]}
           setUserInputState={setUserInputState}
@@ -786,22 +781,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "That's a piece of cake",
               value: "certain",
-              response: <Markdown>{dynamicText["SUBQ2-optimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ2-optimistic"]}</DynText>
             },
             {
               label: "It can be done",
               value: "hopeful",
-              response: <Markdown>{dynamicText["SUBQ2-optimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ2-optimistic"]}</DynText>
             },
             {
               label: "This sounds like a stretch",
               value: "doubtful",
-              response: <Markdown>{dynamicText["SUBQ2-pessimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ2-pessimistic"]}</DynText>
             },
             {
               label: "You're dreaming",
               value: "impossible",
-              response: <Markdown>{dynamicText["SUBQ2-pessimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ2-pessimistic"]}</DynText>
             }
           ]}
           setUserInputState={setUserInputState}
@@ -823,22 +818,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "That's a piece of cake",
               value: "certain",
-              response: <Markdown>{dynamicText["SUBQ3-optimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ3-optimistic"]}</DynText>
             },
             {
               label: "It can be done",
               value: "hopeful",
-              response: <Markdown>{dynamicText["SUBQ3-optimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ3-optimistic"]}</DynText>
             },
             {
               label: "This sounds like a stretch",
               value: "doubtful",
-              response: <Markdown>{dynamicText["SUBQ3-pessimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ3-pessimistic"]}</DynText>
             },
             {
               label: "You're dreaming",
               value: "impossible",
-              response: <Markdown>{dynamicText["SUBQ3-pessimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ3-pessimistic"]}</DynText>
             }
           ]}
           setUserInputState={setUserInputState}
@@ -860,22 +855,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "That's a piece of cake",
               value: "certain",
-              response: <Markdown>{dynamicText["SUBQ4-optimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ4-optimistic"]}</DynText>
             },
             {
               label: "It can be done",
               value: "hopeful",
-              response: <Markdown>{dynamicText["SUBQ4-optimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ4-optimistic"]}</DynText>
             },
             {
               label: "This sounds like a stretch",
               value: "doubtful",
-              response: <Markdown>{dynamicText["SUBQ4-pessimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ4-pessimistic"]}</DynText>
             },
             {
               label: "You're dreaming",
               value: "impossible",
-              response: <Markdown>{dynamicText["SUBQ4-pessimistic"]}</Markdown>
+              response: <DynText>{dynamicText["SUBQ4-pessimistic"]}</DynText>
             }
           ]}
           setUserInputState={setUserInputState}
@@ -910,22 +905,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               label: "Of course we can",
               value: "certain",
-              response: <Markdown>{dynamicText["MAINQ2-optimistic"]}</Markdown>
+              response: <DynText>{dynamicText["MAINQ2-optimistic"]}</DynText>
             },
             {
               label: "Yes I think we can",
               value: "hopeful",
-              response: <Markdown>{dynamicText["MAINQ2-optimistic"]}</Markdown>
+              response: <DynText>{dynamicText["MAINQ2-optimistic"]}</DynText>
             },
             {
               label: "Probably not",
               value: "doubtful",
-              response: <Markdown>{dynamicText["MAINQ2-pessimistic"]}</Markdown>
+              response: <DynText>{dynamicText["MAINQ2-pessimistic"]}</DynText>
             },
             {
               label: "No way we're screwed",
               value: "impossible",
-              response: <Markdown>{dynamicText["MAINQ2-pessimistic"]}</Markdown>
+              response: <DynText>{dynamicText["MAINQ2-pessimistic"]}</DynText>
             }
           ]}
           setUserInputState={setUserInputState}
@@ -1095,3 +1090,5 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 };
 
 export default App;
+
+
