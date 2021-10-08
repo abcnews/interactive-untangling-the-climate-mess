@@ -902,7 +902,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <UserInputBox
           color={"#2A4059"}
           questionKey="MAINQ2-can-we-still-save-the-world-again-after-article"
-          title={<DynText>{dynamicText["SUBQ5-title"]}</DynText>}
+          title={<DynText>{dynamicText["MAINQ2-title"]}</DynText>}
           buttons={[
             {
               label: "Of course we can",
