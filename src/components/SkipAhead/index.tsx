@@ -53,6 +53,21 @@ const SkipAhead: React.FC<SkipAheadProps> = ({
     return null;
   }
 
+  function getColour(shortId: string) {
+    switch (shortId) {
+      case "renewables":
+        return "#a3297c";
+      case "agriculture":
+        return "#f95a18";
+      case "transport":
+        return "#007cbf";
+      case "industry":
+        return "#007b52";
+    }
+
+    return undefined;
+  }
+
   return (
     <div className={styles.root}>
       <div className={styles.backgroundContainer}>
@@ -62,23 +77,14 @@ const SkipAhead: React.FC<SkipAheadProps> = ({
             scroll.animateScroll(target);
             applySkipAhead(getQuestionKey(from));
           }}
-          style={
-            {
-              // color: calculatedColor
-            }
-          }
+          style={{
+            color: getColour(from)
+          }}
         >
           {"Skip ahead"}
         </button>
         <div className={styles.organicBackground}>
-          <BackgroundShape
-
-          // color={
-
-          //      "rgba(63, 82, 104, 0.5)"
-
-          // }
-          />
+          <BackgroundShape color={getColour(from)} />
         </div>
       </div>
     </div>
