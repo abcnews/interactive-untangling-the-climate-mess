@@ -237,7 +237,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
       }`}
     >
       <h4 className={styles.preTitle}>What do you think?:</h4>
-      <h3 style={{ color: color }}>{props.title}</h3>
+      <div className={styles.title} style={{ color: color }}>{props.title}</div>
       <div className={styles.buttonContainer}>
         {buttons.map((button, iteration) => {
           const isSelected = selected === button.value;

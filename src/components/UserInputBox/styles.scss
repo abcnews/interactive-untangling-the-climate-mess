@@ -48,9 +48,22 @@
     // background-color: #ccc;
   }
 
-  h3 {
-    margin-top: 0;
+  .title {
+    margin-top: 0.333em;
+    margin-bottom: 1em;
     font-weight: 700;
+    line-height: 1.5em;
+    font-size: 1.5rem;
+
+    @include for-desktop-up {
+      font-size: 1.8rem;
+    }
+
+    p {
+      color: inherit;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
   }
 
   .response-box {
