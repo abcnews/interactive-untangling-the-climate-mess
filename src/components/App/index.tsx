@@ -742,11 +742,11 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           title={<DynText>{dynamicText["SUBQ1-title"]}</DynText>}
           /* So - what do you reckon our chances of doing this are? */
           buttons={[
-            {
-              label: "That's a piece of cake",
-              value: "certain",
-              response: <DynText>{dynamicText["SUBQ1-optimistic"]}</DynText>
-            },
+            // {
+            //   label: "That's a piece of cake",
+            //   value: "certain",
+            //   response: <DynText>{dynamicText["SUBQ1-optimistic"]}</DynText>
+            // },
             {
               label: "It can be done",
               value: "hopeful",
@@ -757,11 +757,11 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               value: "doubtful",
               response: <DynText>{dynamicText["SUBQ1-pessimistic"]}</DynText>
             },
-            {
-              label: "You're dreaming",
-              value: "impossible",
-              response: <DynText>{dynamicText["SUBQ1-pessimistic"]}</DynText>
-            }
+            // {
+            //   label: "You're dreaming",
+            //   value: "impossible",
+            //   response: <DynText>{dynamicText["SUBQ1-pessimistic"]}</DynText>
+            // }
           ]}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
@@ -781,11 +781,11 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           title={<DynText>{dynamicText["SUBQ2-title"]}</DynText>}
           /* Can we reach reach zero livestock emissions? */
           buttons={[
-            {
-              label: "That's a piece of cake",
-              value: "certain",
-              response: <DynText>{dynamicText["SUBQ2-optimistic"]}</DynText>
-            },
+            // {
+            //   label: "That's a piece of cake",
+            //   value: "certain",
+            //   response: <DynText>{dynamicText["SUBQ2-optimistic"]}</DynText>
+            // },
             {
               label: "It can be done",
               value: "hopeful",
@@ -796,11 +796,11 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               value: "doubtful",
               response: <DynText>{dynamicText["SUBQ2-pessimistic"]}</DynText>
             },
-            {
-              label: "You're dreaming",
-              value: "impossible",
-              response: <DynText>{dynamicText["SUBQ2-pessimistic"]}</DynText>
-            }
+            // {
+            //   label: "You're dreaming",
+            //   value: "impossible",
+            //   response: <DynText>{dynamicText["SUBQ2-pessimistic"]}</DynText>
+            // }
           ]}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
@@ -817,11 +817,11 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           title={<DynText>{dynamicText["SUBQ3-title"]}</DynText>}
           /* So now you know how we quit fossil fuels in our transport system, can we do it? */
           buttons={[
-            {
-              label: "That's a piece of cake",
-              value: "certain",
-              response: <DynText>{dynamicText["SUBQ3-optimistic"]}</DynText>
-            },
+            // {
+            //   label: "That's a piece of cake",
+            //   value: "certain",
+            //   response: <DynText>{dynamicText["SUBQ3-optimistic"]}</DynText>
+            // },
             {
               label: "It can be done",
               value: "hopeful",
@@ -832,11 +832,11 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               value: "doubtful",
               response: <DynText>{dynamicText["SUBQ3-pessimistic"]}</DynText>
             },
-            {
-              label: "You're dreaming",
-              value: "impossible",
-              response: <DynText>{dynamicText["SUBQ3-pessimistic"]}</DynText>
-            }
+            // {
+            //   label: "You're dreaming",
+            //   value: "impossible",
+            //   response: <DynText>{dynamicText["SUBQ3-pessimistic"]}</DynText>
+            // }
           ]}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
@@ -854,11 +854,11 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           questionKey="SUBQ4-industry-emissions"
           title={<DynText>{dynamicText["SUBQ4-title"]}</DynText>}
           buttons={[
-            {
-              label: "That's a piece of cake",
-              value: "certain",
-              response: <DynText>{dynamicText["SUBQ4-optimistic"]}</DynText>
-            },
+            // {
+            //   label: "That's a piece of cake",
+            //   value: "certain",
+            //   response: <DynText>{dynamicText["SUBQ4-optimistic"]}</DynText>
+            // },
             {
               label: "It can be done",
               value: "hopeful",
@@ -869,11 +869,11 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               value: "doubtful",
               response: <DynText>{dynamicText["SUBQ4-pessimistic"]}</DynText>
             },
-            {
-              label: "You're dreaming",
-              value: "impossible",
-              response: <DynText>{dynamicText["SUBQ4-pessimistic"]}</DynText>
-            }
+            // {
+            //   label: "You're dreaming",
+            //   value: "impossible",
+            //   response: <DynText>{dynamicText["SUBQ4-pessimistic"]}</DynText>
+            // }
           ]}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
