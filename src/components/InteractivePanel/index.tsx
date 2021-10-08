@@ -43,7 +43,6 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     dynamicTextLoading,
     dynamicTextError
   } = useDynamicText();
-  console.log("dt", dynamicText);
 
   const [hidden, setHidden] = useState(false);
   const [panelText, setPanelText] = useState(

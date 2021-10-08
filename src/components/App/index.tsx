@@ -703,7 +703,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <UserInputBox
           color={"#2A4059"}
           questionKey="MAINQ1-can-we-still-save-the-world"
-          title={"Can we still save the world?"}
+          title={<DynText>{dynamicText["MAINQ1-title"]}</DynText>}
+          /* Can we still save the world? */
           buttons={[
             {
               label: "Of course we can",
@@ -738,7 +739,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <UserInputBox
           color={"#A3297C"}
           questionKey="SUBQ1-renewables-zero-carbon"
-          title={"So - what do you reckon our chances of doing this are?"}
+          title={<DynText>{dynamicText["SUBQ1-title"]}</DynText>}
+          /* So - what do you reckon our chances of doing this are? */
           buttons={[
             {
               label: "That's a piece of cake",
@@ -776,7 +778,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <UserInputBox
           color={"#F65C1B"}
           questionKey="SUBQ2-livestock-emissions"
-          title={"Can we reach reach zero livestock emissions?"}
+          title={<DynText>{dynamicText["SUBQ2-title"]}</DynText>}
+          /* Can we reach reach zero livestock emissions? */
           buttons={[
             {
               label: "That's a piece of cake",
@@ -811,9 +814,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <UserInputBox
           color={"#007cbf"}
           questionKey="SUBQ3-transportation-off-fossil"
-          title={
-            "So now you know how we quit fossil fuels in our transport system, can we do it?"
-          }
+          title={<DynText>{dynamicText["SUBQ3-title"]}</DynText>}
+          /* So now you know how we quit fossil fuels in our transport system, can we do it? */
           buttons={[
             {
               label: "That's a piece of cake",
@@ -850,7 +852,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <UserInputBox
           color={"#007B52"}
           questionKey="SUBQ4-industry-emissions"
-          title={"Can we elliminate emissions from industry?"}
+          title={<DynText>{dynamicText["SUBQ4-title"]}</DynText>}
           buttons={[
             {
               label: "That's a piece of cake",
@@ -900,7 +902,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <UserInputBox
           color={"#2A4059"}
           questionKey="MAINQ2-can-we-still-save-the-world-again-after-article"
-          title={"So, how about now? Can we save the world?"}
+          title={<DynText>{dynamicText["SUBQ5-title"]}</DynText>}
           buttons={[
             {
               label: "Of course we can",
@@ -1090,5 +1092,3 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 };
 
 export default App;
-
-

@@ -1,4 +1,10 @@
-import React, { useState, SyntheticEvent, useEffect, useRef } from "react";
+import React, {
+  useState,
+  SyntheticEvent,
+  useEffect,
+  useRef,
+  ReactElement
+} from "react";
 import styles from "./styles.scss";
 import { Client } from "@abcnews/poll-counters-client";
 import debounce from "debounce-promise";
@@ -16,7 +22,7 @@ interface Button {
 }
 
 interface UserInputBoxProps {
-  title: string;
+  title: ReactElement;
   buttons?: Button[];
   setUserInputState?: any;
   questionKey: string;
@@ -31,6 +37,7 @@ const BackgroundSvg = ({
   color = "#2A4059",
   selected = true,
   greyedOut = false,
+  title = <p>Can we still save the world?</p>,
   ...props
 }) => {
   return (
