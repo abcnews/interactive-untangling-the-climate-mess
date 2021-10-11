@@ -1,7 +1,7 @@
 @use "../../100-percent-correct-break-points.scss" as *;
 
 .root {
-  text-align: center;
+  // text-align: center;
   padding: 15px 18px;
   position: relative;
   margin-left: 15px;
@@ -16,7 +16,7 @@
   }
 
   p {
-    font-weight: 700;
+    // font-weight: 700;
     font-size: 1.125rem;
     line-height: 1.5;
     margin-top: 1.5em;
@@ -27,6 +27,11 @@
     }
   }
 }
+
+.center {
+  text-align: center;
+}
+
 
 .background {
   width: 100%;

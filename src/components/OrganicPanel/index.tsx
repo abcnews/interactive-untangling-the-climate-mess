@@ -7,12 +7,17 @@ import background3 from "./organic-panel-background-variation-3.svg";
 
 const backgrounds = [background, background2, background3];
 
-type OrganicPanelProps = { backgroundVariation?: number; contentEl?: any };
+type OrganicPanelProps = {
+  backgroundVariation?: number;
+  contentEl?: any;
+  isCentered?: boolean;
+};
 
 const OrganicPanel: React.FC<OrganicPanelProps> = ({
   backgroundVariation = 0,
   children,
   contentEl,
+  isCentered = false,
   ...props
 }) => {
   const thisRef = useRef(null);
@@ -27,7 +32,10 @@ const OrganicPanel: React.FC<OrganicPanelProps> = ({
   }, [contentEl]);
 
   return (
-    <div ref={thisRef} className={styles.root}>
+    <div
+      ref={thisRef}
+      className={`${styles.root} ${isCentered && styles.center}`}
+    >
       <div className={styles.background}>
         <img
           src={backgrounds[backgroundVariation]}

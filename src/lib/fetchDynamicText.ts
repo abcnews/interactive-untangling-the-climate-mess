@@ -2,7 +2,7 @@ import useSWR from "swr";
 import {
   // getApplication,
   // getGeneration,
-  getTier,
+  getTier
   // requestDOMPermit
 } from "@abcnews/env-utils";
 
@@ -27,7 +27,15 @@ export function useDynamicText(
     for (const record of data) {
       const { fields } = record;
       const { name, text } = fields;
-      dynamicTextLookup[name] = text;
+
+      const isBlank =
+        text === "\n" ||
+        text === "" ||
+        text === " " ||
+        text === null ||
+        text === undefined;
+
+      dynamicTextLookup[name] = isBlank ? undefined : text;
     }
   }
 

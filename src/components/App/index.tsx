@@ -693,6 +693,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     return false;
   };
 
+  console.log(dynamicText["SUBQ1-pessimistic-downpage"])
+
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
       {/* Just a line down the center of the screen for testing */}
@@ -1076,9 +1078,12 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       <AnchorTransform>{numberOfEngagedUsers.toLocaleString()}</AnchorTransform>
 
       {subq1ShowAfterPanel(userInputState) &&
-        document.querySelector("#subq1afterpanel") && (
-          <Portal node={document.querySelector("#subq1afterpanel")}>
-            <OrganicPanel>TESTING</OrganicPanel>
+        document.querySelector("#subq1responsepanel") &&
+        dynamicText["SUBQ1-pessimistic-downpage"] && (
+          <Portal node={document.querySelector("#subq1responsepanel")}>
+            <OrganicPanel>
+              <DynText>{dynamicText["SUBQ1-pessimistic-downpage"]}</DynText>
+            </OrganicPanel>
           </Portal>
         )}
 
