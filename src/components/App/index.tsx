@@ -694,24 +694,20 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   };
 
   const subq2ShowAfterPanel = userInputState => {
-    if (userInputState["SUBQ1-renewables-zero-carbon"] === "doubtful")
-      return true;
+    if (userInputState["SUBQ2-livestock-emissions"] === "doubtful") return true;
     return false;
   };
 
   const subq3ShowAfterPanel = userInputState => {
-    if (userInputState["SUBQ1-renewables-zero-carbon"] === "doubtful")
+    if (userInputState["SUBQ3-transportation-off-fossil"] === "doubtful")
       return true;
     return false;
   };
 
   const subq4ShowAfterPanel = userInputState => {
-    if (userInputState["SUBQ1-renewables-zero-carbon"] === "doubtful")
-      return true;
+    if (userInputState["SUBQ4-industry-emissions"] === "doubtful") return true;
     return false;
   };
-
-  console.log(dynamicText["SUBQ1-pessimistic-downpage"]);
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
@@ -1105,17 +1101,17 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           </Portal>
         )}
 
-      {subq1ShowAfterPanel(userInputState) &&
+      {subq2ShowAfterPanel(userInputState) &&
         document.querySelector("#subq2responsepanel") &&
         dynamicText["SUBQ2-pessimistic-downpage"] && (
-          <Portal node={document.querySelector("#subq3responsepanel")}>
+          <Portal node={document.querySelector("#subq2responsepanel")}>
             <OrganicPanel>
               <DynText>{dynamicText["SUBQ2-pessimistic-downpage"]}</DynText>
             </OrganicPanel>
           </Portal>
         )}
 
-      {subq1ShowAfterPanel(userInputState) &&
+      {subq3ShowAfterPanel(userInputState) &&
         document.querySelector("#subq3responsepanel") &&
         dynamicText["SUBQ3-pessimistic-downpage"] && (
           <Portal node={document.querySelector("#subq3responsepanel")}>
@@ -1125,7 +1121,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           </Portal>
         )}
 
-      {subq1ShowAfterPanel(userInputState) &&
+      {subq4ShowAfterPanel(userInputState) &&
         document.querySelector("#subq4responsepanel") &&
         dynamicText["SUBQ4-pessimistic-downpage"] && (
           <Portal node={document.querySelector("#subq4responsepanel")}>
