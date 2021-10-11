@@ -34,6 +34,8 @@ import useWindowSize from "../ParagraphObserver/useWindowSize";
 import { Client } from "@abcnews/poll-counters-client";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 import to from "await-to-js";
+import OrganicPanel from "../OrganicPanel";
+
 const d3 = { ...require("d3-scale") };
 
 // Set up our poll counter
@@ -685,6 +687,12 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     }
   }, [windowSize.width, windowSize.height, isPastOpening]);
 
+  const subq1ShowAfterPanel = userInputState => {
+    if (userInputState["SUBQ1-renewables-zero-carbon"] === "doubtful")
+      return true;
+    return false;
+  };
+
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
       {/* Just a line down the center of the screen for testing */}
@@ -756,7 +764,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               label: "This sounds like a stretch",
               value: "doubtful",
               response: <DynText>{dynamicText["SUBQ1-pessimistic"]}</DynText>
-            },
+            }
             // {
             //   label: "You're dreaming",
             //   value: "impossible",
@@ -795,7 +803,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               label: "This sounds like a stretch",
               value: "doubtful",
               response: <DynText>{dynamicText["SUBQ2-pessimistic"]}</DynText>
-            },
+            }
             // {
             //   label: "You're dreaming",
             //   value: "impossible",
@@ -831,7 +839,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               label: "This sounds like a stretch",
               value: "doubtful",
               response: <DynText>{dynamicText["SUBQ3-pessimistic"]}</DynText>
-            },
+            }
             // {
             //   label: "You're dreaming",
             //   value: "impossible",
@@ -868,7 +876,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               label: "This sounds like a stretch",
               value: "doubtful",
               response: <DynText>{dynamicText["SUBQ4-pessimistic"]}</DynText>
-            },
+            }
             // {
             //   label: "You're dreaming",
             //   value: "impossible",
@@ -1066,6 +1074,13 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       })}
 
       <AnchorTransform>{numberOfEngagedUsers.toLocaleString()}</AnchorTransform>
+
+      {subq1ShowAfterPanel(userInputState) &&
+        document.querySelector("#subq1afterpanel") && (
+          <Portal node={document.querySelector("#subq1afterpanel")}>
+            <OrganicPanel>TESTING</OrganicPanel>
+          </Portal>
+        )}
 
       <ScrollObserver
         setMarker={setMarker}
