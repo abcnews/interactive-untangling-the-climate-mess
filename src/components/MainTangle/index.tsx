@@ -225,12 +225,12 @@ const MainTangle: React.FC<MainTangleProps> = ({
     )
       return;
 
-    throttledGsapTo(mainEl.current, {
+    gsap.to(mainEl.current, {
       y: props.yPos * window.innerHeight,
       x: props.xPos * window.innerWidth,
       scale: props.scale * 0.01,
       ease: "power3",
-      duration: 1.25
+      duration: 1
     });
   }, [props.yPos, props.scale, props.xPos, windowSize]);
 

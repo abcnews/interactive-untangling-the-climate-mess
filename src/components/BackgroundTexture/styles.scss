@@ -5,24 +5,39 @@
   // top: 0;
   // left: 0;
   // width: 100%;
-  // height: 110%;
-  // background: url(assets/background.jpg) no-repeat center center fixed; 
+  // height: 110px;
+  // background: url(assets/background.jpg) no-repeat center center fixed;
 
-  overflow: hidden; // added for pseudo-element
+  overflow: visible; // added for pseudo-element
   position: relative; // added for pseudo-element
 
   &::before {
-    content: ' ';
+    content: " ";
     position: fixed; // instead of background-attachment
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    background-color: white;
-    background: url(assets/background.jpg) no-repeat center center;
+    // background: url(assets/background.jpg) no-repeat center center;
+    background-color: #f8e9dc;
+    background-image: url(assets/background.jpg);
     background-size: cover;
     will-change: transform; // creates a new paint layer
     z-index: -1;
+    // min-height: -webkit-fill-available;
+  }
+}
+
+:global {
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+
+  html {
+
+    background-color: #f8e9dc !important;
+    min-height: -webkit-fill-available;
   }
 }
 
@@ -30,5 +45,5 @@
   object-fit: cover;
   object-position: 50% 50%;
   width: 100%;
-  height: 110%;
+  height: 100%;
 }

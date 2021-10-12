@@ -39,6 +39,13 @@
 }
 
 :global {
+  @media only screen and (max-device-width: 480px) {
+    html {
+      height: calc(100% + 60px);
+      min-height: calc(100% + 60px);
+    }
+  }
+
   a {
     font-weight: 900;
   }
@@ -136,4 +143,8 @@
   //     margin-left: 0 !important;
   //   }
   // }
+
+  [data-component="DeveloperFlags"] {
+    display: none;
+  }
 }

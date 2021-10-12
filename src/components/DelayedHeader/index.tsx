@@ -29,7 +29,6 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
     if (typeof entry === "undefined") return;
     const marker: any = entry.target;
     const bounds = marker.getBoundingClientRect();
-    console.log(bounds);
     if (bounds.bottom > 0) setIsPastOpening(false);
     else setIsPastOpening(true);
   }, [entry]);
@@ -47,8 +46,6 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
 
     return () => {
       contentArray.forEach(el => {
-        console.log(el);
-
         document.body.appendChild(el);
       });
     };
