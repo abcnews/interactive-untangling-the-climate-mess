@@ -39,6 +39,9 @@ $fade-height: 300px;
   // APPLIED TO THE SVG DIRECTLY SO JUST APPLY IT TO THE CONTAINING DOM ELEMENT
   // svg {
   filter: drop-shadow(5px 2px 0px rgba(26, 35, 44, 0.2));
+
+  // We can maybe try:
+  // filter: drop-shadow(5px 2px 0px #c5c9cf);
   // }
 
   .svg-container {
