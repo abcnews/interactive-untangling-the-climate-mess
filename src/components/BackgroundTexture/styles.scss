@@ -11,33 +11,31 @@
   overflow: visible; // added for pseudo-element
   position: relative; // added for pseudo-element
 
-  &::before {
-    content: " ";
-    position: fixed; // instead of background-attachment
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    // background: url(assets/background.jpg) no-repeat center center;
-    background-color: #f8e9dc;
-    background-image: url(assets/background.jpg);
-    background-size: cover;
-    will-change: transform; // creates a new paint layer
-    z-index: -1;
-    // min-height: -webkit-fill-available;
-  }
+  // &::before {
+  //   content: " ";
+  //   position: fixed; // instead of background-attachment
+  //   width: 100%;
+  //   height: 100%;
+  //   top: 0;
+  //   left: 0;
+  //   // background: url(assets/background.jpg) no-repeat center center;
+  //   background-size: cover;
+  //   will-change: transform; // creates a new paint layer
+  //   z-index: -1;
+  // }
 }
 
 :global {
   body {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+    background: #fbebe0 url(assets/background.jpg) no-repeat center center fixed;
+    background-size: cover;
+    // overflow: hidden;
+    
   }
 
   html {
-
-    background-color: #f8e9dc !important;
-    min-height: -webkit-fill-available;
+    background-color: #fbebe0 !important;
+    // background: #fbebe0 url(assets/background.jpg) no-repeat center center fixed;
   }
 }
 

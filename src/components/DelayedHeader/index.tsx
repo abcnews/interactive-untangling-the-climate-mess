@@ -5,6 +5,8 @@ import { nextUntil } from "../../nextUntil";
 import convert from "react-from-dom";
 import { InView } from "react-intersection-observer";
 import { useInView } from "react-intersection-observer";
+import { useDynamicText } from "../../lib/fetchDynamicText";
+import DynText from "../DynText";
 
 interface DelayedHeaderProps {
   setTransformsComplete: (complete: boolean) => void;
@@ -23,6 +25,12 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
   const [contentArray, setContentArray] = useState<any>([]);
 
   const { ref: lastPanelRef, inView, entry } = useInView({});
+
+  const {
+    dynamicText,
+    dynamicTextLoading,
+    dynamicTextError
+  } = useDynamicText();
 
   useEffect(() => {
     // Uses intersection observer to check if scrolled past a certain point
@@ -76,8 +84,9 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
           !openingCentered && isDesktop && styles.pullLeft
         }`}
       >
-        Climate change... <br />
-        we get it, it’s a depressing mess.
+        {/* Climate change... <br />
+        we get it, it’s a depressing mess. */}
+        <DynText>{dynamicText["hero-heading"]}</DynText>
       </div>
 
       <div

@@ -9,7 +9,6 @@ const BackgroundTexture: React.FC<BackgroundTextureProps> = () => {
   return (
     <div className={styles.backgroundImageContainer}>
       {/* <img className={styles.backgroundImage} src={background} /> */}
-      {/* TODO: Detect devices that don't support fixed backgrounds and apply image above */}
     </div>
   );
 };
