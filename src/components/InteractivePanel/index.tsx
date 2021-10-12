@@ -109,6 +109,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
 
     switch (panelKey) {
       case "didntanswer":
+        console.log("didntanswer");
+        console.log(dynamicText)
         // A panel that displays text and subtly prompts people
         // to maybe go back and answer more
         shouldShow =
@@ -437,7 +439,8 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     questionCompleteness,
     subQuestionsConvinvedOf,
     australiaConvincedOf,
-    convincedState
+    convincedState,
+    dynamicText
   ]);
 
   useEffect(() => {

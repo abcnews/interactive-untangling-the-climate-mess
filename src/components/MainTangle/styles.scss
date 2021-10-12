@@ -10,7 +10,7 @@ $fade-height: 300px;
   width: 100%;
   max-width: 100%;
   text-align: right;
-  // transition: opacity 500ms;
+  transition: opacity 500ms;
 
   // Keep SVG in window
   svg {
@@ -38,7 +38,7 @@ $fade-height: 300px;
   // FIX FOR SAFARI BUG THAT CAUSES SLOW SCROLL UPDATES IF DROP-SHADOW
   // APPLIED TO THE SVG DIRECTLY SO JUST APPLY IT TO THE CONTAINING DOM ELEMENT
   // svg {
-  filter: drop-shadow(5px 2px 0px #c5c9cf);
+  filter: drop-shadow(5px 2px 0px rgba(26, 35, 44, 0.2));
   // }
 
   .svg-container {
