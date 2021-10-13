@@ -52,8 +52,6 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     </p>
   );
 
-  // TODO: Maybe make these functions return React components?
-
   function getLevel2Text(convincedState, userInputState) {
     if (convincedState === "green")
       return <DynText>{dynamicText["LEVEL2-green"]}</DynText>;
@@ -109,8 +107,6 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
 
     switch (panelKey) {
       case "didntanswer":
-        console.log("didntanswer");
-        console.log(dynamicText)
         // A panel that displays text and subtly prompts people
         // to maybe go back and answer more
         shouldShow =
@@ -434,13 +430,14 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     if (shouldShow) setHidden(false);
     // Otherwise hide
     else setHidden(true);
+    console.log("Updating!!!");
   }, [
     userInputState,
     questionCompleteness,
     subQuestionsConvinvedOf,
     australiaConvincedOf,
     convincedState,
-    dynamicText
+    dynamicTextLoading
   ]);
 
   useEffect(() => {
