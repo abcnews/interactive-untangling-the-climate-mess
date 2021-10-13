@@ -430,7 +430,6 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     if (shouldShow) setHidden(false);
     // Otherwise hide
     else setHidden(true);
-    console.log("Updating!!!");
   }, [
     userInputState,
     questionCompleteness,
@@ -455,15 +454,15 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
       ref={rootRef}
       className={`${styles.root} ${hidden ? styles.hidden : ""}`}
     >
-      <div className={styles.panelContentContainer}>
+      {/* <div className={styles.panelContentContainer}>
         <div className={styles.background}>
           <img
             src={backgrounds[backgroundVariation]}
             className={styles.stretch}
           />
-        </div>
+        </div> */}
         {panelText}
-      </div>
+      {/* </div> */}
     </div>
   );
 };
