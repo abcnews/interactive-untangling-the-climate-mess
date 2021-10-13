@@ -21,24 +21,11 @@ interface Button {
   response?: any;
 }
 
-interface UserInputBoxProps {
-  title: ReactElement;
-  buttons?: Button[];
-  setUserInputState?: any;
-  questionKey: string;
-  padding?: boolean;
-  color?: string;
-  pollClient: any;
-  windowWidth: number;
-  userInputState?: any;
-}
-
 const BackgroundSvg = ({
   shapeIndex = 0,
   color = "#2A4059",
   selected = true,
   greyedOut = false,
-  title = <p>Can we still save the world?</p>,
   ...props
 }) => {
   return (
@@ -124,6 +111,19 @@ const BackgroundSvgWide = ({
   );
 };
 
+interface UserInputBoxProps {
+  preTitle?: ReactElement;
+  title: ReactElement;
+  buttons?: Button[];
+  setUserInputState?: any;
+  questionKey: string;
+  padding?: boolean;
+  color?: string;
+  pollClient: any;
+  windowWidth: number;
+  userInputState?: any;
+}
+
 const UserInputBox: React.FC<UserInputBoxProps> = ({
   color = "#A3297C",
   pollClient,
@@ -131,6 +131,8 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
   windowWidth,
   setUserInputState,
   userInputState,
+  title = <p>Can we still save the world?</p>,
+  preTitle = <p>What do you think?:</p>,
   ...props
 }) => {
   const [buttons, setButtons] = useState<Button[]>([{ label: "", value: "" }]);
@@ -243,9 +245,9 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
         props.padding ? styles.paddingLeftRight : ""
       }`}
     >
-      <h4 className={styles.preTitle}>What do you think?:</h4>
+      {preTitle && <div className={styles.preTitle}>{preTitle}</div>}
       <div className={styles.title} style={{ color: color }}>
-        {props.title}
+        {title}
       </div>
       <div className={styles.buttonContainer}>
         {buttons.map((button, iteration) => {

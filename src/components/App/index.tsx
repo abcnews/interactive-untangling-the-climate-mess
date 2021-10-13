@@ -725,6 +725,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <UserInputBox
           color={"#2A4059"}
           questionKey="MAINQ1-can-we-still-save-the-world"
+          preTitle={<DynText>{dynamicText["MAINQ1-pre-title"]}</DynText>}
           title={<DynText>{dynamicText["MAINQ1-title"]}</DynText>}
           /* Can we still save the world? */
           buttons={[
@@ -762,6 +763,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <UserInputBox
           color={"#A3297C"}
           questionKey="SUBQ1-renewables-zero-carbon"
+          preTitle={<DynText>{dynamicText["SUBQ1-pre-title"]}</DynText>}
           title={<DynText>{dynamicText["SUBQ1-title"]}</DynText>}
           /* So - what do you reckon our chances of doing this are? */
           buttons={[
@@ -802,6 +804,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <UserInputBox
           color={"#F65C1B"}
           questionKey="SUBQ2-livestock-emissions"
+          preTitle={<DynText>{dynamicText["SUBQ2-pre-title"]}</DynText>}
           title={<DynText>{dynamicText["SUBQ2-title"]}</DynText>}
           /* Can we reach reach zero livestock emissions? */
           buttons={[
@@ -839,6 +842,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <UserInputBox
           color={"#007cbf"}
           questionKey="SUBQ3-transportation-off-fossil"
+          preTitle={<DynText>{dynamicText["SUBQ3-pre-title"]}</DynText>}
           title={<DynText>{dynamicText["SUBQ3-title"]}</DynText>}
           /* So now you know how we quit fossil fuels in our transport system, can we do it? */
           buttons={[
@@ -878,6 +882,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <UserInputBox
           color={"#007B52"}
           questionKey="SUBQ4-industry-emissions"
+          preTitle={<DynText>{dynamicText["SUBQ4-pre-title"]}</DynText>}
           title={<DynText>{dynamicText["SUBQ4-title"]}</DynText>}
           buttons={[
             // {
@@ -925,10 +930,12 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         />
       </Portal> */}
 
-      <Portal node={document && document.getElementById("inputtier1again")}>
+      {/* PLEASE KEEP JUST IN CASE WE WANT TO PUT BACK IN */}
+      {/* <Portal node={document && document.getElementById("inputtier1again")}>
         <UserInputBox
           color={"#2A4059"}
           questionKey="MAINQ2-can-we-still-save-the-world-again-after-article"
+          preTitle={<DynText>{dynamicText["MAINQ2-pre-title"]}</DynText>}
           title={<DynText>{dynamicText["MAINQ2-title"]}</DynText>}
           buttons={[
             {
@@ -957,7 +964,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           pollClient={pollClient}
           windowWidth={windowSize.width}
         />
-      </Portal>
+      </Portal> */}
 
       <Portal node={document && document.getElementById("chartproportions")}>
         <BarChart

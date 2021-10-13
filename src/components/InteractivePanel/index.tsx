@@ -79,7 +79,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
 
   useEffect(() => {
     // KEY
-    // questionCompleteness === "noMAIN1noSUBnoMAIN2"  // 1z
+    // questionCompleteness === "noMAIN1noSUBnoMAIN2"  // 1
     // questionCompleteness === "yesMAIN1noSUBnoMAIN2" // 2
     // questionCompleteness === "noMAIN1noSUByesMAIN2" // 3
     // questionCompleteness === "yesMAIN1noSUByesMAIN2" // 4
@@ -454,6 +454,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
       ref={rootRef}
       className={`${styles.root} ${hidden ? styles.hidden : ""}`}
     >
+      {/* Now handled by Core #panels */}
       {/* <div className={styles.panelContentContainer}>
         <div className={styles.background}>
           <img
