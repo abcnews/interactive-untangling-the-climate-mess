@@ -1,6 +1,4 @@
 .root {
-  // border: 1px solid rgb(255, 115, 0);
-  // padding: 20px;
   text-align: center;
   margin-top: 1em;
   margin-bottom: 1em;
@@ -25,12 +23,12 @@
     width: 100%;
     border: none;
     margin-bottom: 1em;
-    padding: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
     cursor: pointer;
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 1px;
-
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -39,9 +37,10 @@
     user-select: none;
     -webkit-tap-highlight-color: transparent;
   }
-
 }
 
 .svg-container {
-  // width: 150%;
+  svg {
+    width: 100%;
+  }
 }

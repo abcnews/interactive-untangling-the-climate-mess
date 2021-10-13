@@ -29,7 +29,8 @@
     width: 100%;
     border: none;
     margin-bottom: 1em;
-    padding: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
     cursor: pointer;
     text-transform: uppercase;
     font-weight: bold;
@@ -42,6 +43,14 @@
     -ms-user-select: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    height: 42px;
+
+    @media (max-width: 320px) {
+      padding-top: 1.3em;
+      padding-bottom: 1.1rem;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+    }
   }
 
   button.selected {
@@ -84,6 +93,10 @@
     margin-bottom: 0.2em;
     font-size: 17px;
     font-weight: 700;
+  }
+
+  svg {
+    width: 100%;
   }
 }
 
