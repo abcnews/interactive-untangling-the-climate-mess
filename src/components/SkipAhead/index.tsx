@@ -13,6 +13,7 @@ const BackgroundShape = ({ color = "#2A4059" }) => {
         viewBox="0 0 284 46"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
       >
         <mask id="path-1-inside-1" fill="white">
           <path
