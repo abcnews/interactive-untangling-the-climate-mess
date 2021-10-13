@@ -1158,6 +1158,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               mount={mount}
               scroll={scroll}
               applySkipAhead={applySkipAhead}
+              windowWidth={windowSize.width}
             />
           </Portal>
         );

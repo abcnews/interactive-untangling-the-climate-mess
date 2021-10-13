@@ -205,7 +205,6 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
     if (selected === "") return;
 
     setResponseBox(undefined);
-
     handleUserInput(questionKey, selected);
 
     setTimeout(() => {
