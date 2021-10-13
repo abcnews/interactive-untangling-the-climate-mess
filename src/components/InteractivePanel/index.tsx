@@ -395,14 +395,14 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
           questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
 
-        console.log(
-          "You convinced:",
-          subQuestionsConvinvedOf,
-          "Aus convinced:",
-          australiaConvincedOf,
-          "Convinced state:",
-          convincedState
-        );
+        // console.log(
+        //   "You convinced:",
+        //   subQuestionsConvinvedOf,
+        //   "Aus convinced:",
+        //   australiaConvincedOf,
+        //   "Convinced state:",
+        //   convincedState
+        // );
 
         if (subQuestionsConvinvedOf > australiaConvincedOf)
           setPanelText(<DynText>{dynamicText["SELFVAUS-more"]}</DynText>);
@@ -424,7 +424,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
 
         break;
     }
-    console.log("Subquestions convinced of", subQuestionsConvinvedOf);
+    // console.log("Subquestions convinced of", subQuestionsConvinvedOf);
 
     // Show if incomplete
     if (shouldShow) setHidden(false);

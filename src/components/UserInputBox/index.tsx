@@ -30,6 +30,7 @@ interface UserInputBoxProps {
   color?: string;
   pollClient: any;
   windowWidth: number;
+  userInputState?: any;
 }
 
 const BackgroundSvg = ({
@@ -129,6 +130,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
   questionKey,
   windowWidth,
   setUserInputState,
+  userInputState,
   ...props
 }) => {
   const [buttons, setButtons] = useState<Button[]>([{ label: "", value: "" }]);
@@ -229,6 +231,11 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
     else setUseWideButtons(false);
   }, [windowWidth]);
 
+  useEffect(() => {
+    const currentAnswer = userInputState[questionKey];
+    if (currentAnswer) setSelected(currentAnswer);
+  }, [userInputState]);
+
   return (
     <div
       ref={rootEl}
@@ -237,7 +244,9 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
       }`}
     >
       <h4 className={styles.preTitle}>What do you think?:</h4>
-      <div className={styles.title} style={{ color: color }}>{props.title}</div>
+      <div className={styles.title} style={{ color: color }}>
+        {props.title}
+      </div>
       <div className={styles.buttonContainer}>
         {buttons.map((button, iteration) => {
           const isSelected = selected === button.value;

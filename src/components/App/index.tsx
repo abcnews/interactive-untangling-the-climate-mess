@@ -249,8 +249,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
       if (!values) return;
 
-      console.log(values);
-
       const pollTotals: any = {};
 
       // If more people are convinced than unconvinced then remove string
@@ -751,6 +749,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               response: <DynText>{dynamicText["MAINQ1-pessimistic"]}</DynText>
             }
           ]}
+          userInputState={userInputState}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
           windowWidth={windowSize.width}
@@ -787,6 +786,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             //   response: <DynText>{dynamicText["SUBQ1-pessimistic"]}</DynText>
             // }
           ]}
+          userInputState={userInputState}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
           windowWidth={windowSize.width}
@@ -826,6 +826,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             //   response: <DynText>{dynamicText["SUBQ2-pessimistic"]}</DynText>
             // }
           ]}
+          userInputState={userInputState}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
           windowWidth={windowSize.width}
@@ -862,6 +863,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             //   response: <DynText>{dynamicText["SUBQ3-pessimistic"]}</DynText>
             // }
           ]}
+          userInputState={userInputState}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
           windowWidth={windowSize.width}
@@ -899,6 +901,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             //   response: <DynText>{dynamicText["SUBQ4-pessimistic"]}</DynText>
             // }
           ]}
+          userInputState={userInputState}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
           windowWidth={windowSize.width}
@@ -949,6 +952,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               response: <DynText>{dynamicText["MAINQ2-pessimistic"]}</DynText>
             }
           ]}
+          userInputState={userInputState}
           setUserInputState={setUserInputState}
           pollClient={pollClient}
           windowWidth={windowSize.width}
