@@ -32,7 +32,6 @@
   text-align: center;
 }
 
-
 .background {
   width: 100%;
   height: 100%;
@@ -46,4 +45,19 @@
   width: 100%;
   height: 100%;
   opacity: 0.9;
+}
+
+.pull-left-on-desktop {
+  margin-top: 45vh;
+  margin-bottom: 45vh;
+
+  @include for-desktop-up {
+    margin-top: 25vh;
+    margin-bottom: 25vh;
+    font-size: 29px;
+    width: calc(100vw / 2.5);
+    max-width: 650px;
+    position: relative;
+    left: 50%;
+  }
 }

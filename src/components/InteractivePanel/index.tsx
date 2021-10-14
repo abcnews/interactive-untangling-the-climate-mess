@@ -88,6 +88,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     // questionCompleteness === "noMAIN1someSUByesMAIN2" // 7
     // questionCompleteness === "noMAIN1allSUByesMAIN2" // 8
     // questionCompleteness === "yesMAIN1someSUByesMAIN2" // 9
+    // questionCompleteness === "yesMAIN1someSUBnoMAIN2" // 9a
     // questionCompleteness === "yesMAIN1allSUByesMAIN2" // 10
 
     let shouldShow;
@@ -185,6 +186,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
           questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
           questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
+          questionCompleteness === "yesMAIN1someSUBnoMAIN2" || // 9a
           questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
 
         // if (
@@ -305,13 +307,14 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         }
 
         if (subQuestionsConvinvedOf === 0) {
-          setPanelText(
-            // TODO: Get Tim to write a proper answer:
-            // ALSO BATTLE TEST ALL THE POSSIBLE WAYS OF ANSWERING THE BUTTONS
-            <DynText>{dynamicText["LEVEL3-none"]}</DynText>
-          );
-
-          /* You're a tough nut to crack!!! */
+          if (main1Positive)
+            setPanelText(
+              <DynText>{dynamicText["LEVEL3-none-optimistic"]}</DynText>
+            );
+          else
+            setPanelText(
+              <DynText>{dynamicText["LEVEL3-none-pessimistic"]}</DynText>
+            );
         }
 
         // }
@@ -462,7 +465,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
             className={styles.stretch}
           />
         </div> */}
-        {panelText}
+      {panelText}
       {/* </div> */}
     </div>
   );

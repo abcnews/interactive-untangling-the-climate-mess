@@ -11,6 +11,7 @@ type OrganicPanelProps = {
   backgroundVariation?: number;
   contentEl?: any;
   isCentered?: boolean;
+  pullLeftOnDesktop?: boolean;
 };
 
 const OrganicPanel: React.FC<OrganicPanelProps> = ({
@@ -18,6 +19,7 @@ const OrganicPanel: React.FC<OrganicPanelProps> = ({
   children,
   contentEl,
   isCentered = false,
+  pullLeftOnDesktop = true,
   ...props
 }) => {
   const thisRef = useRef(null);
@@ -34,7 +36,9 @@ const OrganicPanel: React.FC<OrganicPanelProps> = ({
   return (
     <div
       ref={thisRef}
-      className={`${styles.root} ${isCentered && styles.center}`}
+      className={`${styles.root} ${isCentered && styles.center} ${
+        pullLeftOnDesktop && styles.pullLeftOnDesktop
+      }`}
     >
       <div className={styles.background}>
         <img

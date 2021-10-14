@@ -686,25 +686,66 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   }, [windowSize.width, windowSize.height, isPastOpening]);
 
   const subq1ShowAfterPanel = userInputState => {
-    if (userInputState["SUBQ1-renewables-zero-carbon"] === "doubtful")
-      return true;
-    return false;
+    const showState: any = { show: false, optimistic: null };
+    if (userInputState["SUBQ1-renewables-zero-carbon"] === "hopeful") {
+      showState.show = true;
+      showState.optimistic = true;
+    }
+
+    if (userInputState["SUBQ1-renewables-zero-carbon"] === "doubtful") {
+      showState.show = true;
+      showState.optimistic = false;
+    }
+
+    return showState;
   };
 
   const subq2ShowAfterPanel = userInputState => {
-    if (userInputState["SUBQ2-livestock-emissions"] === "doubtful") return true;
-    return false;
+    const showState: any = { show: false, optimistic: null };
+
+    if (userInputState["SUBQ2-livestock-emissions"] === "hopeful") {
+      showState.show = true;
+      showState.optimistic = true;
+    }
+
+    if (userInputState["SUBQ2-livestock-emissions"] === "doubtful") {
+      showState.show = true;
+      showState.optimistic = false;
+    }
+
+    return showState;
   };
 
   const subq3ShowAfterPanel = userInputState => {
-    if (userInputState["SUBQ3-transportation-off-fossil"] === "doubtful")
-      return true;
-    return false;
+    const showState: any = { show: false, optimistic: null };
+
+    if (userInputState["SUBQ3-transportation-off-fossil"] === "hopeful") {
+      showState.show = true;
+      showState.optimistic = true;
+    }
+
+    if (userInputState["SUBQ3-transportation-off-fossil"] === "doubtful") {
+      showState.show = true;
+      showState.optimistic = false;
+    }
+
+    return showState;
   };
 
   const subq4ShowAfterPanel = userInputState => {
-    if (userInputState["SUBQ4-industry-emissions"] === "doubtful") return true;
-    return false;
+    const showState: any = { show: false, optimistic: null };
+
+    if (userInputState["SUBQ4-industry-emissions"] === "hopeful") {
+      showState.show = true;
+      showState.optimistic = true;
+    }
+
+    if (userInputState["SUBQ4-industry-emissions"] === "doubtful") {
+      showState.show = true;
+      showState.optimistic = false;
+    }
+
+    return showState;
   };
 
   return (
@@ -1102,9 +1143,23 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
       <AnchorTransform>{numberOfEngagedUsers.toLocaleString()}</AnchorTransform>
 
-      {subq1ShowAfterPanel(userInputState) &&
+      {/* Optimistic downpage panel */}
+      {subq1ShowAfterPanel(userInputState).show &&
         document.querySelector("#subq1responsepanel") &&
-        dynamicText["SUBQ1-pessimistic-downpage"] && (
+        dynamicText["SUBQ1-pessimistic-downpage"] &&
+        subq1ShowAfterPanel(userInputState).optimistic && (
+          <Portal node={document.querySelector("#subq1responsepanel")}>
+            <OrganicPanel>
+              <DynText>{dynamicText["SUBQ1-optimistic-downpage"]}</DynText>
+            </OrganicPanel>
+          </Portal>
+        )}
+
+      {/* Pessimistic downpage panel */}
+      {subq1ShowAfterPanel(userInputState).show &&
+        document.querySelector("#subq1responsepanel") &&
+        dynamicText["SUBQ1-pessimistic-downpage"] &&
+        !subq1ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq1responsepanel")}>
             <OrganicPanel>
               <DynText>{dynamicText["SUBQ1-pessimistic-downpage"]}</DynText>
@@ -1112,9 +1167,25 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           </Portal>
         )}
 
-      {subq2ShowAfterPanel(userInputState) &&
+      {/*  */}
+
+      {/* Optimistic downpage panel */}
+      {subq2ShowAfterPanel(userInputState).show &&
         document.querySelector("#subq2responsepanel") &&
-        dynamicText["SUBQ2-pessimistic-downpage"] && (
+        dynamicText["SUBQ2-pessimistic-downpage"] &&
+        subq2ShowAfterPanel(userInputState).optimistic(
+          <Portal node={document.querySelector("#subq2responsepanel")}>
+            <OrganicPanel>
+              <DynText>{dynamicText["SUBQ2-optimistic-downpage"]}</DynText>
+            </OrganicPanel>
+          </Portal>
+        )}
+
+      {/* Pessimistic downpage panel */}
+      {subq2ShowAfterPanel(userInputState).show &&
+        document.querySelector("#subq2responsepanel") &&
+        dynamicText["SUBQ2-pessimistic-downpage"] &&
+        !subq2ShowAfterPanel(userInputState).optimistic(
           <Portal node={document.querySelector("#subq2responsepanel")}>
             <OrganicPanel>
               <DynText>{dynamicText["SUBQ2-pessimistic-downpage"]}</DynText>
@@ -1122,9 +1193,24 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           </Portal>
         )}
 
-      {subq3ShowAfterPanel(userInputState) &&
+      {/*  */}
+
+      {/* Optimistic downpage panel */}
+      {subq3ShowAfterPanel(userInputState).show &&
         document.querySelector("#subq3responsepanel") &&
-        dynamicText["SUBQ3-pessimistic-downpage"] && (
+        dynamicText["SUBQ3-pessimistic-downpage"] &&
+        subq3ShowAfterPanel(userInputState).optimistic && (
+          <Portal node={document.querySelector("#subq3responsepanel")}>
+            <OrganicPanel>
+              <DynText>{dynamicText["SUBQ3-optimistic-downpage"]}</DynText>
+            </OrganicPanel>
+          </Portal>
+        )}
+      {/* Pessimistic downpage panel */}
+      {subq3ShowAfterPanel(userInputState).show &&
+        document.querySelector("#subq3responsepanel") &&
+        dynamicText["SUBQ3-pessimistic-downpage"] &&
+        !subq3ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq3responsepanel")}>
             <OrganicPanel>
               <DynText>{dynamicText["SUBQ3-pessimistic-downpage"]}</DynText>
@@ -1132,9 +1218,25 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           </Portal>
         )}
 
-      {subq4ShowAfterPanel(userInputState) &&
+      {/*  */}
+
+      {/* Optimistic downpage panel */}
+      {subq4ShowAfterPanel(userInputState).show &&
         document.querySelector("#subq4responsepanel") &&
-        dynamicText["SUBQ4-pessimistic-downpage"] && (
+        dynamicText["SUBQ4-pessimistic-downpage"] &&
+        subq4ShowAfterPanel(userInputState).optimistic && (
+          <Portal node={document.querySelector("#subq4responsepanel")}>
+            <OrganicPanel>
+              <DynText>{dynamicText["SUBQ4-optimistic-downpage"]}</DynText>
+            </OrganicPanel>
+          </Portal>
+        )}
+
+      {/* Pessimistic downpage panel */}
+      {subq4ShowAfterPanel(userInputState).show &&
+        document.querySelector("#subq4responsepanel") &&
+        dynamicText["SUBQ4-pessimistic-downpage"] &&
+        !subq4ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq4responsepanel")}>
             <OrganicPanel>
               <DynText>{dynamicText["SUBQ4-pessimistic-downpage"]}</DynText>

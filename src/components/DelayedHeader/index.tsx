@@ -101,7 +101,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
         ></div> 
         
         NOW CONTROLLED ON SCROLL */}
-        <OrganicPanel isCentered={true}>
+        <OrganicPanel isCentered={true} pullLeftOnDesktop={false}>
           {convert(contentArray[0])}
 
           {/* <p>
@@ -118,7 +118,11 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
           !openingCentered && isDesktop && styles.pullLeft
         }`}
       >
-        <OrganicPanel backgroundVariation={1} isCentered={true}>
+        <OrganicPanel
+          backgroundVariation={1}
+          isCentered={true}
+          pullLeftOnDesktop={false}
+        >
           {convert(contentArray[1])}
           {/* <p>
             For three decades, we’ve been told that ditching our love affair
@@ -135,7 +139,11 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
       </div>
 
       <div className={styles.panel}>
-        <OrganicPanel backgroundVariation={2} isCentered={true}>
+        <OrganicPanel
+          backgroundVariation={2}
+          isCentered={true}
+          pullLeftOnDesktop={false}
+        >
           <div
             ref={lastPanelRef}
             id="visualKEY2"
