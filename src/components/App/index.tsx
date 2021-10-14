@@ -651,15 +651,16 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       setEndStrings(australiaStrings);
     }
 
-    if (marker === "endstorycomplete") {
-      setEndStrings({
-        renewables: 0,
-        transportation: 0,
-        carboncapture: 0,
-        industry: 0,
-        livestock: 0
-      });
-    }
+    // TODO: work out if we want to hide strings at the end
+    // if (marker === "endstorycomplete") {
+    //   setEndStrings({
+    //     renewables: 0,
+    //     transportation: 0,
+    //     carboncapture: 0,
+    //     industry: 0,
+    //     livestock: 0
+    //   });
+    // }
 
     // If user has scrolled enough, set them as has engaged
     if (marker === 2) {
