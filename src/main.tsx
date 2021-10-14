@@ -43,15 +43,15 @@ declare global {
 
 const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
 
-
-
 function preInit() {
   // Insert a div before the header
   const main = document.querySelector("main.Main");
+  const noDelayedHeader = document.querySelector("#nodelayedheader");
   const delayedHeaderContainer = document.createElement("div");
   delayedHeaderContainer.className = "delayed-header u-full";
-  if (main)
+  if (main && !noDelayedHeader) {
     main.insertBefore(delayedHeaderContainer, main.childNodes[0] || null);
+  }
 
   // Some initial transforms to the DOM
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

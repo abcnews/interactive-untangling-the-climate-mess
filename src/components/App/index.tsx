@@ -751,23 +751,25 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     return showState;
   };
 
-  const scrollTo = (marker) => {
-    console.log(marker)
-  }
+  const scrollTo = marker => {
+    console.log(marker);
+  };
 
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
       {/* Just a line down the center of the screen for testing */}
       {/* <div className={styles.centerHint}></div> */}
 
-      <Portal node={document && document.querySelector(".delayed-header")}>
-        <DelayedHeader
-          setTransformsComplete={setTransformsComplete}
-          openingCentered={openingCentered}
-          isDesktop={isDesktop}
-          setIsPastOpening={setIsPastOpening}
-        />
-      </Portal>
+      {document?.querySelector(".delayed-header") && (
+        <Portal node={document && document.querySelector(".delayed-header")}>
+          <DelayedHeader
+            setTransformsComplete={setTransformsComplete}
+            openingCentered={openingCentered}
+            isDesktop={isDesktop}
+            setIsPastOpening={setIsPastOpening}
+          />
+        </Portal>
+      )}
 
       <Portal node={document && document.getElementById("inputtier1")}>
         <UserInputBox
@@ -1014,36 +1016,38 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         />
       </Portal> */}
 
-      <Portal node={document && document.getElementById("chartproportions")}>
-        <BarChart
-          bars={[
-            {
-              title: "Energy",
-              percent: 33,
-              color: "#A3297C",
-              textColor: "#A3297C"
-            },
-            {
-              title: "Burping cows",
-              percent: 10,
-              color: "#F65C1B", //"#2A4059",
-              textColor: "#C42F05" //"#2A4059"
-            },
-            {
-              title: "Transport",
-              percent: 20,
-              color: "#007CBF", //#007B52",
-              textColor: "#007CBF" //"#007B52"
-            },
-            {
-              title: "Industry",
-              percent: 40,
-              color: "#007B52", //"#F65C1B",
-              textColor: "#007B52"
-            }
-          ]}
-        />
-      </Portal>
+      {document.getElementById("chartproportions") && (
+        <Portal node={document && document.getElementById("chartproportions")}>
+          <BarChart
+            bars={[
+              {
+                title: "Energy",
+                percent: 33,
+                color: "#A3297C",
+                textColor: "#A3297C"
+              },
+              {
+                title: "Burping cows",
+                percent: 10,
+                color: "#F65C1B", //"#2A4059",
+                textColor: "#C42F05" //"#2A4059"
+              },
+              {
+                title: "Transport",
+                percent: 20,
+                color: "#007CBF", //#007B52",
+                textColor: "#007CBF" //"#007B52"
+              },
+              {
+                title: "Industry",
+                percent: 40,
+                color: "#007B52", //"#F65C1B",
+                textColor: "#007B52"
+              }
+            ]}
+          />
+        </Portal>
+      )}
 
       <Portal node={document && document.getElementById("chartconvinced")}>
         <AudienceChart
