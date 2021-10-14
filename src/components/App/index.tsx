@@ -1160,9 +1160,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         dynamicText["SUBQ1-optimistic-downpage"] &&
         subq1ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq1responsepanel")}>
-            <OrganicPanel>
-              <DynText>{dynamicText["SUBQ1-optimistic-downpage"]}</DynText>
-            </OrganicPanel>
+            <DynText>{dynamicText["SUBQ1-optimistic-downpage"]}</DynText>
           </Portal>
         )}
 
@@ -1172,9 +1170,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         dynamicText["SUBQ1-pessimistic-downpage"] &&
         !subq1ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq1responsepanel")}>
-            <OrganicPanel>
-              <DynText>{dynamicText["SUBQ1-pessimistic-downpage"]}</DynText>
-            </OrganicPanel>
+            <DynText>{dynamicText["SUBQ1-pessimistic-downpage"]}</DynText>
           </Portal>
         )}
 
@@ -1186,9 +1182,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         dynamicText["SUBQ2-optimistic-downpage"] &&
         subq2ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq2responsepanel")}>
-            <OrganicPanel>
-              <DynText>{dynamicText["SUBQ2-optimistic-downpage"]}</DynText>
-            </OrganicPanel>
+            <DynText>{dynamicText["SUBQ2-optimistic-downpage"]}</DynText>
           </Portal>
         )}
 
@@ -1198,9 +1192,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         dynamicText["SUBQ2-pessimistic-downpage"] &&
         !subq2ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq2responsepanel")}>
-            <OrganicPanel>
-              <DynText>{dynamicText["SUBQ2-pessimistic-downpage"]}</DynText>
-            </OrganicPanel>
+            <DynText>{dynamicText["SUBQ2-pessimistic-downpage"]}</DynText>
           </Portal>
         )}
 
@@ -1212,9 +1204,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         dynamicText["SUBQ3-optimistic-downpage"] &&
         subq3ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq3responsepanel")}>
-            <OrganicPanel>
-              <DynText>{dynamicText["SUBQ3-optimistic-downpage"]}</DynText>
-            </OrganicPanel>
+            <DynText>{dynamicText["SUBQ3-optimistic-downpage"]}</DynText>
           </Portal>
         )}
       {/* Pessimistic downpage panel */}
@@ -1223,9 +1213,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         dynamicText["SUBQ3-pessimistic-downpage"] &&
         !subq3ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq3responsepanel")}>
-            <OrganicPanel>
-              <DynText>{dynamicText["SUBQ3-pessimistic-downpage"]}</DynText>
-            </OrganicPanel>
+            <DynText>{dynamicText["SUBQ3-pessimistic-downpage"]}</DynText>
           </Portal>
         )}
 
@@ -1237,9 +1225,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         dynamicText["SUBQ4-optimistic-downpage"] &&
         subq4ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq4responsepanel")}>
-            <OrganicPanel>
-              <DynText>{dynamicText["SUBQ4-optimistic-downpage"]}</DynText>
-            </OrganicPanel>
+            <DynText>{dynamicText["SUBQ4-optimistic-downpage"]}</DynText>
           </Portal>
         )}
 
@@ -1249,9 +1235,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         dynamicText["SUBQ4-pessimistic-downpage"] &&
         !subq4ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq4responsepanel")}>
-            <OrganicPanel>
-              <DynText>{dynamicText["SUBQ4-pessimistic-downpage"]}</DynText>
-            </OrganicPanel>
+            <DynText>{dynamicText["SUBQ4-pessimistic-downpage"]}</DynText>
           </Portal>
         )}
 
