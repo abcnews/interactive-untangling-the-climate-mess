@@ -67,6 +67,7 @@ type SkipAheadProps = {
   scroll: any;
   applySkipAhead: any;
   windowWidth: number;
+  scrollTo?: Function;
 };
 
 const SkipAhead: React.FC<SkipAheadProps> = ({
@@ -128,8 +129,15 @@ const SkipAhead: React.FC<SkipAheadProps> = ({
         <button
           className={styles.button}
           onClick={() => {
-            scroll.animateScroll(target);
             applySkipAhead(getQuestionKey(from));
+
+            // If this timeout doesn't always work
+            // try explicitly waiting until DOM modifications
+            // from previous function
+            setTimeout(() => {
+              
+              scroll.animateScroll(target);
+            }, 200);
           }}
           style={{
             color: getColour(from)

@@ -231,6 +231,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     // So out of the possible options "certain" "hopeful" "doubtful" "impossible"
     // Let's set "hopeful" (possibly "certain")
     // It should come out binary in the end anyway
+    // UPDATE: WE ARE GOING BINARY FOR SUBQUESTIONS NOW
+    // SO LET'S DO THIS!!!
     setUserInputState(prevState => {
       return { ...prevState, [questionSkipped]: convincedState };
     });
@@ -748,6 +750,10 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     return showState;
   };
 
+  const scrollTo = (marker) => {
+    console.log(marker)
+  }
+
   return (
     <AppContext.Provider value={{ topAbove, setTopAbove }}>
       {/* Just a line down the center of the screen for testing */}
@@ -1146,7 +1152,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       {/* Optimistic downpage panel */}
       {subq1ShowAfterPanel(userInputState).show &&
         document.querySelector("#subq1responsepanel") &&
-        dynamicText["SUBQ1-pessimistic-downpage"] &&
+        dynamicText["SUBQ1-optimistic-downpage"] &&
         subq1ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq1responsepanel")}>
             <OrganicPanel>
@@ -1172,8 +1178,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       {/* Optimistic downpage panel */}
       {subq2ShowAfterPanel(userInputState).show &&
         document.querySelector("#subq2responsepanel") &&
-        dynamicText["SUBQ2-pessimistic-downpage"] &&
-        subq2ShowAfterPanel(userInputState).optimistic(
+        dynamicText["SUBQ2-optimistic-downpage"] &&
+        subq2ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq2responsepanel")}>
             <OrganicPanel>
               <DynText>{dynamicText["SUBQ2-optimistic-downpage"]}</DynText>
@@ -1185,7 +1191,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       {subq2ShowAfterPanel(userInputState).show &&
         document.querySelector("#subq2responsepanel") &&
         dynamicText["SUBQ2-pessimistic-downpage"] &&
-        !subq2ShowAfterPanel(userInputState).optimistic(
+        !subq2ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq2responsepanel")}>
             <OrganicPanel>
               <DynText>{dynamicText["SUBQ2-pessimistic-downpage"]}</DynText>
@@ -1198,7 +1204,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       {/* Optimistic downpage panel */}
       {subq3ShowAfterPanel(userInputState).show &&
         document.querySelector("#subq3responsepanel") &&
-        dynamicText["SUBQ3-pessimistic-downpage"] &&
+        dynamicText["SUBQ3-optimistic-downpage"] &&
         subq3ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq3responsepanel")}>
             <OrganicPanel>
@@ -1223,7 +1229,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       {/* Optimistic downpage panel */}
       {subq4ShowAfterPanel(userInputState).show &&
         document.querySelector("#subq4responsepanel") &&
-        dynamicText["SUBQ4-pessimistic-downpage"] &&
+        dynamicText["SUBQ4-optimistic-downpage"] &&
         subq4ShowAfterPanel(userInputState).optimistic && (
           <Portal node={document.querySelector("#subq4responsepanel")}>
             <OrganicPanel>
