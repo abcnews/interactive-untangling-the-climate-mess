@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDynamicText } from "../../lib/fetchDynamicText";
 import DynText from "../DynText";
-
 import styles from "./styles.scss";
-
 import BarChart from "../BarChart";
 
 import background from "../OrganicPanel/organic-panel-background-variation-1.svg";
@@ -167,10 +165,11 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "noMAIN1noSUByesMAIN2" || // 3
           questionCompleteness === "yesMAIN1noSUByesMAIN2"
         ) {
-          //4
+          // 4
+          // NOTE: PROBABLY NOT NEEDED
           setPanelText(
             <>
-              {level2answer} {noSectionText}
+              {level2answer} {noSectionText} 
             </>
           );
         } else {
@@ -189,46 +188,10 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "yesMAIN1someSUBnoMAIN2" || // 9a
           questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
 
-        // if (
-        //   // They didn't answer MAIN questions
-        //   questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
-        //   questionCompleteness === "noMAIN1allSUBnoMAIN2" // 6
-        // ) {
-        //   setPanelText(
-        //     <p>
-        //       You didn’t tell us whether you thought Australia could get to net
-        //       zero, but here is the impact the things you were convinced by
-        //       would have on our emissions.
-        //     </p>
-        //   );
-        // } else {
-        // if (subQuestionsConvinvedOf >= 5) {
-        //   // Check if positive outloon on main2 question
-        //   if (main2Positive)
-        //     setPanelText(
-        //       <p>
-        //         Let’s look at what the impact of doing the things you’re
-        //         convinced of would be. If we can pull it off then Australia not
-        //         only gets to net zero, we’ve set the country for a future in
-        //         this zero carbon world.
-        //       </p>
-        //     );
-        //   // Otherwise negative
-        //   else
-        //     setPanelText(
-        //       <p>
-        //         Look even if you don’t think we can pull this off, if we just do
-        //         the things you’re convinced by then Australia not only gets to
-        //         net zero, we’ve set the country for a future in this zero carbon
-        //         world.
-        //       </p>
-        //     );
-        // }
-
         //
 
         if (subQuestionsConvinvedOf == 4) {
-          if (main2Positive)
+          if (main1Positive)
             setPanelText(
               <DynText>{dynamicText["LEVEL3-yes-4-optimistic"]}</DynText>
             );
@@ -248,7 +211,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         //
 
         if (subQuestionsConvinvedOf === 3) {
-          if (main2Positive)
+          if (main1Positive)
             setPanelText(
               <DynText>{dynamicText["LEVEL3-yes-3-optimistic"]}</DynText>
             );
@@ -269,7 +232,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         //
 
         if (subQuestionsConvinvedOf === 2) {
-          if (main2Positive)
+          if (main1Positive)
             setPanelText(
               <DynText>{dynamicText["LEVEL3-yes-2-optimistic"]}</DynText>
             );
@@ -293,7 +256,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         //
 
         if (subQuestionsConvinvedOf === 1) {
-          if (main2Positive)
+          if (main1Positive)
             setPanelText(
               <DynText>{dynamicText["LEVEL3-yes-1-optimistic"]}</DynText>
             );
@@ -327,7 +290,9 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
           questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
           questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
-          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
+          questionCompleteness === "yesMAIN1allSUByesMAIN2" || // 10
+          questionCompleteness === "yesMAIN1someSUBnoMAIN2" ||
+          questionCompleteness === "yesMAIN1allSUBnoMAIN2";
 
         const isGreyedOut = (key: string) => {
           if (
@@ -396,8 +361,9 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
           questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
           questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
-          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
-
+          questionCompleteness === "yesMAIN1allSUByesMAIN2" || // 10
+          questionCompleteness === "yesMAIN1someSUBnoMAIN2" ||
+          questionCompleteness === "yesMAIN1allSUBnoMAIN2";
         // console.log(
         //   "You convinced:",
         //   subQuestionsConvinvedOf,
