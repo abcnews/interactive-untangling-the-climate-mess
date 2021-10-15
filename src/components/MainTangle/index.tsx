@@ -9,7 +9,7 @@ import throttle from "lodash.throttle";
 
 const throttledGsapTo = throttle(gsap.to, 5);
 
-import untangleAnimation from "./assets/untangling-color-change.svg";
+import untangleAnimation from "./assets/untangle-final.svg";
 
 const PLAY_RATE = 1.0;
 const FAST_SKIP_INCREASE = 1.0;
@@ -83,7 +83,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
   const initSvg = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
-    import("./assets/untangling-color-change").then(({ animate }) => {
+    import("./assets/untangle-final").then(({ animate }) => {
       // Set up the animations and return a timeline
       component.timeline = animate();
       const timeline = component.timeline;
