@@ -103,13 +103,13 @@ const SkipAhead: React.FC<SkipAheadProps> = ({
   function getColour(shortId: string) {
     switch (shortId) {
       case "renewables":
-        return "#a3297c";
+        return "#F65C1B";
       case "agriculture":
-        return "#f95a18";
+        return "#007B52";
       case "transport":
         return "#007cbf";
       case "industry":
-        return "#007b52";
+        return "#2A4059";
     }
 
     return undefined;

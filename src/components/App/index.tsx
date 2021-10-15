@@ -811,7 +811,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
       <Portal node={document && document.getElementById("inputzerocarbon")}>
         <UserInputBox
-          color={"#A3297C"}
+          color={"#F65C1B"}
           questionKey="SUBQ1-renewables-zero-carbon"
           preTitle={<DynText>{dynamicText["SUBQ1-pre-title"]}</DynText>}
           title={<DynText>{dynamicText["SUBQ1-title"]}</DynText>}
@@ -852,7 +852,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         node={document && document.getElementById("inputlivestockemissions")}
       >
         <UserInputBox
-          color={"#F65C1B"}
+          color={"#007B52"}
           questionKey="SUBQ2-livestock-emissions"
           preTitle={<DynText>{dynamicText["SUBQ2-pre-title"]}</DynText>}
           title={<DynText>{dynamicText["SUBQ2-title"]}</DynText>}
@@ -930,7 +930,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         node={document && document.getElementById("inputindustryemissions")}
       >
         <UserInputBox
-          color={"#007B52"}
+          color={"#2A4059"}
           questionKey="SUBQ4-industry-emissions"
           preTitle={<DynText>{dynamicText["SUBQ4-pre-title"]}</DynText>}
           title={<DynText>{dynamicText["SUBQ4-title"]}</DynText>}
@@ -1023,14 +1023,14 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               {
                 title: "Energy",
                 percent: 33,
-                color: "#A3297C",
-                textColor: "#A3297C"
+                color: "#F65C1B",
+                textColor: "#C42F05"
               },
               {
                 title: "Burping cows",
                 percent: 10,
-                color: "#F65C1B", //"#2A4059",
-                textColor: "#C42F05" //"#2A4059"
+                color: "#007B52", //"#2A4059",
+                textColor: "#007B52" //"#2A4059"
               },
               {
                 title: "Transport",
@@ -1041,8 +1041,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               {
                 title: "Industry",
                 percent: 40,
-                color: "#007B52", //"#F65C1B",
-                textColor: "#007B52"
+                color: "#2A4059", //"#F65C1B",
+                textColor: "#2A4059"
               }
             ]}
           />

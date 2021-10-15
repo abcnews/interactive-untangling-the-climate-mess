@@ -22,18 +22,18 @@ const lookupRange = (marker: string) => {
       loopback: "1a"
     };
 
-  if (marker === "19")
+  if (marker === "20")
     return {
-      start: "19",
-      end: "20",
+      start: "20",
+      end: 53000, // TODO: Either fade out or get Ben to animate string out
       loopback: null
     };
 
   // If any other marker just stay at the end
   if (isNaN(Number(marker)))
     return {
-      start: "19",
-      end: "20",
+      start: "20",
+      end: 53000,
       loopback: null
     };
 
