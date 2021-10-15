@@ -43,12 +43,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
   } = useDynamicText();
 
   const [hidden, setHidden] = useState(false);
-  const [panelText, setPanelText] = useState(
-    <p>
-      Panel initial state (if you're seeing this text in article, please contact
-      byrd.joshua@abc.net.au). Thanks!
-    </p>
-  );
+  const [panelText, setPanelText] = useState(<p>...</p>);
 
   function getLevel2Text(convincedState, userInputState) {
     if (convincedState === "green")
@@ -92,9 +87,22 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     let shouldShow;
 
     // Were they initially positive?
+
     const main1Positive =
       userInputState["MAINQ1-can-we-still-save-the-world"] === "certain" ||
       userInputState["MAINQ1-can-we-still-save-the-world"] === "hopeful";
+
+    const getMain1State = key => {
+      if (typeof key === "undefined") return "noanswer";
+      if (key === "certain" || key === "hopeful") return "optimistic";
+      if (key === "doubtful" || key === "impossible") return "pessimistic";
+    };
+
+    const main1State = getMain1State(
+      userInputState["MAINQ1-can-we-still-save-the-world"]
+    );
+
+    console.log(main1State);
 
     const main2Positive =
       userInputState[
@@ -129,20 +137,19 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
       case "incompletefallback":
         shouldShow = questionCompleteness === "yesMAIN1noSUBnoMAIN2"; // 2
 
-        if (main1Positive) {
+        if (main1State === "optimistic") {
           setPanelText(
             <DynText>{dynamicText["INCOMPLETE-optimistic"]}</DynText>
           );
           /* We don’t know if you’re still convinced, as you didn’t answer, but
           here’s how the rest of the audience feel about the piece. */
-        } else if (!main1Positive) {
+        } else if (main1State === "pessimistic") {
           setPanelText(
             <DynText>{dynamicText["INCOMPLETE-pessimistic"]}</DynText>
           );
           /* We don’t know if you’re still not convinced, as you didn’t answer,
           but here’s how the rest of the audience feel about the piece. */
         }
-
         break;
       case "level2answer":
         shouldShow =
@@ -169,7 +176,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           // NOTE: PROBABLY NOT NEEDED
           setPanelText(
             <>
-              {level2answer} {noSectionText} 
+              {level2answer} {noSectionText}
             </>
           );
         } else {
@@ -190,97 +197,123 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
 
         //
 
-        if (subQuestionsConvinvedOf == 4) {
-          if (main1Positive)
+        if (subQuestionsConvinvedOf === 4) {
+          if (main1State === "optimistic") {
             setPanelText(
               <DynText>{dynamicText["LEVEL3-yes-4-optimistic"]}</DynText>
             );
-          /* Let’s look at what the impact of doing the things you’re
-                convinced of would be. If we can pull it off then Australia not
-                only gets to net zero, we’ve set the country for a future in
-                this zero carbon world. */ else
+            // Let’s look at what the impact of doing the things you’re
+            // convinced of would be. If we can pull it off then Australia not
+            // only gets to net zero, we’ve set the country for a future in
+            // this zero carbon world.
+          } else if (main1State === "pessimistic") {
             setPanelText(
               <DynText>{dynamicText["LEVEL3-yes-4-pessimistic"]}</DynText>
             );
-          /* Look even if you don’t think we can pull this off, if we just do
+            /* Look even if you don’t think we can pull this off, if we just do
                 the things you’re convinced by then that puts Australia on track
                 to be part of a world that keeps temperatures at or below 1.5
                 degrees. */
+          } else if (main1State === "noanswer") {
+            setPanelText(
+              <DynText>{dynamicText["LEVEL3-yes-4-noanswer"]}</DynText>
+            );
+          }
         }
 
         //
 
         if (subQuestionsConvinvedOf === 3) {
-          if (main1Positive)
+          if (main1State === "optimistic") {
             setPanelText(
               <DynText>{dynamicText["LEVEL3-yes-3-optimistic"]}</DynText>
             );
-          /* Let’s look at what the impact of doing the things you’re
+            /* Let’s look at what the impact of doing the things you’re
                 convinced of would be. If we can just accomplish them by 2030,
                 then that would keep Australia on track to be part of a world
-                that keeps temperatures at or below 1.5 degrees. */ else
+                that keeps temperatures at or below 1.5 degrees. */
+          } else if (main1State === "pessimistic") {
             setPanelText(
               <DynText>{dynamicText["LEVEL3-yes-3-pessimistic"]}</DynText>
             );
-
-          /* Look even if you don’t think we can pull this off, if we can
+            /* Look even if you don’t think we can pull this off, if we can
                 just accomplish the things you’re convinced of by 2030, then
                 that would keep Australia on track to be part of a world that
                 keeps temperatures at or below 1.5 degrees. */
+          } else if (main1State === "noanswer") {
+            setPanelText(
+              <DynText>{dynamicText["LEVEL3-yes-3-noanswer"]}</DynText>
+            );
+          }
         }
 
         //
 
         if (subQuestionsConvinvedOf === 2) {
-          if (main1Positive)
+          if (main1State === "optimistic") {
             setPanelText(
               <DynText>{dynamicText["LEVEL3-yes-2-optimistic"]}</DynText>
             );
-          /* Let’s look at what the impact of doing the things you’re
-                convinced of would be. Just reducing emissions in this one area
-                over the next 5 years would put us on track for the most
-                ambitious Paris agreement targets, and give us a chance of
-                keeping temperature increases at or below 1.5 degrees. */ else
-            setPanelText(
-              <DynText>{dynamicText["LEVEL3-yes-2-pessimistic"]}</DynText>
-            );
-
-          /* We get it, it’s a big problem, but we don’t have to solve it all
-                now. Let’s look at what the impact of doing the things you’re
+            /* Let’s look at what the impact of doing the things you’re
                 convinced of would be. Just reducing emissions in this one area
                 over the next 5 years would put us on track for the most
                 ambitious Paris agreement targets, and give us a chance of
                 keeping temperature increases at or below 1.5 degrees. */
+          } else if (main1State === "pessimistic") {
+            setPanelText(
+              <DynText>{dynamicText["LEVEL3-yes-2-pessimistic"]}</DynText>
+            );
+
+            /* We get it, it’s a big problem, but we don’t have to solve it all
+            now. Let’s look at what the impact of doing the things you’re
+            convinced of would be. Just reducing emissions in this one area
+            over the next 5 years would put us on track for the most
+            ambitious Paris agreement targets, and give us a chance of
+            keeping temperature increases at or below 1.5 degrees. */
+          } else if (main1State === "noanswer") {
+            setPanelText(
+              <DynText>{dynamicText["LEVEL3-yes-2-noanswer"]}</DynText>
+            );
+          }
         }
 
         //
 
         if (subQuestionsConvinvedOf === 1) {
-          if (main1Positive)
+          if (main1State === "optimistic") {
             setPanelText(
               <DynText>{dynamicText["LEVEL3-yes-1-optimistic"]}</DynText>
             );
-          /* It’s good that you’re optimistic about Australia getting to net
-                zero, even if you’re not sure how we can get there. */ else
+            /* It’s good that you’re optimistic about Australia getting to net
+                zero, even if you’re not sure how we can get there. */
+          } else if (main1State === "pessimistic") {
             setPanelText(
               <DynText>{dynamicText["LEVEL3-yes-1-pessimistic"]}</DynText>
             );
 
-          /* Well, I dunno what to tell ya???? */
+            /* Well, I dunno what to tell ya???? */
+          } else if (main1State === "noanswer") {
+            setPanelText(
+              <DynText>{dynamicText["LEVEL3-yes-1-noanswer"]}</DynText>
+            );
+          }
         }
 
         if (subQuestionsConvinvedOf === 0) {
-          if (main1Positive)
+          if (main1State === "optimistic") {
             setPanelText(
               <DynText>{dynamicText["LEVEL3-none-optimistic"]}</DynText>
             );
-          else
+          } else if (main1State === "pessimistic") {
             setPanelText(
               <DynText>{dynamicText["LEVEL3-none-pessimistic"]}</DynText>
             );
+          } else if (main1State === "noanswer") {
+            setPanelText(
+              <DynText>{dynamicText["LEVEL3-none-noanswer"]}</DynText>
+            );
+          }
         }
-
-        // }
 
         break;
       case "personalresults":
@@ -293,6 +326,9 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "yesMAIN1allSUByesMAIN2" || // 10
           questionCompleteness === "yesMAIN1someSUBnoMAIN2" ||
           questionCompleteness === "yesMAIN1allSUBnoMAIN2";
+
+        // IRREGARLESS :) hide if all nope
+        if (subQuestionsConvinvedOf === 0) shouldShow = false;
 
         const isGreyedOut = (key: string) => {
           if (
