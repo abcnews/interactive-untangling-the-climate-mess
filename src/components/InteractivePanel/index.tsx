@@ -327,7 +327,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "yesMAIN1someSUBnoMAIN2" ||
           questionCompleteness === "yesMAIN1allSUBnoMAIN2";
 
-        // IRREGARLESS :) hide if all nope
+        // Hide if all nope
         if (subQuestionsConvinvedOf === 0) shouldShow = false;
 
         const isGreyedOut = (key: string) => {
@@ -459,16 +459,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
       ref={rootRef}
       className={`${styles.root} ${hidden ? styles.hidden : ""}`}
     >
-      {/* Now handled by Core #panels */}
-      {/* <div className={styles.panelContentContainer}>
-        <div className={styles.background}>
-          <img
-            src={backgrounds[backgroundVariation]}
-            className={styles.stretch}
-          />
-        </div> */}
       {panelText}
-      {/* </div> */}
     </div>
   );
 };

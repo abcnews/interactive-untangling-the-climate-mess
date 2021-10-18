@@ -11,8 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 90vh;
-    // margin-bottom: 65vh;
+    min-height: 80vh;
   }
 
   .hero-text {
@@ -33,7 +32,7 @@
       max-width: 650px;
       margin-left: 0;
       margin-right: 0;
-      margin-bottom: 45vh;
+      margin-bottom: 42.5vh;
     }
 
     @include for-desktop-up {
@@ -47,14 +46,14 @@
   }
 
   .panel {
-    padding-top: 45vh !important;
-    padding-bottom: 45vh !important;
+    padding-top: 42.5vh !important;
+    padding-bottom: 42.5vh !important;
 
     .panel:last-of-type {
       padding-bottom: 75vh !important;
 
       @include for-desktop-up {
-        padding-bottom: 45vh !important;
+        padding-bottom: 42.5vh !important;
       }
     }
 

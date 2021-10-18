@@ -25,7 +25,7 @@ const lookupRange = (marker: string) => {
   if (marker === "20")
     return {
       start: "20",
-      end: 53000, // TODO: Either fade out or get Ben to animate string out
+      end: "21",
       loopback: null
     };
 
@@ -33,7 +33,7 @@ const lookupRange = (marker: string) => {
   if (isNaN(Number(marker)))
     return {
       start: "20",
-      end: 53000,
+      end: "21",
       loopback: null
     };
 
