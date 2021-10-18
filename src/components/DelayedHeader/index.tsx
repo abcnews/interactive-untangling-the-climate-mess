@@ -79,14 +79,16 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
         data-mount="true"
       ></div>
 
-      <div
-        className={`${styles.heroText} ${
-          !openingCentered && isDesktop && styles.pullLeft
-        }`}
-      >
-        {/* Climate change... <br />
+      <div className={styles.heroContainer}>
+        <div
+          className={`${styles.heroText} ${
+            !openingCentered && isDesktop && styles.pullLeft
+          }`}
+        >
+          {/* Climate change... <br />
         we get it, it’s a depressing mess. */}
-        <DynText>{dynamicText["hero-heading"]}</DynText>
+          <DynText>{dynamicText["hero-heading"]}</DynText>
+        </div>
       </div>
 
       <div

@@ -3,15 +3,23 @@
 .root {
   min-height: 90vh;
   text-align: center;
-  padding-top: 30vh;
+  // padding-top: 30vh;
   max-width: 650px;
   margin: auto;
 
+  .hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+    // margin-bottom: 65vh;
+  }
+
   .hero-text {
-    margin-bottom: 65vh;
+    
     font-size: 28px;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    // padding-top: 0.5em;
+    // padding-bottom: 0.5em;
     font-weight: 700;
     line-height: 1.4;
     color: #2a4059;
