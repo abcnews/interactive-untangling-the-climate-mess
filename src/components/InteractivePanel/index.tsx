@@ -102,8 +102,6 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
       userInputState["MAINQ1-can-we-still-save-the-world"]
     );
 
-    console.log(main1State);
-
     const main2Positive =
       userInputState[
         "MAINQ2-can-we-still-save-the-world-again-after-article"

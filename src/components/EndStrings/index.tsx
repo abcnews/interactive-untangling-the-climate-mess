@@ -23,8 +23,8 @@ import string4Animation from "./assets/end-string-4";
 
 const stringAnimations = {
   renewables: string1Animation,
-  transportation: string2Animation,
-  carboncapture: string3Animation,
+  livestock: string2Animation,
+  transportation: string3Animation,
   industry: string4Animation,
   // livestock: string5Animation
 };
@@ -53,7 +53,7 @@ const EndStrings: React.FC<EndStringsProps> = ({
   const [strings, setStrings] = useState({
     renewables: 0,
     transportation: 0,
-    carboncapture: 0,
+    // carboncapture: 0,
     industry: 0,
     livestock: 0
   });
@@ -64,9 +64,9 @@ const EndStrings: React.FC<EndStringsProps> = ({
     // So we can load up all the animations
     let animationNumber: string = "renewables";
     if (iteration === 1) animationNumber = "transportation";
-    if (iteration === 2) animationNumber = "carboncapture";
-    if (iteration === 3) animationNumber = "industry";
-    if (iteration === 4) {
+    // if (iteration === 2) animationNumber = "carboncapture";
+    if (iteration === 2) animationNumber = "industry";
+    if (iteration === 3) {
       animationNumber = "livestock";
 
       setAllLoaded(true);
