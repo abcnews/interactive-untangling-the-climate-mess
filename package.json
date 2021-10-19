@@ -5,17 +5,16 @@
   "license": "MIT",
   "private": true,
   "contributors": [
-    "Joshua Byrd <phocks@gmail.com>"
+    "Joshua Byrd <phocks@gmail.com>",
+    "Colin Gourlay <gourlay.colin@abc.net.au>"
   ],
-  "aunty": {
-    "type": "react"
-  },
   "scripts": {
     "start": "aunty serve",
     "deploy": "aunty build && aunty deploy",
     "release": "aunty release",
     "test": "aunty test",
     "data": "node utils/dataDeploy.js",
+    "apple": "node utils/appleBuild.js",
     "predeploy": "npm run data",
     "prerelease": "npm run data"
   },
@@ -33,7 +32,9 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-test-renderer": "^17.0.1",
     "@types/webpack-env": "^1.16.0",
-    "react-test-renderer": "^17.0.1"
+    "del": "^6.0.0",
+    "react-test-renderer": "^17.0.1",
+    "zip-a-folder": "^1.1.0"
   },
   "dependencies": {
     "@abcnews/alternating-case-to-object": "^2.0.1",

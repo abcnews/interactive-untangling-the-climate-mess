@@ -1,0 +1,59 @@
+{
+  "identifier": "untanglingTheClimateMess",
+  "version": "1.9",
+  "language": "en",
+  "title": "Untangling the climate mess",
+  "layout": {
+    "columns": 20,
+    "width": 1024,
+    "margin": 60,
+    "gutter": 20
+  },
+  "components": [
+    {
+      "role": "title",
+      "text": "Untangling the climate mess",
+      "layout": "titleLayout"
+    },
+    {
+      "role": "embed",
+      "URL": "bundle://tier1.html",
+      "layout": "embedLayout"
+    },
+    {
+      "role": "embed",
+      "URL": "bundle://zerocarbon.html",
+      "layout": "embedLayout"
+    },
+    {
+      "role": "embed",
+      "URL": "bundle://livestockemissions.html",
+      "layout": "embedLayout"
+    },
+    {
+      "role": "embed",
+      "URL": "bundle://fossiltransport.html",
+      "layout": "embedLayout"
+    },
+    {
+      "role": "embed",
+      "URL": "bundle://industryemissions.html",
+      "layout": "embedLayout"
+    },
+    {
+      "role": "embed",
+      "URL": "bundle://results.html",
+      "layout": "embedLayout"
+    }
+  ],
+  "componentLayouts": {
+    "titleLayout": {
+      "margin": {
+        "top": 10
+      }
+    },
+    "embedLayout": {
+      "suggestedHeight": 50
+    }
+  }
+}

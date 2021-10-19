@@ -88,7 +88,12 @@ let scrollY = 0;
 let initialPositioningComplete = false;
 
 const App: React.FC<AppProps> = ({ projectName, ...props }) => {
-  const { subscribe, unsubscribe } = window.__ODYSSEY__.scheduler;
+  const { subscribe, unsubscribe } = (window.__ODYSSEY__ as {
+    scheduler: {
+      subscribe: (subscriber: () => void) => void;
+      unsubscribe: (subscriber: () => void) => void;
+    };
+  }).scheduler;
 
   const [backdropOffset, setBackdropOffset] = useState(0);
   const [animationFrame, setAnimationFrame] = useState(200);
