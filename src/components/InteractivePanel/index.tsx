@@ -350,29 +350,29 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                 {
                   title: "Energy",
                   percent: 33,
-                  color: "#A3297C",
-                  textColor: "#A3297C",
+                  color: "#F65C1B", // Orange
+                  textColor: "#C42F05", // Text orange
                   greyedOut: isGreyedOut("SUBQ1-renewables-zero-carbon")
                 },
                 {
                   title: "Burping cows",
                   percent: 10,
-                  color: "#F65C1B",
-                  textColor: "#C42F05",
+                  color: "#007B52", // Green
+                  textColor: "#007B52",
                   greyedOut: isGreyedOut("SUBQ2-livestock-emissions")
                 },
                 {
                   title: "Transport",
                   percent: 20,
-                  color: "#007CBF",
+                  color: "#007CBF", // Light blue
                   textColor: "#007CBF",
                   greyedOut: isGreyedOut("SUBQ3-transportation-off-fossil")
                 },
                 {
                   title: "Industry",
                   percent: 40,
-                  color: "#007B52",
-                  textColor: "#007B52",
+                  color: "#2A4059", // Dark blue
+                  textColor: "#2A4059",
                   greyedOut: isGreyedOut("SUBQ4-industry-emissions")
                 }
                 // {

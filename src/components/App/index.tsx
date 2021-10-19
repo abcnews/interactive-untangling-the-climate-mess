@@ -981,7 +981,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         />
       </Portal> */}
 
-      {/* PLEASE KEEP JUST IN CASE WE WANT TO PUT BACK IN */}
+      {/* KEEP JUST IN CASE WE WANT TO PUT BACK IN */}
       {/* <Portal node={document && document.getElementById("inputtier1again")}>
         <UserInputBox
           color={"#2A4059"}
@@ -1024,25 +1024,25 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               {
                 title: "Energy",
                 percent: 33,
-                color: "#F65C1B",
-                textColor: "#C42F05"
+                color: "#F65C1B", // Orange
+                textColor: "#C42F05" // Text orange
               },
               {
                 title: "Burping cows",
                 percent: 10,
-                color: "#007B52", //"#2A4059",
-                textColor: "#007B52" //"#2A4059"
+                color: "#007B52", // Green
+                textColor: "#007B52"
               },
               {
                 title: "Transport",
                 percent: 20,
-                color: "#007CBF", //#007B52",
-                textColor: "#007CBF" //"#007B52"
+                color: "#007CBF", // Light blue
+                textColor: "#007CBF"
               },
               {
                 title: "Industry",
                 percent: 40,
-                color: "#2A4059", //"#F65C1B",
+                color: "#2A4059", // Dark blue
                 textColor: "#2A4059"
               }
             ]}
@@ -1057,7 +1057,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               title: "Energy",
               percent: energyConvinced,
               color: "#F65C1B", // Orange
-              textColor: "#C42F05"
+              textColor: "#C42F05" // Text orange
             },
             {
               title: "Burping cows",
