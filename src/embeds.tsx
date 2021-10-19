@@ -82,25 +82,7 @@ interface EmbedSwitcherProps {
 
 const EmbedSwitcher: React.FC<EmbedSwitcherProps> = ({ id }) => {
   const [userInputSerializedState, setUserInputSerializedState] = useState(
-    () => {
-      const initialState = "{}";
-
-      if (id === "results") {
-        localStorage.setItem(USER_INPUT_STATE_LOCAL_STORAGE_KEY, initialState);
-      }
-
-      return initialState;
-
-      // const _userInputSerializedState =
-      //   localStorage.getItem(USER_INPUT_STATE_LOCAL_STORAGE_KEY) || "{}";
-
-      // localStorage.setItem(
-      //   USER_INPUT_STATE_LOCAL_STORAGE_KEY,
-      //   _userInputSerializedState
-      // );
-
-      // return _userInputSerializedState;
-    }
+    "{}"
   );
   const userInputState = JSON.parse(userInputSerializedState);
 
@@ -138,12 +120,21 @@ const EmbedSwitcher: React.FC<EmbedSwitcherProps> = ({ id }) => {
   };
 
   useEffect(() => {
-    // Always clear localStorage when the results component first mounts
+    const clearPersistedUserInputState = () =>
+      localStorage.removeItem(USER_INPUT_STATE_LOCAL_STORAGE_KEY);
+
     if (id === "results") {
-      setTimeout(() => {
-        updateSerializePersistAndSetUserInputState(() => ({}));
-      }, 500);
+      window.addEventListener("beforeunload", clearPersistedUserInputState);
     }
+
+    return () => {
+      if (id === "results") {
+        window.removeEventListener(
+          "beforeunload",
+          clearPersistedUserInputState
+        );
+      }
+    };
   }, []);
 
   // const {
