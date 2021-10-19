@@ -12,6 +12,7 @@ const Bar = ({
   index = 0,
   greyedOut = false,
   label,
+  tickState, // "tick", "cross", "none"
   ...props
 }) => {
   const NUMBER_OF_VARIATIONS = 4;
@@ -120,6 +121,7 @@ const BarChart: React.FC<BarChartProps> = ({
           index={index}
           greyedOut={bar.greyedOut}
           label={bar.label}
+          tickState={bar.tickState}
         />
       ))}
     </div>

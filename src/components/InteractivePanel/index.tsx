@@ -342,6 +342,12 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
             return false;
         };
 
+        const tickState = (userInputState: string | undefined) => {
+          if (userInputState === "hopeful") return "tick";
+          if (userInputState === "doubtful") return "cross";
+          return "none";
+        };
+
         setPanelText(
           <>
             <p>Personal results.</p>
@@ -352,28 +358,40 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                   percent: 33,
                   color: "#F65C1B", // Orange
                   textColor: "#C42F05", // Text orange
-                  greyedOut: isGreyedOut("SUBQ1-renewables-zero-carbon")
+                  greyedOut: isGreyedOut("SUBQ1-renewables-zero-carbon"),
+                  tickState: tickState(
+                    userInputState["SUBQ1-renewables-zero-carbon"]
+                  )
                 },
                 {
                   title: "Burping cows",
                   percent: 10,
                   color: "#007B52", // Green
                   textColor: "#007B52",
-                  greyedOut: isGreyedOut("SUBQ2-livestock-emissions")
+                  greyedOut: isGreyedOut("SUBQ2-livestock-emissions"),
+                  tickState: tickState(
+                    userInputState["SUBQ2-livestock-emissions"]
+                  )
                 },
                 {
                   title: "Transport",
                   percent: 20,
                   color: "#007CBF", // Light blue
                   textColor: "#007CBF",
-                  greyedOut: isGreyedOut("SUBQ3-transportation-off-fossil")
+                  greyedOut: isGreyedOut("SUBQ3-transportation-off-fossil"),
+                  tickState: tickState(
+                    userInputState["SUBQ3-transportation-off-fossil"]
+                  )
                 },
                 {
                   title: "Industry",
                   percent: 40,
                   color: "#2A4059", // Dark blue
                   textColor: "#2A4059",
-                  greyedOut: isGreyedOut("SUBQ4-industry-emissions")
+                  greyedOut: isGreyedOut("SUBQ4-industry-emissions"),
+                  tickState: tickState(
+                    userInputState["SUBQ4-industry-emissions"]
+                  )
                 }
                 // {
                 //   title: "Carbon capture",
