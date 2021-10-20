@@ -681,7 +681,9 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       if (openingCentered) {
         if (isPastOpening) setMainTangleXPos(-0.25);
         if (!isPastOpening) setMainTangleXPos(0.0);
-      } else setMainTangleXPos(-0.25);
+      } else {
+        setMainTangleXPos(-0.25);
+      }
       setIsDesktop(true);
     } else {
       setIsDesktop(false);

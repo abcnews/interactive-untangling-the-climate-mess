@@ -9,7 +9,7 @@ import throttle from "lodash.throttle";
 
 const throttledGsapTo = throttle(gsap.to, 5);
 
-import untangleAnimation from "./assets/untangle-final-2.svg";
+import untangleAnimation from "./assets/untangle-final-3.svg";
 
 const PLAY_RATE = 1.0;
 const FAST_SKIP_INCREASE = 1.0;
@@ -83,7 +83,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
   const initSvg = () => {
     (window as any).ks = (document as any).ks = KeyshapeJS;
 
-    import("./assets/untangle-final-2").then(({ animate }) => {
+    import("./assets/untangle-final-3").then(({ animate }) => {
       // Set up the animations and return a timeline
       component.timeline = animate();
       const timeline = component.timeline;
@@ -250,7 +250,6 @@ const MainTangle: React.FC<MainTangleProps> = ({
           onLoad={initSvg}
           uniqueHash={"maintangle"}
           uniquifyIDs={true}
-          // style={{WebkitMaskPosition: `0 ${maskPosition}vh`}}
         />
       </div>
     </div>
