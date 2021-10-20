@@ -13,6 +13,10 @@ import untangleAnimation from "./assets/untangle-final-3.svg";
 
 const PLAY_RATE = 1.0;
 const FAST_SKIP_INCREASE = 1.0;
+const POS_ON_MOBILE = true;
+const TOP_DOCK_POSITION = 0.02;
+const HIDE_TOP = -0.08;
+const MID_POINT = 0.08;
 
 const lookupRange = (marker: string) => {
   if (marker === "1" || marker === "initial")
@@ -158,19 +162,47 @@ const MainTangle: React.FC<MainTangleProps> = ({
 
         const endTime = markers[playloop.end];
 
-        const doPosition = scrollMarker => {
-          if (window.innerWidth < 1200) {
-            const tanglePosition = scrollMarker === 3 ? 0.1 : -0.1;
+        if (POS_ON_MOBILE && window.innerWidth < 1200) {
+          const tanglePosition = {
+            intial: TOP_DOCK_POSITION,
+            2: HIDE_TOP,
+            3: MID_POINT,
+            4: HIDE_TOP,
+            5: HIDE_TOP,
+            6: HIDE_TOP,
+            7: HIDE_TOP,
+            8: HIDE_TOP,
+            9: MID_POINT,
+            10: HIDE_TOP,
+            11: HIDE_TOP,
+            12: HIDE_TOP,
+            13: HIDE_TOP,
+            14: MID_POINT,
+            15: HIDE_TOP,
+            16: HIDE_TOP,
+            17: MID_POINT,
+            18: HIDE_TOP,
+            19: HIDE_TOP
+          };
 
-            gsap.to(mainEl.current, {
-              y: tanglePosition * window.innerHeight,
-              ease: "power3.inOut",
-              duration: 2
-            });
+          const posY = tanglePosition[scrollMarker];
+
+          if (typeof prevScrollMarker !== "undefined") {
+            const prevPosY = tanglePosition[prevScrollMarker || 0];
+
+            // Uncomment/comment if we want to async the gsap animation
+            // to wait until it finishes, or not
+            if (posY !== prevPosY) {
+              await gsap.to(mainEl.current, {
+                y:
+                  posY * window.innerHeight ||
+                  TOP_DOCK_POSITION * window.innerHeight,
+                ease: "power3.out",
+                duration: 0.5
+              });
+            }
           }
-        };
-
-        doPosition(scrollMarker);
+        }
 
         // If going forward
         if (currentTime < endTime) {
