@@ -29,30 +29,25 @@ const rIC =
     );
   };
 
-const QUESTION_USER_INPUT_BOX_CONFIGS = {
-  tier1: {
+const QUESTION_CONFIGS = {
+  mainq1: {
     color: "#2A4059",
-    key: "MAINQ1",
     slug: "can-we-still-save-the-world"
   },
-  zerocarbon: {
+  subq1: {
     color: "#F65C1B",
-    key: "SUBQ1",
     slug: "renewables-zero-carbon"
   },
-  livestockemissions: {
+  subq2: {
     color: "#007B52",
-    key: "SUBQ2",
     slug: "livestock-emissions"
   },
-  fossiltransport: {
+  subq3: {
     color: "#007cbf",
-    key: "SUBQ3",
     slug: "transportation-off-fossil"
   },
-  industryemissions: {
+  subq4: {
     color: "#2A4059",
-    key: "SUBQ4",
     slug: "industry-emissions"
   }
 };
@@ -161,12 +156,15 @@ const EmbedSwitcher: React.FC<EmbedSwitcherProps> = ({ id }) => {
   let component: JSX.Element | null = null;
 
   switch (id) {
-    case "tier1":
-    case "zerocarbon":
-    case "livestockemissions":
-    case "fossiltransport":
-    case "industryemissions":
-      const { color, key, slug } = QUESTION_USER_INPUT_BOX_CONFIGS[id];
+    case "mainq1":
+    case "subq1":
+    case "subq2":
+    case "subq3":
+    case "subq4":
+      const key = id.toUpperCase();
+      const { color, slug } = QUESTION_CONFIGS[id];
+      const optimisticText = dynamicText[`${key}-optimistic`];
+      const pessimisticText = dynamicText[`${key}-pessimistic`];
 
       component = (
         <UserInputBox
@@ -175,51 +173,39 @@ const EmbedSwitcher: React.FC<EmbedSwitcherProps> = ({ id }) => {
           preTitle={<DynText>{dynamicText[`${key}-pre-title`]}</DynText>}
           title={<DynText>{dynamicText[`${key}-title`]}</DynText>}
           buttons={
-            key.indexOf("MAIN") === 0
+            id.indexOf("mainq") === 0
               ? [
                   {
                     label: "Of course we can",
                     value: "certain",
-                    response: (
-                      <DynText>{dynamicText[`${key}-optimistic`]}</DynText>
-                    )
+                    response: <DynText>{optimisticText}</DynText>
                   },
                   {
                     label: "Yes I think we can",
                     value: "hopeful",
-                    response: (
-                      <DynText>{dynamicText[`${key}-optimistic`]}</DynText>
-                    )
+                    response: <DynText>{optimisticText}</DynText>
                   },
                   {
                     label: "Probably not",
                     value: "doubtful",
-                    response: (
-                      <DynText>{dynamicText[`${key}-pessimistic`]}</DynText>
-                    )
+                    response: <DynText>{pessimisticText}</DynText>
                   },
                   {
                     label: "No way we're screwed",
                     value: "impossible",
-                    response: (
-                      <DynText>{dynamicText[`${key}-pessimistic`]}</DynText>
-                    )
+                    response: <DynText>{pessimisticText}</DynText>
                   }
                 ]
               : [
                   {
                     label: "It can be done",
                     value: "hopeful",
-                    response: (
-                      <DynText>{dynamicText[`${key}-optimistic`]}</DynText>
-                    )
+                    response: <DynText>{optimisticText}</DynText>
                   },
                   {
                     label: "This sounds like a stretch",
                     value: "doubtful",
-                    response: (
-                      <DynText>{dynamicText[`${key}-pessimistic`]}</DynText>
-                    )
+                    response: <DynText>{pessimisticText}</DynText>
                   }
                 ]
           }

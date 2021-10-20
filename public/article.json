@@ -17,27 +17,27 @@
     },
     {
       "role": "embed",
-      "URL": "bundle://tier1.html",
+      "URL": "bundle://mainq1.html",
       "layout": "embedLayout"
     },
     {
       "role": "embed",
-      "URL": "bundle://zerocarbon.html",
+      "URL": "bundle://subq1.html",
       "layout": "embedLayout"
     },
     {
       "role": "embed",
-      "URL": "bundle://livestockemissions.html",
+      "URL": "bundle://subq2.html",
       "layout": "embedLayout"
     },
     {
       "role": "embed",
-      "URL": "bundle://fossiltransport.html",
+      "URL": "bundle://subq3.html",
       "layout": "embedLayout"
     },
     {
       "role": "embed",
-      "URL": "bundle://industryemissions.html",
+      "URL": "bundle://subq4.html",
       "layout": "embedLayout"
     },
     {

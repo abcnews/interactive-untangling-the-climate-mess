@@ -9,7 +9,13 @@ const [COMMAND, ...ARGS] = COMMAND_AND_ARGS;
 const ENV = { NODE_ENV: "production", IS_FOR_APPLE_NEWS: "yes" };
 const PROJECT_PATH = join(__dirname, "..");
 const BUILD_PATH = join(PROJECT_PATH, ".build");
-const GLOBS_TO_DELETE = ["embeds.html", "index.html", "keyshape.min.js"];
+const GLOBS_TO_DELETE = [
+  "dynamic-text.json",
+  "embeds.html",
+  "embeds.js.LICENSE.txt",
+  "index.html",
+  "keyshape.min.js"
+];
 
 const build = async () => {
   console.log("Building for Apple");
