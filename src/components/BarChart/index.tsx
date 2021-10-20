@@ -29,6 +29,62 @@ const Icon = ({ color = "pink", iconType, ...props }) => {
     );
   }
 
+  if (iconType === "cross") {
+    return (
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ marginLeft: spacing }}
+      >
+        <path
+          d="M3.26855 13.5909C3.61352 11.6591 8.99989 3.5 13.9999 2"
+          stroke={color}
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M14 14.5C11 12 7 5.5 2 2.5"
+          stroke={color}
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
+  if (iconType === "none") {
+    return (
+      <svg
+        width="11"
+        height="20"
+        viewBox="0 0 11 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ marginLeft: spacing, position: "relative", top: "2.3px" }}
+      >
+        <path
+          d="M2.25057 4.90363C2.60784 3.97044 4.00003 1.99998 5.40355 1.99998C6.80704 1.99999 9.49995 2.00002 9.02885 6.47099C8.56922 8.88646 5.45606 7.93334 4.98733 10.3966C4.80348 11.3628 4.97511 12.3112 5.40345 12.8933"
+          stroke={color}
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle
+          cx="5.75396"
+          cy="17.7543"
+          r="1.5"
+          transform="rotate(10.7736 5.75396 17.7543)"
+          fill={color}
+        />
+      </svg>
+    );
+  }
+
   return <span></span>;
 };
 
