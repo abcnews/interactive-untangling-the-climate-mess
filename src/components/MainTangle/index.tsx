@@ -49,7 +49,7 @@ const lookupRange = (marker: string) => {
 
 interface MainTangleProps {
   animationFrame?: number;
-  scrollMarker?: string;
+  scrollMarker?: string | number;
   yOffset?: number;
   setBackgroundIsRendered?: any;
   opacity: number;
@@ -136,85 +136,105 @@ const MainTangle: React.FC<MainTangleProps> = ({
 
   // Do something when scrollMarker changes
   useEffect(() => {
-    // Note animationFrames sent before rendered
-    // will not be reflected in graphic
-    if (!props.scrollMarker || !timeline) return;
+    const onScrollMarkerChange = async () => {
+      // Note animationFrames sent before rendered
+      // will not be reflected in graphic
+      if (!props.scrollMarker || !timeline) return;
 
-    if (typeof prevScrollMarker === "undefined") {
-      // If reloaded or hot reloaded
-      loadDownPage();
-    } else {
-      // Speeds up animations if user is scrolling quickly
-      component.pressure = component.pressure + FAST_SKIP_INCREASE;
-
-      const { scrollMarker }: { scrollMarker?: string } = props;
-
-      const currentTime = timeline.time();
-      // const markerTime = markers[scrollMarker];
-
-      // Coerce type as string here as it doesn't check for some reason
-      const playloop = lookupRange(scrollMarker + "");
-
-      const endTime = markers[playloop.end];
-
-      // If going forward
-      if (currentTime < endTime) {
-        // Speed up if over 2 transitions (over 2 to prevent speeding up on quick backtrack)
-        // Pushed it back to over 1 for now as it wasn't what was causing
-        // the speed up at the bottom, but rather a build up of pressure
-        // and no release... much like life.
-        timeline.rate(
-          component.pressure > 1 ? PLAY_RATE * component.pressure : PLAY_RATE
-        );
-        timeline.loop(false);
-        timeline.range(currentTime, playloop.end);
-        timeline.time(currentTime);
-        timeline.play();
-        timeline.onfinish = function () {
-          // Under pressure? Take the pressure off
-          component.pressure = 0;
-          timeline.rate(PLAY_RATE);
-
-          if (!playloop.loopback) {
-            this.pause();
-            return;
-          }
-
-          this.loop(true);
-          this.range(playloop.loopback, playloop.end);
-          timeline.time(playloop.loopback); // Don't you, forget about me
-          this.play();
-        };
-      }
-
-      // If scrolling back up
-      else if (currentTime > endTime) {
-        timeline.rate(
-          component.pressure > 1 ? -PLAY_RATE * component.pressure : -PLAY_RATE
-        );
-        timeline.loop(false);
-        timeline.range(playloop.loopback, currentTime);
-        timeline.time(currentTime);
-        timeline.play();
-        timeline.onfinish = function () {
-          component.pressure = 0;
-          // Keep looping backwards to avoid loop weirdness
-          timeline.rate(-PLAY_RATE);
-
-          if (!playloop.loopback) {
-            this.pause();
-            return;
-          }
-
-          this.loop(true);
-          this.range(playloop.loopback, playloop.end);
-          timeline.time(playloop.end);
-          this.play();
-        };
+      if (typeof prevScrollMarker === "undefined") {
+        // If reloaded or hot reloaded
+        loadDownPage();
       } else {
-        component.pressure = 0;
+        // Speeds up animations if user is scrolling quickly
+        component.pressure = component.pressure + FAST_SKIP_INCREASE;
+
+        const { scrollMarker } = props;
+
+        const currentTime = timeline.time();
+        // const markerTime = markers[scrollMarker];
+
+        // Coerce type as string here as it doesn't check for some reason
+        const playloop = lookupRange(scrollMarker + "");
+
+        const endTime = markers[playloop.end];
+
+        const doPosition = scrollMarker => {
+          if (window.innerWidth < 1200) {
+            const tanglePosition = scrollMarker === 3 ? 0.1 : -0.1;
+
+            gsap.to(mainEl.current, {
+              y: tanglePosition * window.innerHeight,
+              ease: "power3.inOut",
+              duration: 2
+            });
+          }
+        };
+
+        doPosition(scrollMarker);
+
+        // If going forward
+        if (currentTime < endTime) {
+          // Speed up if over 2 transitions (over 2 to prevent speeding up on quick backtrack)
+          // Pushed it back to over 1 for now as it wasn't what was causing
+          // the speed up at the bottom, but rather a build up of pressure
+          // and no release... much like life.
+          timeline.rate(
+            component.pressure > 1 ? PLAY_RATE * component.pressure : PLAY_RATE
+          );
+
+          timeline.loop(false);
+          timeline.range(currentTime, playloop.end);
+          timeline.time(currentTime);
+          timeline.play();
+          timeline.onfinish = function () {
+            // Under pressure? Take the pressure off
+            component.pressure = 0;
+            timeline.rate(PLAY_RATE);
+
+            if (!playloop.loopback) {
+              this.pause();
+              return;
+            }
+
+            this.loop(true);
+            this.range(playloop.loopback, playloop.end);
+            timeline.time(playloop.loopback); // Don't you, forget about me
+            this.play();
+          };
+        }
+
+        // If scrolling back up
+        else if (currentTime > endTime) {
+          timeline.rate(
+            component.pressure > 1
+              ? -PLAY_RATE * component.pressure
+              : -PLAY_RATE
+          );
+          timeline.loop(false);
+          timeline.range(playloop.loopback, currentTime);
+          timeline.time(currentTime);
+          timeline.play();
+          timeline.onfinish = function () {
+            component.pressure = 0;
+            // Keep looping backwards to avoid loop weirdness
+            timeline.rate(-PLAY_RATE);
+
+            if (!playloop.loopback) {
+              this.pause();
+              return;
+            }
+
+            this.loop(true);
+            this.range(playloop.loopback, playloop.end);
+            timeline.time(playloop.end);
+            this.play();
+          };
+        } else {
+          component.pressure = 0;
+        }
       }
-    }
+    };
+    onScrollMarkerChange();
   }, [props.scrollMarker]);
 
   useEffect(() => {

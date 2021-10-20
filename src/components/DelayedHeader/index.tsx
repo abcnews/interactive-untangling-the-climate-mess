@@ -37,7 +37,6 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
     if (typeof entry === "undefined") return;
     const marker: any = entry.target;
     const bounds = marker.getBoundingClientRect();
-    console.log(bounds.bottom);
     if (bounds.bottom > 0) setIsPastOpening(false);
     else setIsPastOpening(true);
   }, [entry]);
