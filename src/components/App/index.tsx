@@ -601,6 +601,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       // Hide main tangle for performance sake
       // after a certain point
       setEndTangleOpacity(0.0);
+      setMainTangleOpacity(1.0);
     }
 
     // Primarily for scrolling back up. We un-hide the main tangle

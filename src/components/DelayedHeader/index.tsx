@@ -37,6 +37,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
     if (typeof entry === "undefined") return;
     const marker: any = entry.target;
     const bounds = marker.getBoundingClientRect();
+    console.log(bounds.bottom);
     if (bounds.bottom > 0) setIsPastOpening(false);
     else setIsPastOpening(true);
   }, [entry]);
@@ -146,12 +147,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
           isCentered={true}
           pullLeftOnDesktop={false}
         >
-          <div
-            ref={lastPanelRef}
-            id="visualKEY2"
-            data-component="Anchor"
-            data-mount="true"
-          >
+          <div ref={lastPanelRef}>
             {convert(contentArray[2])}
             {/* <p>
             What if Australia could get to net zero and actually… improve our
@@ -160,6 +156,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
           </div>
         </OrganicPanel>
       </div>
+      <div id="visualKEY2" data-component="Anchor" data-mount="true"></div>
     </div>
   );
 };
