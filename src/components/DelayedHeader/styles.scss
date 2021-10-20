@@ -3,15 +3,20 @@
 .root {
   min-height: 90vh;
   text-align: center;
-  padding-top: 30vh;
+  // padding-top: 30vh;
   max-width: 650px;
   margin: auto;
 
+  .hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    margin-bottom: 40vh;
+  }
+
   .hero-text {
-    margin-bottom: 65vh;
     font-size: 28px;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
     font-weight: 700;
     line-height: 1.4;
     color: #2a4059;
@@ -25,7 +30,7 @@
       max-width: 650px;
       margin-left: 0;
       margin-right: 0;
-      margin-bottom: 45vh;
+      margin-bottom: 42.5vh;
     }
 
     @include for-desktop-up {
@@ -39,14 +44,14 @@
   }
 
   .panel {
-    padding-top: 45vh !important;
-    padding-bottom: 45vh !important;
+    padding-top: 42.5vh !important;
+    padding-bottom: 42.5vh !important;
 
     .panel:last-of-type {
       padding-bottom: 75vh !important;
 
       @include for-desktop-up {
-        padding-bottom: 45vh !important;
+        padding-bottom: 42.5vh !important;
       }
     }
 

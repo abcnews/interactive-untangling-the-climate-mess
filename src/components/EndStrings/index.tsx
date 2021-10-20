@@ -10,23 +10,23 @@ import endString1 from "./assets/end-string-1.svg";
 import endString2 from "./assets/end-string-2.svg";
 import endString3 from "./assets/end-string-3.svg";
 import endString4 from "./assets/end-string-4.svg";
-import endString5 from "./assets/end-string-5.svg";
+// import endString5 from "./assets/end-string-5.svg";
 
 // Put them in an array
-const endStrings = [endString1, endString2, endString3, endString4, endString5];
+const endStrings = [endString1, endString2, endString3, endString4];
 
 import string1Animation from "./assets/end-string-1";
 import string2Animation from "./assets/end-string-2";
 import string3Animation from "./assets/end-string-3";
 import string4Animation from "./assets/end-string-4";
-import string5Animation from "./assets/end-string-5";
+// import string5Animation from "./assets/end-string-5";
 
 const stringAnimations = {
   renewables: string1Animation,
-  transportation: string2Animation,
-  carboncapture: string3Animation,
+  livestock: string2Animation,
+  transportation: string3Animation,
   industry: string4Animation,
-  livestock: string5Animation
+  // livestock: string5Animation
 };
 
 const PLAY_RATE = 1.0;
@@ -53,7 +53,7 @@ const EndStrings: React.FC<EndStringsProps> = ({
   const [strings, setStrings] = useState({
     renewables: 0,
     transportation: 0,
-    carboncapture: 0,
+    // carboncapture: 0,
     industry: 0,
     livestock: 0
   });
@@ -64,9 +64,9 @@ const EndStrings: React.FC<EndStringsProps> = ({
     // So we can load up all the animations
     let animationNumber: string = "renewables";
     if (iteration === 1) animationNumber = "transportation";
-    if (iteration === 2) animationNumber = "carboncapture";
-    if (iteration === 3) animationNumber = "industry";
-    if (iteration === 4) {
+    // if (iteration === 2) animationNumber = "carboncapture";
+    if (iteration === 2) animationNumber = "industry";
+    if (iteration === 3) {
       animationNumber = "livestock";
 
       setAllLoaded(true);

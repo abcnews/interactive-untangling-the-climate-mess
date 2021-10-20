@@ -126,14 +126,14 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const [userStrings, setUserStrings] = useState({
     renewables: 1,
     transportation: 1,
-    carboncapture: 1,
+    // carboncapture: 1,
     industry: 1,
     livestock: 1
   });
   const [australiaStrings, setAustraliaStrings] = useState({
     renewables: 1,
     transportation: 1,
-    carboncapture: 1,
+    // carboncapture: 1,
     industry: 1,
     livestock: 1
   });
@@ -281,7 +281,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         "SUBQ3-transportation-off-fossil"
       );
       pollTotals.industry = getAustraliaConvinced("SUBQ4-industry-emissions");
-      pollTotals.carboncapture = getAustraliaConvinced("SUBQ5-carbon-capture");
+      // pollTotals.carboncapture = getAustraliaConvinced("SUBQ5-carbon-capture");
 
       setAustraliaStrings(pollTotals);
 
@@ -326,9 +326,9 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       setIndustryConvinced(
         getPercentageConvinced("SUBQ4-industry-emissions", values)
       );
-      setCarbonCaptureConvinced(
-        getPercentageConvinced("SUBQ5-carbon-capture", values)
-      );
+      // setCarbonCaptureConvinced(
+      //   getPercentageConvinced("SUBQ5-carbon-capture", values)
+      // );
     });
 
     // document.addEventListener("scroll", onScrollUpdate);
@@ -494,18 +494,18 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     }
 
     // Check if SUBQ5-carbon-capture yes or no
-    if (userInputState["SUBQ5-carbon-capture"]) {
-      switch (userInputState["SUBQ5-carbon-capture"]) {
-        case "certain":
-        case "hopeful":
-          nextUserStrings.carboncapture = 0;
-          break;
-        case "doubtful":
-        case "impossible":
-          nextUserStrings.carboncapture = 1;
-          break;
-      }
-    }
+    // if (userInputState["SUBQ5-carbon-capture"]) {
+    //   switch (userInputState["SUBQ5-carbon-capture"]) {
+    //     case "certain":
+    //     case "hopeful":
+    //       nextUserStrings.carboncapture = 0;
+    //       break;
+    //     case "doubtful":
+    //     case "impossible":
+    //       nextUserStrings.carboncapture = 1;
+    //       break;
+    //   }
+    // }
 
     setUserStrings(nextUserStrings);
 
@@ -602,7 +602,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     //   setMainTangleYPos(markerConfig[marker]);
     // }
 
-    if (marker === 18) {
+    if (marker === 19) {
       // Hide main tangle for performance sake
       // after a certain point
       setEndTangleOpacity(0.0);
@@ -610,12 +610,12 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
     // Primarily for scrolling back up. We un-hide the main tangle
     // And hide the end tangle.
-    if (marker === 19) {
+    if (marker === 20) {
       setMainTangleOpacity(1.0);
       setEndStrings({
         renewables: 0,
         transportation: 0,
-        carboncapture: 0,
+        // carboncapture: 0,
         industry: 0,
         livestock: 0
       });
@@ -632,17 +632,18 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       setEndStrings({
         renewables: 0,
         transportation: 0,
-        carboncapture: 0,
+        // carboncapture: 0,
         industry: 0,
         livestock: 0
       });
     }
 
     if (marker === "endallstrings") {
+      setMainTangleOpacity(1.0);
       setEndStrings({
         renewables: 1,
         transportation: 1,
-        carboncapture: 1,
+        // carboncapture: 1,
         industry: 1,
         livestock: 1
       });
@@ -800,7 +801,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               response: <DynText>{dynamicText["MAINQ1-pessimistic"]}</DynText>
             },
             {
-              label: "No way we're screwed",
+              label: "We've got no chance",
               value: "impossible",
               response: <DynText>{dynamicText["MAINQ1-pessimistic"]}</DynText>
             }
@@ -985,7 +986,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         />
       </Portal> */}
 
-      {/* PLEASE KEEP JUST IN CASE WE WANT TO PUT BACK IN */}
+      {/* KEEP JUST IN CASE WE WANT TO PUT BACK IN */}
       {/* <Portal node={document && document.getElementById("inputtier1again")}>
         <UserInputBox
           color={"#2A4059"}
@@ -1028,25 +1029,25 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               {
                 title: "Energy",
                 percent: 33,
-                color: "#F65C1B",
-                textColor: "#C42F05"
+                color: "#F65C1B", // Orange
+                textColor: "#C42F05" // Text orange
               },
               {
                 title: "Burping cows",
                 percent: 10,
-                color: "#007B52", //"#2A4059",
-                textColor: "#007B52" //"#2A4059"
+                color: "#007B52", // Green
+                textColor: "#007B52"
               },
               {
                 title: "Transport",
                 percent: 20,
-                color: "#007CBF", //#007B52",
-                textColor: "#007CBF" //"#007B52"
+                color: "#007CBF", // Light blue
+                textColor: "#007CBF"
               },
               {
                 title: "Industry",
                 percent: 40,
-                color: "#2A4059", //"#F65C1B",
+                color: "#2A4059", // Dark blue
                 textColor: "#2A4059"
               }
             ]}
@@ -1060,26 +1061,26 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             {
               title: "Energy",
               percent: energyConvinced,
-              color: "#A3297C",
-              textColor: "#A3297C"
+              color: "#F65C1B", // Orange
+              textColor: "#C42F05" // Text orange
             },
             {
               title: "Burping cows",
               percent: livestockConvinced,
-              color: "#F65C1B",
-              textColor: "#C42F05"
+              color: "#007B52", // Green
+              textColor: "#007B52"
             },
             {
               title: "Transport",
               percent: transportConvinced,
-              color: "#007CBF",
+              color: "#007CBF", // Light blue
               textColor: "#007CBF"
             },
             {
               title: "Industry",
               percent: industryConvinced,
-              color: "#007B52",
-              textColor: "#007B52"
+              color: "#2A4059", // Dark blue
+              textColor: "#2A4059"
             }
             // {
             //   title: "Carbon capture",

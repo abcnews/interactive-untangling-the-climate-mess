@@ -3,6 +3,8 @@ import DynText from "../DynText";
 import styles from "./styles.scss";
 import BarChart from "../BarChart";
 
+// NOTE: Now that these aren't standalone panels, the backgrounds probably
+// aren't needed here.
 import background from "../OrganicPanel/organic-panel-background-variation-1.svg";
 import background2 from "../OrganicPanel/organic-panel-background-variation-2.svg";
 import background3 from "../OrganicPanel/organic-panel-background-variation-3.svg";
@@ -98,8 +100,6 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     const main1State = getMain1State(
       userInputState["MAINQ1-can-we-still-save-the-world"]
     );
-
-    console.log(main1State);
 
     const main2Positive =
       userInputState[
@@ -324,7 +324,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "yesMAIN1someSUBnoMAIN2" ||
           questionCompleteness === "yesMAIN1allSUBnoMAIN2";
 
-        // IRREGARLESS :) hide if all nope
+        // Hide if all nope
         if (subQuestionsConvinvedOf === 0) shouldShow = false;
 
         const isGreyedOut = (key: string) => {
@@ -341,6 +341,12 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
             return false;
         };
 
+        const tickState = (userInputState: string | undefined) => {
+          if (userInputState === "hopeful") return "tick";
+          if (userInputState === "doubtful") return "cross";
+          return "none";
+        };
+
         setPanelText(
           <>
             <p>Personal results.</p>
@@ -349,30 +355,42 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                 {
                   title: "Energy",
                   percent: 33,
-                  color: "#A3297C",
-                  textColor: "#A3297C",
-                  greyedOut: isGreyedOut("SUBQ1-renewables-zero-carbon")
+                  color: "#F65C1B", // Orange
+                  textColor: "#C42F05", // Text orange
+                  // greyedOut: isGreyedOut("SUBQ1-renewables-zero-carbon"),
+                  tickState: tickState(
+                    userInputState["SUBQ1-renewables-zero-carbon"]
+                  )
                 },
                 {
                   title: "Burping cows",
                   percent: 10,
-                  color: "#F65C1B",
-                  textColor: "#C42F05",
-                  greyedOut: isGreyedOut("SUBQ2-livestock-emissions")
+                  color: "#007B52", // Green
+                  textColor: "#007B52",
+                  // greyedOut: isGreyedOut("SUBQ2-livestock-emissions"),
+                  tickState: tickState(
+                    userInputState["SUBQ2-livestock-emissions"]
+                  )
                 },
                 {
                   title: "Transport",
                   percent: 20,
-                  color: "#007CBF",
+                  color: "#007CBF", // Light blue
                   textColor: "#007CBF",
-                  greyedOut: isGreyedOut("SUBQ3-transportation-off-fossil")
+                  // greyedOut: isGreyedOut("SUBQ3-transportation-off-fossil"),
+                  tickState: tickState(
+                    userInputState["SUBQ3-transportation-off-fossil"]
+                  )
                 },
                 {
                   title: "Industry",
                   percent: 40,
-                  color: "#007B52",
-                  textColor: "#007B52",
-                  greyedOut: isGreyedOut("SUBQ4-industry-emissions")
+                  color: "#2A4059", // Dark blue
+                  textColor: "#2A4059",
+                  // greyedOut: isGreyedOut("SUBQ4-industry-emissions"),
+                  tickState: tickState(
+                    userInputState["SUBQ4-industry-emissions"]
+                  )
                 }
                 // {
                 //   title: "Carbon capture",
@@ -456,16 +474,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
       ref={rootRef}
       className={`${styles.root} ${hidden ? styles.hidden : ""}`}
     >
-      {/* Now handled by Core #panels */}
-      {/* <div className={styles.panelContentContainer}>
-        <div className={styles.background}>
-          <img
-            src={backgrounds[backgroundVariation]}
-            className={styles.stretch}
-          />
-        </div> */}
       {panelText}
-      {/* </div> */}
     </div>
   );
 };
