@@ -167,6 +167,7 @@ const EmbedSwitcher: React.FC<EmbedSwitcherProps> = ({ id }) => {
     case "fossiltransport":
     case "industryemissions":
       const { color, key, slug } = QUESTION_USER_INPUT_BOX_CONFIGS[id];
+
       component = (
         <UserInputBox
           color={color}
@@ -404,6 +405,8 @@ const UserResultsBox: React.FC<UserResultsBoxProps> = ({ userInputState }) => {
           convincedState={convincedState}
           subQuestionsConvinvedOf={subQuestionsConvinvedOf}
           australiaConvincedOf={0}
+          dynamicText={dynamicText}
+          dynamicTextLoading={false}
           userInputState={userInputState}
         />
       ))}

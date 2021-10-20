@@ -1151,6 +1151,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               convincedState={convincedState}
               subQuestionsConvinvedOf={subQuestionsConvinvedOf}
               australiaConvincedOf={australiaConvincedOf}
+              dynamicText={dynamicText}
+              dynamicTextLoading={dynamicTextLoading}
               userInputState={userInputState}
             />
           </Portal>
