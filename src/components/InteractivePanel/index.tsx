@@ -4,6 +4,8 @@ import DynText from "../DynText";
 import styles from "./styles.scss";
 import BarChart from "../BarChart";
 
+// NOTE: Now that these aren't standalone panels, the backgrounds probably
+// aren't needed here.
 import background from "../OrganicPanel/organic-panel-background-variation-1.svg";
 import background2 from "../OrganicPanel/organic-panel-background-variation-2.svg";
 import background3 from "../OrganicPanel/organic-panel-background-variation-3.svg";
@@ -358,7 +360,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                   percent: 33,
                   color: "#F65C1B", // Orange
                   textColor: "#C42F05", // Text orange
-                  greyedOut: isGreyedOut("SUBQ1-renewables-zero-carbon"),
+                  // greyedOut: isGreyedOut("SUBQ1-renewables-zero-carbon"),
                   tickState: tickState(
                     userInputState["SUBQ1-renewables-zero-carbon"]
                   )
@@ -368,7 +370,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                   percent: 10,
                   color: "#007B52", // Green
                   textColor: "#007B52",
-                  greyedOut: isGreyedOut("SUBQ2-livestock-emissions"),
+                  // greyedOut: isGreyedOut("SUBQ2-livestock-emissions"),
                   tickState: tickState(
                     userInputState["SUBQ2-livestock-emissions"]
                   )
@@ -378,7 +380,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                   percent: 20,
                   color: "#007CBF", // Light blue
                   textColor: "#007CBF",
-                  greyedOut: isGreyedOut("SUBQ3-transportation-off-fossil"),
+                  // greyedOut: isGreyedOut("SUBQ3-transportation-off-fossil"),
                   tickState: tickState(
                     userInputState["SUBQ3-transportation-off-fossil"]
                   )
@@ -388,7 +390,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                   percent: 40,
                   color: "#2A4059", // Dark blue
                   textColor: "#2A4059",
-                  greyedOut: isGreyedOut("SUBQ4-industry-emissions"),
+                  // greyedOut: isGreyedOut("SUBQ4-industry-emissions"),
                   tickState: tickState(
                     userInputState["SUBQ4-industry-emissions"]
                   )
