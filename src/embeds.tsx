@@ -1,9 +1,14 @@
 import "regenerator-runtime/runtime.js";
+import {
+  createStore,
+  del as idbDelete,
+  get as idbGet,
+  set as idbSet
+} from "idb-keyval";
 import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 import DYNAMIC_TEXT_DATA from "../public/dynamic-text.json";
 import { initAppleNews } from "./lib/apple-news";
-// import { useDynamicText } from "./lib/react-apple-news";
 import DynText from "./components/DynText";
 import Embed from "./components/Embed";
 import InteractivePanel from "./components/InteractivePanel";
@@ -52,13 +57,18 @@ const QUESTION_USER_INPUT_BOX_CONFIGS = {
   }
 };
 const PROJECT_NAME = "interactive-untangling-the-climate-mess";
-const USER_INPUT_STATE_LOCAL_STORAGE_KEY = `${PROJECT_NAME}__user-input-state`;
+const USER_INPUT_STATE_PERSISTENCE_KEY = `${PROJECT_NAME}__user-input-state`;
 const INTERACTIVE_PANEL_KEYS = [
   "didntanswer",
   "incompletefallback",
   "level3answer",
   "personalresults"
 ];
+
+const idbKeyvalStore = createStore(
+  `${PROJECT_NAME}-db-${Math.floor(Date.now() / 1e4)}`,
+  `${PROJECT_NAME}-store`
+);
 
 const dynamicText = {};
 
@@ -89,9 +99,10 @@ const EmbedSwitcher: React.FC<EmbedSwitcherProps> = ({ id }) => {
   useEffect(() => {
     let hasEnded = false;
 
-    rIC(function poll() {
-      const _userInputSerializedState = localStorage.getItem(
-        USER_INPUT_STATE_LOCAL_STORAGE_KEY
+    rIC(async function poll() {
+      const _userInputSerializedState = await idbGet<string>(
+        USER_INPUT_STATE_PERSISTENCE_KEY,
+        idbKeyvalStore
       );
 
       if (userInputSerializedState !== _userInputSerializedState) {
@@ -108,20 +119,21 @@ const EmbedSwitcher: React.FC<EmbedSwitcherProps> = ({ id }) => {
     };
   }, [userInputState]);
 
-  const updateSerializePersistAndSetUserInputState = fn => {
+  const updateSerializePersistAndSetUserInputState = async fn => {
     const nextUserInputState = fn(userInputState);
     const nextUserInputSerializedState = JSON.stringify(nextUserInputState);
 
-    localStorage.setItem(
-      USER_INPUT_STATE_LOCAL_STORAGE_KEY,
-      nextUserInputSerializedState
+    await idbSet(
+      USER_INPUT_STATE_PERSISTENCE_KEY,
+      nextUserInputSerializedState,
+      idbKeyvalStore
     );
     setUserInputSerializedState(nextUserInputSerializedState);
   };
 
   useEffect(() => {
     const clearPersistedUserInputState = () =>
-      localStorage.removeItem(USER_INPUT_STATE_LOCAL_STORAGE_KEY);
+      idbDelete(USER_INPUT_STATE_PERSISTENCE_KEY, idbKeyvalStore);
 
     if (id === "results") {
       window.addEventListener("beforeunload", clearPersistedUserInputState);
@@ -136,13 +148,6 @@ const EmbedSwitcher: React.FC<EmbedSwitcherProps> = ({ id }) => {
       }
     };
   }, []);
-
-  // const {
-  //   dynamicText,
-  //   dynamicTextLoading,
-  //   dynamicTextError
-  // } = useDynamicText();
-
   const userInputBoxCommonProps = {
     userInputState,
     setUserInputState: updateSerializePersistAndSetUserInputState,
