@@ -12,35 +12,6 @@ declare var Modernizr: any; // Seems to affect __ODYSSEY__ for some reason
 declare var module: any;
 declare var __webpack_public_path__: any;
 
-// Setup Odyssey types to stop TypeScript from complaining
-export type OdysseySchedulerClient = {
-  hasChanged: boolean;
-  fixedHeight: number;
-};
-
-export type OdysseySchedulerSubscriber = (
-  client: OdysseySchedulerClient
-) => void;
-
-type OdysseyAPI = {
-  scheduler: {
-    subscribe: (subscriber: OdysseySchedulerSubscriber) => void;
-    unsubscribe: (subscriber: OdysseySchedulerSubscriber) => void;
-    enqueue: (subscriber: OdysseySchedulerSubscriber) => void;
-  };
-  utils: {
-    dom: {
-      detach: (el: Element) => void;
-    };
-  };
-};
-
-declare global {
-  interface Window {
-    __ODYSSEY__: OdysseyAPI;
-  }
-}
-
 const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
 
 function preInit() {

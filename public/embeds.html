@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Embeds</title>
+    <style>
+      iframe {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe
+      frameborder="0"
+      scrolling="no"
+      src="mainq1.html"
+      width="100%"
+    ></iframe>
+    <iframe
+      frameborder="0"
+      scrolling="no"
+      src="subq1.html"
+      width="100%"
+    ></iframe>
+    <iframe
+      frameborder="0"
+      scrolling="no"
+      src="subq2.html"
+      width="100%"
+    ></iframe>
+    <iframe
+      frameborder="0"
+      scrolling="no"
+      src="subq3.html"
+      width="100%"
+    ></iframe>
+    <iframe
+      frameborder="0"
+      scrolling="no"
+      src="subq4.html"
+      width="100%"
+    ></iframe>
+    <iframe
+      frameborder="0"
+      scrolling="no"
+      src="results.html"
+      width="100%"
+    ></iframe>
+
+    <script>
+      window.addEventListener("message", event => {
+        Array.from(document.querySelectorAll("iframe")).forEach(iframeEl => {
+          if (iframeEl.contentWindow === event.source) {
+            iframeEl.height = event.data.height;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
