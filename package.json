@@ -5,17 +5,16 @@
   "license": "MIT",
   "private": true,
   "contributors": [
-    "Joshua Byrd <phocks@gmail.com>"
+    "Joshua Byrd <phocks@gmail.com>",
+    "Colin Gourlay <gourlay.colin@abc.net.au>"
   ],
-  "aunty": {
-    "type": "react"
-  },
   "scripts": {
     "start": "aunty serve",
     "deploy": "aunty build && aunty deploy",
     "release": "aunty release",
     "test": "aunty test",
     "data": "node utils/dataDeploy.js",
+    "apple": "node utils/appleBuild.js",
     "predeploy": "npm run data",
     "prerelease": "npm run data"
   },
@@ -29,11 +28,13 @@
     "@abcnews/aunty": "^12.0.3",
     "@size-limit/preset-app": "^4.10.1",
     "@types/jest": "^26.0.19",
-    "@types/react": "^16.14.2",
-    "@types/react-dom": "^16.9.10",
-    "@types/react-test-renderer": "^16.9.4",
+    "@types/react": "^17.0.30",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-test-renderer": "^17.0.1",
     "@types/webpack-env": "^1.16.0",
-    "react-test-renderer": "^17.0.1"
+    "del": "^6.0.0",
+    "react-test-renderer": "^17.0.1",
+    "zip-a-folder": "^1.1.0"
   },
   "dependencies": {
     "@abcnews/alternating-case-to-object": "^2.0.1",
@@ -46,6 +47,7 @@
     "debounce-promise": "^3.1.2",
     "gsap": "^3.6.0",
     "html-react-parser": "^1.1.1",
+    "idb-keyval": "^6.0.3",
     "intersection-observer": "^0.11.0",
     "jankdefer": "^1.0.2",
     "lodash.throttle": "^4.1.1",

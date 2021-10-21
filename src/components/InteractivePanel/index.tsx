@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDynamicText } from "../../lib/fetchDynamicText";
 import DynText from "../DynText";
 import styles from "./styles.scss";
 import BarChart from "../BarChart";
@@ -18,6 +17,8 @@ type InteractivePanelProps = {
   convincedState;
   subQuestionsConvinvedOf: number;
   australiaConvincedOf: number;
+  dynamicText: Record<string, string>;
+  dynamicTextLoading: boolean;
   userInputState;
   backgroundVariation?: number;
 };
@@ -35,14 +36,10 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
     convincedState,
     subQuestionsConvinvedOf,
     australiaConvincedOf,
-    userInputState
-  } = props;
-
-  const {
     dynamicText,
     dynamicTextLoading,
-    dynamicTextError
-  } = useDynamicText();
+    userInputState
+  } = props;
 
   const [hidden, setHidden] = useState(false);
   const [panelText, setPanelText] = useState(<p>...</p>);

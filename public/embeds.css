@@ -1,0 +1,41 @@
+@font-face {
+  font-family: "ABCSans";
+  font-style: normal;
+  font-weight: normal;
+  src: url("abcsans-regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "ABCSans";
+  font-style: normal;
+  font-weight: bold;
+  src: url("abcsans-bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "ABCSerif";
+  font-style: normal;
+  font-weight: normal;
+  src: url("abcserif-regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "ABCSerif";
+  font-style: normal;
+  font-weight: bold;
+  src: url("abcserif-bold.woff2") format("woff2");
+}
+
+html {
+  box-sizing: border-box;
+}
+
+html *,
+html *::before,
+html *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+}
