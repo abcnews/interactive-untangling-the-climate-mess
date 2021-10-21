@@ -7,7 +7,8 @@ import SVG from "react-inlinesvg";
 import { gsap } from "gsap";
 import throttle from "lodash.throttle";
 
-const throttledGsapTo = throttle(gsap.to, 5);
+// Not used any more
+// const throttledGsapTo = throttle(gsap.to, 5);
 
 import untangleAnimation from "./assets/untangle-final-3.svg";
 
