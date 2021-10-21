@@ -1,6 +1,7 @@
 import "./keyshape";
 declare let KeyshapeJS;
 
+import { subscribe } from "@abcnews/progress-utils";
 import React, { useEffect, useRef, useContext, useState } from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
@@ -130,6 +131,54 @@ const MainTangle: React.FC<MainTangleProps> = ({
     // Tell App component that we've been rendered
     props.setBackgroundIsRendered(true);
   }, []);
+
+  // Manage progress events for title playback (mobile only)
+  useEffect(() => {
+    if (
+      window.innerWidth >= 1200 ||
+      Object.keys(markers).length === 0 ||
+      component.timeline == null
+    ) {
+      return;
+    }
+
+    const startTime = markers["2"];
+    const loopbackTime = markers["2a"];
+    let wasProgressWithinPlaybackRange = false;
+
+    const unsubscribe = subscribe(
+      "scroll-based-title-playback",
+      message => {
+        if (message.type !== "progress") {
+          return;
+        }
+
+        const progress = message.data.threshold;
+        const isProgressWithinPlaybackRange = progress >= 0 && progress < 1;
+
+        if (wasProgressWithinPlaybackRange !== isProgressWithinPlaybackRange) {
+          (window as any).ks[
+            isProgressWithinPlaybackRange ? "globalPause" : "globalPlay"
+          ]();
+
+          wasProgressWithinPlaybackRange = isProgressWithinPlaybackRange;
+        }
+
+        if (isProgressWithinPlaybackRange) {
+          component.timeline.time(
+            startTime + (loopbackTime - startTime) * progress
+          );
+        }
+      },
+      {
+        indicatorSelector: `[data-mount][id="visualKEY2"]`,
+        regionThreshold: 0.8,
+        shouldClampProgress: false
+      }
+    );
+
+    return unsubscribe;
+  }, [markers, component.timeline]);
 
   useEffect(() => {
     // Note animationFrames sent before rendered
