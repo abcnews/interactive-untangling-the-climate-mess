@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useContext, useState } from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 import { gsap } from "gsap";
-import throttle from "lodash.throttle";
+// import throttle from "lodash.throttle";
 
 // Not used any more
 // const throttledGsapTo = throttle(gsap.to, 5);
@@ -16,7 +16,7 @@ import untangleAnimation from "./assets/untangle-final-3.svg";
 const PLAY_RATE = 1.0;
 const FAST_SKIP_INCREASE = 1.0;
 // Set to true to enable tangle movement when on mobile
-const POS_ON_MOBILE = true;
+const POS_ON_MOBILE = false;
 const TOP_DOCK_POSITION = 0.02;
 const HIDE_TOP = -0.08;
 const MID_POINT = 0.08;
@@ -347,9 +347,9 @@ const MainTangle: React.FC<MainTangleProps> = ({
         <SVG
           className={styles.svg}
           src={untangleAnimation}
-          preProcessor={code => {
-            return code;
-          }}
+          // preProcessor={code => {
+          //   return code;
+          // }}
           onLoad={initSvg}
           uniqueHash={"maintangle"}
           uniquifyIDs={true}
