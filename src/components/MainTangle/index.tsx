@@ -7,14 +7,15 @@ import SVG from "react-inlinesvg";
 import { gsap } from "gsap";
 import throttle from "lodash.throttle";
 
-const throttledGsapTo = throttle(gsap.to, 5);
+// Not used any more
+// const throttledGsapTo = throttle(gsap.to, 5);
 
 import untangleAnimation from "./assets/untangle-final-3.svg";
 
 const PLAY_RATE = 1.0;
 const FAST_SKIP_INCREASE = 1.0;
 // Set to true to enable tangle movement when on mobile
-const POS_ON_MOBILE = false;
+const POS_ON_MOBILE = true;
 const TOP_DOCK_POSITION = 0.02;
 const HIDE_TOP = -0.08;
 const MID_POINT = 0.08;
@@ -199,7 +200,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
                   posY * window.innerHeight ||
                   TOP_DOCK_POSITION * window.innerHeight,
                 ease: "power3.out",
-                duration: 0.5
+                duration: 0.75
               });
             }
           }

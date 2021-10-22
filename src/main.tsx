@@ -14,6 +14,12 @@ declare var __webpack_public_path__: any;
 
 const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
 
+declare global {
+  interface Window { __ODYSSEY__: any; }
+}
+
+window.__ODYSSEY__ = window.__ODYSSEY__ || {};
+
 function preInit() {
   // Insert a div before the header
   const main = document.querySelector("main.Main");
