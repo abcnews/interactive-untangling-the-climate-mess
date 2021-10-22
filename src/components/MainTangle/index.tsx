@@ -200,7 +200,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
                   posY * window.innerHeight ||
                   TOP_DOCK_POSITION * window.innerHeight,
                 ease: "power3.out",
-                duration: 0.5
+                duration: 0.75
               });
             }
           }
