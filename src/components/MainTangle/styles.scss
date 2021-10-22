@@ -88,3 +88,10 @@ $fade-height: 300px;
 .hidden {
   visibility: hidden;
 }
+
+@media (max-width: 1199px) {
+  [data-mount][id="visualKEY2"] {
+    top: 0 !important;
+    height: 150vh;
+  }
+}
