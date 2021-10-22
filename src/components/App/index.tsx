@@ -88,12 +88,12 @@ let scrollY = 0;
 let initialPositioningComplete = false;
 
 const App: React.FC<AppProps> = ({ projectName, ...props }) => {
-  const { subscribe, unsubscribe } = (window.__ODYSSEY__ as {
-    scheduler: {
-      subscribe: (subscriber: () => void) => void;
-      unsubscribe: (subscriber: () => void) => void;
-    };
-  }).scheduler;
+  // const { subscribe, unsubscribe } = (window.__ODYSSEY__ as {
+  //   scheduler: {
+  //     subscribe: (subscriber: () => void) => void;
+  //     unsubscribe: (subscriber: () => void) => void;
+  //   };
+  // }).scheduler;
 
   const [backdropOffset, setBackdropOffset] = useState(0);
   const [animationFrame, setAnimationFrame] = useState(200);
@@ -331,8 +331,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       // );
     });
 
-    // document.addEventListener("scroll", onScrollUpdate);
-    subscribe(onScrollUpdate);
+    document.addEventListener("scroll", onScrollUpdate);
+    // subscribe(onScrollUpdate);
 
     // Set up interactive panel elements
     const panelStarters: any = document.querySelectorAll(
@@ -391,8 +391,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     })();
 
     return () => {
-      unsubscribe(onScrollUpdate);
-      // document.removeEventListener("scroll", onScrollUpdate);
+      // unsubscribe(onScrollUpdate);
+      document.removeEventListener("scroll", onScrollUpdate);
     };
   }, []);
 
