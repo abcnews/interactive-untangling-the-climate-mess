@@ -15,10 +15,14 @@ declare var __webpack_public_path__: any;
 const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
 
 declare global {
-  interface Window { __ODYSSEY__: any; }
+  interface Window {
+    __ODYSSEY__: any;
+  }
 }
 
-window.__ODYSSEY__ = window.__ODYSSEY__ || {};
+// ¯\_(ツ)_/¯ unsure why this was here but it was
+// of course causing race conditions because Odyssey is always defined.
+// window.__ODYSSEY__ = window.__ODYSSEY__ || {};
 
 function preInit() {
   // Insert a div before the header
@@ -106,9 +110,8 @@ function preInit() {
   classify("class");
 
   // Add spacing to last of type panels
-  const paragraphTextElements: any = document.querySelectorAll(
-    "#paragraphtext"
-  );
+  const paragraphTextElements: any =
+    document.querySelectorAll("#paragraphtext");
   const paragraphTextElementsArray = [...paragraphTextElements];
 
   for (const el of paragraphTextElementsArray) {

@@ -78,6 +78,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
   // Component state
   const [markers, setMarkers] = useState({});
   const prevScrollMarker = usePrevious(props.scrollMarker);
+  const [yPosState, setYPosState] = useState(TOP_DOCK_POSITION);
 
   // Use a component ref objet to store things properly
   // across renders.
@@ -131,6 +132,10 @@ const MainTangle: React.FC<MainTangleProps> = ({
 
     // Tell App component that we've been rendered
     props.setBackgroundIsRendered(true);
+
+    setTimeout(() => {
+      setYPosState(-0.1);
+    }, 3000);
   }, []);
 
   // Manage progress events for title playback (mobile only)
@@ -328,14 +333,25 @@ const MainTangle: React.FC<MainTangleProps> = ({
     )
       return;
 
+    setYPosState(props.yPos);
+  }, [props.yPos]);
+
+  useEffect(() => {
+    if (
+      typeof props.yPos === "undefined" ||
+      typeof props.xPos === "undefined" ||
+      typeof props.scale === "undefined"
+    )
+      return;
+
     gsap.to(mainEl.current, {
-      y: props.yPos * window.innerHeight,
+      y: yPosState * window.innerHeight,
       x: props.xPos * window.innerWidth,
       scale: props.scale * 0.01,
-      ease: "power3",
+      ease: "power3.out",
       duration: 1.5
     });
-  }, [props.yPos, props.scale, props.xPos, windowSize]);
+  }, [yPosState, props.scale, props.xPos, windowSize]);
 
   return (
     <div
