@@ -18,6 +18,12 @@
     "predeploy": "npm run data",
     "prerelease": "npm run data"
   },
+  "aunty": {
+		"type": "react",
+		"serve": {
+			"hot": false
+		}
+	},
   "abc": {
     "css": {
       "libraryDir": "./node_modules/@abcaustralia/nucleus/css",

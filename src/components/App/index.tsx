@@ -42,7 +42,7 @@ const d3 = { ...require("d3-scale") };
 const GROUP = "interactive-untangling-the-climate-mess";
 const pollClient = new Client(GROUP);
 
-const TOP_DOCK_POSITION = 0.00;
+const TOP_DOCK_POSITION = 0.01;
 const BOTTOM_DOCK_POSITION = 0.9;
 const BOTTOM_DOCK_SIDE_BY_SIDE_POSITION = 0.35;
 
