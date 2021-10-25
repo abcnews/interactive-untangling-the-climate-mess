@@ -10,6 +10,7 @@
   padding-right: 15px !important;
   padding-top: 42.5vh !important;
   padding-bottom: 42.5vh !important;
+  max-width: 500px;
 
   // Push panel on Desktop
   @include for-desktop-up {
@@ -22,7 +23,7 @@
     left: 50%;
     margin-left: 0 !important;
     width: calc(100vw / 2.5);
-    max-width: 600px;
+    max-width: 500px;
   }
 
   .panel-content-container {
@@ -106,7 +107,7 @@
   //     scroll-behavior: auto;
   //   }
   // }
-  
+
   div > .u-dropcap::first-letter {
     float: left;
     padding-top: 6.4px;

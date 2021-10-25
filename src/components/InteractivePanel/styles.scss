@@ -8,8 +8,10 @@
     font-size: 1.375rem;
   }
 
+  // Panel width, Tablet above etc.
+  max-width: 500px;
+
   .panel-content-container {
-    // padding: 20px 30px;
     position: relative;
 
     @include for-tablet-portrait-up {

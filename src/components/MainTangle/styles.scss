@@ -45,44 +45,8 @@ $fade-height: 300px;
   // }
 
   .svg-container {
-    // Attempt to start down page
-    // But causing issues when reloaded down page
-    // transform: translate3d(0, 70%, 0);
-
-    // Works better on the svg component itself
-    // svg {
-    //   transform: translate(0, -31%);
-    // }
     transform-origin: top center;
-
-    // transition: all 200ms;
-    @include for-desktop-up {
-      // position: relative;
-      // right: 50%;
-
-      // margin-left: auto;
-
-      // margin-right: -30px;
-      // transform: translateX(-30px);
-      // max-width: 600px;
-    }
-
-    @include for-big-desktop-up {
-      // position: relative;
-      // right: 50%;
-
-      // margin-right: -30px;
-      // transform: translateX(-88px);
-    }
   }
-
-  // .obscured {
-  //   opacity: 0;
-  // }
-
-  // .shown {
-  //   opacity: 1;
-  // }
 }
 
 .hidden {

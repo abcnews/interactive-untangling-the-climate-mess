@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import Portal from "react-portal";
 import a2o from "@abcnews/alternating-case-to-object";
 
 import styles from "./styles.scss";
@@ -103,11 +102,11 @@ const SkipAhead: React.FC<SkipAheadProps> = ({
   function getColour(shortId: string) {
     switch (shortId) {
       case "renewables":
-        return "#F65C1B";
-      case "agriculture":
         return "#007B52";
-      case "transport":
+      case "agriculture":
         return "#007cbf";
+      case "transport":
+        return "#2A4059";
       case "industry":
         return "#2A4059";
     }
@@ -135,7 +134,6 @@ const SkipAhead: React.FC<SkipAheadProps> = ({
             // try explicitly waiting until DOM modifications
             // from previous function
             setTimeout(() => {
-              
               scroll.animateScroll(target);
             }, 200);
           }}
