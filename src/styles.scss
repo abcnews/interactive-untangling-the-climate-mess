@@ -106,19 +106,19 @@
   //     scroll-behavior: auto;
   //   }
   // }
-}
+  
+  div > .u-dropcap::first-letter {
+    float: left;
+    padding-top: 6.4px;
+    padding-right: 4px;
+    font-size: 3.46875rem;
+    font-weight: bold;
+    line-height: 0.78; // Gecko ignores this
 
-div > .u-dropcap::first-letter {
-  float: left;
-  padding-top: 6.4px;
-  padding-right: 4px;
-  font-size: 3.46875rem;
-  font-weight: bold;
-  line-height: 0.78; // Gecko ignores this
-
-  @media (min-width: 700px) {
-    padding-top: 8px;
-    font-size: 3.625rem;
-    line-height: 0.74; // Gecko ignores this
+    @media (min-width: 700px) {
+      padding-top: 8px;
+      font-size: 3.625rem;
+      line-height: 0.74; // Gecko ignores this
+    }
   }
 }
