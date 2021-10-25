@@ -16,10 +16,10 @@ import untangleAnimation from "./assets/untangle-final-3.svg";
 const PLAY_RATE = 1.0;
 const FAST_SKIP_INCREASE = 1.0;
 // Set to true to enable tangle movement when on mobile
-const POS_ON_MOBILE = false;
+const POS_ON_MOBILE = true;
 const TOP_DOCK_POSITION = 0.02;
-const HIDE_TOP = -0.08;
-const MID_POINT = 0.08;
+const HIDE_TOP = -0.1;
+const MID_POINT = 0.1;
 
 const lookupRange = (marker: string) => {
   if (marker === "1" || marker === "initial")
@@ -216,7 +216,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
         if (POS_ON_MOBILE && window.innerWidth < 1200) {
           const tanglePosition = {
             intial: TOP_DOCK_POSITION,
-            2: HIDE_TOP,
+            2: TOP_DOCK_POSITION,
             3: MID_POINT,
             4: HIDE_TOP,
             5: HIDE_TOP,
@@ -244,7 +244,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
             // Uncomment/comment if we want to async the gsap animation
             // to wait until it finishes, or not
             if (posY !== prevPosY) {
-              await gsap.to(mainEl.current, {
+              gsap.to(mainEl.current, {
                 y:
                   posY * window.innerHeight ||
                   TOP_DOCK_POSITION * window.innerHeight,
