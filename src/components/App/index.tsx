@@ -34,7 +34,7 @@ import useWindowSize from "../ParagraphObserver/useWindowSize";
 import { Client } from "@abcnews/poll-counters-client";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 import to from "await-to-js";
-import OrganicPanel from "../OrganicPanel";
+// import OrganicPanel from "../OrganicPanel";
 
 const d3 = { ...require("d3-scale") };
 
