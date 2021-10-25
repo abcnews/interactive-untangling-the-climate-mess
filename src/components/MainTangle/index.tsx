@@ -16,10 +16,10 @@ import untangleAnimation from "./assets/untangle-final-3.svg";
 const PLAY_RATE = 1.0;
 const FAST_SKIP_INCREASE = 1.0;
 // Set to true to enable tangle movement when on mobile
-const POS_ON_MOBILE = true;
+const POS_ON_MOBILE = false;
 const TOP_DOCK_POSITION = 0.02;
-const HIDE_TOP = -0.1;
-const MID_POINT = 0.1;
+const HIDE_TOP = -0.05;
+const MID_POINT = 0.05;
 
 const lookupRange = (marker: string) => {
   if (marker === "1" || marker === "initial")
@@ -248,7 +248,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
                 y:
                   posY * window.innerHeight ||
                   TOP_DOCK_POSITION * window.innerHeight,
-                ease: "power3.out",
+                ease: "power2.inOut",
                 duration: 0.75
               });
             }

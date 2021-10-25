@@ -75,7 +75,7 @@ const endStringsMarkers = [
 
 const scroll = new SmoothScroll('a[href*="#"]', {
   offset: (anchor, toggle) => {
-    const offset = window.innerHeight * 0.2;
+    const offset = window.innerHeight * 0.65;
     return offset;
   }
 });
