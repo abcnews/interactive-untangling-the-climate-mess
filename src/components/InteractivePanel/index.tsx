@@ -353,7 +353,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
             <BarChart
               bars={[
                 {
-                  title: "Energy",
+                  title: "Electricity",
                   percent: 33,
                   color: "#F65C1B", // Orange
                   textColor: "#C42F05", // Text orange
@@ -363,7 +363,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                   )
                 },
                 {
-                  title: "Burping cows",
+                  title: "Agriculture",
                   percent: 10,
                   color: "#007B52", // Green
                   textColor: "#007B52",

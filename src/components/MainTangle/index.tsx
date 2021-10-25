@@ -132,10 +132,6 @@ const MainTangle: React.FC<MainTangleProps> = ({
 
     // Tell App component that we've been rendered
     props.setBackgroundIsRendered(true);
-
-    setTimeout(() => {
-      setYPosState(-0.1);
-    }, 3000);
   }, []);
 
   // Manage progress events for title playback (mobile only)

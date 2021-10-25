@@ -1030,13 +1030,13 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           <BarChart
             bars={[
               {
-                title: "Energy",
+                title: "Electricity",
                 percent: 33,
                 color: "#F65C1B", // Orange
                 textColor: "#C42F05" // Text orange
               },
               {
-                title: "Burping cows",
+                title: "Agriculture",
                 percent: 10,
                 color: "#007B52", // Green
                 textColor: "#007B52"
@@ -1062,13 +1062,13 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <AudienceChart
           bars={[
             {
-              title: "Energy",
+              title: "Electricity",
               percent: energyConvinced,
               color: "#F65C1B", // Orange
               textColor: "#C42F05" // Text orange
             },
             {
-              title: "Burping cows",
+              title: "Agriculture",
               percent: livestockConvinced,
               color: "#007B52", // Green
               textColor: "#007B52"
