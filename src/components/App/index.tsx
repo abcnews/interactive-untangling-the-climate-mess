@@ -228,7 +228,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     questionSkipped: string,
     convincedState: string = "hopeful"
   ) => {
-    console.log("User skipped ahead!");
+    // console.log("User skipped ahead!");
     if (!questionSkipped) return;
 
     // When a user skips down the page,

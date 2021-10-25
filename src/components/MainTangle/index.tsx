@@ -6,10 +6,6 @@ import React, { useEffect, useRef, useContext, useState } from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 import { gsap } from "gsap";
-// import throttle from "lodash.throttle";
-
-// Not used any more
-// const throttledGsapTo = throttle(gsap.to, 5);
 
 import untangleAnimation from "./assets/untangle-final-3.svg";
 
