@@ -66,7 +66,7 @@ const pollGet = (...args) =>
 // Add all markers here. They control string visibility later
 // const mainStringMarkers = ["initial", 1];
 const endStringsMarkers = [
-  // "endstrings", // Don't fade out just yet
+  "endstrings",
   "userstrings",
   "endallstrings",
   "endaustralia",
@@ -628,7 +628,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
     // mechanism for bringing in appropriate strings
     if (marker === "endstrings") {
-      setMainTangleOpacity(0.0);
+      // setMainTangleOpacity(0.0);
 
       setEndStrings({
         renewables: 0,
@@ -640,7 +640,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     }
 
     if (marker === "endallstrings") {
-      setMainTangleOpacity(1.0);
+      setMainTangleOpacity(0.0);
       setEndStrings({
         renewables: 1,
         transportation: 1,
@@ -651,10 +651,12 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     }
 
     if (marker === "userstrings") {
+      setMainTangleOpacity(0.0);
       setEndStrings(userStrings);
     }
 
     if (marker === "endaustralia") {
+      setMainTangleOpacity(0.0);
       setEndStrings(australiaStrings);
     }
 
