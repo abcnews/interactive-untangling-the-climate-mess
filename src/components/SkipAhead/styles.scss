@@ -18,13 +18,17 @@
   }
 
   button {
+    display: center;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
     font-size: 14px;
     width: 100%;
     border: none;
+    height: 46px;
     margin-bottom: 1em;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    // padding-top: 1em;
+    // padding-bottom: 1em;
     cursor: pointer;
     text-transform: uppercase;
     font-weight: bold;

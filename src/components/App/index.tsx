@@ -66,7 +66,7 @@ const pollGet = (...args) =>
 // Add all markers here. They control string visibility later
 // const mainStringMarkers = ["initial", 1];
 const endStringsMarkers = [
-  "endstrings",
+  // "endstrings", // Don't fade out just yet
   "userstrings",
   "endallstrings",
   "endaustralia",
