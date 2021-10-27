@@ -32,6 +32,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    will-change: transform; // creates a new paint layer
   }
 
   html {

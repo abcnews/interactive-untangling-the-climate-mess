@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Portal } from "react-portal";
 import SmoothScroll from "smooth-scroll";
-import { isMount, getMountValue, selectMounts } from "@abcnews/mount-utils";
+import { selectMounts } from "@abcnews/mount-utils";
 import { useDynamicText } from "../../lib/fetchDynamicText";
 import DynText from "../DynText";
-import Markdown from "markdown-to-jsx";
 
 // Import stylsheets
 import styles from "./styles.scss";
@@ -17,11 +16,7 @@ import UserInputBox from "../UserInputBox/index";
 import BackgroundTexture from "../BackgroundTexture/index";
 import MainTangle from "../MainTangle/index";
 import ScrollObserver from "../ScrollObserver/index";
-import ParagraphObserver from "../ParagraphObserver/index";
-import ParagraphPanel from "../ParagraphPanel/index";
 import DelayedHeader from "../DelayedHeader/index";
-import ParagraphFade from "../ParagraphFade";
-import ParagraphPull from "../ParagraphPull";
 import AudienceChart from "../AudienceChart";
 import BarChart from "../BarChart";
 import InteractivePanel from "../InteractivePanel";
@@ -34,7 +29,6 @@ import useWindowSize from "../ParagraphObserver/useWindowSize";
 import { Client } from "@abcnews/poll-counters-client";
 import alternatingCaseToObject from "@abcnews/alternating-case-to-object";
 import to from "await-to-js";
-// import OrganicPanel from "../OrganicPanel";
 
 const d3 = { ...require("d3-scale") };
 
@@ -88,17 +82,9 @@ let scrollY = 0;
 let initialPositioningComplete = false;
 
 const App: React.FC<AppProps> = ({ projectName, ...props }) => {
-  // const { subscribe, unsubscribe } = (window.__ODYSSEY__ as {
-  //   scheduler: {
-  //     subscribe: (subscriber: () => void) => void;
-  //     unsubscribe: (subscriber: () => void) => void;
-  //   };
-  // }).scheduler;
-
-  const [backdropOffset, setBackdropOffset] = useState(0);
-  const [animationFrame, setAnimationFrame] = useState(200);
   const [marker, _setMarker] = useState<any>();
   const markerRef = useRef(marker);
+
   // So we can use opacity in an event listener
   const setMarker = data => {
     markerRef.current = data;
@@ -110,6 +96,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const [backgroundIsRendered, setBackgroundIsRendered] = useState();
   const [mainTangleOpacity, _setMainTangleOpacity] = useState(0.0);
   const mainTangleOpacityRef = useRef(mainTangleOpacity);
+
   // So we can use opacity in an event listener or setTimeout
   const setMainTangleOpacity = data => {
     mainTangleOpacityRef.current = data;
@@ -120,27 +107,21 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const [mainTangleYPos, setMainTangleYPos] = useState(1.1);
   const [mainTangleScale, setMainTangleScale] = useState(100);
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
-  const [mainTangleHidden, setMainTangleHidden] = useState(false);
-  const [mainTangleMaskPos, setMainTangleMaskPos] = useState(0);
   const [endStrings, setEndStrings] = useState({});
   const [userStrings, setUserStrings] = useState({
     renewables: 1,
     transportation: 1,
-    // carboncapture: 1,
     industry: 1,
     livestock: 1
   });
   const [australiaStrings, setAustraliaStrings] = useState({
     renewables: 1,
     transportation: 1,
-    // carboncapture: 1,
     industry: 1,
     livestock: 1
   });
-  const [interactivePanelElements, setInteractivePanelElements]: [
-    any,
-    any
-  ] = useState();
+  const [interactivePanelElements, setInteractivePanelElements]: [any, any] =
+    useState();
 
   // User input state ----------------
   const [questionCompleteness, setQuestionCompleteness] = useState("nothing");
@@ -157,19 +138,14 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const [livestockConvinced, setLiveStockConvinced] = useState(0);
   const [transportConvinced, setTransportConvinced] = useState(0);
   const [industryConvinced, setIndustryConvinced] = useState(0);
-  const [carbonCaptureConvinced, setCarbonCaptureConvinced] = useState(0);
 
   // Used to test if the user has actively engaged with the article
   // (whether that is by reading it or clicking on a button, etc)
   // Immediately invoking this effect just because it will only be used once.
   const [userHasEngaged, setUserHasEngaged] = useState(false);
 
-  const {
-    dynamicText,
-    dynamicTextLoading,
-    dynamicTextError
-  } = useDynamicText();
-  // console.log("dt", dynamicText);
+  const { dynamicText, dynamicTextLoading, dynamicTextError } =
+    useDynamicText();
 
   const mounts = selectMounts("skipahead", { includeOwnUsed: true });
 
@@ -228,7 +204,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     questionSkipped: string,
     convincedState: string = "hopeful"
   ) => {
-    // console.log("User skipped ahead!");
     if (!questionSkipped) return;
 
     // When a user skips down the page,
@@ -281,7 +256,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         "SUBQ3-transportation-off-fossil"
       );
       pollTotals.industry = getAustraliaConvinced("SUBQ4-industry-emissions");
-      // pollTotals.carboncapture = getAustraliaConvinced("SUBQ5-carbon-capture");
 
       setAustraliaStrings(pollTotals);
 
@@ -326,9 +300,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       setIndustryConvinced(
         getPercentageConvinced("SUBQ4-industry-emissions", values)
       );
-      // setCarbonCaptureConvinced(
-      //   getPercentageConvinced("SUBQ5-carbon-capture", values)
-      // );
     });
 
     document.addEventListener("scroll", onScrollUpdate);
@@ -493,20 +464,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       }
     }
 
-    // Check if SUBQ5-carbon-capture yes or no
-    // if (userInputState["SUBQ5-carbon-capture"]) {
-    //   switch (userInputState["SUBQ5-carbon-capture"]) {
-    //     case "certain":
-    //     case "hopeful":
-    //       nextUserStrings.carboncapture = 0;
-    //       break;
-    //     case "doubtful":
-    //     case "impossible":
-    //       nextUserStrings.carboncapture = 1;
-    //       break;
-    //   }
-    // }
-
     setUserStrings(nextUserStrings);
 
     // Count up number user convinced by
@@ -536,8 +493,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         state["SUBQ1-renewables-zero-carbon"] &&
         state["SUBQ2-livestock-emissions"] &&
         state["SUBQ3-transportation-off-fossil"] &&
-        state["SUBQ4-industry-emissions"] &&
-        state["SUBQ5-carbon-capture"]
+        state["SUBQ4-industry-emissions"]
       )
         return "allSUB";
 
@@ -616,7 +572,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       setEndStrings({
         renewables: 0,
         transportation: 0,
-        // carboncapture: 0,
         industry: 0,
         livestock: 0
       });
@@ -633,7 +588,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       setEndStrings({
         renewables: 0,
         transportation: 0,
-        // carboncapture: 0,
         industry: 0,
         livestock: 0
       });
@@ -644,7 +598,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       setEndStrings({
         renewables: 1,
         transportation: 1,
-        // carboncapture: 1,
         industry: 1,
         livestock: 1
       });
@@ -661,6 +614,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     }
 
     // TODO: work out if we want to hide strings at the end
+    // Don't hide for now
     // if (marker === "endstorycomplete") {
     //   setEndStrings({
     //     renewables: 0,
@@ -828,11 +782,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           title={<DynText>{dynamicText["SUBQ1-title"]}</DynText>}
           /* So - what do you reckon our chances of doing this are? */
           buttons={[
-            // {
-            //   label: "That's a piece of cake",
-            //   value: "certain",
-            //   response: <DynText>{dynamicText["SUBQ1-optimistic"]}</DynText>
-            // },
             {
               label: "It can be done",
               value: "hopeful",
@@ -843,11 +792,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               value: "doubtful",
               response: <DynText>{dynamicText["SUBQ1-pessimistic"]}</DynText>
             }
-            // {
-            //   label: "You're dreaming",
-            //   value: "impossible",
-            //   response: <DynText>{dynamicText["SUBQ1-pessimistic"]}</DynText>
-            // }
           ]}
           userInputState={userInputState}
           setUserInputState={setUserInputState}
@@ -974,59 +918,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         />
       </Portal>
 
-      {/* <Portal node={document && document.getElementById("inputcarboncapture")}>
-        <UserInputBox
-          color={"#2A4059"}
-          questionKey="SUBQ5-carbon-capture"
-          title={"So, what do you think? Can we capture all that carbon?"}
-          buttons={[
-            { label: "That's a piece of cake", value: "certain" },
-            { label: "It can be done", value: "hopeful" },
-            { label: "This sounds like a stretch", value: "doubtful" },
-            { label: "You're dreaming", value: "impossible" }
-          ]}
-          setUserInputState={setUserInputState}
-          pollClient={pollClient}
-          windowWidth={windowSize.width}
-        />
-      </Portal> */}
-
-      {/* KEEP JUST IN CASE WE WANT TO PUT BACK IN */}
-      {/* <Portal node={document && document.getElementById("inputtier1again")}>
-        <UserInputBox
-          color={"#2A4059"}
-          questionKey="MAINQ2-can-we-still-save-the-world-again-after-article"
-          preTitle={<DynText>{dynamicText["MAINQ2-pre-title"]}</DynText>}
-          title={<DynText>{dynamicText["MAINQ2-title"]}</DynText>}
-          buttons={[
-            {
-              label: "Of course we can",
-              value: "certain",
-              response: <DynText>{dynamicText["MAINQ2-optimistic"]}</DynText>
-            },
-            {
-              label: "Yes I think we can",
-              value: "hopeful",
-              response: <DynText>{dynamicText["MAINQ2-optimistic"]}</DynText>
-            },
-            {
-              label: "Probably not",
-              value: "doubtful",
-              response: <DynText>{dynamicText["MAINQ2-pessimistic"]}</DynText>
-            },
-            {
-              label: "No way we're screwed",
-              value: "impossible",
-              response: <DynText>{dynamicText["MAINQ2-pessimistic"]}</DynText>
-            }
-          ]}
-          userInputState={userInputState}
-          setUserInputState={setUserInputState}
-          pollClient={pollClient}
-          windowWidth={windowSize.width}
-        />
-      </Portal> */}
-
       {document.getElementById("chartproportions") && (
         <Portal node={document && document.getElementById("chartproportions")}>
           <BarChart
@@ -1087,12 +978,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               color: "#2A4059", // Dark blue
               textColor: "#2A4059"
             }
-            // {
-            //   title: "Carbon capture",
-            //   percent: carbonCaptureConvinced,
-            //   color: "#2A4059",
-            //   textColor: "#2A4059"
-            // }
           ]}
           windowWidth={windowSize.width}
         ></AudienceChart>
@@ -1104,15 +989,12 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         and they get lost otherwise.
           Maybe try visibility hidden or display none instead */}
         <MainTangle
-          animationFrame={animationFrame}
           scrollMarker={marker}
           setBackgroundIsRendered={setBackgroundIsRendered}
           opacity={mainTangleOpacity}
           xPos={mainTangleXPos}
           yPos={mainTangleYPos}
           scale={mainTangleScale}
-          hidden={mainTangleHidden}
-          maskPosition={mainTangleMaskPos}
           windowSize={windowSize}
         />
 

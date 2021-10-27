@@ -133,7 +133,9 @@ const SkipAhead: React.FC<SkipAheadProps> = ({
 
   // Init
   useEffect(() => {
-    component.debouncedSkip = debounce(skipAndStopMutationObservation, 200);
+    // Define a debounced function that waits a certain amount of miliseconds
+    // until tno more calls before firing
+    component.debouncedSkip = debounce(skipAndStopMutationObservation, 250);
   }, []);
 
   useEffect(() => {
