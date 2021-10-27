@@ -361,6 +361,12 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       }
     })();
 
+    // Unhide the app when loaded
+    const content = document.querySelector("#content");
+    if (content) {
+      content.classList.add("visible");
+    }
+
     return () => {
       // unsubscribe(onScrollUpdate);
       document.removeEventListener("scroll", onScrollUpdate);
