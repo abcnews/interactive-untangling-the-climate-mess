@@ -369,6 +369,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       content.classList.add("visible");
     }
 
+    // This was just a test to try to fix a Chrome bug.
+    // But may as well stagger loading of MainTangle anyway?
     // setTimeout(() => {
       setRenderMainTangle(true);
     // }, 5000);

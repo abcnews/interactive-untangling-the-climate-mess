@@ -153,8 +153,6 @@ const MainTangle: React.FC<MainTangleProps> = ({
           return;
         }
 
-        console.log(message);
-
         const progress = message.data.threshold;
         const isProgressWithinPlaybackRange = progress >= 0 && progress < 1;
 
