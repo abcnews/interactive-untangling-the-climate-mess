@@ -11,6 +11,7 @@ import untangleAnimation from "./assets/untangle-final-3.svg";
 
 const PLAY_RATE = 1.0;
 const FAST_SKIP_INCREASE = 1.0;
+
 // Set to true to enable tangle movement when on mobile
 const POS_ON_MOBILE = false;
 const TOP_DOCK_POSITION = 0.01;
@@ -71,6 +72,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
   ...props
 }) => {
   const mainEl = useRef(null);
+
   // Component state
   const [markers, setMarkers] = useState({});
   const prevScrollMarker = usePrevious(props.scrollMarker);
@@ -150,6 +152,8 @@ const MainTangle: React.FC<MainTangleProps> = ({
         if (message.type !== "progress") {
           return;
         }
+
+        console.log(message);
 
         const progress = message.data.threshold;
         const isProgressWithinPlaybackRange = progress >= 0 && progress < 1;

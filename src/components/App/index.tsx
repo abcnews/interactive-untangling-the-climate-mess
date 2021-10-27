@@ -106,6 +106,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const [mainTangleXPos, setMainTangleXPos] = useState(0);
   const [mainTangleYPos, setMainTangleYPos] = useState(1.1);
   const [mainTangleScale, setMainTangleScale] = useState(100);
+  const [renderMainTangle, setRenderMainTangle] = useState(false);
+
   const [endTangleOpacity, setEndTangleOpacity] = useState(0.0);
   const [endStrings, setEndStrings] = useState({});
   const [userStrings, setUserStrings] = useState({
@@ -366,6 +368,10 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     if (content) {
       content.classList.add("visible");
     }
+
+    // setTimeout(() => {
+      setRenderMainTangle(true);
+    // }, 5000);
 
     return () => {
       // unsubscribe(onScrollUpdate);
@@ -994,15 +1000,17 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         {/* Don't unmount this because elements are being observed by ParagraphObserver
         and they get lost otherwise.
           Maybe try visibility hidden or display none instead */}
-        <MainTangle
-          scrollMarker={marker}
-          setBackgroundIsRendered={setBackgroundIsRendered}
-          opacity={mainTangleOpacity}
-          xPos={mainTangleXPos}
-          yPos={mainTangleYPos}
-          scale={mainTangleScale}
-          windowSize={windowSize}
-        />
+        {renderMainTangle && (
+          <MainTangle
+            scrollMarker={marker}
+            setBackgroundIsRendered={setBackgroundIsRendered}
+            opacity={mainTangleOpacity}
+            xPos={mainTangleXPos}
+            yPos={mainTangleYPos}
+            scale={mainTangleScale}
+            windowSize={windowSize}
+          />
+        )}
 
         <EndStrings
           opacity={endTangleOpacity}
