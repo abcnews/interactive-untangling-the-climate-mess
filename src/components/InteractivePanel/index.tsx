@@ -190,6 +190,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
           questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
           questionCompleteness === "yesMAIN1someSUBnoMAIN2" || // 9a
+          questionCompleteness === "yesMAIN1allSUBnoMAIN2" || // 9c
           questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
 
         //
@@ -434,9 +435,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         )
           setPanelText(<DynText>{dynamicText["SELFVAUS-same"]}</DynText>);
         /* The good news is that most people who read this story agree with
-              you. */ else if (
-          subQuestionsConvinvedOf < australiaConvincedOf
-        )
+              you. */ else if (subQuestionsConvinvedOf < australiaConvincedOf)
           setPanelText(<DynText>{dynamicText["SELFVAUS-less"]}</DynText>);
         /* Your fellow Australians are more optimistic than you. They’re
               convinced we can do X, which would keep us on track for the most
@@ -445,6 +444,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         break;
     }
     // console.log("Subquestions convinced of", subQuestionsConvinvedOf);
+    console.log("User input state:", userInputState);
 
     // Show if incomplete
     if (shouldShow) setHidden(false);
