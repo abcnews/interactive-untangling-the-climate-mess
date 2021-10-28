@@ -223,9 +223,6 @@ function classify(targetString) {
   });
 }
 
-
-
-
 // declare var Modernizr: any;
 
 // // Feature detection

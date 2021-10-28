@@ -24,16 +24,19 @@
   }
 
   button {
+    font-family: ABCSans, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
     font-size: 14px;
     width: 100%;
     border: none;
     margin-bottom: 1em;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    height: 46px !important;
     cursor: pointer;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: 1px;
 
     -webkit-touch-callout: none;
@@ -43,7 +46,6 @@
     -ms-user-select: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-    height: 42px;
 
     @media (max-width: 320px) {
       padding-top: 1.3em;
@@ -51,10 +53,6 @@
       font-size: 12px;
       letter-spacing: 0.8px;
     }
-  }
-
-  button.selected {
-    // background-color: #ccc;
   }
 
   .title {

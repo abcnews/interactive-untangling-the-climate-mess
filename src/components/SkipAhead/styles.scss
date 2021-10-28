@@ -18,7 +18,8 @@
   }
 
   button {
-    display: center;
+    font-family: ABCSans, sans-serif;
+    display: flex;
     align-items: center;
     justify-content: center;
     background-color: transparent;
@@ -27,11 +28,9 @@
     border: none;
     height: 46px;
     margin-bottom: 1em;
-    // padding-top: 1em;
-    // padding-bottom: 1em;
+    font-weight: 900;
     cursor: pointer;
     text-transform: uppercase;
-    font-weight: bold;
     letter-spacing: 1px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;

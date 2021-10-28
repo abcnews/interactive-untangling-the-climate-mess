@@ -5,7 +5,7 @@ module.exports = {
   build: {
     entry: process.env.IS_FOR_APPLE_NEWS
       ? ["embeds"]
-      : ["index", "main", "embeds"],
+      : ["index", "embeds"],
     includedDependencies: [/\/d3-/, "fuse.js"]
   },
   webpack: config => {

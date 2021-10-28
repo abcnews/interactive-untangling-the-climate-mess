@@ -27,7 +27,7 @@
   }
 
   .panel-content-container {
-    padding: 20px 30px;
+    padding: 30px 30px;
     position: relative;
 
     @include for-tablet-portrait-up {
@@ -42,28 +42,35 @@
       font-size: 17px;
       text-align: center;
       margin-top: 1rem;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.5rem;
       color: inherit;
+      font-weight: 700;
+      margin-left: -20px;
+      margin-right: -20px;
     }
 
     > h3 {
       font-size: 26px;
       text-align: center;
-      margin: 0.2rem;
+      margin-top: 0.2rem;
+      margin-bottom: 0.2rem;
       line-height: 1.3em;
       color: inherit;
+      font-weight: 700;
+      margin-left: -20px;
+      margin-right: -20px;
     }
 
     > h5 {
-      font-size: 13px;
+      font-size: 17px;
       text-align: center;
-      margin-top: 0.6rem;
+      margin-top: 0.8rem;
       margin-bottom: 1rem;
-      font-family: ABCSans, sans-serif;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 900;
+      font-family: ABCSerif, serif;
+      font-weight: 700;
       color: inherit;
+      margin-left: -20px;
+      margin-right: -20px;
     }
 
     strong {
