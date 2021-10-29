@@ -153,6 +153,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
   // Reduce motion. Both native and manual
   const [manualReduceMotion, setManualReduceMotion] = useState(false);
+  const [animationDuration, setAnimationDuration] = useState(1.5);
 
   // Detect reduced motion a11y settings
   const prefersReducedMotion = useReducedMotion(false);
@@ -161,7 +162,14 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     setManualReduceMotion(prefersReducedMotion);
   }, [prefersReducedMotion]);
 
-  console.log("Manual reduced motion:", manualReduceMotion);
+  useEffect(() => {
+    if (manualReduceMotion) {
+      setAnimationDuration(0.0);
+      setMainTangleYPos(TOP_DOCK_POSITION);
+    } else {
+      setAnimationDuration(1.5);
+    }
+  }, [manualReduceMotion]);
 
   const mounts = selectMounts("skipahead", { includeOwnUsed: true });
 
@@ -185,7 +193,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   // Track if we are on Desktop or not
   const [isDesktop, setIsDesktop] = useState(false);
 
-  // Switch between pull left (Tim) and centered (Ben) opening
+  // Switch between pull left and centered opening
   const [openingCentered, setOpeningCentered] = useState(true);
   const [isPastOpening, setIsPastOpening] = useState(false);
 
@@ -194,7 +202,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
   const windowSize = useWindowSize();
 
-  const onScrollUpdate = () => {
+  function onScrollUpdate() {
     scrollY = window.pageYOffset;
 
     // Only process when user at top
@@ -213,7 +221,9 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       .clamp(true);
 
     setMainTangleYPos(percentScale(scrollY));
-  };
+  }
+
+  document.addEventListener("scroll", onScrollUpdate);
 
   const applySkipAhead = async (
     questionSkipped: string,
@@ -316,9 +326,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       );
     });
 
-    document.addEventListener("scroll", onScrollUpdate);
-    // subscribe(onScrollUpdate);
-
     // Set up interactive panel elements
     const panelStarters: any = document.querySelectorAll(
       "[id^='interactivepanel']"
@@ -388,7 +395,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     // }, 5000);
 
     return () => {
-      // unsubscribe(onScrollUpdate);
       document.removeEventListener("scroll", onScrollUpdate);
     };
   }, []);
@@ -1019,6 +1025,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             yPos={mainTangleYPos}
             scale={mainTangleScale}
             windowSize={windowSize}
+            animationDuration={animationDuration}
           />
         )}
 

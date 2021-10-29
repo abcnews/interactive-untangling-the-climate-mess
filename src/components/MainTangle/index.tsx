@@ -63,12 +63,14 @@ interface MainTangleProps {
   hidden?: boolean;
   maskPosition?: number;
   windowSize: any;
+  animationDuration?: number;
 }
 
 const MainTangle: React.FC<MainTangleProps> = ({
   hidden = false,
   maskPosition = 0,
   windowSize,
+  animationDuration = 1.5,
   ...props
 }) => {
   const mainEl = useRef(null);
@@ -343,7 +345,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
       x: props.xPos * window.innerWidth,
       scale: props.scale * 0.01,
       ease: "power3.out",
-      duration: 1.5
+      duration: animationDuration
     });
   }, [yPosState, props.scale, props.xPos, windowSize]);
 
