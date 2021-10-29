@@ -183,15 +183,16 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         break;
       case "level3answer":
         shouldShow =
+          questionCompleteness === "yesMAIN1allSUByesMAIN2" || // 10
           questionCompleteness === "yesMAIN1noSUByesMAIN2" || // 4
-          questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
-          questionCompleteness === "noMAIN1allSUBnoMAIN2" || // 6
-          questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
-          questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
           questionCompleteness === "yesMAIN1someSUByesMAIN2" || // 9
-          questionCompleteness === "yesMAIN1someSUBnoMAIN2" || // 9a
+          questionCompleteness === "noMAIN1allSUByesMAIN2" || // 8
+          questionCompleteness === "noMAIN1someSUByesMAIN2" || // 7
+          //
+          questionCompleteness === "noMAIN1allSUBnoMAIN2" || // 6
+          questionCompleteness === "noMAIN1someSUBnoMAIN2" || // 5
           questionCompleteness === "yesMAIN1allSUBnoMAIN2" || // 9c
-          questionCompleteness === "yesMAIN1allSUByesMAIN2"; // 10
+          questionCompleteness === "yesMAIN1someSUBnoMAIN2"; // 9a
 
         //
 
