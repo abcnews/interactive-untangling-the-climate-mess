@@ -165,7 +165,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   useEffect(() => {
     if (manualReduceMotion) {
       setAnimationDuration(0.0);
-      setMainTangleYPos(TOP_DOCK_POSITION);
+      // setMainTangleYPos(TOP_DOCK_POSITION);
     } else {
       setAnimationDuration(1.5);
     }
