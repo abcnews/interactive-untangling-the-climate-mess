@@ -32,6 +32,8 @@ import to from "await-to-js";
 
 const d3 = { ...require("d3-scale") };
 
+import useReducedMotion from "../../lib/useReducedMotion";
+
 // Set up our poll counter
 const GROUP = "interactive-untangling-the-climate-mess";
 const pollClient = new Client(GROUP);
@@ -149,11 +151,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const { dynamicText, dynamicTextLoading, dynamicTextError } =
     useDynamicText();
 
+  // Reduce motion. Both native and manual
+  const [manualReduceMotion, setManualReduceMotion] = useState(false);
+
+  // Detect reduced motion a11y settings
+  const prefersReducedMotion = useReducedMotion(false);
+
+  useEffect(() => {
+    setManualReduceMotion(prefersReducedMotion);
+  }, [prefersReducedMotion]);
+
+  console.log("Manual reduced motion:", manualReduceMotion);
+
   const mounts = selectMounts("skipahead", { includeOwnUsed: true });
 
   useEffect(() => {
     if (!userHasEngaged) return;
-    console.log("User has engaged!");
 
     (async () => {
       const [err, result] = await to(
@@ -223,7 +236,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       question: questionSkipped,
       answer: convincedState
     });
-    console.log(result);
   };
 
   // onMount
@@ -372,7 +384,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     // This was just a test to try to fix a Chrome bug.
     // But may as well stagger loading of MainTangle anyway?
     // setTimeout(() => {
-      setRenderMainTangle(true);
+    setRenderMainTangle(true);
     // }, 5000);
 
     return () => {
@@ -728,10 +740,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     }
 
     return showState;
-  };
-
-  const scrollTo = marker => {
-    console.log(marker);
   };
 
   return (

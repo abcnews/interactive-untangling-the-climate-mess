@@ -164,7 +164,7 @@ if ("IntersectionObserver" in window && NodeList.prototype.forEach) {
 } else {
   import("./polyfills").then(() => {
     console.log(
-      "LOADING POLYFILLS... PLEASE UPGRADE YOUR BROWSER TO FIREFOX OR SOMETHING..."
+      "Loading polyfills. Please upgrade your browser for a better experience."
     );
     jankdefer(waitForOdyssey);
   });
@@ -222,19 +222,3 @@ function classify(targetString) {
     anchor.parentNode?.removeChild(anchor);
   });
 }
-
-// declare var Modernizr: any;
-
-// // Feature detection
-// import "./modernizer";
-
-// // Detect browser support
-// if (Modernizr.arrow) {
-//   import("./main").then(() => {});
-// } else {
-//   console.log(
-//     "Browser not supported. Please update your browser. https://www.mozilla.org/en-US/firefox/new/"
-//   );
-// }
-
-// export {};

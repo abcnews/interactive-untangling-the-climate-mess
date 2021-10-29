@@ -89,14 +89,6 @@ const EndStrings: React.FC<EndStringsProps> = ({
     (window as any).ks = (document as any).ks = KeyshapeJS;
   }, []);
 
-  useEffect(
-    function () {
-      if (!allLoaded) return;
-      console.log("All end animations loaded...");
-    },
-    [allLoaded]
-  );
-
   useEffect(() => {
     if (!allLoaded) return;
 

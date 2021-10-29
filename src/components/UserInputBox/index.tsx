@@ -179,7 +179,6 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
     // TODO: handle multiple calls... they all await and then continue
     // returning the same thing multiple times........
     if (err) console.error(err);
-    // if (result) console.log(result);
   }
 
   useEffect(() => {

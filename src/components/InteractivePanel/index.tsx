@@ -417,6 +417,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
           questionCompleteness === "yesMAIN1allSUByesMAIN2" || // 10
           questionCompleteness === "yesMAIN1someSUBnoMAIN2" ||
           questionCompleteness === "yesMAIN1allSUBnoMAIN2";
+
         // console.log(
         //   "You convinced:",
         //   subQuestionsConvinvedOf,
