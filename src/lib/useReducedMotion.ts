@@ -13,7 +13,6 @@ const useReducedMotion = (defaultVal = true) => {
   useEffect(() => {
     // Grab the reduced motion media query,
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    console.log(mediaQuery);
 
     if (mediaQuery) {
       // Set the state to the value of the media query.

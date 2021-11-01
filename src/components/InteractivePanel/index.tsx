@@ -446,7 +446,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         break;
     }
     // console.log("Subquestions convinced of", subQuestionsConvinvedOf);
-    console.log("User input state:", userInputState);
+    // console.log("User input state:", userInputState);
 
     // Show if incomplete
     if (shouldShow) setHidden(false);
