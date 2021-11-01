@@ -952,13 +952,13 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             bars={[
               {
                 title: "Electricity",
-                percent: 33,
+                percent: 21,
                 color: "#F65C1B", // Orange
                 textColor: "#C42F05" // Text orange
               },
               {
                 title: "Agriculture",
-                percent: 10,
+                percent: 12,
                 color: "#007B52", // Green
                 textColor: "#007B52"
               },
@@ -970,7 +970,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               },
               {
                 title: "Industry",
-                percent: 40,
+                percent: 47,
                 color: "#2A4059", // Dark blue
                 textColor: "#2A4059"
               }
