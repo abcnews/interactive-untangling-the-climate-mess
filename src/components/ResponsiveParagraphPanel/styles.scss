@@ -83,7 +83,7 @@ $fade-height: 400px;
     left: 50%;
     margin-left: 0 !important;
     padding-top: 0;
-  padding-bottom: 0;
+    padding-bottom: 0;
   }
 
   p {
@@ -96,11 +96,5 @@ $fade-height: 400px;
     @include for-tablet-landscape-up {
       margin-bottom: 32px;
     }
-  }
-}
-
-:global {
-  .Main {
-    width: 100% !important;
   }
 }
