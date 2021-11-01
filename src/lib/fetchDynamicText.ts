@@ -1,10 +1,5 @@
 import useSWR from "swr";
-import {
-  // getApplication,
-  // getGeneration,
-  getTier
-  // requestDOMPermit
-} from "@abcnews/env-utils";
+import { getTier } from "@abcnews/env-utils";
 
 const fetcher = async id => {
   // If article is LIVE on the site then access data directly from FTP.

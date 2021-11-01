@@ -102,12 +102,34 @@
     left: 0px;
     top: 0px;
     z-index: -1;
+    border: 50px solid grey;
+
+    &.variation-0 {
+      border-image-source: url(./components/OrganicPanel/organic-panel-background-variation-1.svg);
+    }
+
+    &.variation-1 {
+      border-image-source: url(./components/OrganicPanel/organic-panel-background-variation-2.svg);
+    }
+
+    &.variation-2 {
+      border-image-source: url(./components/OrganicPanel/organic-panel-background-variation-3.svg);
+    }
+
+    border-image-slice: 50;
+    opacity: 0.9;
   }
 
+  // TRYING A 9 slice scale. The following may not be needed anymore.
   .organic-panel-style-stretch {
     width: 100%;
     height: 100%;
     opacity: 0.9;
+  }
+
+  .panel-flat-fill {
+    height: 100%;
+    background-color: #fff8f0;
   }
 
   div > .u-dropcap::first-letter {

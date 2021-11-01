@@ -53,11 +53,16 @@ function preInit() {
   // Loop though panels
   panelsArray.forEach((panel, iteration) => {
     const container = document.createElement("div");
-    container.innerHTML = `<div class="organic-panel-background">
-      <img
+    container.innerHTML = `<div class="organic-panel-background variation-${
+      // Count length then loop back
+      iteration % panels.length
+    }">
+      <!-- <img
         src="${panels[iteration % panels.length]}"
         class="organic-panel-style-stretch"
-      />
+      /> -->
+      
+      <div class="panel-flat-fill" />
     </div>`;
     container.className = `${styles.panelContentContainer}`;
     panel.className = styles.panel;
