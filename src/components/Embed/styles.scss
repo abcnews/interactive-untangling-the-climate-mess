@@ -1,9 +1,13 @@
 .root {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 500px;
   color: #2a4059;
   font-family: ABCSerif, sans-serif;
-}
-
-.root p {
   font-size: 1.125rem;
   line-height: 1.6666667;
+
+  @media (min-width: 1200px) {
+    font-size: 1.375rem;
+  }
 }
