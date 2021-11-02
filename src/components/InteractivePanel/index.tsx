@@ -356,7 +356,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
             <BarChart
               bars={[
                 {
-                  title: "Electricity",
+                  title: "Electricity + Buildings",
                   percent: parseInt(
                     dynamicText["CHART-percent-electricity"] || "37"
                   ),

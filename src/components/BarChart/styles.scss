@@ -1,3 +1,5 @@
+@use "../../100-percent-correct-break-points.scss" as *;
+
 .root {
   max-width: 500px;
   margin-left: auto;
@@ -33,11 +35,15 @@
 }
 
 .text {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   font-family: "ABCSans", sans-serif;
   margin-bottom: -0.2em;
+
+  @include for-tablet-portrait-up {
+    font-size: 15px;
+  }
 
   span {
     font-size: 13px;

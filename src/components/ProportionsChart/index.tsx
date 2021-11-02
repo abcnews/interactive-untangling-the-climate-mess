@@ -10,7 +10,7 @@ const ProportionsChart: React.FC<ProportionsChartProps> = ({ dynamicText }) => {
     <BarChart
       bars={[
         {
-          title: "Electricity",
+          title: "Electricity + Buildings",
           percent: parseInt(dynamicText["CHART-percent-electricity"] || "37"),
           color: "#F65C1B", // Orange
           textColor: "#C42F05" // Text orange

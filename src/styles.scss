@@ -102,7 +102,7 @@
     left: 0px;
     top: 0px;
     z-index: -1;
-    border: 40px solid grey;
+    border: 40px solid transparent;
 
     &.variation-0 {
       border-image-source: url(./components/OrganicPanel/organic-panel-background-variation-1.svg);
