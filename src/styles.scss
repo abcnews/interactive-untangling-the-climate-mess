@@ -102,7 +102,7 @@
     left: 0px;
     top: 0px;
     z-index: -1;
-    border: 50px solid grey;
+    border: 40px solid grey;
 
     &.variation-0 {
       border-image-source: url(./components/OrganicPanel/organic-panel-background-variation-1.svg);
@@ -116,7 +116,7 @@
       border-image-source: url(./components/OrganicPanel/organic-panel-background-variation-3.svg);
     }
 
-    border-image-slice: 50;
+    border-image-slice: 80 80 80 80;
     opacity: 0.9;
   }
 
