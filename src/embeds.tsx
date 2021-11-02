@@ -12,6 +12,7 @@ import { initAppleNews } from "./lib/apple-news";
 import DynText from "./components/DynText";
 import Embed from "./components/Embed";
 import InteractivePanel from "./components/InteractivePanel";
+import ProportionsChart from "./components/ProportionsChart";
 import UserInputBox from "./components/UserInputBox";
 
 const rIC =
@@ -86,9 +87,8 @@ interface EmbedSwitcherProps {
 }
 
 const EmbedSwitcher: React.FC<EmbedSwitcherProps> = ({ id }) => {
-  const [userInputSerializedState, setUserInputSerializedState] = useState(
-    "{}"
-  );
+  const [userInputSerializedState, setUserInputSerializedState] =
+    useState("{}");
   const userInputState = JSON.parse(userInputSerializedState);
 
   useEffect(() => {
@@ -212,6 +212,9 @@ const EmbedSwitcher: React.FC<EmbedSwitcherProps> = ({ id }) => {
           {...userInputBoxCommonProps}
         />
       );
+      break;
+    case "proportions":
+      component = <ProportionsChart dynamicText={dynamicText} />;
       break;
     case "results":
       component = <UserResultsBox userInputState={{ ...userInputState }} />;
