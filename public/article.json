@@ -22,6 +22,11 @@
     },
     {
       "role": "embed",
+      "URL": "bundle://proportions.html",
+      "layout": "embedLayout"
+    },
+    {
+      "role": "embed",
       "URL": "bundle://subq1.html",
       "layout": "embedLayout"
     },
