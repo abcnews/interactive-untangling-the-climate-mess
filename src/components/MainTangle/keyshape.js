@@ -1,4 +1,4 @@
-const FRAMES_PER_SECOND = 25;
+const FRAMES_PER_SECOND = 30;
 
 /** @license KeyshapeJS v1.1.1 (c) 2018-2021 Pixofield Ltd | pixofield.com/keyshapejs/mit-license */
 window["KeyshapeJS"] = (function () {
