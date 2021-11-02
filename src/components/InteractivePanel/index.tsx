@@ -351,12 +351,15 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
 
         setPanelText(
           <>
-            <p>Personal results.</p>
+            <DynText>{dynamicText["PERSONAL-CHART-pre-text"]}</DynText>
+
             <BarChart
               bars={[
                 {
                   title: "Electricity",
-                  percent: 33,
+                  percent: parseInt(
+                    dynamicText["CHART-percent-electricity"] || "0"
+                  ),
                   color: "#F65C1B", // Orange
                   textColor: "#C42F05", // Text orange
                   // greyedOut: isGreyedOut("SUBQ1-renewables-zero-carbon"),
@@ -366,7 +369,9 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                 },
                 {
                   title: "Agriculture",
-                  percent: 10,
+                  percent: parseInt(
+                    dynamicText["CHART-percent-agriculture"] || "0"
+                  ),
                   color: "#007B52", // Green
                   textColor: "#007B52",
                   // greyedOut: isGreyedOut("SUBQ2-livestock-emissions"),
@@ -376,7 +381,9 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                 },
                 {
                   title: "Transport",
-                  percent: 20,
+                  percent: parseInt(
+                    dynamicText["CHART-percent-transport"] || "0"
+                  ),
                   color: "#007CBF", // Light blue
                   textColor: "#007CBF",
                   // greyedOut: isGreyedOut("SUBQ3-transportation-off-fossil"),
@@ -386,7 +393,9 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
                 },
                 {
                   title: "Industry",
-                  percent: 40,
+                  percent: parseInt(
+                    dynamicText["CHART-percent-industry"] || "0"
+                  ),
                   color: "#2A4059", // Dark blue
                   textColor: "#2A4059",
                   // greyedOut: isGreyedOut("SUBQ4-industry-emissions"),

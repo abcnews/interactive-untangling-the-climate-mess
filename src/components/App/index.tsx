@@ -65,8 +65,8 @@ const endStringsMarkers = [
   "endstrings",
   "userstrings",
   "endallstrings",
-  "endaustralia",
-  "endstorycomplete"
+  "endaustralia"
+  // "endstorycomplete"
 ];
 
 const scroll = new SmoothScroll('a[href*="#"]', {
@@ -627,6 +627,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
     if (marker === "endallstrings") {
       setMainTangleOpacity(0.0);
+      setEndTangleOpacity(1.0);
       setEndStrings({
         renewables: 1,
         transportation: 1,
@@ -637,25 +638,26 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
     if (marker === "userstrings") {
       setMainTangleOpacity(0.0);
+      setEndTangleOpacity(1.0);
       setEndStrings(userStrings);
     }
 
     if (marker === "endaustralia") {
       setMainTangleOpacity(0.0);
+      setEndTangleOpacity(1.0);
       setEndStrings(australiaStrings);
     }
 
-    // TODO: work out if we want to hide strings at the end
-    // Don't hide for now
-    // if (marker === "endstorycomplete") {
-    //   setEndStrings({
-    //     renewables: 0,
-    //     transportation: 0,
-    //     carboncapture: 0,
-    //     industry: 0,
-    //     livestock: 0
-    //   });
-    // }
+    if (marker === "endstorycomplete") {
+      setEndTangleOpacity(0.0);
+      // setEndStrings({
+      //   renewables: 0,
+      //   transportation: 0,
+      //   carboncapture: 0,
+      //   industry: 0,
+      //   livestock: 0
+      // });
+    }
 
     // If user has scrolled enough, set them as has engaged
     if (marker === 2) {
@@ -952,25 +954,31 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
             bars={[
               {
                 title: "Electricity",
-                percent: 21,
+                percent: parseInt(
+                  dynamicText["CHART-percent-electricity"] || "0"
+                ),
                 color: "#F65C1B", // Orange
                 textColor: "#C42F05" // Text orange
               },
               {
                 title: "Agriculture",
-                percent: 12,
+                percent: parseInt(
+                  dynamicText["CHART-percent-agriculture"] || "0"
+                ),
                 color: "#007B52", // Green
                 textColor: "#007B52"
               },
               {
                 title: "Transport",
-                percent: 20,
+                percent: parseInt(
+                  dynamicText["CHART-percent-transport"] || "0"
+                ),
                 color: "#007CBF", // Light blue
                 textColor: "#007CBF"
               },
               {
                 title: "Industry",
-                percent: 47,
+                percent: parseInt(dynamicText["CHART-percent-industry"] || "0"),
                 color: "#2A4059", // Dark blue
                 textColor: "#2A4059"
               }
