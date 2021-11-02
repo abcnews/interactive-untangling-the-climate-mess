@@ -1042,7 +1042,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
           stringsNew={endStrings}
           windowSize={windowSize}
           xPos={mainTangleXPos}
-          yPos={0.18}
+          yPos={0.15}
         />
         <BackgroundTexture />
       </Portal>

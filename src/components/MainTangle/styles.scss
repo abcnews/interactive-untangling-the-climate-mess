@@ -7,9 +7,9 @@
   left: 0;
   width: 100%;
   max-width: 100%;
-  text-align: right;
-  transition: opacity 500ms;
-  overflow: visible;
+  transition: opacity 750ms;
+  overflow: auto;
+  min-height: 100vh;
 
   // Keep SVG in window
   svg {
@@ -50,6 +50,10 @@
 
 .hidden {
   visibility: hidden;
+}
+
+.not-hidden {
+  visibility: visible;
 }
 
 @media (max-width: 1199px) {
