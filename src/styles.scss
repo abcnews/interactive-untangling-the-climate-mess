@@ -102,7 +102,10 @@
     left: 0px;
     top: 0px;
     z-index: -1;
-    border: 40px solid transparent;
+    // border: 40px solid transparent;
+    // Transparent border apparently makes it invisible in Safari iOS and Mac
+    border-style: solid;
+    border-width: 40px;
 
     &.variation-0 {
       border-image-source: url(./components/OrganicPanel/organic-panel-background-variation-1.svg);

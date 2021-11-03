@@ -44,6 +44,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
   const [hidden, setHidden] = useState(false);
   const [panelText, setPanelText] = useState(<p>...</p>);
 
+  // This function technically should never fire.
   function getLevel2Text(convincedState, userInputState) {
     if (convincedState === "green")
       return <DynText>{dynamicText["LEVEL2-green"]}</DynText>;
@@ -149,6 +150,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         }
         break;
       case "level2answer":
+        ///////////// THIS SECTION SHOULD NEVER BE REACHED ///////////////
         shouldShow =
           questionCompleteness === "noMAIN1noSUByesMAIN2" || // 3
           questionCompleteness === "yesMAIN1noSUByesMAIN2" || // 4
@@ -181,6 +183,7 @@ const InteractivePanel: React.FC<InteractivePanelProps> = ({
         }
 
         break;
+      ///////////// THIS SECTION SHOULD NEVER BE REACHED ///////////////
       case "level3answer":
         shouldShow =
           questionCompleteness === "yesMAIN1allSUByesMAIN2" || // 10
