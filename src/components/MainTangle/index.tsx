@@ -216,25 +216,25 @@ const MainTangle: React.FC<MainTangleProps> = ({
 
         if (POS_ON_MOBILE && window.innerWidth < 1200) {
           const tanglePosition = {
-            intial: TOP_DOCK_POSITION,
-            2: TOP_DOCK_POSITION,
-            3: MID_POINT,
-            4: HIDE_TOP,
-            5: HIDE_TOP,
-            6: HIDE_TOP,
-            7: HIDE_TOP,
-            8: HIDE_TOP,
-            9: MID_POINT,
-            10: HIDE_TOP,
-            11: HIDE_TOP,
-            12: HIDE_TOP,
-            13: HIDE_TOP,
-            14: MID_POINT,
-            15: HIDE_TOP,
-            16: HIDE_TOP,
-            17: MID_POINT,
-            18: HIDE_TOP,
-            19: HIDE_TOP
+            intial: 0.01, // Initial ball
+            2: 0.01, // Title
+            3: 0.05, // After title ball
+            4: 0.01,
+            5: 0.01,
+            6: 0.01,
+            7: 0.01,
+            8: 0.01,
+            9: 0.01,
+            10: 0.01,
+            11: 0.01,
+            12: 0.01,
+            13: 0.01,
+            14: 0.01,
+            15: 0.01,
+            16: 0.01,
+            17: 0.01,
+            18: 0.01,
+            19: 0.01
           };
 
           const posY = tanglePosition[scrollMarker];
@@ -250,7 +250,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
                   posY * window.innerHeight ||
                   TOP_DOCK_POSITION * window.innerHeight,
                 ease: "power2.inOut",
-                duration: 0.75
+                duration: 10
               });
             }
           }
