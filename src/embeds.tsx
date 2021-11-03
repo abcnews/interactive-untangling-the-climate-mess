@@ -1,10 +1,6 @@
 import "regenerator-runtime/runtime.js";
-import {
-  createStore,
-  del as idbDelete,
-  get as idbGet,
-  set as idbSet
-} from "idb-keyval";
+import type { UseStore } from "idb-keyval";
+import { createStore, get as idbGet, set as idbSet } from "idb-keyval";
 import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 import DYNAMIC_TEXT_DATA from "../public/dynamic-text.json";
@@ -61,11 +57,6 @@ const INTERACTIVE_PANEL_KEYS = [
   "personalresults"
 ];
 
-const idbKeyvalStore = createStore(
-  `${PROJECT_NAME}-db-${Math.floor(Date.now() / 1e4)}`,
-  `${PROJECT_NAME}-store`
-);
-
 const dynamicText = {};
 
 for (const record of DYNAMIC_TEXT_DATA) {
@@ -81,6 +72,8 @@ for (const record of DYNAMIC_TEXT_DATA) {
 
   dynamicText[name] = isBlank ? undefined : text;
 }
+
+let idbKeyvalStore: UseStore;
 
 interface EmbedSwitcherProps {
   id?: string;
@@ -126,23 +119,6 @@ const EmbedSwitcher: React.FC<EmbedSwitcherProps> = ({ id }) => {
     setUserInputSerializedState(nextUserInputSerializedState);
   };
 
-  useEffect(() => {
-    const clearPersistedUserInputState = () =>
-      idbDelete(USER_INPUT_STATE_PERSISTENCE_KEY, idbKeyvalStore);
-
-    if (id === "results") {
-      window.addEventListener("beforeunload", clearPersistedUserInputState);
-    }
-
-    return () => {
-      if (id === "results") {
-        window.removeEventListener(
-          "beforeunload",
-          clearPersistedUserInputState
-        );
-      }
-    };
-  }, []);
   const userInputBoxCommonProps = {
     userInputState,
     setUserInputState: updateSerializePersistAndSetUserInputState,
@@ -406,6 +382,11 @@ function renderEmbed(embedEl: HTMLElement) {
 }
 
 window.addEventListener("load", () => {
+  idbKeyvalStore = createStore(
+    `${PROJECT_NAME}-db-${Math.floor(Date.now() / 1e4)}`,
+    `${PROJECT_NAME}-store`
+  );
+
   const embedEl = document.getElementById("embed") as HTMLElement;
 
   if (window.applenews) {
