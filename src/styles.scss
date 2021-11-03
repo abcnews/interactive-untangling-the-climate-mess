@@ -10,7 +10,8 @@
   padding-right: 15px !important;
   padding-top: 42.5vh !important;
   padding-bottom: 42.5vh !important;
-  max-width: 500px;
+  max-width: 610px;
+  text-align: center;
 
   // Push panel on Desktop
   @include for-desktop-up {
@@ -23,12 +24,13 @@
     left: 50%;
     margin-left: 0 !important;
     width: calc(100vw / 2.5);
-    max-width: 500px;
+    // max-width: 500px;
   }
 
   .panel-content-container {
     padding: 30px 30px;
     position: relative;
+    text-align: left;
 
     @include for-tablet-portrait-up {
       padding: 30px 2.5rem;
@@ -81,6 +83,10 @@
       margin-top: 1.3333333em;
       margin-bottom: 1.3333333em;
     }
+
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
