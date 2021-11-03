@@ -6,14 +6,9 @@ import React, {
   ReactElement
 } from "react";
 import styles from "./styles.scss";
-import { Client } from "@abcnews/poll-counters-client";
 import debounce from "debounce-promise";
 import to from "await-to-js";
 import { CSSTransition } from "react-transition-group";
-
-// Set up our poll counter
-// const GROUP = "interactive-untangling-the-climate-mess";
-// const pollClient = new Client(GROUP);
 
 interface Button {
   label: string;
@@ -119,7 +114,7 @@ interface UserInputBoxProps {
   questionKey: string;
   padding?: boolean;
   color?: string;
-  pollClient: any;
+  pollClient?: any;
   windowWidth: number;
   userInputState?: any;
 }
@@ -148,20 +143,14 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
 
   // Promisify callback functions here whatever
   const pollIncrement = (...args) =>
-    new Promise((resolve, reject) => {
-      pollClient.increment(...args, (err, question) => {
-        if (err) return reject(err);
-        resolve(question);
-      });
-    });
-
-  const pollGet = (...args) =>
-    new Promise((resolve, reject) => {
-      pollClient.get(...args, (err, result) => {
-        if (err) return reject(err);
-        resolve(result);
-      });
-    });
+    pollClient
+      ? new Promise((resolve, reject) => {
+          pollClient.increment(...args, (err, question) => {
+            if (err) return reject(err);
+            resolve(question);
+          });
+        })
+      : Promise.resolve();
 
   const handleClick = (e: SyntheticEvent) => {
     const selectedId = (e.target as Element).id;
@@ -169,7 +158,7 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
   };
 
   async function handleUserInput(questionId, answerCode) {
-    const [err, result] = await to(
+    const [err] = await to(
       component.debouncedPollIncrement({
         question: questionId,
         answer: answerCode

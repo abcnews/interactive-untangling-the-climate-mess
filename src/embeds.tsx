@@ -146,10 +146,6 @@ const EmbedSwitcher: React.FC<EmbedSwitcherProps> = ({ id }) => {
   const userInputBoxCommonProps = {
     userInputState,
     setUserInputState: updateSerializePersistAndSetUserInputState,
-    pollClient: {
-      get: () => Promise.reject(),
-      increment: () => {}
-    },
     windowWidth: 0
   };
 
