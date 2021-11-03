@@ -218,23 +218,23 @@ const MainTangle: React.FC<MainTangleProps> = ({
           const tanglePosition = {
             intial: 0.01, // Initial ball
             2: 0.01, // Title
-            3: 0.05, // After title ball
+            3: 0.01, // After title ball
             4: 0.01,
             5: 0.01,
             6: 0.01,
-            7: 0.01,
-            8: 0.01,
+            7: 0.01, // Cable
+            8: 0.01, // Pool
             9: 0.01,
-            10: 0.01,
-            11: 0.01,
-            12: 0.01,
-            13: 0.01,
-            14: 0.01,
-            15: 0.01,
-            16: 0.01,
-            17: 0.01,
-            18: 0.01,
-            19: 0.01
+            10: 0, // Cow
+            11: -0.001,
+            12: -0.001,
+            13: -0.001,
+            14: -0.001,
+            15: -0.01, // Car
+            16: -0.01,
+            17: -0.01,
+            18: -0.015, // Smelt
+            19: -0.015
           };
 
           const posY = tanglePosition[scrollMarker];
@@ -246,9 +246,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
             // to wait until it finishes, or not
             if (posY !== prevPosY) {
               gsap.to(mainEl.current, {
-                y:
-                  posY * window.innerHeight ||
-                  TOP_DOCK_POSITION * window.innerHeight,
+                y: posY == 0 ? 0 : posY * window.innerHeight,
                 ease: "power2.inOut",
                 duration: 10
               });

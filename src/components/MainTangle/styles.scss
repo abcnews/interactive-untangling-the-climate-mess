@@ -13,7 +13,12 @@
 
   // Keep SVG in window
   svg {
-    max-height: 144vh;
+    max-height: 140vh;
+
+    @include for-desktop-up {
+      max-height: 150vh;
+
+    }
 
     // -webkit-transition: all 1s ease;
     // -webkit-mask-size: 100vw 100vh;
