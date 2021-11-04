@@ -242,10 +242,17 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       return { ...prevState, [questionSkipped]: convincedState };
     });
 
+    // Count skips as "hopeful"
     const result = await pollIncrement({
       question: questionSkipped,
       answer: convincedState
     });
+
+    const result2 = await pollIncrement({
+      question: questionSkipped,
+      answer: "skippedCount"
+    });
+
   };
 
   // onMount
