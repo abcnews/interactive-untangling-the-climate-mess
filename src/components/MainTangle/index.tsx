@@ -16,6 +16,7 @@ const FAST_SKIP_INCREASE = 1.0;
 // Set to true to enable tangle movement when on mobile
 const POS_ON_MOBILE = false;
 const TOP_DOCK_POSITION = 0.01;
+const BOTTOM_DOCK_POSITION = 0.9;
 const HIDE_TOP = -0.05;
 const MID_POINT = 0.05;
 
@@ -79,7 +80,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
   // Component state
   const [markers, setMarkers] = useState({});
   const prevScrollMarker = usePrevious(props.scrollMarker);
-  const [yPosState, setYPosState] = useState(TOP_DOCK_POSITION);
+  const [yPosState, setYPosState] = useState(BOTTOM_DOCK_POSITION);
 
   // Use a component ref objet to store things properly
   // across renders.
@@ -247,13 +248,13 @@ const MainTangle: React.FC<MainTangleProps> = ({
 
             // Uncomment/comment if we want to async the gsap animation
             // to wait until it finishes, or not
-            if (posY !== prevPosY) {
-              gsap.to(mainEl.current, {
-                y: posY == 0 ? 0 : posY * window.innerHeight,
-                ease: "power2.inOut",
-                duration: 10
-              });
-            }
+            // if (posY !== prevPosY) {
+            //   gsap.to(mainEl.current, {
+            //     y: posY == 0 ? 0 : posY * window.innerHeight,
+            //     ease: "power2.inOut",
+            //     duration: 10
+            //   });
+            // }
           }
         }
 
@@ -340,6 +341,8 @@ const MainTangle: React.FC<MainTangleProps> = ({
       typeof props.scale === "undefined"
     )
       return;
+
+    console.log("xPOs", props.xPos);
 
     gsap.to(mainEl.current, {
       y: yPosState * window.innerHeight,

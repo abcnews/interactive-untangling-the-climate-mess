@@ -23,6 +23,10 @@
   -webkit-box-decoration-break: clone;
   -o-box-decoration-break: clone;
   box-decoration-break: clone;
+
+  * {
+    color: white !important;
+  }
 }
 
 .root {
@@ -143,5 +147,14 @@
 
   [data-component="DeveloperFlags"] {
     display: none;
+  }
+
+  sup, sub {
+    vertical-align: baseline;
+    position: relative;
+    top: -0.4em;
+  }
+  sub { 
+    top: 0.4em; 
   }
 }

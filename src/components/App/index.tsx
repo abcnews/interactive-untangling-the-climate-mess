@@ -105,7 +105,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     _setMainTangleOpacity(data);
   };
 
-  const [mainTangleXPos, setMainTangleXPos] = useState(0);
+  const [mainTangleXPos, setMainTangleXPos] = useState(-0.25);
   const [mainTangleYPos, setMainTangleYPos] = useState(1.1);
   const [mainTangleScale, setMainTangleScale] = useState(100);
   const [renderMainTangle, setRenderMainTangle] = useState(false);
@@ -156,7 +156,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const [animationDuration, setAnimationDuration] = useState(1.5);
 
   // Detect reduced motion a11y settings
-  const prefersReducedMotion = useReducedMotion(false);
+  const prefersReducedMotion = useReducedMotion(true);
 
   useEffect(() => {
     setManualReduceMotion(prefersReducedMotion);
@@ -400,8 +400,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   }, []);
 
   // USED TO START TANGLE AT BOTTOM OF SCREEN AT FIRST
-  // WE ARE TRYING TO MOVE THIS FUNCTIONALITY INTO THE MAIN TANGLE
-  // COMPONENT
   useEffect(() => {
     if (!backgroundIsRendered) return;
 
@@ -415,7 +413,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
               : BOTTOM_DOCK_SIDE_BY_SIDE_POSITION
           );
         // else setMainTangleYPos(markerConfig[markerRef.current] || 0.01);
-        // TODO: Start at Core position config
         else setMainTangleYPos(0.01);
 
         // We have initially positioned
@@ -672,9 +669,14 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
     const { width, height } = windowSize;
 
+    if (prefersReducedMotion) setAnimationDuration(0.0);
+    else setAnimationDuration(1.5);
+
     // On Desktop
     if (width >= 1200) {
-      if (openingCentered) {
+      if (prefersReducedMotion) {
+        setMainTangleXPos(-0.25);
+      } else if (openingCentered) {
         if (isPastOpening) setMainTangleXPos(-0.25);
         if (!isPastOpening) setMainTangleXPos(0.0);
       } else {
@@ -685,7 +687,12 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       setIsDesktop(false);
       setMainTangleXPos(0.0);
     }
-  }, [windowSize.width, windowSize.height, isPastOpening]);
+  }, [
+    windowSize.width,
+    windowSize.height,
+    isPastOpening,
+    prefersReducedMotion
+  ]);
 
   const subq1ShowAfterPanel = userInputState => {
     const showState: any = { show: false, optimistic: null };

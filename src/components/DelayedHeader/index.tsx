@@ -10,14 +10,14 @@ import DynText from "../DynText";
 
 interface DelayedHeaderProps {
   setTransformsComplete: (complete: boolean) => void;
-  openingCentered: boolean;
+  openingCentered?: boolean;
   isDesktop: boolean;
   setIsPastOpening: (isPastOpening: boolean) => void;
 }
 
 const DelayedHeader: React.FC<DelayedHeaderProps> = ({
   setTransformsComplete,
-  openingCentered,
+  openingCentered = false,
   isDesktop,
   setIsPastOpening,
   ...props
@@ -26,11 +26,8 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
 
   const { ref: lastPanelRef, inView, entry } = useInView({});
 
-  const {
-    dynamicText,
-    dynamicTextLoading,
-    dynamicTextError
-  } = useDynamicText();
+  const { dynamicText, dynamicTextLoading, dynamicTextError } =
+    useDynamicText();
 
   useEffect(() => {
     // Uses intersection observer to check if scrolled past a certain point
@@ -80,11 +77,7 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
       ></div>
 
       <div className={styles.heroContainer}>
-        <div
-          className={`${styles.heroText} ${
-            !openingCentered && isDesktop && styles.pullLeft
-          }`}
-        >
+        <div className={`${styles.heroText}`}>
           {/* Climate change... <br />
         we get it, it’s a depressing mess. */}
           <DynText>{dynamicText["hero-heading"]}</DynText>
@@ -140,7 +133,11 @@ const DelayedHeader: React.FC<DelayedHeaderProps> = ({
         </OrganicPanel>
       </div>
 
-      <div className={styles.panel}>
+      <div
+        className={`${styles.panel} ${
+          !openingCentered && isDesktop && styles.pullLeft
+        }`}
+      >
         <OrganicPanel
           backgroundVariation={2}
           isCentered={true}
