@@ -657,7 +657,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     }
 
     // If user has scrolled enough, set them as has engaged
-    if (marker === 2) {
+    if (marker === 2 || marker === 3 || marker === 4) {
       setUserHasEngaged(true);
     }
 
