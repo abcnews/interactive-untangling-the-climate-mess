@@ -7,7 +7,7 @@ const OUTLINE_COLOR = "#808093";
 
 const BarDesktop = ({
   color,
-  percent,
+  percent = 0,
   title,
   textColor,
   index = 0,
@@ -15,6 +15,7 @@ const BarDesktop = ({
   ...props
 }) => {
   const NUMBER_OF_VARIATIONS = 4;
+  
   return (
     <div className={styles.barContainer}>
       <div
@@ -178,7 +179,7 @@ const BarDesktop = ({
 
 const Bar = ({
   color,
-  percent,
+  percent = 0,
   title,
   textColor,
   index = 0,
@@ -186,6 +187,7 @@ const Bar = ({
   ...props
 }) => {
   const NUMBER_OF_VARIATIONS = 4;
+
   return (
     <div className={styles.barContainer}>
       <div

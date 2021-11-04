@@ -307,7 +307,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         // Calculate percentages
 
         const total: number = convincedCount + unconvincedCount;
-        const percentConvinced: number = (convincedCount / total) * 100;
+        const percentConvinced: number = total === 0 ? 0 : (convincedCount / total) * 100;
 
         return Math.round(percentConvinced);
       };
