@@ -14,6 +14,7 @@ const PLAY_RATE = 1.0;
 const FAST_SKIP_INCREASE = 1.0;
 
 // Set to true to enable tangle movement when on mobile
+// WE ARE NOT DOING THIS SO KEEP FALSE
 const POS_ON_MOBILE = false;
 const TOP_DOCK_POSITION = 0.01;
 const BOTTOM_DOCK_POSITION = 0.9;
@@ -160,6 +161,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
         }
 
         const progress = message.data.threshold;
+        console.log(progress);
         const isProgressWithinPlaybackRange = progress >= 0 && progress < 1;
 
         if (wasProgressWithinPlaybackRange !== isProgressWithinPlaybackRange) {
