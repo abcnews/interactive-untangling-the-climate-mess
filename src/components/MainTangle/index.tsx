@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useContext, useState } from "react";
 import styles from "./styles.scss";
 import SVG from "react-inlinesvg";
 import { gsap } from "gsap";
+import useReducedMotion from "../../lib/useReducedMotion";
 
 import untangleAnimation from "./assets/untangle-final-3.svg";
 
@@ -85,6 +86,8 @@ const MainTangle: React.FC<MainTangleProps> = ({
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
+  const prefersReducedMotion = useReducedMotion(false);
+
   // Init component vars
   let timeline = component.timeline;
 
@@ -109,7 +112,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
     const playloop = lookupRange(props.scrollMarker + ""); // Coerce to string
 
     // If at the end just play the end animation
-    if (!playloop.loopback) {
+    if (prefersReducedMotion || !playloop.loopback) {
       timeline.rate(PLAY_RATE);
       timeline.loop(false);
       timeline.range(playloop.start, playloop.end);
@@ -273,7 +276,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
             component.pressure = 0;
             timeline.rate(PLAY_RATE);
 
-            if (!playloop.loopback) {
+            if (prefersReducedMotion || !playloop.loopback) {
               this.pause();
               return;
             }
@@ -301,7 +304,7 @@ const MainTangle: React.FC<MainTangleProps> = ({
             // Keep looping backwards to avoid loop weirdness
             timeline.rate(-PLAY_RATE);
 
-            if (!playloop.loopback) {
+            if (prefersReducedMotion || !playloop.loopback) {
               this.pause();
               return;
             }
