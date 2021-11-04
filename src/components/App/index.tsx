@@ -766,7 +766,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <Portal node={document && document.querySelector(".delayed-header")}>
           <DelayedHeader
             setTransformsComplete={setTransformsComplete}
-            openingCentered={openingCentered}
+            openingCentered={!prefersReducedMotion}
             isDesktop={isDesktop}
             setIsPastOpening={setIsPastOpening}
           />
