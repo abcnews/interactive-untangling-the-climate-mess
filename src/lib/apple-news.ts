@@ -41,7 +41,8 @@ export interface ANConfiguration {
   locale: string;
 }
 
-export type ANConfigurationChangeEvent = CustomEvent<ANConfigurationChangeEventDetail>;
+export type ANConfigurationChangeEvent =
+  CustomEvent<ANConfigurationChangeEventDetail>;
 
 export interface ANConfigurationChangeEventDetail {
   newConfiguration: ANConfiguration;
@@ -56,7 +57,8 @@ export enum ANPresentationState {
   NOT_PRESENTED = "notpresented"
 }
 
-export type ANPresentationStateChangeEvent = CustomEvent<ANPresentationStateChangeEventDetail>;
+export type ANPresentationStateChangeEvent =
+  CustomEvent<ANPresentationStateChangeEventDetail>;
 
 export interface ANPresentationStateChangeEventDetail {
   newPresentationState: ANPresentationState;
@@ -97,6 +99,8 @@ export function postMessage(message: ANMessage) {
   }
 }
 
+let hasPreviouslyEmittedCanvasHeight = false;
+
 export function emitCanvasHeight(canvas: HTMLElement) {
   const presentationState = window.applenews
     ? window.applenews.presentationState
@@ -109,6 +113,10 @@ export function emitCanvasHeight(canvas: HTMLElement) {
         : ANMessageName.PRESENTABLE,
     height: canvas.offsetHeight
   });
+
+  if (!hasPreviouslyEmittedCanvasHeight) {
+    hasPreviouslyEmittedCanvasHeight = true;
+  }
 }
 
 export function renderWithinAppleNews(
@@ -155,5 +163,13 @@ export function initAppleNews(
       update();
     }
   });
+
+  // Force an `emitCanvasHeight` if it hasn't happened 2000ms after page load
+  setTimeout(() => {
+    if (!hasPreviouslyEmittedCanvasHeight) {
+      emitCanvasHeight(canvas);
+    }
+  }, 2000);
+
   return update;
 }
