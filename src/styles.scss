@@ -30,12 +30,12 @@
   }
 
   .panel-content-container {
-    padding: 15px 30px;
+    padding: 18px 30px;
     position: relative;
     text-align: left;
 
     @include for-tablet-portrait-up {
-      padding: 18px 2.5rem;
+      padding: 20px 2.5rem;
     }
 
     @include for-desktop-up {
