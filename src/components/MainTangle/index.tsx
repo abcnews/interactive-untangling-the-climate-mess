@@ -342,8 +342,6 @@ const MainTangle: React.FC<MainTangleProps> = ({
     )
       return;
 
-    console.log("xPOs", props.xPos);
-
     gsap.to(mainEl.current, {
       y: yPosState * window.innerHeight,
       x: props.xPos * window.innerWidth,

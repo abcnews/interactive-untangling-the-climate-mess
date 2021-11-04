@@ -661,7 +661,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       setUserHasEngaged(true);
     }
 
-    console.log("Current marker", marker);
+    // console.log("Current marker", marker);
   }, [marker]);
 
   useEffect(() => {
