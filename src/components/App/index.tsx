@@ -82,6 +82,7 @@ interface AppProps {
 
 let scrollY = 0;
 let initialPositioningComplete = false;
+let markersReached = new Set();
 
 const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const [marker, _setMarker] = useState<any>();
@@ -252,7 +253,6 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       question: questionSkipped,
       answer: "skippedCount"
     });
-
   };
 
   // onMount
@@ -314,7 +314,8 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         // Calculate percentages
 
         const total: number = convincedCount + unconvincedCount;
-        const percentConvinced: number = total === 0 ? 0 : (convincedCount / total) * 100;
+        const percentConvinced: number =
+          total === 0 ? 0 : (convincedCount / total) * 100;
 
         return Math.round(percentConvinced);
       };
@@ -669,6 +670,19 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
     }
 
     // console.log("Current marker", marker);
+
+    // Track a few markers
+    if (!markersReached.has(marker)) {
+      markersReached.add(marker);
+
+      const markerString: string = marker.toString();
+
+      // Track the number of times we've reached each marker
+      pollIncrement({
+        question: "USERINFO",
+        answer: `marker-${markerString}`
+      });
+    }
   }, [marker]);
 
   useEffect(() => {
