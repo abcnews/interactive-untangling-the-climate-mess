@@ -14,10 +14,8 @@ declare var __webpack_public_path__: any;
 
 const PROJECT_NAME: string = "interactive-untangling-the-climate-mess";
 
-declare global {
-  interface Window {
-    __ODYSSEY__: any;
-  }
+interface Window {
+  __ODYSSEY__: any;
 }
 
 // ¯\_(ツ)_/¯ unsure why this was here but it was
