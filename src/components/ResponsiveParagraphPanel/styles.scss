@@ -81,7 +81,6 @@ $fade-height: 400px;
     max-width: 610px;
     position: relative;
     left: 50%;
-    margin-left: 0 !important;
     padding-top: 0;
     padding-bottom: 0;
   }
@@ -96,5 +95,11 @@ $fade-height: 400px;
     @include for-tablet-landscape-up {
       margin-bottom: 32px;
     }
+  }
+}
+
+@include for-desktop-up {
+  div.paragraph-wrapper {
+    margin-left: 0 !important;
   }
 }
