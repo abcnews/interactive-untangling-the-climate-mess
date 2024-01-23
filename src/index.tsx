@@ -59,7 +59,7 @@ function preInit() {
         src="${panels[iteration % panels.length]}"
         class="organic-panel-style-stretch"
       /> -->
-      
+
       <div class="panel-flat-fill" />
     </div>`;
     container.className = `${styles.panelContentContainer}`;

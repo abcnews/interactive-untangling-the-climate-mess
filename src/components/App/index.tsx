@@ -34,6 +34,8 @@ const d3 = { ...require("d3-scale") };
 
 import useReducedMotion from "../../lib/useReducedMotion";
 
+import pollGetLocal from "./pollGet.json";
+
 // Set up our poll counter
 const GROUP = "interactive-untangling-the-climate-mess";
 const pollClient = new Client(GROUP);
@@ -42,7 +44,7 @@ const TOP_DOCK_POSITION = 0.01;
 const BOTTOM_DOCK_POSITION = 0.9;
 const BOTTOM_DOCK_SIDE_BY_SIDE_POSITION = 0.35;
 
-// Promisify callback functions here whatever
+// Promisify callback functions
 const pollIncrement = (...args) =>
   new Promise((resolve, reject) => {
     pollClient.increment(...args, (err, question) => {
@@ -174,20 +176,22 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
   const mounts = selectMounts("skipahead", { includeOwnUsed: true });
 
-  useEffect(() => {
-    if (!userHasEngaged) return;
+  // DEPRECATION NOTICE FOR POLL-COUNTERS
 
-    (async () => {
-      const [err, result] = await to(
-        pollIncrement({
-          question: "USERINFO",
-          answer: "engagement-count"
-        })
-      );
+  // useEffect(() => {
+  //   if (!userHasEngaged) return;
 
-      if (err) console.error(err);
-    })();
-  }, [userHasEngaged]);
+  //   (async () => {
+  //     const [err, result] = await to(
+  //       pollIncrement({
+  //         question: "USERINFO",
+  //         answer: "engagement-count"
+  //       })
+  //     );
+
+  //     if (err) console.error(err);
+  //   })();
+  // }, [userHasEngaged]);
 
   const [numberOfEngagedUsers, setNumberOfEngagedUsers] = useState(0);
 
@@ -204,7 +208,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const windowSize = useWindowSize();
 
   function onScrollUpdate() {
-    scrollY = window.pageYOffset;
+    scrollY = window.scrollY;
 
     // Only process when user at top
     if (scrollY > window.innerHeight * 2 || mainTangleOpacityRef.current < 0.9)
@@ -243,96 +247,102 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       return { ...prevState, [questionSkipped]: convincedState };
     });
 
-    // Count skips as "hopeful"
-    const result = await pollIncrement({
-      question: questionSkipped,
-      answer: convincedState
-    });
+    // DEPRECATION NOTICE FOR POLL-COUNTERS
 
-    const result2 = await pollIncrement({
-      question: questionSkipped,
-      answer: "skippedCount"
-    });
+    // Count skips as "hopeful"
+    // const result = await pollIncrement({
+    //   question: questionSkipped,
+    //   answer: convincedState
+    // });
+
+    // const result2 = await pollIncrement({
+    //   question: questionSkipped,
+    //   answer: "skippedCount"
+    // });
   };
 
   // onMount
   useEffect(() => {
-    pollGet().then((result: any) => {
-      const values = result.value;
+    // pollGet().then((result: any) => {
+    // const values = result.value;
+    // NOTE: POLL-COUNTERS IS DEPRECATED NOW
+    // USING LOCAL JSON FILE INSTEAD.
 
-      if (!values) return;
+    const values = pollGetLocal.value;
 
-      const pollTotals: any = {};
+    if (!values) return;
 
-      // If more people are convinced than unconvinced then remove string
-      function getAustraliaConvinced(keyString: string) {
-        const certainOn: number = values[keyString].certain || 0;
-        const hopefulOn: number = values[keyString].hopeful || 0;
-        const doubtfulOn: number = values[keyString].doubtful || 0;
-        const impossibleOn: number = values[keyString].impossible || 0;
+    const pollTotals: any = {};
 
-        // Get number convinced
-        const convincedCount = certainOn + hopefulOn;
-        const unconvincedCount = doubtfulOn + impossibleOn;
+    // If more people are convinced than unconvinced then remove string
+    function getAustraliaConvinced(keyString: string) {
+      const certainOn: number = values[keyString].certain || 0;
+      const hopefulOn: number = values[keyString].hopeful || 0;
+      const doubtfulOn: number = values[keyString].doubtful || 0;
+      const impossibleOn: number = values[keyString].impossible || 0;
 
-        // Enter Australia convinced or not
-        return convincedCount > unconvincedCount ? 0 : 1;
-      }
+      // Get number convinced
+      const convincedCount = certainOn + hopefulOn;
+      const unconvincedCount = doubtfulOn + impossibleOn;
 
-      pollTotals.renewables = getAustraliaConvinced(
-        "SUBQ1-renewables-zero-carbon"
-      );
-      pollTotals.livestock = getAustraliaConvinced("SUBQ2-livestock-emissions");
-      pollTotals.transportation = getAustraliaConvinced(
-        "SUBQ3-transportation-off-fossil"
-      );
-      pollTotals.industry = getAustraliaConvinced("SUBQ4-industry-emissions");
+      // Enter Australia convinced or not
+      return convincedCount > unconvincedCount ? 0 : 1;
+    }
 
-      setAustraliaStrings(pollTotals);
+    pollTotals.renewables = getAustraliaConvinced(
+      "SUBQ1-renewables-zero-carbon"
+    );
+    pollTotals.livestock = getAustraliaConvinced("SUBQ2-livestock-emissions");
+    pollTotals.transportation = getAustraliaConvinced(
+      "SUBQ3-transportation-off-fossil"
+    );
+    pollTotals.industry = getAustraliaConvinced("SUBQ4-industry-emissions");
 
-      // Count how many areas Australia is convinced of
-      // For later comparison in interactive panels
-      let localAusConvinced = 0;
+    setAustraliaStrings(pollTotals);
 
-      for (const area in pollTotals) {
-        if (pollTotals[area] === 0) localAusConvinced++;
-      }
+    // Count how many areas Australia is convinced of
+    // For later comparison in interactive panels
+    let localAusConvinced = 0;
 
-      setAustraliaConvincedOf(localAusConvinced);
+    for (const area in pollTotals) {
+      if (pollTotals[area] === 0) localAusConvinced++;
+    }
 
-      // Get percentages of people convinced
-      const getPercentageConvinced = (keyString: string, values: any) => {
-        const certainOn: number = values[keyString].certain || 0;
-        const hopefulOn: number = values[keyString].hopeful || 0;
-        const doubtfulOn: number = values[keyString].doubtful || 0;
-        const impossibleOn: number = values[keyString].impossible || 0;
+    setAustraliaConvincedOf(localAusConvinced);
 
-        // Get number convinced
-        const convincedCount: number = certainOn + hopefulOn;
-        const unconvincedCount: number = doubtfulOn + impossibleOn;
+    // Get percentages of people convinced
+    const getPercentageConvinced = (keyString: string, values: any) => {
+      const certainOn: number = values[keyString].certain || 0;
+      const hopefulOn: number = values[keyString].hopeful || 0;
+      const doubtfulOn: number = values[keyString].doubtful || 0;
+      const impossibleOn: number = values[keyString].impossible || 0;
 
-        // Calculate percentages
+      // Get number convinced
+      const convincedCount: number = certainOn + hopefulOn;
+      const unconvincedCount: number = doubtfulOn + impossibleOn;
 
-        const total: number = convincedCount + unconvincedCount;
-        const percentConvinced: number =
-          total === 0 ? 0 : (convincedCount / total) * 100;
+      // Calculate percentages
 
-        return Math.round(percentConvinced);
-      };
+      const total: number = convincedCount + unconvincedCount;
+      const percentConvinced: number =
+        total === 0 ? 0 : (convincedCount / total) * 100;
 
-      setEnergyConvinced(
-        getPercentageConvinced("SUBQ1-renewables-zero-carbon", values)
-      );
-      setLiveStockConvinced(
-        getPercentageConvinced("SUBQ2-livestock-emissions", values)
-      );
-      setTransportConvinced(
-        getPercentageConvinced("SUBQ3-transportation-off-fossil", values)
-      );
-      setIndustryConvinced(
-        getPercentageConvinced("SUBQ4-industry-emissions", values)
-      );
-    });
+      return Math.round(percentConvinced);
+    };
+
+    setEnergyConvinced(
+      getPercentageConvinced("SUBQ1-renewables-zero-carbon", values)
+    );
+    setLiveStockConvinced(
+      getPercentageConvinced("SUBQ2-livestock-emissions", values)
+    );
+    setTransportConvinced(
+      getPercentageConvinced("SUBQ3-transportation-off-fossil", values)
+    );
+    setIndustryConvinced(
+      getPercentageConvinced("SUBQ4-industry-emissions", values)
+    );
+    // });
 
     // Set up interactive panel elements
     const panelStarters: any = document.querySelectorAll(
@@ -376,19 +386,24 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
       }
     }
 
-    (async () => {
-      // Get number of engaged users from Firebase
-      const [err, pollGetResponse]: [any, any] = await to(
-        pollGet({
-          question: "USERINFO",
-          answer: "engagement-count"
-        })
-      );
+    // (async () => {
+    //   // Get number of engaged users from Firebase
+    //   const [err, pollGetResponse]: [any, any] = await to(
+    //     pollGet({
+    //       question: "USERINFO",
+    //       answer: "engagement-count"
+    //     })
+    //   );
 
-      if (!err) {
-        setNumberOfEngagedUsers(pollGetResponse.value);
-      }
-    })();
+    //   if (!err) {
+    //     setNumberOfEngagedUsers(pollGetResponse.value);
+    //   }
+    // })();
+
+    // NOTE: WE ARE DEPRECATING THE USE OF FIREBASE POLL COUNTERS
+    // SO THIS NUMBER IS NOW BEING SET MANUALLY TO THE LAST KNOWN VALUE
+    // IT WILL NOT CHANGE IN FUTURE.
+    setNumberOfEngagedUsers(259996);
 
     // Unhide the app when loaded
     const content = document.querySelector("#content");
@@ -677,11 +692,13 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
 
       const markerString: string = marker.toString();
 
+      // DEPRECATION NOTICE FOR POLL-COUNTERS
+
       // Track the number of times we've reached each marker
-      pollIncrement({
-        question: "USERINFO",
-        answer: `marker-${markerString}`
-      });
+      // pollIncrement({
+      //   question: "USERINFO",
+      //   answer: `marker-${markerString}`
+      // });
     }
   }, [marker]);
 
@@ -1042,7 +1059,7 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
         <BackgroundTexture />
       </Portal>
 
-      {/* Sets paragraph text where we break out of 
+      {/* Sets paragraph text where we break out of
         scrolly panels (and hide background animations on mobile) */}
 
       {/* Note: rewriting the paragraph panels */}

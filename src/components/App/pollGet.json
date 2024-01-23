@@ -1,0 +1,61 @@
+{
+  "type": "group",
+  "path": "interactive-untangling-the-climate-mess",
+  "key": "interactive-untangling-the-climate-mess",
+  "value": {
+    "MAINQ1-can-we-still-save-the-world": {
+      "certain": 39216,
+      "doubtful": 22429,
+      "hopeful": 54845,
+      "impossible": 7577
+    },
+    "SUBQ1-renewables-zero-carbon": {
+      "doubtful": 9289,
+      "hopeful": 61574,
+      "skippedCount": 10375
+    },
+    "SUBQ2-livestock-emissions": {
+      "doubtful": 5010,
+      "hopeful": 50843,
+      "skippedCount": 12470
+    },
+    "SUBQ3-transportation-off-fossil": {
+      "doubtful": 4065,
+      "hopeful": 36557,
+      "skippedCount": 7442
+    },
+    "SUBQ4-industry-emissions": {
+      "doubtful": 3864,
+      "hopeful": 26485,
+      "skippedCount": 4760
+    },
+    "USERINFO": {
+      "engagement-count": 259996,
+      "marker-10": 75869,
+      "marker-11": 73085,
+      "marker-12": 70375,
+      "marker-13": 60369,
+      "marker-14": 57040,
+      "marker-15": 56337,
+      "marker-16": 47272,
+      "marker-17": 42630,
+      "marker-18": 40310,
+      "marker-19": 36584,
+      "marker-2": 163993,
+      "marker-20": 32967,
+      "marker-3": 143221,
+      "marker-4": 132969,
+      "marker-5": 120515,
+      "marker-6": 112937,
+      "marker-7": 85435,
+      "marker-8": 81339,
+      "marker-9": 77700,
+      "marker-endallstrings": 32807,
+      "marker-endaustralia": 31127,
+      "marker-endstorycomplete": 29161,
+      "marker-endstrings": 32606,
+      "marker-initial": 253914,
+      "marker-userstrings": 31537
+    }
+  }
+}
