@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 import DYNAMIC_TEXT_DATA from "../public/dynamic-text.json";
 import { initAppleNews } from "./lib/apple-news";
+
+// Components
 import DynText from "./components/DynText";
 import Embed from "./components/Embed";
 import InteractivePanel from "./components/InteractivePanel";

@@ -158,16 +158,16 @@ const UserInputBox: React.FC<UserInputBoxProps> = ({
   };
 
   async function handleUserInput(questionId, answerCode) {
-    const [err] = await to(
-      component.debouncedPollIncrement({
-        question: questionId,
-        answer: answerCode
-      })
-    );
+    // const [err] = await to(
+    //   component.debouncedPollIncrement({
+    //     question: questionId,
+    //     answer: answerCode
+    //   })
+    // );
 
     // TODO: handle multiple calls... they all await and then continue
     // returning the same thing multiple times........
-    if (err) console.error(err);
+    // if (err) console.error(err);
   }
 
   useEffect(() => {
