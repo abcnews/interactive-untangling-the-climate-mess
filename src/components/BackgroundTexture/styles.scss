@@ -1,13 +1,5 @@
 .background-image-container {
   z-index: -10;
-  // position: fixed;
-  // display: block;
-  // top: 0;
-  // left: 0;
-  // width: 100%;
-  // height: 110px;
-  // background: url(assets/background.jpg) no-repeat center center fixed;
-
   overflow: visible; // added for pseudo-element
   position: relative; // added for pseudo-element
 
@@ -26,18 +18,8 @@
 }
 
 :global {
-  body {
-    background: #fbebe0 url(assets/background.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    will-change: transform; // creates a new paint layer
-  }
-
   html {
-    background-color: #fbebe0 !important;
-    // background: #fbebe0 url(assets/background.jpg) no-repeat center center fixed;
+    background-color: transparent !important;
   }
 }
 

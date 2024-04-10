@@ -205,7 +205,10 @@ const App: React.FC<AppProps> = ({ projectName, ...props }) => {
   const componentRef = useRef({});
   const { current: component }: { current: any } = componentRef;
 
-  const windowSize = useWindowSize();
+  const windowSize = useWindowSize() as unknown as {
+    width: number;
+    height: number;
+  };
 
   function onScrollUpdate() {
     scrollY = window.scrollY;
