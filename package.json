@@ -14,9 +14,7 @@
 		"release": "aunty release",
 		"test": "aunty test",
 		"data": "node utils/dataDeploy.js",
-		"apple": "node utils/appleBuild.js",
-		"predeploy": "npm run data",
-		"prerelease": "npm run data"
+		"apple": "node utils/appleBuild.js"
 	},
 	"aunty": {
 		"type": "react",
